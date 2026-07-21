@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - जेऊर</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159897;
+            --accent: #ffc107;
+            --bg: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-banner {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header-banner h2 {
+            margin: 5px 0 0 0;
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        /* Screen 1: Registration */
+        .registration-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 80%;
+            max-width: 300px;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        /* Screen 2: Exam Area */
+        .passage-box {
+            background-color: #eef7f6;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .question-box {
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .option-item:hover {
+            background-color: #e2e6ea;
+        }
+
+        .option-item input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .nav-btn {
+            background-color: var(--primary);
+            color: white;
+            float: right;
+        }
+
+        .nav-btn:hover {
+            background-color: #114154;
+        }
+
+        /* Screen 3: Certificate Style Result */
+        .certificate-container {
+            border: 10px double var(--primary);
+            padding: 25px;
+            text-align: center;
+            background: #fffdf5;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .certificate-title {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .guides-info {
+            display: flex;
+            justify-content: space-around;
+            background: #eef7f6;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .student-details {
+            font-size: 18px;
+            text-align: left;
+            margin: 20px auto;
+            max-width: 400px;
+            line-height: 1.8;
+        }
+
+        .award-box {
+            font-size: 22px;
+            font-weight: bold;
+            color: #d9534f;
+            margin: 15px 0;
+            padding: 10px;
+            border: 2px dashed #d9534f;
+            display: inline-block;
+        }
+
+        .print-btn {
+            background-color: #17a2b8;
+            margin-top: 15px;
+        }
+
+        @media print {
+            .header-banner, .print-btn {
+                display: none;
+            }
+            .certificate-container {
+                border: 5px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header display on every step -->
+    <div class="header-banner">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट - उतारे</h2>
+    </div>
+
+    <!-- 1. Student Registration -->
+    <div id="start-screen" class="registration-box">
+        <h3>परीक्षा सुरू करण्यासाठी माहिती भरा</h3>
+        <input type="text" id="student-name" placeholder="विद्यार्थ्याचे पूर्ण नाव" required><br>
+        <input type="tel" id="student-mobile" placeholder="मोबाईल नंबर" maxlength="10" required><br>
+        <button class="btn" onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- 2. Exam Screen -->
+    <div id="exam-screen" style="display: none;">
+        <div style="font-weight: bold; color: var(--secondary); margin-bottom: 10px;">
+            प्रश्न क्रमांक: <span id="q-number">1</span> / 20
+        </div>
+        
+        <div class="passage-box" id="passage-text">
+            <!-- Passage will load dynamically -->
+        </div>
+
+        <div class="question-box">
+            <h4 id="question-text"></h4>
+            <ul class="options-list" id="options-container">
+                <!-- Options will load dynamically -->
+            </ul>
+        </div>
+
+        <button class="btn nav-btn" id="next-btn" onclick="nextQuestion()">नेक्स्ट क्वेश्चन</button>
+    </div>
+
+    <!-- 3. Result / Certificate Screen -->
+    <div id="result-screen" style="display: none;">
+        <div class="certificate-container">
+            <div class="certificate-title">🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <hr style="border-top: 2px solid var(--primary);">
+            
+            <div class="guides-info">
+                <div>
+                    <strong>मार्गदर्शक शिक्षक:</strong> सचिन शिंदे<br>
+                    <strong>संपर्क:</strong> 8329684470
+                </div>
+                <div>
+                    <strong>मार्गदर्शक शिक्षक:</strong> सतीश चिंदे<br>
+                    <strong>संपर्क:</strong> 8208167846
+                </div>
+            </div>
+
+            <h3 style="text-decoration: underline; margin: 15px 0;">गुणपत्रक व सन्मानपत्र</h3>
+
+            <div class="student-details">
+                <b>परीक्षेचे नाव :</b> नवोदय सराव परीक्षा (भाषा विषय)<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="res-name"></span><br>
+                <b>मोबाईल नंबर :</b> <span id="res-mobile"></span><br>
+                <b>मिळालेले गुण :</b> <span id="res-score"></span> / 20<br>
+                <b>टक्केवारी :</b> <span id="res-percentage"></span>%
+            </div>
+
+            <div class="award-box" id="res-award">
+                <!-- Trophy / Medal text -->
+            </div>
+
+            <br>
+            <button class="btn print-btn" onclick="window.print()">प्रमाणपत्र प्रिंट करा</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Passages & Questions Data
+    const examData = [
+        // Passage 1
+        {
+            passage: "<b>परिच्छेद - १</b><br>सर्व प्रकारचे कोळी जाळं विणतात. या जाळ्यामुळे कोळ्याला तीन प्रकारे मदत मिळते. हे जाळं अंडींचे जतन करण्यास, धोक्याच्या वेळी लपण्यास आणि खाद्य झडपण्यात मदतरूप ठरतं. साधारणपणे कोळी हा गडद मातकट, भुरकट किंवा काळ्या रंगाचा असतो, तर त्याचं जाळं हे फिकट पांढऱ्या रंगाचं किंवा गढूळ असतं. कोळी जेव्हा जाळ्यात लपून बसतो तेव्हा तो सहजा-सहजी दिसत नाही. जाळं कोळ्याला खाद्य पकडण्यास मदतरूप ठरते. कोळ्याचं जाळं चिकट असतं. एखादा कीटक जाळ्यात अडकला, तर तो चिकटून जातो. त्याला इच्छा असूनही त्यातून बाहेर पडता येत नाही. जाळं हलायला लागताच त्याला समजते की प्राणी अडकला आहे. जाळ्याशिवाय कोळ्याला राहताच येणार नाही.",
+            questions: [
+                { q: "1. सदर परिच्छेदाचा मुख्य विषय कोणता?", options: ["कोळ्याच्या जाळ्याचे महत्त्व", "कोळ्यासाठी किड्यांचे महत्त्व", "अंडी देण्याचे महत्त्व", "कोळ्याचा स्वभाव"], ans: 0 },
+                { q: "2. कोळ्याच्या जाळ्याच्या संदर्भात कोणते विधान चुकीचे आहे?", options: ["ते अंडींचे जतन करते.", "ते खाद्य पकडण्यास मदत करते.", "ते पाण्याचा शोध घेते.", "ते धोक्याच्या वेळी संरक्षण देते."], ans: 2 },
+                { q: "3. 'अडकला' या शब्दाचा समानार्थी शब्द शोधा.", options: ["थिकटला", "लपला", "खाल्लं", "फसला"], ans: 3 },
+                { q: "4. जाळ्यात काही अडकले आहे हे कोळ्याला कसे समजते?", options: ["तो ऐकतो.", "त्याला वास येतो.", "तो अनुभवतो.", "तो चव घेतो."], ans: 2 },
+                { q: "5. परिच्छेदाच्या शेवटी आलेल्या 'अस्तित्व' या शब्दाचा अन्वयार्थ म्हणजे ______ .", options: ["जगणे", "लपणे", "पकडणे", "संरक्षण"], ans: 0 }
+            ]
+        },
+        // Passage 2
+        {
+            passage: "<b>परिच्छेद - २</b><br>पुस्तक ही मानवी प्रयत्नातून साकार झालेली दीर्घकाळ अस्तित्वात राहणारी कृती आहे. इमारतींची पडझड होते. चित्रं आणि शिल्प यांचा ऱ्हास होतो. मात्र पुस्तकं जिवंत राहतात. पुस्तकं महान विचारांना नष्ट होऊ देत नाहीत. असे विचार जे आज ही तितकेच प्रस्तुत-प्रासंगिक आहेत जितके ते लेखकाच्या मनातून लेखनकाळात अवतरित झाले होते. असे विचार छापील पानांतून संवाद साधतात. काळाचा फक्त इतका प्रभाव असतो की तो अयोग्य आणि अप्रस्तुत गोष्टींना चलनातून बाहेर टाकून देतो. उत्तम पुस्तकांनी जीवनाच्या अनेक क्षेत्रांत माणसांना मदत केली आहे. त्यामुळेच जगात उत्तम पुस्तकांचे जतन केले गेले आहे.",
+            questions: [
+                { q: "6. पुस्तकं ही मानवी प्रयत्नातून साकार झालेली सर्वात ______ कृती आहे.", options: ["काळजी घेणारी", "अनुचित", "कालापव्यय करणारी", "उपयोगी"], ans: 3 },
+                { q: "7. काल-प्रभावात पुस्तकं टिकून राहतात कारण ______", options: ["त्यात लेखकाचे मन असते", "त्यात महान विचार असतात", "त्यात अप्रस्तुत सामग्री असते", "त्यात मुद्रित सामग्री असते"], ans: 1 },
+                { q: "8. पुढीलपैकी 'अनुपयुक्त' शब्दाचा समानार्थी शब्द शोधा :", options: ["रोग", "अनोळखी", "योग्य", "अयोग्य"], ans: 3 },
+                { q: "9. जगात उत्तम पुस्तकांचे जतन केले जाते कारण ______", options: ["ते आम्हाला शिकवतात", "जीवनाच्या अनेक क्षेत्रात मदत करतात", "कालापव्यय होतो", "मानवी प्रयत्नांना उत्सव असतो"], ans: 1 },
+                { q: "10. परिच्छेदात 'पडझड' हा शब्द कोणत्या अर्थाने वापरला गेला आहे?", options: ["ढासळणे", "वेगळं करणे", "सरकवणे", "कापणे"], ans: 0 }
+            ]
+        },
+        // Passage 3
+        {
+            passage: "<b>परिच्छेद - ३</b><br>सोनेरी गरुड हा त्याच्या सोनेरी पंखांमुळे सहज ओळखता येतो. वयस्क गरुड पक्षींमध्ये मादी ही नर पक्षीसारखीच दिसते, फक्त तिचा आकार मोठा असतो. या दिमाखदार पक्ष्याचे उत्तरी गोलार्धाच्या मोकळ्या जागेत वास्तव्य असते. तो झाडांवर किंवा कडे-कपारींवर घरटी बांधतो त्यामुळे त्याला हालचालींवर लक्ष ठेवण्यासाठी मोठा अवकाश मिळतो. सोनेरी गरुड भरारी मारण्यात दक्ष असतो. त्याचा व्यापक पंख-विस्तार आणि वातावरणातील वर येणारी उष्ण हवा त्याला दीर्घकाळ उडत राहण्यास मदतरूप ठरते. त्याला उडत राहताना पाहणे अत्यंत मनोरम असते. खालून वर येणारी हवा त्याच्यासाठी अत्यंत महत्त्वाची असते, कारण, ती सोनेरी गरुडाला पंख न फडफडता उंचच उंच उडण्यास मदत करते.",
+            questions: [
+                { q: "11. सोनेरी गरुड बहुंशी ______ आढळतो.", options: ["कमी वारा आणि उष्ण हवा असलेल्या परिसरात", "इमारती असलेल्या परिसरात", "दक्षिणी गोलार्धात", "उत्तरी गोलार्धात"], ans: 3 },
+                { q: "12. मादी गरुड पक्षी ______ यावरून ओळखता येते.", options: ["गडद पंख", "सोनेरी पंख", "भुरकट पंख", "मोठा आकार"], ans: 3 },
+                { q: "13. घरटी बांधण्यासाठी गरुडाला कोणती जागा उपयुक्त वाटते?", options: ["मोकळी जागा", "झाडेझुडपे नसलेला परिसर", "उंच अवकाशात", "इमारतींचा मोकळा परिसर"], ans: 0 },
+                { q: "14. 'दिमाखदार' शब्दाचा समानार्थी शब्द ओळखा.", options: ["स्वर्णिम", "विनयशील", "भव्य", "सुशील"], ans: 2 },
+                { q: "15. पुढीलपैकी 'मोठा' या शब्दाचा विरुद्धार्थी नसलेला शब्द शोधा.", options: ["लहान", "व्यापक", "छोटा", "सूक्ष्म"], ans: 1 }
+            ]
+        },
+        // Passage 4
+        {
+            passage: "<b>परिच्छेद - ४</b><br>रोबोट एक विशिष्ट प्रकारचे यंत्र असून तो संगणकाकडून मिळणाऱ्या सूचनांना अनुसरून चालतो आणि काम करतो. यंत्र असल्यामुळे ना तो चुकतो, ना थकतो, तो कधी तक्रारही करत नाही. आपल्या चोहीकडे रोबोट आहेत. काही रोबोट वस्तू तयार करण्यासाठी वापरले जातात. उदाहरणार्थ, रोबोट मोटारकार तयार करण्यास मदतरूप ठरू शकतात. काही रोबोटंचा वापर धोक्याच्या ठिकाणी संशोधन करण्यासाठी केला जातो, जसे ज्वालामुखी. काही रोबोट घरातील साफ-सफाई करण्यात मदत करू शकतात. काही रोबोट शब्दांनाही ओळखू शकतात, ते टेलिफोन कॉलला उत्तर देण्यास मदत करू शकतात. काही रोबोट माणसांसारखे दिसतात, बहुंशी रोबोट यंत्रासारखेच दिसतात.",
+            questions: [
+                { q: "16. 'थकणे' या शब्दाचा समानार्थी शब्द कोणता?", options: ["अन्वेषण", "दमणे", "पोकळी", "धोकादायक"], ans: 1 },
+                { q: "17. रोबोट चुका करीत नाहीत कारण ______", options: ["ते यंत्र आहेत", "ते संगणकाकडून मिळणाऱ्या सूचनांचे अनुकरण करतात", "ते माणसासारखे दिसतात", "ते थकलेले दिसत नाहीत"], ans: 0 },
+                { q: "18. उताऱ्याप्रमाणे पुढीलपैकी कोणत्या उपक्रमात रोबोटच्या वापराचा उल्लेख नाही?", options: ["घराची साफ-सफाई करणे.", "टेलिफोन कॉलला उत्तर देणे.", "मोटारकार तयार करणे.", "मुलांना शिकवणे."], ans: 3 },
+                { q: "19. 'धोकादायक' शब्दाचा विरुद्धार्थी शब्द ओळखा :", options: ["संशोधन", "सुरक्षित", "थकलेला", "ओळखणे"], ans: 1 },
+                { q: "20. रोबोटच्या संदर्भात केलेल्या विधानांपैकी चुकीचे विधान शोधा :", options: ["बहुंशी रोबोट यंत्रासारखे दिसतात.", "रोबोट चुका करीत नाही.", "रोबोट अत्यंत उपयोगी आहे.", "बहुंशी रोबोट माणसांसारखे दिसतात."], ans: 3 }
+            ]
+        }
+    ];
+
+    // Variables for Tracking State
+    let currentPassageIndex = 0;
+    let currentQuestionIndex = 0;
+    let globalQuestionNumber = 1;
+    let score = 0;
+    let selectedAnswers = [];
+
+    let studentName = "";
+    let studentMobile = "";
+
+    function startExam() {
+        studentName = document.getElementById("student-name").value.trim();
+        studentMobile = document.getElementById("student-mobile").value.trim();
+
+        if (studentName === "" || studentMobile.length < 10) {
+            alert("कृपया तुमचे नाव आणि १० अंकी मोबाईल नंबर योग्यरित्या प्रविष्ट करा.");
+            return;
+        }
+
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("exam-screen").style.display = "block";
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        let currentPassage = examData[currentPassageIndex];
+        let currentQ = currentPassage.questions[currentQuestionIndex];
+
+        // Update Passage Text
+        document.getElementById("passage-text").innerHTML = currentPassage.passage;
+        
+        // Update Question Number & Text
+        document.getElementById("q-number").innerText = globalQuestionNumber;
+        document.getElementById("question-text").innerText = currentQ.q;
+
+        // Render Options
+        let optionsHtml = "";
+        currentQ.options.forEach((opt, idx) => {
+            optionsHtml += `
+                <li class="option-item" onclick="selectOption(${idx})">
+                    <input type="radio" name="opt" id="opt${idx}" value="${idx}">
+                    <label for="opt${idx}">${opt}</label>
+                </li>
+            `;
+        });
+        document.getElementById("options-container").innerHTML = optionsHtml;
+
+        // Change button text on last question
+        if (globalQuestionNumber === 20) {
+            document.getElementById("next-btn").innerText = "Submit Exam";
+            document.getElementById("next-btn").style.backgroundColor = "#dc3545";
+        }
+    }
+
+    function selectOption(index) {
+        document.getElementById(`opt${index}`).checked = true;
+    }
+
+    function nextQuestion() {
+        let selectedOption = document.querySelector('input[name="opt"]:checked');
+        
+        if (!selectedOption) {
+            alert("कृपया उत्तराचा एक पर्याय निवडा!");
+            return;
+        }
+
+        // Check Answer
+        let answerVal = parseInt(selectedOption.value);
+        if (answerVal === examData[currentPassageIndex].questions[currentQuestionIndex].ans) {
+            score++;
+        }
+
+        // Next Question Logic
+        currentQuestionIndex++;
+        globalQuestionNumber++;
+
+        // If passage questions completed, go to next passage
+        if (currentQuestionIndex >= examData[currentPassageIndex].questions.length) {
+            currentPassageIndex++;
+            currentQuestionIndex = 0;
+        }
+
+        // Check if Exam Finished
+        if (globalQuestionNumber > 20) {
+            showResult();
+        } else {
+            loadQuestion();
+        }
+    }
+
+    function showResult() {
+        document.getElementById("exam-screen").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+
+        let percentage = (score / 20) * 100;
+
+        document.getElementById("res-name").innerText = studentName;
+        document.getElementById("res-mobile").innerText = studentMobile;
+        document.getElementById("res-score").innerText = score;
+        document.getElementById("res-percentage").innerText = percentage.toFixed(0);
+
+        let awardText = "";
+        if (percentage >= 80) {
+            awardText = "🥇 Gold Medal + Trophy";
+        } else if (percentage >= 60) {
+            awardText = "🥈 Silver Medal + Trophy";
+        } else if (percentage >= 50) {
+            awardText = "🥉 Bronze Medal + Trophy";
+        } else {
+            awardText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        document.getElementById("res-award").innerHTML = awardText;
+    }
+</script>
+
+</body>
+</html>
