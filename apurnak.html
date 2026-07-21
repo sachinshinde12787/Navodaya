@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>व्यवहारी अपूर्णांक व दशांश अपूर्णांक टेस्ट - जेऊर</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159897;
+            --accent: #ffc107;
+            --bg: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-banner {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header-banner h2 {
+            margin: 5px 0 0 0;
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        /* Registration Screen */
+        .registration-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 80%;
+            max-width: 300px;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        /* Exam Screen */
+        .question-box {
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            border-radius: 6px;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            background: white;
+            border: 1px solid #ddd;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: 0.2s;
+            font-size: 16px;
+        }
+
+        .option-item:hover {
+            background-color: #e2e6ea;
+        }
+
+        .option-item input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .nav-btn {
+            background-color: var(--primary);
+            color: white;
+            float: right;
+        }
+
+        .nav-btn:hover {
+            background-color: #114154;
+        }
+
+        /* Certificate Style Result */
+        .certificate-container {
+            border: 8px double var(--primary);
+            padding: 25px;
+            text-align: center;
+            background: #fffdf5;
+            position: relative;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .certificate-title {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .guides-info {
+            display: flex;
+            justify-content: space-around;
+            background: #eef7f6;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .student-details {
+            font-size: 17px;
+            text-align: left;
+            margin: 20px auto;
+            max-width: 450px;
+            line-height: 1.8;
+        }
+
+        .award-box {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d9534f;
+            margin: 15px 0;
+            padding: 12px;
+            border: 2px dashed #d9534f;
+            display: inline-block;
+            background: #fff;
+        }
+
+        .print-btn {
+            background-color: #17a2b8;
+            margin-top: 15px;
+        }
+
+        @media print {
+            .header-banner, .print-btn {
+                display: none;
+            }
+            .certificate-container {
+                border: 5px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Display Header on top of every page -->
+    <div class="header-banner">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट - व्यवहारी अपूर्णांक व दशांश अपूर्णांक</h2>
+    </div>
+
+    <!-- 1. Student Registration -->
+    <div id="start-screen" class="registration-box">
+        <h3>परीक्षा सुरू करण्यासाठी माहिती भरा</h3>
+        <input type="text" id="student-name" placeholder="विद्यार्थ्याचे पूर्ण नाव" required><br>
+        <input type="tel" id="student-mobile" placeholder="मोबाईल नंबर" maxlength="10" required><br>
+        <button class="btn" onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- 2. Exam Screen -->
+    <div id="exam-screen" style="display: none;">
+        <div style="font-weight: bold; color: var(--secondary); margin-bottom: 10px; font-size: 16px;">
+            प्रश्न क्रमांक: <span id="q-number">1</span> / 30
+        </div>
+
+        <div class="question-box">
+            <div class="question-title" id="question-text"></div>
+            <ul class="options-list" id="options-container">
+                <!-- Options will be dynamically loaded here -->
+            </ul>
+        </div>
+
+        <button class="btn nav-btn" id="next-btn" onclick="nextQuestion()">नेक्स्ट क्वेश्चन</button>
+    </div>
+
+    <!-- 3. Result / Certificate Screen -->
+    <div id="result-screen" style="display: none;">
+        <div class="certificate-container">
+            <div class="certificate-title">🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <hr style="border-top: 2px solid var(--primary);">
+            
+            <div class="guides-info">
+                <div>
+                    <strong>मार्गदर्शक शिक्षक:</strong> सचिन शिंदे<br>
+                    <strong>संपर्क:</strong> 8329684470
+                </div>
+                <div>
+                    <strong>मार्गदर्शक शिक्षक:</strong> सतीश चिंदे<br>
+                    <strong>संपर्क:</strong> 8208167846
+                </div>
+            </div>
+
+            <h3 style="text-decoration: underline; margin: 15px 0;">गुणपत्रक व सन्मानपत्र</h3>
+
+            <div class="student-details">
+                <b>परीक्षेचे नाव :</b> व्यवहारी अपूर्णांक व दशांश अपूर्णांक सराव टेस्ट<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="res-name"></span><br>
+                <b>मोबाईल नंबर :</b> <span id="res-mobile"></span><br>
+                <b>मिळालेले गुण :</b> <span id="res-score"></span> / 30<br>
+                <b>टक्केवारी :</b> <span id="res-percentage"></span>%
+            </div>
+
+            <div class="award-box" id="res-award">
+                <!-- Trophy / Medal text -->
+            </div>
+
+            <br>
+            <button class="btn print-btn" onclick="window.print()">प्रमाणपत्र प्रिंट करा</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 30 Questions Data
+    const questionsData = [
+        { q: "15 1/8 चे दशांश मूल्य कोणते आहे?", options: ["15.125", "15.25", "15.50", "15.18"], ans: 0 },
+        { q: "17/1000 या संख्येचे दशांश रूप कोणते?", options: ["0.17", "0.017", "0.0017", "1.7"], ans: 1 },
+        { q: "4 3/25 ही संख्या दशांशात कशी लिहाल?", options: ["4.12", "4.03", "4.325", "4.30"], ans: 0 },
+        { q: "7/5 या अपूर्णांकाचे दशांश रूप कोणते?", options: ["1.2", "1.4", "0.7", "0.35"], ans: 1 },
+        { q: "8 9/100 ही संख्या दशांशात कशी लिहाल?", options: ["8.90", "8.9", "8.09", "0.89"], ans: 2 },
+        { q: "3/4 या अपूर्णांकाचे दशांश मूल्य किती आहे?", options: ["0.34", "0.75", "0.50", "0.25"], ans: 1 },
+        { q: "12 1/2 ही संख्या दशांश पद्धतीत कशी लिहाल?", options: ["12.12", "12.5", "12.05", "12.2"], ans: 1 },
+        { q: "45/10000 या संख्येचे दशांश रूप कोणते?", options: ["0.045", "0.0045", "0.4500", "0.00045"], ans: 1 },
+        { q: "0.05 या संख्येला व्यवहारी अपूर्णांकात सोप्या रूपात कसे लिहाल?", options: ["1/20", "1/50", "1/5", "5/10"], ans: 0 },
+        { q: "0.125 या संख्येला सोप्या अंशात्मक रूपात लिहा:", options: ["1/4", "1/8", "1/2", "3/8"], ans: 1 },
+        { q: "12.05/100 ही संख्या अतिसंक्षिप्त रूपात कशी लिहाल?", options: ["241/2000", "121/2000", "241/200", "12/100"], ans: 0 },
+        { q: "0.8 या संख्येचे अतिसंक्षिप्त व्यवहारी अपूर्णांक रूप कोणते?", options: ["4/5", "8/10", "2/5", "3/4"], ans: 0 },
+        { q: "0.025 चे सोपे अंश रूप कोणते प्राप्त होईल?", options: ["1/40", "1/400", "25/100", "1/25"], ans: 0 },
+        { q: "2.5 या संख्येचा सोपा व्यवहारी अपूर्णांक कोणता?", options: ["5/2", "25/100", "2/5", "1/25"], ans: 0 },
+        { q: "0.6 या संख्येचे संक्षिप्त रूप कोणते?", options: ["3/5", "6/100", "1/6", "2/3"], ans: 0 },
+        { q: "0.004 या संख्येला सोप्या अपूर्णांकात कसे लिहाल?", options: ["1/250", "1/25", "1/2500", "4/100"], ans: 0 },
+        { q: "3.25 - 1.50 + 2.75 - 1.25 चे उत्तर किती येते?", options: ["3.25", "3.50", "4.00", "2.75"], ans: 0 },
+        { q: "1/2 + 1/4 + 1/8 चे दशांश सममूल्य किती आहे?", options: ["0.875", "0.75", "0.625", "0.5"], ans: 0 },
+        { q: "(0.05/0.5 + 0.5/0.05) चे उत्तर पुढीलपैकी कोणते?", options: ["10.1", "1.01", "101", "11"], ans: 0 },
+        { q: "(0.12 × 1.2 × 0.1) / (0.04 × 0.06 × 0.2) = किती?", options: ["300", "30", "3", "0.3"], ans: 0 },
+        { q: "5.5 + 0.55 + 0.055 ची किंमत किती?", options: ["6.105", "6.155", "5.605", "6.055"], ans: 0 },
+        { q: "10.00 - 3.45 - 2.55 चे सरळीकरण करा:", options: ["4.00", "4.10", "5.00", "3.00"], ans: 0 },
+        { q: "(0.2/0.02 + 0.02/0.2) चे उत्तर किती येईल?", options: ["10.1", "11", "1.01", "100.1"], ans: 0 },
+        { q: "(0.25 × 0.4) / 0.01 ची किंमत किती?", options: ["10", "1", "100", "0.1"], ans: 0 },
+        { q: "(120 × 400) / (20 × 100 × 2) ची किंमत दशांश पद्धतीमध्ये आहे:", options: ["12.00", "1.20", "120.00", "0.12"], ans: 0 },
+        { q: "0.09 × 0.3 चे मूल्य किती?", options: ["0.027", "0.27", "2.7", "0.0027"], ans: 0 },
+        { q: "1.1 × 0.11 ची किंमत किती?", options: ["0.121", "1.21", "0.0121", "12.1"], ans: 0 },
+        { q: "4.8 ÷ 0.12 चे उत्तर किती?", options: ["40", "4", "0.4", "400"], ans: 0 },
+        { q: "(0.8 × 0.8) / 0.04 = किती?", options: ["16", "1.6", "160", "0.16"], ans: 0 },
+        { q: "2/5 + 3/10 चे दशांश रूप कोणते?", options: ["0.7", "0.5", "0.35", "0.25"], ans: 0 }
+    ];
+
+    let currentQIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+
+    function startExam() {
+        studentName = document.getElementById("student-name").value.trim();
+        studentMobile = document.getElementById("student-mobile").value.trim();
+
+        if (studentName === "" || studentMobile.length < 10) {
+            alert("कृपया तुमचे नाव आणि १० अंकी मोबाईल नंबर योग्यरित्या प्रविष्ट करा.");
+            return;
+        }
+
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("exam-screen").style.display = "block";
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        let qData = questionsData[currentQIndex];
+
+        document.getElementById("q-number").innerText = currentQIndex + 1;
+        document.getElementById("question-text").innerText = qData.q;
+
+        let optionsHtml = "";
+        qData.options.forEach((opt, idx) => {
+            optionsHtml += `
+                <li class="option-item" onclick="selectOption(${idx})">
+                    <input type="radio" name="opt" id="opt${idx}" value="${idx}">
+                    <label for="opt${idx}">${opt}</label>
+                </li>
+            `;
+        });
+        document.getElementById("options-container").innerHTML = optionsHtml;
+
+        if (currentQIndex === questionsData.length - 1) {
+            document.getElementById("next-btn").innerText = "Submit Exam";
+            document.getElementById("next-btn").style.backgroundColor = "#dc3545";
+        }
+    }
+
+    function selectOption(index) {
+        document.getElementById(`opt${index}`).checked = true;
+    }
+
+    function nextQuestion() {
+        let selectedOption = document.querySelector('input[name="opt"]:checked');
+
+        if (!selectedOption) {
+            alert("कृपया उत्तराचा एक पर्याय निवडा!");
+            return;
+        }
+
+        let answerVal = parseInt(selectedOption.value);
+        if (answerVal === questionsData[currentQIndex].ans) {
+            score++;
+        }
+
+        currentQIndex++;
+
+        if (currentQIndex < questionsData.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById("exam-screen").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+
+        let percentage = (score / 30) * 100;
+
+        document.getElementById("res-name").innerText = studentName;
+        document.getElementById("res-mobile").innerText = studentMobile;
+        document.getElementById("res-score").innerText = score;
+        document.getElementById("res-percentage").innerText = percentage.toFixed(0);
+
+        let awardText = "";
+        if (percentage >= 80) {
+            awardText = "🥇 Gold Medal + Trophy";
+        } else if (percentage >= 60) {
+            awardText = "🥈 Silver Medal + Trophy";
+        } else if (percentage >= 50) {
+            awardText = "🥉 Bronze Medal + Trophy";
+        } else {
+            awardText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        document.getElementById("res-award").innerHTML = awardText;
+    }
+</script>
+
+</body>
+</html>
