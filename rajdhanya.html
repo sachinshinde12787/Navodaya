@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>भारतातील राज्ये व राजधान्या टेस्ट - जेऊर</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159897;
+            --accent: #ffc107;
+            --bg: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-banner {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header-banner h2 {
+            margin: 5px 0 0 0;
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        /* Registration Screen */
+        .registration-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 80%;
+            max-width: 300px;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        /* Exam Screen */
+        .question-box {
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            border-radius: 6px;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            background: white;
+            border: 1px solid #ddd;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: 0.2s;
+            font-size: 16px;
+        }
+
+        .option-item:hover {
+            background-color: #e2e6ea;
+        }
+
+        .option-item input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .nav-btn {
+            background-color: var(--primary);
+            color: white;
+            float: right;
+        }
+
+        .nav-btn:hover {
+            background-color: #114154;
+        }
+
+        /* Certificate Style Result */
+        .certificate-container {
+            border: 8px double var(--primary);
+            padding: 25px;
+            text-align: center;
+            background: #fffdf5;
+            position: relative;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .certificate-title {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .guides-info {
+            display: flex;
+            justify-content: space-around;
+            background: #eef7f6;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .student-details {
+            font-size: 17px;
+            text-align: left;
+            margin: 20px auto;
+            max-width: 450px;
+            line-height: 1.8;
+        }
+
+        .award-box {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d9534f;
+            margin: 15px 0;
+            padding: 12px;
+            border: 2px dashed #d9534f;
+            display: inline-block;
+            background: #fff;
+        }
+
+        .print-btn {
+            background-color: #17a2b8;
+            margin-top: 15px;
+        }
+
+        @media print {
+            .header-banner, .print-btn {
+                display: none;
+            }
+            .certificate-container {
+                border: 5px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Banner on Every Page -->
+    <div class="header-banner">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट - भारतातील राज्ये व राजधान्या</h2>
+    </div>
+
+    <!-- 1. Registration Screen -->
+    <div id="start-screen" class="registration-box">
+        <h3>परीक्षा सुरू करण्यासाठी माहिती भरा</h3>
+        <input type="text" id="student-name" placeholder="विद्यार्थ्याचे पूर्ण नाव" required><br>
+        <input type="tel" id="student-mobile" placeholder="मोबाईल नंबर" maxlength="10" required><br>
+        <button class="btn" onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- 2. Exam Screen -->
+    <div id="exam-screen" style="display: none;">
+        <div style="font-weight: bold; color: var(--secondary); margin-bottom: 10px; font-size: 16px;">
+            प्रश्न क्रमांक: <span id="q-number">1</span> / 30
+        </div>
+
+        <div class="question-box">
+            <div class="question-title" id="question-text"></div>
+            <ul class="options-list" id="options-container">
+                <!-- Options dynamically loaded -->
+            </ul>
+        </div>
+
+        <button class="btn nav-btn" id="next-btn" onclick="nextQuestion()">नेक्स्ट क्वेश्चन</button>
+    </div>
+
+    <!-- 3. Result Screen -->
+    <div id="result-screen" style="display: none;">
+        <div class="certificate-container">
+            <div class="certificate-title">🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <hr style="border-top: 2px solid var(--primary);">
+            
+            <div class="guides-info">
+                <div>
+                    <strong>मार्गदर्शक शिक्षक:</strong> सचिन शिंदे<br>
+                    <strong>संपर्क:</strong> 8329684470
+                </div>
+                <div>
+                    <strong>मार्गदर्शक शिक्षक:</strong> सतीश चिंदे<br>
+                    <strong>संपर्क:</strong> 8208167846
+                </div>
+            </div>
+
+            <h3 style="text-decoration: underline; margin: 15px 0;">गुणपत्रक व सन्मानपत्र</h3>
+
+            <div class="student-details">
+                <b>परीक्षेचे नाव :</b> भारतातील राज्ये व राजधान्या टेस्ट<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="res-name"></span><br>
+                <b>मोबाईल नंबर :</b> <span id="res-mobile"></span><br>
+                <b>मिळालेले गुण :</b> <span id="res-score"></span> / 30<br>
+                <b>टक्केवारी :</b> <span id="res-percentage"></span>%
+            </div>
+
+            <div class="award-box" id="res-award">
+                <!-- Trophy / Medal Text -->
+            </div>
+
+            <br>
+            <button class="btn print-btn" onclick="window.print()">प्रमाणपत्र प्रिंट करा</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 30 Questions on Indian States and Capitals
+    const questionsData = [
+        { q: "महाराष्ट्राची राजधानी कोणती आहे?", options: ["नागपूर", "पुणे", "मुंबई", "नाशिक"], ans: 2 },
+        { q: "गुजरात या राज्याची राजधानी कोणती?", options: ["अहमदाबाद", "गांधीनगर", "सुरत", "राजकोट"], ans: 1 },
+        { q: "मध्य प्रदेशची राजधानी कोणती आहे?", options: ["इंदूर", "भोपाळ", "ग्वाल्हेर", "जबलपूर"], ans: 1 },
+        { q: "राजस्थान या राज्याची राजधानी कोणती?", options: ["जोधपूर", "जयपूर", "उदयपूर", "अजमेर"], ans: 1 },
+        { q: "तमिळनाडूची राजधानी कोणती आहे?", options: ["मधुराई", "कोइम्बतूर", "चेन्नई", "तिरुचिरापल्ली"], ans: 2 },
+        { q: "कर्नाटक राज्याची राजधानी कोणती?", options: ["म्हैसूर", "मंगळुरू", "बेळगाव", "बंगळुरू"], ans: 3 },
+        { q: "पश्चिम बंगालची राजधानी कोणती आहे?", options: ["कोलकत्ता", "सिलिगुडी", "हावडा", "आसान्सोल"], ans: 0 },
+        { q: "गोवा या राज्याची राजधानी कोणती?", options: ["मडगाव", "पणजी", "वास्को द गामा", "फोंडा"], ans: 1 },
+        { q: "पंजाब आणि हरियाणा या दोन्ही राज्यांची संयुक्त राजधानी कोणती आहे?", options: ["अमृतसर", "चंदिगढ", "लुधियाना", "अंबाला"], ans: 1 },
+        { q: "आसाम या ईशान्येकडील राज्याची राजधानी कोणती?", options: ["गुवाहाटी", "डिसपूर", "सिलचर", "जोरहाट"], ans: 1 },
+        { q: "तेलंगणा राज्याची राजधानी कोणती आहे?", options: ["अमरावती", "हैदराबाद", "वंरगल", "करीमनगर"], ans: 1 },
+        { q: "आंध्र प्रदेश राज्याची राजधानी कोणती?", options: ["अमरावती", "विशाखापट्टणम", "विजयवाडा", "तिरुपती"], ans: 0 },
+        { q: "बिहार राज्याची राजधानी कोणती?", options: ["गया", "मुझफ्फरपूर", "पटना", "भागलपूर"], ans: 2 },
+        { q: "सिक्किमची राजधानी कोणती आहे?", options: ["गँगटोक", "नामची", "पेलिंग", "मंगन"], ans: 0 },
+        { q: "हिमाचल प्रदेशची उन्हाळी राजधानी कोणती?", options: ["धर्मशाला", "शिमला", "मनाली", "सोलन"], ans: 1 },
+        { q: "उत्तर प्रदेशची राजधानी कोणती आहे?", options: ["कानपूर", "लखनौ", "वाराणसी", "प्रयागराज"], ans: 1 },
+        { q: "केरळ राज्याची राजधानी कोणती?", options: ["कोची", "तिरुवनंतपुरम", "कोझिकोड", "अलप्पुझा"], ans: 1 },
+        { q: "मणिपूर या राज्याची राजधानी कोणती आहे?", options: ["इटानगर", "कोहिमा", "इम्फाळ", "शिलॉंग"], ans: 2 },
+        { q: "मेघालय राज्याची राजधानी कोणती?", options: ["शिलॉंग", "ऐझॉल", "आगरतळा", "तुरा"], ans: 0 },
+        { q: "ओडिशा या राज्याची राजधानी कोणती आहे?", options: ["कटक", "भुवनेश्वर", "पुरी", "राऊरकेला"], ans: 1 },
+        { q: "अरुणाचल प्रदेशची राजधानी कोणती?", options: ["इटानगर", "तेजपूर", "पासीघाट", "झिरो"], ans: 0 },
+        { q: "उत्तराखंड या राज्याची हिवाळी राजधानी कोणती?", options: ["गैरसैण", "डेहराडून", "नैनिताल", "हरिद्वार"], ans: 1 },
+        { q: "भारताची राष्ट्रीय राजधानी कोणती आहे?", options: ["मुंबई", "नवी दिल्ली", "कोलकत्ता", "चंदीगड"], ans: 1 },
+        { q: "अंदमान आणि निकोबार बेट या केंद्रशासित प्रदेशाची राजधानी कोणती?", options: ["पोर्ट ब्लेअर", "कार निकोबार", "कव्हरत्ती", "सिलव्हासा"], ans: 0 },
+        { q: "लडाख या केंद्रशासित प्रदेशाची राजधानी कोणती आहे?", options: ["कारगील", "लेह", "श्रीनगर", "जम्मू"], ans: 1 },
+        { q: "लक्षद्वीप या केंद्रशासित प्रदेशाची राजधानी कोणती?", options: ["पोर्ट ब्लेअर", "कव्हरत्ती", "मिनीकॉय", "अगात्ती"], ans: 1 },
+        { q: "जम्मू आणि काश्मीरची उन्हाळी राजधानी कोणती आहे?", options: ["जम्मू", "श्रीनगर", "उधमपूर", "अनंतनाग"], ans: 1 },
+        { q: "दादरा व नगर हवेली आणि दमण व दीव यांची राजधानी कोणती?", options: ["सिलव्हासा", "दमण", "दीव", "सुरत"], ans: 1 },
+        { q: "पुडुचेरी (Puducherry) या केंद्रशासित प्रदेशाची राजधानी कोणती?", options: ["काराईकल", "माहे", "पुडुचेरी", "यनम"], ans: 2 },
+        { q: "झारखंड या राज्याची राजधानी कोणती आहे?", options: ["जमशेदपूर", "रांची", "धनबाद", "बोकारो"], ans: 1 }
+    ];
+
+    let currentQIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+
+    function startExam() {
+        studentName = document.getElementById("student-name").value.trim();
+        studentMobile = document.getElementById("student-mobile").value.trim();
+
+        if (studentName === "" || studentMobile.length < 10) {
+            alert("कृपया तुमचे नाव आणि १० अंकी मोबाईल नंबर योग्यरित्या प्रविष्ट करा.");
+            return;
+        }
+
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("exam-screen").style.display = "block";
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        let qData = questionsData[currentQIndex];
+
+        document.getElementById("q-number").innerText = currentQIndex + 1;
+        document.getElementById("question-text").innerText = qData.q;
+
+        let optionsHtml = "";
+        qData.options.forEach((opt, idx) => {
+            optionsHtml += `
+                <li class="option-item" onclick="selectOption(${idx})">
+                    <input type="radio" name="opt" id="opt${idx}" value="${idx}">
+                    <label for="opt${idx}">${opt}</label>
+                </li>
+            `;
+        });
+        document.getElementById("options-container").innerHTML = optionsHtml;
+
+        if (currentQIndex === questionsData.length - 1) {
+            document.getElementById("next-btn").innerText = "Submit Exam";
+            document.getElementById("next-btn").style.backgroundColor = "#dc3545";
+        }
+    }
+
+    function selectOption(index) {
+        document.getElementById(`opt${index}`).checked = true;
+    }
+
+    function nextQuestion() {
+        let selectedOption = document.querySelector('input[name="opt"]:checked');
+
+        if (!selectedOption) {
+            alert("कृपया उत्तराचा एक पर्याय निवडा!");
+            return;
+        }
+
+        let answerVal = parseInt(selectedOption.value);
+        if (answerVal === questionsData[currentQIndex].ans) {
+            score++;
+        }
+
+        currentQIndex++;
+
+        if (currentQIndex < questionsData.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById("exam-screen").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+
+        let percentage = (score / 30) * 100;
+
+        document.getElementById("res-name").innerText = studentName;
+        document.getElementById("res-mobile").innerText = studentMobile;
+        document.getElementById("res-score").innerText = score;
+        document.getElementById("res-percentage").innerText = percentage.toFixed(0);
+
+        let awardText = "";
+        if (percentage >= 80) {
+            awardText = "🥇 Gold Medal + Trophy";
+        } else if (percentage >= 60) {
+            awardText = "🥈 Silver Medal + Trophy";
+        } else if (percentage >= 50) {
+            awardText = "🥉 Bronze Medal + Trophy";
+        } else {
+            awardText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        document.getElementById("res-award").innerHTML = awardText;
+    }
+</script>
+
+</body>
+</html>
