@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</title>
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #159897;
+            --accent-color: #f7b731;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', 'Mukta', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            max-width: 800px;
+            width: 100%;
+            padding: 25px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header h2 {
+            color: var(--secondary-color);
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input[type="text"]:focus, input[type="tel"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #0f4054;
+        }
+
+        .passage-box {
+            background-color: #eef7f6;
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .question-box {
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 12px;
+            border: 1.5px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background: #e9f5f5;
+            border-color: var(--secondary-color);
+        }
+
+        .option-label input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .progress-bar {
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        /* Certificate Styles */
+        .certificate-outer {
+            display: none;
+            border: 10px double var(--primary-color);
+            padding: 20px;
+            background-color: #fffdf7;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .certificate-inner {
+            border: 2px solid var(--accent-color);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cert-header {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .cert-title {
+            font-size: 20px;
+            color: #d35400;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .cert-details {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 500px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .cert-details strong {
+            color: var(--primary-color);
+        }
+
+        .achievement-badge {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #fcf3cf;
+            display: inline-block;
+            border: 1px dashed #f39c12;
+        }
+
+        .guides-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ccc;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .guide-box {
+            width: 48%;
+        }
+
+        .print-btn {
+            margin-top: 20px;
+            background-color: #27ae60;
+        }
+
+        .print-btn:hover {
+            background-color: #219150;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .certificate-outer, .certificate-outer * {
+                visibility: visible;
+            }
+            .certificate-outer {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .print-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h1>🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट (उतारे)</h2>
+    </div>
+
+    <!-- Screen 1: Registration Form -->
+    <div id="start-screen">
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव :</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर :</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" pattern="[0-9]{10}" required>
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+    </div>
+
+    <!-- Screen 2: Exam Interface -->
+    <div id="exam-screen" style="display: none;">
+        <div class="progress-bar" id="progress-text">प्रश्न १/२०</div>
+        
+        <div class="passage-box" id="passage-text">
+            <!-- Passage content injected here -->
+        </div>
+
+        <div class="question-box">
+            <div class="question-title" id="question-text">
+                <!-- Question content injected here -->
+            </div>
+            <div class="options-container" id="options-container">
+                <!-- Options injected here -->
+            </div>
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()">नेक्स्ट क्वेश्चन</button>
+    </div>
+
+    <!-- Screen 3: Certificate / Result Screen -->
+    <div id="result-screen" class="certificate-outer">
+        <div class="certificate-inner">
+            <div class="cert-header">🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <div class="cert-title">गुणवत्ता व सन्मान प्रमाणपत्र</div>
+            
+            <hr style="margin-bottom: 15px; border: 0; border-top: 1px solid #ddd;">
+
+            <div class="cert-details">
+                <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट (उतारे)</p>
+                <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="cert-name"></span></p>
+                <p><strong>मोबाईल नंबर :</strong> <span id="cert-mobile"></span></p>
+                <p><strong>मिळालेले गुण :</strong> <span id="cert-score"></span> / <span id="cert-total"></span></p>
+                <p><strong>टक्केवारी :</strong> <span id="cert-percentage"></span>%</p>
+            </div>
+
+            <div class="achievement-badge" id="cert-badge">
+                <!-- Honors injected here -->
+            </div>
+
+            <div class="guides-container">
+                <div class="guide-box">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                    <strong>संपर्क :</strong> 8329684470
+                </div>
+                <div class="guide-box" style="text-align: right;">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                    <strong>संपर्क :</strong> 8208167846
+                </div>
+            </div>
+        </div>
+        <button class="btn print-btn" onclick="window.print()">प्रमाणपत्र प्रिंट करा / PDF सेव्ह करा</button>
+    </div>
+</div>
+
+<script>
+    // Data: Passages and Questions (4 Passages, 5 Questions Each = 20 Total)
+    const passagesData = [
+        {
+            passage: "<b>उतारा १:</b><br>एकदा एका छोट्या गावात एक लोहार राहत होता. त्याला लोखंडाचे काम करण्यात कुशलता होती. त्याच्या गावात एक गरीब मुलगा राहत होता, ज्याचे नाव मोहन होते. मोहन नेहमी लोहाराचे काम पाहून त्याच्या कामाचे कौतुक करायचा. एक दिवस, लोहाराने हसून उत्तर दिले, \"हो, मी तुला शिकवीन, पण त्यासाठी तुला मेहनत करावी लागेल.\" मोहनने मेहनत सुरू केली आणि काही महिन्यांनंतर तो एक उत्कृष्ट लोहार बनला. त्याच्या कौशल्यामुळे तो गावातील सर्वांना मदत करू लागला आणि गावातील सर्व लोक त्याचे कौतुक करू लागले.",
+            questions: [
+                { q: "१. मोहन कोणाच्या कामाचे कौतुक करायचा?", options: ["शेतकरी", "लोहार", "शिक्षक", "डॉक्टर"], ans: 1 },
+                { q: "२. मोहन नेहमी काय पाहायचा?", options: ["शेतात काम", "दुकानात काम", "लोहाराचे काम", "घरात काम"], ans: 2 },
+                { q: "३. लोहाराने मोहनला काय शिकवले?", options: ["शेती", "धंदा", "लोखंडाचे काम", "व्यापार"], ans: 2 },
+                { q: "४. 'मेहनत' या शब्दाचा समानार्थी शब्द कोणता?", options: ["आळस", "श्रम", "विश्रांती", "सुस्ती"], ans: 1 },
+                { q: "५. 'मोहन' हा शब्द कोणत्या प्रकारात मोडतो?", options: ["नाम", "सर्वनाम", "विशेषण", "क्रियापद"], ans: 0 }
+            ]
+        },
+        {
+            passage: "<b>उतारा २:</b><br>एकदा एका जंगलात एक वाघ आणि काही मेंढ्या राहत होत्या. वाघ नेहमी मेंढ्यांचा शिकार करायचा आणि त्यांना खायचा. मेंढ्या खूप घाबरलेल्या होत्या. एक दिवस, एका मेंढीने वाघाला विचारले, \"तू आमची शिकार का करतोस?\" वाघाने उत्तर दिले, \"तुम्ही माझ्या अन्नाचा भाग आहात.\" मेंढीने म्हटले, \"पण आम्ही तुमचे नुकसान करत नाही.\" हा विचार मनात पडला आणि त्याला त्याच्या वागणुकीचे पश्चात्ताप वाटू लागले. त्याने ठरवले की तो आता मेंढ्यांची शिकार करणार नाही. वाघ आणि मेंढ्या एकत्र शांततेत राहू लागले.",
+            questions: [
+                { q: "६. वाघ नेहमी कोणाची शिकार करायचा?", options: ["हरणांची", "मेंढ्यांची", "सशांची", "पक्ष्यांची"], ans: 1 },
+                { q: "७. मेंढीने वाघाला काय विचारले?", options: ["तू कोण आहेस?", "तू आमची शिकार का करतोस?", "तू कुठे राहतोस?", "तू काय खातोस?"], ans: 1 },
+                { q: "८. वाघाने ठरवले की तो आता काय करणार नाही?", options: ["हरणांची शिकार", "सशांची शिकार", "पक्ष्यांची शिकार", "मेंढ्यांची शिकार"], ans: 3 },
+                { q: "९. 'शांतता' या शब्दाचा विरुद्धार्थी शब्द कोणता?", options: ["गोंधळ", "सुख", "समाधान", "विश्रांती"], ans: 0 },
+                { q: "१०. 'मेंढी' हा शब्द कोणत्या प्रकारात मोडतो?", options: ["नाम", "सर्वनाम", "विशेषण", "क्रियापद"], ans: 0 }
+            ]
+        },
+        {
+            passage: "<b>उतारा ३:</b><br>एकदा तीन मित्रांना जंगलात एक सोन्याचे भांडे सापडले. त्यांनी ठरवले की, ते भांडे तिघांमध्ये वाटून घेतील. पण त्यांनी आधी काही खाण्याचा निर्णय घेतला. एक मित्र बाजारात गेला आणि त्याने विष मिसळून आणले. बाकीचे दोन मित्र त्याच्या वाटणीचे सोने घेण्यासाठी त्याला मारायचा विचार करत होते. जेव्हा पहिला मित्र परतला, तेव्हा त्याला मारून त्यांनी ते विषारी अन्न खाल्ले आणि ते दोघेही मृत्यूमुखी पडले. या प्रकारे त्यांना त्यांच्या लोभाचे फळ मिळाले.",
+            questions: [
+                { q: "११. तीन मित्रांना काय सापडले?", options: ["सोन्याचे दागिने", "सोन्याचे भांडे", "चांदीचे भांडे", "हिरे"], ans: 1 },
+                { q: "१२. कोण बाजारात गेले?", options: ["तिन्ही मित्र", "एक मित्र", "दोन मित्र", "कोणीही नाही"], ans: 1 },
+                { q: "१३. मित्रांनी अन्नात काय मिसळले?", options: ["साखर", "मीठ", "विष", "पाणी"], ans: 2 },
+                { q: "१४. 'लोभ' शब्दाचा विरुद्धार्थी शब्द कोणता?", options: ["द्वेष", "क्रोध", "उदारता", "आनंद"], ans: 2 },
+                { q: "१५. “त्यांनी आधी काही खाण्याचा निर्णय घेतला.” वरील वाक्यातील क्रियाविशेषण अव्यय ओळख.", options: ["त्यांनी", "आधी", "खाण्याचा", "निर्णय"], ans: 1 }
+            ]
+        },
+        {
+            passage: "<b>उतारा ४:</b><br>भारतीय स्वातंत्र्यसंग्राम हा एक महत्त्वपूर्ण ऐतिहासिक काळ होता. 19व्या आणि 20व्या शतकात भारतीय लोकांनी इंग्रजांच्या विरोधात लढा दिला. महात्मा गांधी, जवाहरलाल नेहरू, सुभाषचंद्र बोस आणि सरदार वल्लभभाई पटेल हे या संग्रामातील प्रमुख नेते होते. 1947 साली भारत स्वतंत्र झाला. या संग्रामात सत्याग्रह, असहकार आंदोलन, वंदेमातरम् चळवळ आणि चलेजाव आंदोलनासारख्या अनेक घटना घडल्या. लाखो भारतीयांनी आपल्या देशासाठी बलिदान दिले. स्वांतत्र्यानंतर भारत एक लोकशाही राष्ट्र बनले.",
+            questions: [
+                { q: "१६. भारतीय स्वातंत्र्यसंग्रामात प्रमुख नेते कोण होते?", options: ["आंबेडकर, गांधी, बोस", "गांधी, नेहरू, बोस, पटेल", "नेहरू, पटेल, सावरकर", "गांधी, सावरकर, पटेल"], ans: 1 },
+                { q: "१७. भारत केव्हा स्वतंत्र झाला?", options: ["1945", "1946", "1947", "1948"], ans: 2 },
+                { q: "१८. विशिष्ट गोष्ट घडून यावी म्हणून केलेला सामुहिक प्रयत्न?", options: ["आंदोलन", "संग्राम", "युद्ध", "झुंज"], ans: 0 },
+                { q: "१९. \"स्वातंत्र्य\" या शब्दाचा समानार्थी शब्द कोणता?", options: ["गुलामगिरी", "स्वराज्य", "न्याय", "पारतंत्र्य"], ans: 1 },
+                { q: "२०. \"स्वातंत्र्यसंग्राम\" या शब्दात कोणता प्रकार आहे?", options: ["नाम", "सर्वनाम", "विशेषण", "क्रियापद"], ans: 0 }
+            ]
+        }
+    ];
+
+    // Build Flat List of 20 Questions linked with Passages
+    let flatQuestionsList = [];
+    passagesData.forEach((pData) => {
+        pData.questions.forEach((qObj) => {
+            flatQuestionsList.push({
+                passageText: pData.passage,
+                questionText: qObj.q,
+                options: qObj.options,
+                ansIndex: qObj.ans
+            });
+        });
+    });
+
+    let currentQuestionIndex = 0;
+    let userAnswers = new Array(flatQuestionsList.length).fill(null);
+    let studentName = "";
+    let studentMobile = "";
+
+    function startExam() {
+        const nameInput = document.getElementById('student-name').value.trim();
+        const mobileInput = document.getElementById('student-mobile').value.trim();
+
+        if (nameInput === "" || mobileInput === "") {
+            alert("कृपया सर्व माहिती अचूक भरा.");
+            return;
+        }
+
+        if (mobileInput.length !== 10 || isNaN(mobileInput)) {
+            alert("कृपया १० अंकी वैध मोबाईल नंबर प्रविष्ट करा.");
+            return;
+        }
+
+        studentName = nameInput;
+        studentMobile = mobileInput;
+
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('exam-screen').style.display = 'block';
+
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const currentData = flatQuestionsList[currentQuestionIndex];
+        
+        document.getElementById('progress-text').innerText = `प्रश्न ${currentQuestionIndex + 1} / ${flatQuestionsList.length}`;
+        document.getElementById('passage-text').innerHTML = currentData.passageText;
+        document.getElementById('question-text').innerText = currentData.questionText;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        const optPrefixes = ["(A)", "(B)", "(C)", "(D)"];
+
+        currentData.options.forEach((optText, index) => {
+            const label = document.createElement('label');
+            label.className = 'option-label';
+
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'option';
+            radio.value = index;
+
+            if (userAnswers[currentQuestionIndex] === index) {
+                radio.checked = true;
+            }
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(` ${optPrefixes[index]} ${optText}`));
+            optionsContainer.appendChild(label);
+        });
+
+        // Change button text for the last question
+        const nextBtn = document.getElementById('next-btn');
+        if (currentQuestionIndex === flatQuestionsList.length - 1) {
+            nextBtn.innerText = "Submit Exam (परीक्षेचा निकाल पहा)";
+            nextBtn.style.backgroundColor = "#27ae60";
+        } else {
+            nextBtn.innerText = "नेक्स्ट क्वेश्चन";
+            nextBtn.style.backgroundColor = "var(--primary-color)";
+        }
+    }
+
+    function nextQuestion() {
+        const selectedOption = document.querySelector('input[name="option"]:checked');
+
+        if (!selectedOption) {
+            alert("कृपया उत्तर निवडण्यासाठी एका पर्यायावर क्लिक करा.");
+            return;
+        }
+
+        userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
+
+        if (currentQuestionIndex < flatQuestionsList.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        } else {
+            submitExam();
+        }
+    }
+
+    function submitExam() {
+        let score = 0;
+        userAnswers.forEach((ans, index) => {
+            if (ans === flatQuestionsList[index].ansIndex) {
+                score++;
+            }
+        });
+
+        const total = flatQuestionsList.length;
+        const percentage = Math.round((score / total) * 100);
+
+        document.getElementById('exam-screen').style.display = 'none';
+        
+        // Show Certificate Screen
+        const certScreen = document.getElementById('result-screen');
+        certScreen.style.display = 'block';
+
+        document.getElementById('cert-name').innerText = studentName;
+        document.getElementById('cert-mobile').innerText = studentMobile;
+        document.getElementById('cert-score').innerText = score;
+        document.getElementById('cert-total').innerText = total;
+        document.getElementById('cert-percentage').innerText = percentage;
+
+        // Determine Honors / Medal
+        const badgeBox = document.getElementById('cert-badge');
+        if (percentage >= 80) {
+            badgeBox.innerHTML = "🥇 Gold Medal + Trophy<br><small style='font-size:14px; font-weight:normal;'>अभिनंदन! उत्कृष्ट कामगिरी!</small>";
+        } else if (percentage >= 60) {
+            badgeBox.innerHTML = "🥈 Silver Medal + Trophy<br><small style='font-size:14px; font-weight:normal;'>छान! खूप चांगला प्रयत्न!</small>";
+        } else if (percentage >= 50) {
+            badgeBox.innerHTML = "🥉 Bronze Medal + Trophy<br><small style='font-size:14px; font-weight:normal;'>चांगला प्रयत्न, अजून सराव करा!</small>";
+        } else {
+            badgeBox.innerHTML = "💐 अभिनंदन!<br><small style='font-size:14px; font-weight:normal;'>फुलांचा गुच्छ व पुढील परीक्षेसाठी हार्दिक शुभेच्छा!</small>";
+        }
+    }
+</script>
+
+</body>
+</html>
