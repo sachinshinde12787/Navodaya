@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा - मापन धारकता</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #e67e22;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .header-box {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: var(--accent);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .quiz-screen, .result-screen, .review-screen {
+            display: none;
+        }
+
+        .question-box {
+            margin-bottom: 20px;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #fff;
+            border: 2px solid #eee;
+            padding: 12px;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent);
+        }
+
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724;
+        }
+
+        .wrong {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 10px;
+            background: #e8f4fd;
+            border-left: 5px solid #3498db;
+            display: none;
+            font-size: 14px;
+        }
+
+        .nav-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Certificate Style */
+        .certificate {
+            border: 10px double var(--primary);
+            padding: 30px;
+            text-align: center;
+            background: #fff;
+            position: relative;
+        }
+
+        .cert-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 15px;
+        }
+
+        .cert-info {
+            font-size: 18px;
+            margin: 10px 0;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+        }
+
+        .reward-icon {
+            font-size: 50px;
+            margin: 15px 0;
+        }
+
+        .teacher-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .review-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        progress {
+            width: 100%;
+            height: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen">
+        <div class="header-box">
+            <h2>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h2>
+            <p>नवोदय परीक्षा | मापन धारकता</p>
+        </div>
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे नाव प्रविष्ट करा:</label>
+            <input type="text" id="student-name" placeholder="तुमचे नाव येथे लिहा...">
+        </div>
+        <button onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="quiz-screen">
+        <div id="progress-text">प्रश्न १/३०</div>
+        <progress id="quiz-progress" value="0" max="100"></progress>
+        
+        <div class="question-box">
+            <h3 id="question-text"></h3>
+            <div id="options" class="options-container"></div>
+            <div id="explanation-box" class="explanation"></div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="next-btn" style="display: none;" onclick="nextQuestion()">पुढील प्रश्न</button>
+            <button id="submit-btn" style="display: none; background: var(--success);" onclick="showResults()">Submit Exam</button>
+        </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="result-screen">
+        <div class="certificate">
+            <div class="cert-title">🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <p><strong>परीक्षेचे नाव:</strong> मापन धारकता (नवोदय)</p>
+            <div class="cert-info">विद्यार्थ्याचे नाव: <span id="res-name"></span></div>
+            <div class="cert-info">मिळालेले गुण: <span id="res-score"></span> / ३०</div>
+            <div class="cert-info">टक्केवारी: <span id="res-percent"></span>%</div>
+            
+            <div id="reward-section">
+                <div id="reward-medal" class="reward-icon"></div>
+                <div id="reward-text" style="font-weight: bold; font-size: 20px;"></div>
+            </div>
+
+            <div class="teacher-info">
+                <div>
+                    <strong>सचिन शिंदे</strong><br>
+                    संपर्क: 8329684470
+                </div>
+                <div>
+                    <strong>सतीश चिंदे</strong><br>
+                    संपर्क: 8208167846
+                </div>
+            </div>
+        </div>
+        <button onclick="toggleReview()" style="margin-top:20px; background: #3498db;">चुकीचे प्रश्न पहा</button>
+        <button onclick="location.reload()" style="margin-top:10px; background: #7f8c8d;">पुन्हा प्रयत्न करा</button>
+    </div>
+
+    <!-- Review Screen -->
+    <div id="review-screen" class="review-screen">
+        <h2>चुकीच्या प्रश्नांचे स्पष्टीकरण</h2>
+        <div id="review-content"></div>
+        <button onclick="closeReview()" style="margin-top:20px;">निकाल पृष्ठावर परत जा</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "एका पाण्याच्या टाकीत ६० लीटर पाणी मावते. ती २/५ भरलेली आहे. टाकी पूर्ण भरण्यासाठी किती पाणी लागेल?", o: ["२४ लीटर", "३० लीटर", "३६ लीटर", "४० लीटर"], a: 2, e: "टाकी २/५ भरलेली आहे, म्हणजे ३/५ रिकामी आहे. ६० च्या ३/५ = ३६ लीटर." },
+        { q: "एका बादलीची क्षमता २५ लीटर आहे. ती ४/५ भरलेली आहे. पूर्ण भरण्यासाठी किती पाणी लागेल?", o: ["५ लीटर", "१० लीटर", "१५ लीटर", "२० लीटर"], a: 0, e: "२५ च्या ४/५ = २० लीटर भरलेली आहे. २५ - २० = ५ लीटर लागेल." },
+        { q: "एका टाकीत ९० लीटर पाणी मावते. ती १/३ भरलेली आहे. त्यातील अर्धे पाणी काढले. टाकी पूर्ण भरण्यासाठी किती पाणी लागेल?", o: ["७५ लीटर", "६० लीटर", "४५ लीटर", "३० लीटर"], a: 0, e: "९० च्या १/३ = ३० लीटर. ३० पैकी अर्धे (१५) काढले. उरले १५. ९० - १५ = ७५ लीटर लागेल." },
+        { q: "६५०० ग्रॅम म्हणजे—", o: ["६५ कि.ग्रॅ.", "६ कि.ग्रॅ. ५०० ग्रॅ.", "६० कि.ग्रॅ. ५०० ग्रॅ.", "६५० ग्रॅ."], a: 1, e: "१००० ग्रॅम = १ कि.ग्रॅ. म्हणून ६५०० ग्रॅम = ६ कि.ग्रॅ. ५०० ग्रॅ." },
+        { q: "८ लीटर रसाने ४०० मिलीच्या किती बाटल्या भरतील?", o: ["१०", "२०", "२५", "४०"], a: 1, e: "८ लीटर = ८००० मिली. ८००० / ४०० = २० बाटल्या." },
+        { q: "एका नाण्याचे वजन ८ ग्रॅम आहे. ८ कि.ग्रॅ. वजनाच्या पिशवीत अशी किती नाणी असतील?", o: ["८००", "१०००", "१२००", "१५००"], a: 1, e: "८ कि.ग्रॅ. = ८००० ग्रॅम. ८००० / ८ = १००० नाणी." },
+        { q: "१५ डझन संत्री म्हणजे—", o: ["१५०", "१६०", "१८०", "२००"], a: 2, e: "१ डझन = १२. १५ x १२ = १८०." },
+        { q: "४८ केळी डझनाने विकत घेतल्यास ती किती डझन होतील?", o: ["३", "४", "५", "६"], a: 1, e: "४८ / १२ = ४ डझन." },
+        { q: "एका रेल्वेचा वेग ९० किमी/तास आहे. २ तासांत ती किती अंतर जाईल?", o: ["१५० किमी", "१८० किमी", "२०० किमी", "२१० किमी"], a: 1, e: "अंतर = वेग x वेळ = ९० x २ = १८० किमी." },
+        { q: "७२० किमी अंतर ९ तासांत कापणारी बस ३ तासांत किती अंतर जाईल?", o: ["१८० किमी", "२१० किमी", "२४० किमी", "२७० किमी"], a: 2, e: "वेग = ७२०/९ = ८० किमी/तास. ३ तासांत अंतर = ८० x ३ = २४० किमी." },
+        { q: "३ मीटरमध्ये किती सेंटीमीटर असतात?", o: ["३०", "३००", "३०००", "३००००"], a: 1, e: "१ मीटर = १०० सेमी. ३ मीटर = ३०० सेमी." },
+        { q: "४५०० मिली म्हणजे—", o: ["४५ लीटर", "४.५ लीटर", "०.४५ लीटर", "४५० लीटर"], a: 1, e: "१००० मिली = १ लीटर. ४५०० / १००० = ४.५ लीटर." },
+        { q: "७ कि.ग्रॅ. २५० ग्रॅ. = किती ग्रॅम?", o: ["७०२५", "७०५०", "७२५०", "७५००"], a: 2, e: "७ कि.ग्रॅ. = ७००० ग्रॅम. ७००० + २५० = ७२५० ग्रॅम." },
+        { q: "५ मीटर कापडाचे ५० सेमीचे किती तुकडे होतील?", o: ["५", "८", "१०", "१२"], a: 2, e: "५ मीटर = ५०० सेमी. ५०० / ५० = १० तुकडे." },
+        { q: "₹१८ चा एक पेन किंवा ४ पेन ₹६४ ला मिळतात. १२ पेनसाठी किमान किती खर्च येईल?", o: ["₹१८०", "₹१९२", "₹२००", "₹२१६"], a: 1, e: "४ पेन = ६४, तर १२ पेन (३ संच) = ६४ x ३ = १९२ रुपये." },
+        { q: "९५०० ग्रॅम म्हणजे—", o: ["९५ कि.ग्रॅ.", "९ कि.ग्रॅ. ५०० ग्रॅ.", "९० कि.ग्रॅ. ५०० ग्रॅ.", "९५० ग्रॅ."], a: 1, e: "९५०० ग्रॅम = ९ कि.ग्रॅ. ५०० ग्रॅ." },
+        { q: "६०० मिलीच्या बाटलीत ६ लीटर दूध भरायचे असल्यास किती बाटल्या लागतील?", o: ["८", "९", "१०", "१२"], a: 2, e: "६ लीटर = ६००० मिली. ६००० / ६०० = १० बाटल्या." },
+        { q: "२५० किमी अंतर ५ तासांत पार करणारी कार २ तासांत किती अंतर जाईल?", o: ["८० किमी", "९० किमी", "१०० किमी", "१२० किमी"], a: 2, e: "वेग = २५०/५ = ५० किमी/तास. २ तासांत = ५० x २ = १०० किमी." },
+        { q: "२.५ कि.ग्रॅ. म्हणजे—", o: ["२५० ग्रॅ.", "२५०० ग्रॅ.", "२५००० ग्रॅ.", "२५ ग्रॅ."], a: 1, e: "१ कि.ग्रॅ. = १००० ग्रॅम. २.५ x १००० = २५०० ग्रॅम." },
+        { q: "३ लीटर = किती मिली?", o: ["३००", "३०००", "३००००", "३०"], a: 1, e: "१ लीटर = १००० मिली. ३ x १००० = ३००० मिली." },
+        { q: "एका टाकीत ७२ लीटर पाणी मावते. ती ५/६ भरलेली आहे. अजून किती पाणी लागेल?", o: ["१० लीटर", "१२ लीटर", "१५ लीटर", "१८ लीटर"], a: 1, e: "७२ च्या १/६ रिकामी आहे. ७२ / ६ = १२ लीटर." },
+        { q: "४२०० मीटर म्हणजे—", o: ["४२ किमी", "४.२ किमी", "०.४२ किमी", "४२० किमी"], a: 1, e: "१००० मीटर = १ किमी. ४२०० / १००० = ४.२ किमी." },
+        { q: "७५ सेमी = किती मीटर?", o: ["०.७५ मीटर", "७.५ मीटर", "०.०७५ मीटर", "७५ मीटर"], a: 0, e: "७५ / १०० = ०.७५ मीटर." },
+        { q: "₹२५०.५० + ₹१४९.५० = ?", o: ["₹३००", "₹३५०", "₹४००", "₹४५०"], a: 2, e: "२५०.५० + १४९.५० = ४००.००." },
+        { q: "८ मीटर = किती मिमी?", o: ["८००", "८०००", "८००००", "८०"], a: 1, e: "१ मीटर = १००० मिमी. ८ x १००० = ८००० मिमी." },
+        { q: "३६ अंडी म्हणजे किती डझन?", o: ["२", "३", "४", "५"], a: 1, e: "३६ / १२ = ३ डझन." },
+        { q: "१८ कि.ग्रॅ. २५० ग्रॅ. = किती ग्रॅम?", o: ["१८०२५", "१८२५०", "१८५२०", "१८२०५"], a: 1, e: "१८००० + २५० = १८२५० ग्रॅम." },
+        { q: "९०० मिली + २.१ लीटर = ?", o: ["२.५ लीटर", "२.८ लीटर", "३ लीटर", "३.५ लीटर"], a: 2, e: "०.९ + २.१ = ३.० लीटर." },
+        { q: "एका वहीची किंमत ₹२८ आणि एका पेनची किंमत ₹१२ आहे. २ वह्या व ३ पेन घेतल्यास एकूण किंमत किती?", o: ["₹८२", "₹९०", "₹९२", "₹९६"], a: 2, e: "(२८ x २) + (१२ x ३) = ५६ + ३६ = ९२." },
+        { q: "१ किमी = किती सेंटीमीटर?", o: ["१०,०००", "१,००,०००", "१,०००", "१०,००,०००"], a: 1, e: "१ किमी = १००० मीटर = १००० x १०० सेमी = १,००,००० सेमी." }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let userName = "";
+    let wrongQuestions = [];
+
+    function startExam() {
+        userName = document.getElementById('student-name').value.trim();
+        if (!userName) {
+            alert("कृपया तुमचे नाव प्रविष्ट करा!");
+            return;
+        }
+        document.getElementById('welcome-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const qData = questions[currentIdx];
+        document.getElementById('progress-text').innerText = `प्रश्न ${currentIdx + 1}/३०`;
+        document.getElementById('quiz-progress').value = ((currentIdx) / 30) * 100;
+        document.getElementById('question-text').innerText = `${currentIdx + 1}. ${qData.q}`;
+        
+        const optionsDiv = document.getElementById('options');
+        optionsDiv.innerHTML = '';
+        
+        qData.o.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(index);
+            optionsDiv.appendChild(btn);
+        });
+
+        document.getElementById('explanation-box').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+
+    function checkAnswer(selectedIdx) {
+        const qData = questions[currentIdx];
+        const buttons = document.querySelectorAll('.option-btn');
+        
+        // Disable all buttons after click
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (selectedIdx === qData.a) {
+            buttons[selectedIdx].classList.add('correct');
+            score++;
+        } else {
+            buttons[selectedIdx].classList.add('wrong');
+            buttons[qData.a].classList.add('correct');
+            wrongQuestions.push({
+                q: qData.q,
+                correct: qData.o[qData.a],
+                explanation: qData.e
+            });
+        }
+
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerText = "स्पष्टीकरण: " + qData.e;
+        expBox.style.display = 'block';
+
+        if (currentIdx < questions.length - 1) {
+            document.getElementById('next-btn').style.display = 'block';
+        } else {
+            document.getElementById('submit-btn').style.display = 'block';
+        }
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        showQuestion();
+    }
+
+    function showResults() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+
+        document.getElementById('res-name').innerText = userName;
+        document.getElementById('res-score').innerText = score;
+        const percent = Math.round((score / 30) * 100);
+        document.getElementById('res-percent').innerText = percent;
+
+        const medal = document.getElementById('reward-medal');
+        const rText = document.getElementById('reward-text');
+
+        if (percent >= 80) {
+            medal.innerText = "🥇🏆";
+            rText.innerText = "Gold Medal + Trophy";
+            rText.style.color = "#d4af37";
+        } else if (percent >= 60) {
+            medal.innerText = "🥈🏆";
+            rText.innerText = "Silver Medal + Trophy";
+            rText.style.color = "#aaa9ad";
+        } else if (percent >= 50) {
+            medal.innerText = "🥉🏆";
+            rText.innerText = "Bronze Medal + Trophy";
+            rText.style.color = "#cd7f32";
+        } else {
+            medal.innerText = "💐";
+            rText.innerText = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा";
+            rText.style.color = "#27ae60";
+        }
+    }
+
+    function toggleReview() {
+        document.getElementById('result-screen').style.display = 'none';
+        document.getElementById('review-screen').style.display = 'block';
+        
+        const content = document.getElementById('review-content');
+        if (wrongQuestions.length === 0) {
+            content.innerHTML = "<p>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आहेत.</p>";
+            return;
+        }
+
+        content.innerHTML = '';
+        wrongQuestions.forEach((item, index) => {
+            content.innerHTML += `
+                <div class="review-item">
+                    <p><strong>प्रश्न:</strong> ${item.q}</p>
+                    <p style="color: green;"><strong>अचूक उत्तर:</strong> ${item.correct}</p>
+                    <p><strong>स्पष्टीकरण:</strong> ${item.explanation}</p>
+                </div>
+            `;
+        });
+    }
+
+    function closeReview() {
+        document.getElementById('review-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
+```eof
+
+या फाईलमध्ये खालील वैशिष्ट्ये आहेत:
+१. **सुरुवात:** विद्यार्थ्याचे नाव घेण्याची सोय आणि 'Start Exam' बटण.
+२. **परीक्षा:** एक-एक प्रश्न समोर येतो. चुकीचे उत्तर दिल्यास लगेच बरोबर उत्तर आणि त्याचे **स्पष्टीकरण** दिसते.
+३. **प्रगती:** वरच्या बाजूला प्रोग्रेस बार आणि प्रश्नांचा क्रमांक दिसतो.
+४. **निकाल:** सर्व ३० प्रश्न झाल्यावर 'Submit' बटण येते, ज्यावर क्लिक केल्यावर **चौरस आकृतीमधील आकर्षक सर्टिफिकेट** दिसते.
+५. **सन्मान:** तुमच्या निकषांनुसार (८०%+, ६०%+, ५०%+) गोल्ड, सिल्वर किंवा ब्रॉन्ज मेडल आणि ट्रॉफीचे चिन्ह दिसते.
+६. **रिव्ह्यू:** शेवटी 'चुकीचे प्रश्न पहा' बटणाद्वारे विद्यार्थी त्यांच्या चुका सुधारू शकतात.
+
+तुम्ही ही फाईल `.html` फॉरमॅटमध्ये सेव्ह करून कोणत्याही ब्राउझरमध्ये वापरू शकता. शुभेच्छा!
