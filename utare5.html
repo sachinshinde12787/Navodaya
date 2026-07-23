@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</title>
+    <style>
+        :root {
+            --primary-color: #1A365D;
+            --secondary-color: #2B6CB0;
+            --accent-color: #D69E2E;
+            --bg-color: #F7FAFC;
+            --card-bg: #FFFFFF;
+            --text-color: #2D3748;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            width: 100%;
+            max-width: 800px;
+            padding: 25px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #CBD5E0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="tel"]:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .passage-box {
+            background-color: #EDF2F7;
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 16px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .question-box {
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .options-list {
+            list-style-type: none;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            background: #F7FAFC;
+            border: 1px solid #E2E8F0;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background: #EBF8FF;
+            border-color: var(--secondary-color);
+        }
+
+        .option-label input {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .progress-bar {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        /* Certificate Styling */
+        .certificate {
+            border: 10px double var(--primary-color);
+            padding: 30px;
+            text-align: center;
+            background: #FFFDF9;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+        }
+
+        .certificate h2 {
+            color: var(--primary-color);
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .certificate-details {
+            margin: 20px 0;
+            text-align: left;
+            display: inline-block;
+            width: 100%;
+            max-width: 500px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .teachers-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            border-top: 1px dashed #CBD5E0;
+            padding-top: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .honor-badge {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #FEFCBF;
+            color: #744210;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Header -->
+    <header>
+        <h1>🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट</h2>
+    </header>
+
+    <!-- Student Info Screen -->
+    <div id="start-screen">
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे पूर्ण नाव :</label>
+            <input type="text" id="student-name" placeholder="तुमचे नाव प्रविष्ट करा" required>
+        </div>
+        <div class="form-group">
+            <label for="mobile-num">मोबाईल नंबर :</label>
+            <input type="tel" id="mobile-num" placeholder="१० अंकी मोबाईल नंबर टाका" pattern="[0-9]{10}" required>
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+    </div>
+
+    <!-- Exam Screen -->
+    <div id="exam-screen" class="hide">
+        <div class="progress-bar" id="progress-text">उतारा १ | प्रश्न १/२०</div>
+        
+        <div class="passage-box" id="passage-container">
+            <!-- Passage content injected by JS -->
+        </div>
+
+        <div class="question-box">
+            <div class="question-title" id="question-text"></div>
+            <ul class="options-list" id="options-container">
+                <!-- Options injected by JS -->
+            </ul>
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()">नेक्स्ट क्वेश्चन</button>
+    </div>
+
+    <!-- Result / Certificate Screen -->
+    <div id="result-screen" class="hide">
+        <div class="certificate">
+            <h2>🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h2>
+            <hr style="border: 1px solid var(--secondary-color); margin-bottom: 15px;">
+            <p style="font-weight: bold; color: #4A5568;">गुणपत्रक व सन्मानपत्र</p>
+
+            <div class="certificate-details">
+                <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट (उतारे)</p>
+                <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="cert-name"></span></p>
+                <p><strong>मोबाईल नंबर :</strong> <span id="cert-mobile"></span></p>
+                <p><strong>मिळालेले गुण :</strong> <span id="cert-score"></span> / <span id="cert-total"></span></p>
+                <p><strong>टक्केवारी :</strong> <span id="cert-percentage"></span>%</p>
+            </div>
+
+            <div class="honor-badge" id="honor-text">
+                <!-- Honor/Medal text injected by JS -->
+            </div>
+
+            <div class="teachers-info">
+                <div>
+                    <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                    <strong>संपर्क :</strong> 8329684470
+                </div>
+                <div>
+                    <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                    <strong>संपर्क :</strong> 8208167846
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn" style="margin-top: 20px;" onclick="window.print()">प्रमाणपत्र प्रिंट / PDF सेव्ह करा</button>
+    </div>
+
+</div>
+
+<script>
+    // Data Source
+    const examData = [
+        {
+            passageId: 1,
+            passageTitle: "उतारा १",
+            passageText: "निसर्गातील प्रत्येक घटकाचे एक विशिष्‍ट संतुलन असते. वृक्ष, नद्या, पक्षी आणि प्राणी हे सर्व एकमेकांवर अवलंबून आहेत. माणसाने आपल्या स्वार्थी फायद्यासाठी या संतुलनाला धक्का पोहोचवला आहे. जंगलांची अमर्याद तोड झाल्यामुळे अनेक वन्यजीवांचे नैसर्गिक अधिवास नष्ट झाले आहेत, परिणामी ते मानवी वस्त्यांमध्ये शिरू लागले आहेत. नद्यांमध्ये औद्योगिक सांडपाणी सोडल्यामुळे जलचर संकटात सापडले आहेत. आपण हे विसरतो की, जर निसर्गाचा समतोल बिघडला, तर त्याचा थेट परिणाम मानवी जीवनावरच होणार आहे. म्हणूनच निसर्गाचे रक्षण करणे म्हणजे केवळ झाडे लावणे नव्हे, तर सर्व सजीवांच्या अस्तित्वाचा आदर करणे होय. वेळेत जागे होऊन पर्यावरण संवर्धनासाठी ठोस पावले उचलणे ही आजच्या काळाची सर्वात मोठी गरज बनली आहे.",
+            questions: [
+                { q: "१. मानवी वस्त्यांमध्ये वन्यजीव का शिरू लागले आहेत?", options: ["(A) त्यांना अन्नाची अजिबात गरज उरली नाही म्हणून", "(B) जंगलतोडीमुळे त्यांचे नैसर्गिक अधिवास नष्ट झाल्यामुळे", "(C) माणसाने त्यांना मानवी वस्तीत राहण्यासाठी आमंत्रित केल्यामुळे", "(D) नद्यांचे पाणी दूषित झाल्यामुळे"], ans: 1 },
+                { q: "२. 'जलचर संकटात सापडले आहेत' याचे मुख्य कारण कोणते?", options: ["(A) नद्यांमधील पाणी कमी होणे", "(B) जंगलांची मोठ्या प्रमाणावर तोड होणे", "(C) नद्यांमध्ये औद्योगिक सांडपाणी सोडणे", "(D) पक्ष्यांची संख्या अचानक वाढणे"], ans: 2 },
+                { q: "३. लेखकाच्या मते 'निसर्गाचे रक्षण करणे' म्हणजे नेमके काय?", options: ["(A) फक्त जास्तीत जास्त झाडे लावणे", "(B) सर्व सजीवांच्या अस्तित्वाचा आदर करणे व संवर्धन करणे", "(C) वन्यजीवांना मानवी वस्त्यांपासून दूर ठेवणे", "(D) निसर्गातील घटकांचा केवळ स्वतःच्या फायद्यासाठी वापर करणे"], ans: 1 },
+                { q: "४. 'अधिवास' या शब्दाचा योग्य अर्थ कोणता?", options: ["(A) राहण्याचे ठिकाण / निवासस्थान", "(B) फिरण्याची जागा", "(C) अन्न मिळवण्याचे साधन", "(D) प्रवासाचा मार्ग"], ans: 0 },
+                { q: "५. या उताऱ्यातून कोणता मुख्य संदेश मिळतो?", options: ["(A) औद्योगिकीकरणाला पूर्णपणे बंदी घालावी", "(B) निसर्गाचा समतोल राखण्यासाठी तातडीने पावले उचलणे गरजेचे आहे", "(C) मानवाने निसर्गावर पूर्ण विजय मिळवला पाहिजे", "(D) जलचरांचे रक्षण करणे मानवाच्या हातात नाही"], ans: 1 }
+            ]
+        },
+        {
+            passageId: 2,
+            passageTitle: "उतारा २",
+            passageText: "अब्दुल कलाम यांचे बालपण रामेश्वरम या छोट्या शहरात अत्यंत गरिबीत गेले. त्यांचे वडील नाव चालवून कुटुंबाचा उपजीविका चालवत असत. कौटुंबिक परिस्थिती प्रतिकूल असूनही कलाम यांनी शिक्षणाची जिद्द कधी सोडली नाही. वृत्तपत्रे विकण्यापासून ते कठोर परिश्रम करण्यापर्यंत त्यांनी प्रत्येक कामात प्रामाणिकपणा दाखवला. त्यांच्यासाठी अडचणी या अडथळे नसून शिकण्याच्या संधी होत्या. कलाम नेहमी म्हणायचे, \"स्वप्ने ती नसतात जी तुम्ही झोपेत पाहता, स्वप्ने ती असतात जी तुम्हाला झोपू देत नाहीत.\" त्यांच्या याच ध्येयनिष्ठेने त्यांना भारताचे क्षेपणास्त्र पुरुष (मिसाईल मॅन) आणि राष्ट्रपती बनवले. कठोर परिश्रम आणि दृढनिश्चयाने कोणत्याही सामान्य व्यक्तीला असामान्य बनवता येते, हेच त्यांच्या आयुष्याने सिद्ध केले.",
+            questions: [
+                { q: "१. अब्दुल कलाम यांनी बालपणात कोणत्या प्रकारची परिस्थिती अनुभवली?", options: ["(A) श्रीमंती आणि सुविधांनी पूर्ण", "(B) अत्यंत गरिबी आणि प्रतिकूल परिस्थिती", "(C) आळस आणि अभ्यासाचा अभाव", "(D) राजेशाही आणि ऐषोआराम"], ans: 1 },
+                { q: "२. अब्दुल कलाम यांच्या मते 'खरी स्वप्ने' कोणती असतात?", options: ["(A) जी माणसाला रात्री झोपेत पडतात", "(B) जी पूर्ण करण्यासाठी माणूस कधीच झोपत नाही", "(C) जी माणसाला शांतपणे झोपू देत नाहीत आणि ध्येयाकडे नेतात", "(D) जी केवळ कल्पनेतच राहतात"], ans: 2 },
+                { q: "३. अब्दुल कलाम यांच्या आयुष्यावरून कोणता महत्त्वाचा धडा मिळतो?", options: ["(A) गरिबीत जन्म घेतलेल्या व्यक्तीला यश मिळत नाही", "(B) प्रतिकूल परिस्थितीतही परिश्रम आणि जिद्दीने यश मिळवता येते", "(C) वृत्तपत्रे विकल्यानेच माणूस राष्ट्रपती बनतो", "(D) स्वप्ने पाहणे हे वेळेचा अपव्यय आहे"], ans: 1 },
+                { q: "४. 'प्रतिकूल' या शब्दाचा विरुद्धार्थी शब्द कोणता?", options: ["(A) कठीण", "(B) अनुकूल", "(C) विषमता", "(D) बिकट"], ans: 1 },
+                { q: "५. उताऱ्यात अब्दुल कलाम यांच्यासाठी कोणता विशेष शब्द वापरला गेला आहे?", options: ["(A) अंतराळवीर", "(B) शास्त्रज्ञ पुरुष", "(C) मिसाईल मॅन", "(D) नावचालक"], ans: 2 }
+            ]
+        },
+        {
+            passageId: 3,
+            passageTitle: "उतारा ३",
+            passageText: "वेळेचे व्यवस्थापन ही यशस्वी आयुष्याची गुरुकिल्ली आहे. जो माणूस वेळेचे मूल्य ओळखतो, तो आयुष्यात कधीही मागे राहत नाही. गेलेली वेळ आणि बोललेले शब्द कधीही परत येत नाहीत, हे सत्य आपण सर्वांनी स्वीकारले पाहिजे. बरेच लोक \"उद्या करू\" असे म्हणून कामे पुढे ढकलतात. ही पुढे ढकलण्याची सवय माणसाला प्रगतीपासून रोखते. वेळेचे नियोजन केल्याने कामाचा ताण कमी होतो आणि कामात अचूकता येते. नियमित अभ्यास किंवा काम करणारा विद्यार्थी परीक्षेच्या वेळी घाबरत नाही. वेळेचा सदुपयोग करणे म्हणजे केवळ सतत काम करणे नव्हे, तर विश्रांती आणि मनोरंजनासाठीही योग्य वेळ देणे होय. वेळेचा योग्य वापर हाच यशाचा खरा मार्ग आहे.",
+            questions: [
+                { q: "१. माणसाला प्रगती करण्यापासून कोणती सवय रोखते?", options: ["(A) कामे वेळेवर पूर्ण करणे", "(B) \"उद्या करू\" म्हणून कामे पुढे ढकलणे", "(C) वेळेचे नियोजन करणे", "(D) कामात अचूकता आणणे"], ans: 1 },
+                { q: "२. वेळेचे नियोजन केल्यामुळे कोणता मुख्य फायदा होतो?", options: ["(A) कामात त्रुटी वाढतात", "(B) कामाचा ताण कमी होतो आणि अचूकता येते", "(C) विश्रांतीसाठी मुळीच वेळ मिळत नाही", "(D) सर्व कामे इतरांवर सोपवता येतात"], ans: 1 },
+                { q: "३. 'वेळेचा सदुपयोग करणे' या विधानाचा उताऱ्यानुसार योग्य अर्थ काय?", options: ["(A) दिवस-रात्र विश्रांती न घेता काम करत राहणे", "(B) अभ्यासासोबतच विश्रांती आणि मनोरंजनालाही योग्य वेळ देणे", "(C) फक्त परीक्षेच्या वेळीच वेळेचे नियोजन करणे", "(D) आपले काम नेहमी दुसऱ्या दिवशीवर ढकलणे"], ans: 1 },
+                { q: "४. 'गुरुकिल्ली' या शब्दाचा या उताऱ्यात काय अर्थ अभिप्रेत आहे?", options: ["(A) दरवाजाची चावी", "(B) यशाचे रहस्य / महत्त्वाचे साधन", "(C) शिक्षकांनी दिलेला सल्ला", "(D) अभ्यासाचे पुस्तक"], ans: 1 },
+                { q: "५. नियमित अभ्यास करणाऱ्या विद्यार्थ्यावर परीक्षेच्या वेळी कोणता परिणाम होतो?", options: ["(A) त्याला अत्यंत भीती वाटते", "(B) तो परीक्षेच्या वेळी घाबरत नाही", "(C) त्याला वेळेचे नियोजन करता येत नाही", "(D) त्याचा कामाचा ताण प्रचंड वाढतो"], ans: 1 }
+            ]
+        },
+        {
+            passageId: 4,
+            passageTitle: "उतारा ४",
+            passageText: "वाचन ही मानवी मनाला समृद्ध करणारी एक उत्तम सवय आहे. पुस्तके ही आपली अशी मित्र असतात, जी कधीही आपली साथ सोडत नाहीत. वाचनामुळे केवळ ज्ञानच वाढत नाही, तर माणसाची विचार करण्याची क्षमताही प्रगल्भ होते. विविध विषयांवरील पुस्तके वाचल्याने आपल्याला जगाची ओळख होते आणि वेगवेगळ्या संस्कृती समजून घेता येतात. आजच्या डिजिटल युगात लोक मोबाईल आणि स्क्रीनवर जास्त वेळ घालवतात, ज्यामुळे वाचनाची आवड कमी होत चालली आहे. मोबाईलवरील माहिती क्षणिक असू शकते, परंतु पुस्तकांमधून मिळालेले ज्ञान कायमस्वरूपी मनात टिकते. म्हणूनच बालपणापासूनच अवांतर वाचनाची सवय लावणे अत्यंत आवश्यक आहे.",
+            questions: [
+                { q: "१. उताऱ्यानुसार पुस्तकांना मानवाचे 'मित्र' का म्हटले आहे?", options: ["(A) ती आपल्याला कधीही प्रश्न विचारत नाहीत म्हणून", "(B) ती मोफत मिळतात म्हणून", "(C) ती नेहमी आपल्यासोबत राहतात आणि कधीही साथ सोडत नाहीत", "(D) ती मोबाईलपेक्षा स्वस्त असतात म्हणून"], ans: 2 },
+                { q: "२. आजच्या युगात लोकांची वाचनाची सवय का कमी होत आहे?", options: ["(A) बाजारात पुस्तके उपलब्ध नाहीत म्हणून", "(B) लोक मोबाईल आणि स्क्रीनवर जास्त वेळ घालवतात म्हणून", "(C) वाचनाने ज्ञान वाढत नाही म्हणून", "(D) पुस्तकांची भाषा कठीण असते म्हणून"], ans: 1 },
+                { q: "३. मोबाईलवरील माहिती आणि पुस्तकांतील ज्ञान यांत कोणता फरक सांगण्यात आला आहे?", options: ["(A) मोबाईलवरील माहिती कायम टिकते, तर पुस्तकांतील क्षणिक असते", "(B) पुस्तकांतील ज्ञान कायमस्वरूपी टिकते, तर मोबाईलवरील माहिती क्षणिक असू शकते", "(C) दोन्ही प्रकारची माहिती एकाच दर्जाची असते", "(D) पुस्तकांतील ज्ञान केवळ परीक्षांसाठी उपयुक्त असते"], ans: 1 },
+                { q: "४. 'प्रगल्भ' या शब्दाचा उताऱ्यातील संदर्भांनुसार योग्य अर्थ कोणता?", options: ["(A) परिपक्व / खोलवर विचार करणारी", "(B) मंद / सुस्त", "(C) गुंतागुंतीची", "(D) मर्यादित"], ans: 0 },
+                { q: "५. वाचनामुळे माणसाला कोणता मुख्य फायदा होतो?", options: ["(A) विचार करण्याची क्षमता प्रगल्भ होते आणि ज्ञान वाढते", "(B) डिजिटल उपकरणांचा वापर वाढतो", "(C) परीक्षेचा ताण वाढतो", "(D) वेळ सहज वाया घालवता येतो"], ans: 0 }
+            ]
+        }
+    ];
+
+    // Variables
+    let currentPassageIndex = 0;
+    let currentQuestionIndex = 0;
+    let totalQuestionsCount = 0;
+    let currentGlobalQuestion = 1;
+    let studentName = "";
+    let mobileNum = "";
+    let userAnswers = [];
+
+    // Flatten logic for total count calculation
+    examData.forEach(p => totalQuestionsCount += p.questions.length);
+
+    function startExam() {
+        studentName = document.getElementById('student-name').value.trim();
+        mobileNum = document.getElementById('mobile-num').value.trim();
+
+        if (studentName === "" || mobileNum === "") {
+            alert("कृपया तुमचे नाव आणि मोबाईल नंबर पूर्ण भरा!");
+            return;
+        }
+
+        if (mobileNum.length !== 10 || isNaN(mobileNum)) {
+            alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        document.getElementById('start-screen').classList.add('hide');
+        document.getElementById('exam-screen').classList.remove('hide');
+
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const passage = examData[currentPassageIndex];
+        const question = passage.questions[currentQuestionIndex];
+
+        // Progress Text
+        document.getElementById('progress-text').innerText = `${passage.passageTitle} | प्रश्न ${currentGlobalQuestion}/${totalQuestionsCount}`;
+
+        // Passage Text
+        document.getElementById('passage-container').innerHTML = `<strong>${passage.passageTitle} :</strong><br>${passage.passageText}`;
+
+        // Question
+        document.getElementById('question-text').innerText = question.q;
+
+        // Options
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        question.options.forEach((opt, idx) => {
+            const li = document.createElement('li');
+            li.className = 'option-item';
+            li.innerHTML = `
+                <label class="option-label">
+                    <input type="radio" name="option" value="${idx}">
+                    ${opt}
+                </label>
+            `;
+            optionsContainer.appendChild(li);
+        });
+
+        // Button Text logic for last question
+        if (currentGlobalQuestion === totalQuestionsCount) {
+            document.getElementById('next-btn').innerText = "Submit Exam (परीक्षेचा निकाल पहा)";
+        } else {
+            document.getElementById('next-btn').innerText = "नेक्स्ट क्वेश्चन";
+        }
+    }
+
+    function nextQuestion() {
+        const selectedOption = document.querySelector('input[name="option"]:checked');
+
+        if (!selectedOption) {
+            alert("कृपया उत्तर निवडण्यासाठी एका पर्यायावर क्लिक करा!");
+            return;
+        }
+
+        // Save Answer
+        userAnswers.push({
+            passage: currentPassageIndex,
+            question: currentQuestionIndex,
+            selected: parseInt(selectedOption.value)
+        });
+
+        // Index Movements
+        currentQuestionIndex++;
+        currentGlobalQuestion++;
+
+        if (currentQuestionIndex >= examData[currentPassageIndex].questions.length) {
+            currentPassageIndex++;
+            currentQuestionIndex = 0;
+        }
+
+        if (currentGlobalQuestion <= totalQuestionsCount) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        document.getElementById('exam-screen').classList.add('hide');
+        document.getElementById('result-screen').classList.remove('hide');
+
+        // Calculate Score
+        let score = 0;
+        userAnswers.forEach((ans, idx) => {
+            const correctAns = examData[ans.passage].questions[ans.question].ans;
+            if (ans.selected === correctAns) {
+                score++;
+            }
+        });
+
+        const percentage = Math.round((score / totalQuestionsCount) * 100);
+
+        // Fill Certificate Data
+        document.getElementById('cert-name').innerText = studentName;
+        document.getElementById('cert-mobile').innerText = mobileNum;
+        document.getElementById('cert-score').innerText = score;
+        document.getElementById('cert-total').innerText = totalQuestionsCount;
+        document.getElementById('cert-percentage').innerText = percentage;
+
+        // Honor Message Logic
+        const honorBox = document.getElementById('honor-text');
+        if (percentage >= 80) {
+            honorBox.innerHTML = "🥇 उत्तम कामगिरी! Gold Medal + Trophy 🏆";
+        } else if (percentage >= 60) {
+            honorBox.innerHTML = "🥈 छान कामगिरी! Silver Medal + Trophy 🏆";
+        } else if (percentage >= 50) {
+            honorBox.innerHTML = "🥉 चांगली कामगिरी! Bronze Medal + Trophy 🏆";
+        } else {
+            honorBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ 💐<br><small style='font-size:14px;'>पुढील परीक्षेसाठी हार्दिक शुभेच्छा!</small>";
+        }
+    }
+</script>
+
+</body>
+</html>
