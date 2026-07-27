@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा - समछेद अपूर्णांक</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #1a365d;
+            margin-top: 0;
+        }
+        .center-header {
+            text-align: center;
+            background: #ebf8ff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #3182ce;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        .hidden {
+            display: none;
+        }
+        .question-box {
+            background: #faf5ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #805ad5;
+            margin-bottom: 15px;
+        }
+        .options {
+            margin-top: 15px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin: 8px 0;
+            background: #edf2f7;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .option-btn:hover {
+            background: #e2e8f0;
+        }
+        .option-btn.correct {
+            background-color: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+        }
+        .explanation {
+            background-color: #feebc8;
+            border: 1px solid #dd6b20;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+            font-size: 0.95em;
+            color: #7b341e;
+        }
+        
+        /* प्रमाणपत्र (Square Certificate) स्टाईल */
+        .certificate-card {
+            border: 8px double #d69e2e;
+            padding: 20px;
+            text-align: center;
+            background: #fffaf0;
+            border-radius: 4px;
+            margin-top: 20px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .cert-title {
+            color: #744210;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-bottom: 2px solid #d69e2e;
+            padding-bottom: 8px;
+        }
+        .cert-details {
+            font-size: 1.05em;
+            text-align: left;
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+        .cert-guides {
+            background: #ffffff;
+            border: 1px dashed #d69e2e;
+            padding: 8px;
+            font-size: 0.85em;
+            text-align: left;
+        }
+        .cert-honor {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2b6cb0;
+            margin-top: 5px;
+        }
+
+        .wrong-q-item {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- केंद्र व परीक्षेचे नाव -->
+    <div class="center-header">
+        <h2>🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h2>
+        <h3>नवोदय परीक्षा : सम छेद अपूर्णांकाची बेरीज, वजाबाकी, गुणाकार व भागाकार</h3>
+    </div>
+
+    <!-- १. प्रवेश / सुरुवातीचा विभाग -->
+    <div id="start-screen">
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे नाव प्रविष्ट करा :</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव लिहा..." required>
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+    </div>
+
+    <!-- २. परीक्षा विभाग -->
+    <div id="exam-screen" class="hidden">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
+            <span id="question-count">प्रश्न १ / १०</span>
+            <span id="student-display-name"></span>
+        </div>
+        
+        <div class="question-box">
+            <div id="question-text" style="font-size: 1.1em; font-weight: bold;"></div>
+            <div class="options" id="options-container"></div>
+            <div id="explanation-box" class="explanation hidden"></div>
+        </div>
+
+        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">पुढील प्रश्न ➔</button>
+        <button id="submit-btn" class="btn hidden" style="background-color: #38a169;" onclick="submitExam()">Submit Exam (निकाल पहा)</button>
+    </div>
+
+    <!-- ३. निकाल / प्रमाणपत्र विभाग -->
+    <div id="result-screen" class="hidden">
+        
+        <!-- चौरस आकृती Certificate -->
+        <div class="certificate-card">
+            <div class="cert-title">
+                🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर
+            </div>
+            
+            <div class="cert-details">
+                <b>परीक्षेचे नाव :</b> नवोदय - समछेद अपूर्णांक<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="cert-name" style="color: #2b6cb0;"></span><br>
+                <b>मिळालेले गुण :</b> <span id="cert-score"></span> / <span id="cert-total"></span><br>
+                <b>टक्केवारी :</b> <span id="cert-percentage"></span>%
+            </div>
+
+            <div>
+                <b>कामगिरीनुसार सन्मान :</b>
+                <div class="cert-honor" id="cert-honor"></div>
+            </div>
+
+            <div class="cert-guides">
+                <b>मार्गदर्शक शिक्षक :</b><br>
+                • सचिन शिंदे (संपर्क : 8329684470)<br>
+                • सतीश चिंदे (संपर्क : 8208167846)
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #e53e3e; margin-top: 20px;" onclick="showWrongQuestions()">
+            चुकलेले प्रश्न व मार्गदर्शन पहा
+        </button>
+
+        <div id="wrong-questions-section" class="hidden" style="margin-top: 20px;">
+            <h3>चुकलेले प्रश्न व स्पष्टीकरण</h3>
+            <div id="wrong-questions-list"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // १० प्रश्न (अपूर्णांक बेरीज, वजाबाकी, गुणाकार, भागाकार)
+    const questions = [
+        {
+            q: "1) 3/7 + 2/7 ची किंमत किती येईल?",
+            options: ["1/7", "5/7", "5/14", "6/7"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: छेद समान (7) असल्यामुळे अंशांची बेरीज केली जाईल -> 3 + 2 = 5. म्हणून उत्तर = 5/7."
+        },
+        {
+            q: "2) 8/9 - 5/9 चे सरळरूप काय होईल?",
+            options: ["3/9 (किंवा 1/3)", "13/9", "3/0", "13/18"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: छेद समान (9) आहे, म्हणून अंशांची वजाबाकी -> 8 - 5 = 3. अपूर्णांक 3/9 म्हणजेच 1/3 होईल."
+        },
+        {
+            q: "3) (4/5 + 2/5) - 1/5 = किती?",
+            options: ["6/5", "5/5 (म्हणजेच 1)", "3/5", "7/5"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: कंसातील बेरीज (4+2)/5 = 6/5. त्यातून 1/5 वजा केले असता (6-1)/5 = 5/5 = 1 मिळते."
+        },
+        {
+            q: "4) 3/4 × 2/5 या गुणाकाराचे उत्तर किती येईल?",
+            options: ["5/9", "6/20", "1/20", "6/9"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: गुणाकार करताना अंशाचा अंशाशी (3 × 2 = 6) व छेदाचा छेदाशी (4 × 5 = 20) गुणाकार करावा. उत्तर = 6/20."
+        },
+        {
+            q: "5) 4/7 ÷ 2/7 या भागाकाराचे उत्तर काय येईल?",
+            options: ["8/49", "2/1 (म्हणजेच 2)", "6/7", "2/49"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 4/7 ÷ 2/7 = 4/7 × 7/2. 7 ला 7 कट होतील आणि 4 ÷ 2 = 2 उत्तर येईल."
+        },
+        {
+            q: "6) 11/12 - (3/12 + 4/12) चे सोपे रूप लिहा.",
+            options: ["4/12", "7/12", "18/12", "1/12"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: कंसातील बेरीज = 7/12. आता 11/12 - 7/12 = (11-7)/12 = 4/12."
+        },
+        {
+            q: "7) 2/3 × 3/3 चे उत्तर काय येईल?",
+            options: ["6/3", "2/3", "5/6", "6/6"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 3/3 म्हणजे 1. कोणत्याही अपूर्णांकाला 1 ने गुणल्यास उत्तर तोच अपूर्णांक (2/3) येतो."
+        },
+        {
+            q: "8) एका टोपलीत 9/11 भाग आंबे होते. त्यातील 4/11 भाग आंबे विकले, तर किती भाग आंबे शिल्लक राहिले?",
+            options: ["13/11", "5/11", "5/0", "4/11"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: शिल्लक भाग = 9/11 - 4/11 = (9 - 4)/11 = 5/11 भाग."
+        },
+        {
+            q: "9) (5/8 ÷ 5/8) × 3/4 चे उत्तर काय असेल?",
+            options: ["3/4", "1", "25/64", "0"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: कोणत्याही संख्येला त्याच संख्येने भागल्यास 1 उत्तर येते (5/8 ÷ 5/8 = 1). मग 1 × 3/4 = 3/4."
+        },
+        {
+            q: "10) 1/6 + 2/6 + 3/6 या पदावलीची किंमत किती?",
+            options: ["6/18", "1", "6/6 नाही", "5/6"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: अंशांची बेरीज = 1 + 2 + 3 = 6. छेद = 6. म्हणून 6/6 = 1."
+        }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let studentName = "";
+    let userAnswers = [];
+
+    function startExam() {
+        const nameInput = document.getElementById('student-name').value.trim();
+        if (nameInput === "") {
+            alert("कृपया विद्यार्थ्याचे नाव लिहा!");
+            return;
+        }
+        studentName = nameInput;
+        document.getElementById('student-display-name').innerText = "विद्यार्थी: " + studentName;
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('exam-screen').classList.remove('hidden');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const qData = questions[currentQ];
+        document.getElementById('question-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+        document.getElementById('question-text').innerText = qData.q;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = "";
+        
+        const expBox = document.getElementById('explanation-box');
+        expBox.classList.add('hidden');
+        expBox.innerText = "";
+
+        document.getElementById('next-btn').classList.add('hidden');
+        document.getElementById('submit-btn').classList.add('hidden');
+
+        qData.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectAnswer(index);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectAnswer(selectedIndex) {
+        const qData = questions[currentQ];
+        const buttons = document.querySelectorAll('.option-btn');
+        
+        // Disable all option buttons once selected
+        buttons.forEach(btn => btn.style.pointerEvents = 'none');
+
+        const isCorrect = (selectedIndex === qData.answer);
+        userAnswers[currentQ] = {
+            question: qData.q,
+            selected: selectedIndex,
+            correct: qData.answer,
+            isCorrect: isCorrect,
+            explanation: qData.explanation,
+            options: qData.options
+        };
+
+        if (isCorrect) {
+            buttons[selectedIndex].classList.add('correct');
+            score++;
+        } else {
+            buttons[selectedIndex].classList.add('wrong');
+            buttons[qData.answer].classList.add('correct');
+            
+            // चुकीचे उत्तर दिल्यास लगेच स्पष्टीकरण दाखवणे
+            const expBox = document.getElementById('explanation-box');
+            expBox.innerText = qData.explanation;
+            expBox.classList.remove('hidden');
+        }
+
+        if (currentQ < questions.length - 1) {
+            document.getElementById('next-btn').classList.remove('hidden');
+        } else {
+            document.getElementById('submit-btn').classList.remove('hidden');
+        }
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        loadQuestion();
+    }
+
+    function submitExam() {
+        document.getElementById('exam-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+
+        const total = questions.length;
+        const percentage = Math.round((score / total) * 100);
+
+        document.getElementById('cert-name').innerText = studentName;
+        document.getElementById('cert-score').innerText = score;
+        document.getElementById('cert-total').innerText = total;
+        document.getElementById('cert-percentage').innerText = percentage;
+
+        // सन्मान निश्चित करणे
+        let honorText = "";
+        if (percentage >= 80) {
+            honorText = "🥇 Gold Medal + Trophy";
+        } else if (percentage >= 60) {
+            honorText = "🥈 Silver Medal + Trophy";
+        } else if (percentage >= 50) {
+            honorText = "🥉 Bronze Medal + Trophy";
+        } else {
+            honorText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        document.getElementById('cert-honor').innerText = honorText;
+    }
+
+    function showWrongQuestions() {
+        const wrongSection = document.getElementById('wrong-questions-section');
+        const wrongList = document.getElementById('wrong-questions-list');
+        wrongList.innerHTML = "";
+
+        const wrongAnswers = userAnswers.filter(ans => !ans.isCorrect);
+
+        if (wrongAnswers.length === 0) {
+            wrongList.innerHTML = "<p style='color: green; font-weight: bold;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही.</p>";
+        } else {
+            wrongAnswers.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'wrong-q-item';
+                div.innerHTML = `
+                    <b>प्रश्न :</b> ${item.question}<br>
+                    <span style="color:red;">तुमचे उत्तर : ${item.options[item.selected]}</span><br>
+                    <span style="color:green;">बरोबर उत्तर : ${item.options[item.correct]}</span><br>
+                    <small style="color:#7b341e;">${item.explanation}</small>
+                `;
+                wrongList.appendChild(div);
+            });
+        }
+
+        wrongSection.classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>
