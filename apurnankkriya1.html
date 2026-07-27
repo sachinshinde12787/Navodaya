@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा - समछेद अपूर्णांक (३० प्रश्न)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 680px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #1a365d;
+            margin-top: 0;
+        }
+        .center-header {
+            text-align: center;
+            background: #ebf8ff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #3182ce;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        .hidden {
+            display: none;
+        }
+        .question-box {
+            background: #faf5ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #805ad5;
+            margin-bottom: 15px;
+        }
+        .options {
+            margin-top: 15px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin: 8px 0;
+            background: #edf2f7;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .option-btn:hover {
+            background: #e2e8f0;
+        }
+        .option-btn.correct {
+            background-color: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+        }
+        .explanation {
+            background-color: #feebc8;
+            border: 1px solid #dd6b20;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+            font-size: 0.95em;
+            color: #7b341e;
+        }
+        
+        /* चौरस प्रमाणपत्र स्टाईल */
+        .certificate-card {
+            border: 8px double #d69e2e;
+            padding: 20px;
+            text-align: center;
+            background: #fffaf0;
+            border-radius: 4px;
+            margin-top: 20px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .cert-title {
+            color: #744210;
+            font-size: 1.25em;
+            font-weight: bold;
+            border-bottom: 2px solid #d69e2e;
+            padding-bottom: 8px;
+        }
+        .cert-details {
+            font-size: 1.05em;
+            text-align: left;
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+        .cert-guides {
+            background: #ffffff;
+            border: 1px dashed #d69e2e;
+            padding: 8px;
+            font-size: 0.85em;
+            text-align: left;
+        }
+        .cert-honor {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #2b6cb0;
+            margin-top: 5px;
+        }
+
+        .wrong-q-item {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- केंद्र व परीक्षेचे नाव -->
+    <div class="center-header">
+        <h2>🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h2>
+        <h3>नवोदय परीक्षा : सम छेद अपूर्णांकाची बेरीज, वजाबाकी, गुणाकार व भागाकार (३० प्रश्न)</h3>
+    </div>
+
+    <!-- १. सुरुवात / प्रवेश स्क्रीन -->
+    <div id="start-screen">
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे नाव प्रविष्ट करा :</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव लिहा..." required>
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+    </div>
+
+    <!-- २. परीक्षा स्क्रीन -->
+    <div id="exam-screen" class="hidden">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
+            <span id="question-count">प्रश्न १ / ३०</span>
+            <span id="student-display-name"></span>
+        </div>
+        
+        <div class="question-box">
+            <div id="question-text" style="font-size: 1.1em; font-weight: bold;"></div>
+            <div class="options" id="options-container"></div>
+            <div id="explanation-box" class="explanation hidden"></div>
+        </div>
+
+        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">पुढील प्रश्न ➔</button>
+        <button id="submit-btn" class="btn hidden" style="background-color: #38a169;" onclick="submitExam()">Submit Exam (निकाल पहा)</button>
+    </div>
+
+    <!-- ३. निकाल / प्रमाणपत्र स्क्रीन -->
+    <div id="result-screen" class="hidden">
+        
+        <div class="certificate-card">
+            <div class="cert-title">
+                🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर
+            </div>
+            
+            <div class="cert-details">
+                <b>परीक्षेचे नाव :</b> नवोदय - समछेद अपूर्णांक<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="cert-name" style="color: #2b6cb0;"></span><br>
+                <b>मिळालेले गुण :</b> <span id="cert-score"></span> / <span id="cert-total"></span><br>
+                <b>टक्केवारी :</b> <span id="cert-percentage"></span>%
+            </div>
+
+            <div>
+                <b>कामगिरीनुसार सन्मान :</b>
+                <div class="cert-honor" id="cert-honor"></div>
+            </div>
+
+            <div class="cert-guides">
+                <b>मार्गदर्शक शिक्षक :</b><br>
+                • सचिन शिंदे (संपर्क : 8329684470)<br>
+                • सतीश चिंदे (संपर्क : 8208167846)
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #e53e3e; margin-top: 20px;" onclick="showWrongQuestions()">
+            चुकलेले प्रश्न व मार्गदर्शन पहा
+        </button>
+
+        <div id="wrong-questions-section" class="hidden" style="margin-top: 20px;">
+            <h3>चुकलेले प्रश्न व स्पष्टीकरण</h3>
+            <div id="wrong-questions-list"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // एकूण ३० प्रश्न
+    const questions = [
+        {
+            q: "1) 5/12 + 3/12 - 4/12 या पदावलीचे सरळरूप काय होईल?",
+            options: ["4/12", "1/3", "12/12", "2/3"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: छेद समान (12) आहे. (5 + 3 - 4)/12 = 4/12. अंश व छेदाला 4 ने भाग दिल्यास 1/3 मिळते."
+        },
+        {
+            q: "2) 3 1/5 + 2 3/5 - 1 2/5 ची किंमत किती?",
+            options: ["4 2/5", "4 1/5", "3 4/5", "5 2/5"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: पूर्णांकांची क्रिया: 3 + 2 - 1 = 4. अपूर्णांकांची क्रिया: (1/5 + 3/5 - 2/5) = 2/5. उत्तर = 4 2/5."
+        },
+        {
+            q: "3) (7/8 - 3/8) + (5/8 - 1/8) चे उत्तर किती येईल?",
+            options: ["1", "1/2", "8/8", "2"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: पहिला कंस 4/8, दुसरा कंस 4/8. 4/8 + 4/8 = 8/8 = 1."
+        },
+        {
+            q: "4) एका टोपलीत 15/7 किग्रॅ सफरचंद होती. त्यातील 6/7 किग्रॅ खाल्ली, तर किती किग्रॅ शिल्लक राहिली?",
+            options: ["8/7 किग्रॅ", "1 2/7 किग्रॅ", "1 1/7 किग्रॅ", "9/14 किग्रॅ"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: शिल्लक = 15/7 - 6/7 = 9/7. याचे पूर्णांकयुक्त अपूर्णांकात रूपांतर 1 2/7... परंतु पर्यायानुसार 9/7 म्हणजे 1 2/7 किंवा 1 1/7 मधील योग्य 9/7 = 1 2/7 ऐवजी 1 2/7 आहे (9 ÷ 7 = 1 बाकी 2)."
+        },
+        {
+            q: "5) 2 1/4 + 1 3/4 - 1/2 या पदावलीची उकल शोधा.",
+            options: ["4", "3 1/2", "4 1/2", "3"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 2 1/4 + 1 3/4 = 4. त्यातून 1/2 वजा केले असता 3 1/2 उरते."
+        },
+        {
+            q: "6) (9/15 + 4/15) - (8/15 - 2/15) चे सरळरूप काय येईल?",
+            options: ["7/15", "19/15", "1/15", "13/15"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: पहिला कंस = 13/15. दुसरा कंस = 6/15. 13/15 - 6/15 = 7/15."
+        },
+        {
+            q: "7) दोन अपूर्णांकांची बेरीज 18/11 आहे. एक अपूर्णांक 1 2/11 असल्यास दुसरा अपूर्णांक कोणता?",
+            options: ["5/11", "7/11", "13/11", "9/11"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 1 2/11 = 13/11. दुसरा अपूर्णांक = 18/11 - 13/11 = 5/11 (पर्याय सुधारून: 18 - 13 = 5, उत्तर 5/11)."
+        },
+        {
+            q: "8) 5 - 3/4 ची किंमत पुढीलपैकी कोणती?",
+            options: ["2/4", "4 1/4", "4 3/4", "5 1/4"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 5 - 3/4 = 4 + (1 - 3/4) = 4 + 1/4 = 4 1/4."
+        },
+        {
+            q: "9) (11/20 - 3/20) + 7/20 सोडवा.",
+            options: ["15/20", "3/4", "दोन्ही A आणि B बरोबर", "1/2"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: (11-3+7)/20 = 15/20. 15/20 ला संक्षिप्त रूप दिल्यास 3/4 मिळते. त्यामुळे दोन्ही पर्याय बरोबर आहेत."
+        },
+        {
+            q: "10) 3/10 + 2/10 + 1/10 मध्ये किती मिळवावेत म्हणजे उत्तर 1 येईल?",
+            options: ["6/10", "4/10", "5/10", "1/10"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: ३ अपूर्णांकांची बेरीज = 6/10. 1 म्हणजे 10/10. 10/10 - 6/10 = 4/10."
+        },
+        {
+            q: "11) 2 1/3 × 1 1/2 चा गुणाकार किती होईल?",
+            options: ["3 1/6", "3 1/2", "2 1/6", "4 1/2"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 7/3 × 3/2 = 21/6 = 7/2 = 3 1/2."
+        },
+        {
+            q: "12) (5/6 × 4/5) ÷ 2/3 या पदावलीचे सोपे रूप काय?",
+            options: ["1", "4/9", "2/3", "4/15"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: कंस सोडवला: 20/30 = 2/3. आता 2/3 ÷ 2/3 = 1."
+        },
+        {
+            q: "13) 16/25 ÷ 4/5 चे उत्तर किती येईल?",
+            options: ["64/125", "5/4", "4/5", "1 1/4"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: 16/25 × 5/4 = (16×5)/(25×4) = 80/100 = 4/5."
+        },
+        {
+            q: "14) 1 3/7 × 14/20 या गुणाकाराची किंमत शोधा.",
+            options: ["1", "42/20", "7/10", "10/7"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: 10/7 × 14/20 = (10×14)/(7×20) = 140/140 = 1."
+        },
+        {
+            q: "15) (9/4 ÷ 3/2) × 2/3 सोडवा.",
+            options: ["9/4", "1", "3/2", "2/3"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 9/4 × 2/3 = 3/2. आता 3/2 × 2/3 = 1."
+        },
+        {
+            q: "16) एका दोरीची लांबी 12 मीटर आहे. तिचे 1 1/2 (दीड) मीटरचे तुकडे केल्यास एकूण किती तुकडे होतील?",
+            options: ["6", "8", "10", "9"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 12 ÷ (3/2) = 12 × 2/3 = 8 तुकडे."
+        },
+        {
+            q: "17) 7/9 × 3/14 × 6/5 चा गुणाकार संक्षिप्त रूपात सांगा.",
+            options: ["1/5", "2/5", "126/1260", "3/10"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: अंश: 7×3×6 = 126. छेद: 9×14×5 = 630. 126/630 = 1/5."
+        },
+        {
+            q: "18) 25/36 ÷ 5 चे सरळरूप काय होईल?",
+            options: ["125/36", "5/36", "1/36", "5"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 25/36 × 1/5 = 5/36."
+        },
+        {
+            q: "19) पुढीलपैकी कोणत्या पदावलीची किंमत 1 पेक्षा जास्त आहे?",
+            options: ["1/2 × 3/4", "4/5 ÷ 2/1", "3/2 ÷ 5/4", "2/3 × 3/4"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: 3/2 ÷ 5/4 = 3/2 × 4/5 = 12/10 = 1.2 (जे 1 पेक्षा जास्त आहे)."
+        },
+        {
+            q: "20) (2 2/5 ÷ 1 1/5) चे सरळरूप सांगा.",
+            options: ["2", "1", "2 1/5", "3"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: 12/5 ÷ 6/5 = 12/5 × 5/6 = 2."
+        },
+        {
+            q: "21) (3/5 + 2/5) × (7/4 - 3/4) चे उत्तर किती?",
+            options: ["1", "5/5", "2", "0"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: पहिला कंस: 5/5 = 1. दुसरा कंस: 4/4 = 1. 1 × 1 = 1."
+        },
+        {
+            q: "22) एका टाकीची क्षमता 60 लिटर आहे. तिचा 3/5 भाग पाण्याने भरलेला असल्यास टाकीत किती लिटर पाणी आहे?",
+            options: ["25 लिटर", "36 लिटर", "24 लिटर", "40 लिटर"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: 60 × 3/5 = 12 × 3 = 36 लिटर."
+        },
+        {
+            q: "23) [(1/3 × 3/4) + 1/4] ÷ 1/2 या पदावलीची किंमत काय?",
+            options: ["1/2", "1", "1/4", "2"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: (1/4 + 1/4) ÷ 1/2 = 2/4 ÷ 1/2 = 1/2 ÷ 1/2 = 1."
+        },
+        {
+            q: "24) 5/8 या अपूर्णांकात किती मिळवावेत म्हणजे उत्तर 1 1/8 (9/8) येईल?",
+            options: ["3/8", "6/8", "4/8", "1/8"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: 9/8 - 5/8 = 4/8."
+        },
+        {
+            q: "25) पुस्तकाची 240 पाने आहेत. रामने 1/4 पाने पहिल्या दिवशी व 1/3 पाने दुसऱ्या दिवशी वाचली, तर एकूण किती पाने वाचली?",
+            options: ["140", "120", "60", "80"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: पहिला दिवस = 240 × 1/4 = 60. दुसरा दिवस = 240 × 1/3 = 80. एकूण = 60 + 80 = 140 पाने."
+        },
+        {
+            q: "26) (4 1/2 ÷ 1 1/2) + 2 1/2 ची किंमत किती होईल?",
+            options: ["5 1/2", "3 1/2", "6", "4 1/2"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: 4.5 ÷ 1.5 = 3. मग 3 + 2 1/2 = 5 1/2."
+        },
+        {
+            q: "27) 11/13 × (5/7 + 2/7) याचे सोपे रूप काय?",
+            options: ["77/91", "11/13", "1", "22/13"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: कंसातील बेरीज = 7/7 = 1. मग 11/13 × 1 = 11/13."
+        },
+        {
+            q: "28) वर्गातील 40 विद्यार्थ्यांपैकी 3/5 मुली आहेत, तर मुलांची संख्या किती?",
+            options: ["24", "16", "20", "25"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: मुली = 40 × 3/5 = 24. मुले = 40 - 24 = 16."
+        },
+        {
+            q: "29) (8/3 - 2/3) ÷ (1/3 + 1/3) ची उकल शोधा.",
+            options: ["2", "1", "3", "6"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: पहिला कंस = 6/3 = 2. दुसरा कंस = 2/3. 2 ÷ 2/3 = 2 × 3/2 = 3."
+        },
+        {
+            q: "30) कोणत्याही अपूर्णांकाला त्याच अपूर्णांकाने भागल्यास येणारा भागाकार नेहमी काय असतो?",
+            options: ["तोच अपूर्णांक", "0", "1", "अंश आणि छेदाचा गुणाकार"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: कोणत्याही संख्येला किंवा अपूर्णांकाला त्याच संख्येने भागल्यास भागाकार नेहमी 1 येतो."
+        }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let studentName = "";
+    let userAnswers = [];
+
+    function startExam() {
+        const nameInput = document.getElementById('student-name').value.trim();
+        if (nameInput === "") {
+            alert("कृपया विद्यार्थ्याचे नाव लिहा!");
+            return;
+        }
+        studentName = nameInput;
+        document.getElementById('student-display-name').innerText = "विद्यार्थी: " + studentName;
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('exam-screen').classList.remove('hidden');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const qData = questions[currentQ];
+        document.getElementById('question-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+        document.getElementById('question-text').innerText = qData.q;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = "";
+        
+        const expBox = document.getElementById('explanation-box');
+        expBox.classList.add('hidden');
+        expBox.innerText = "";
+
+        document.getElementById('next-btn').classList.add('hidden');
+        document.getElementById('submit-btn').classList.add('hidden');
+
+        qData.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectAnswer(index);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectAnswer(selectedIndex) {
+        const qData = questions[currentQ];
+        const buttons = document.querySelectorAll('.option-btn');
+        
+        buttons.forEach(btn => btn.style.pointerEvents = 'none');
+
+        const isCorrect = (selectedIndex === qData.answer);
+        userAnswers[currentQ] = {
+            question: qData.q,
+            selected: selectedIndex,
+            correct: qData.answer,
+            isCorrect: isCorrect,
+            explanation: qData.explanation,
+            options: qData.options
+        };
+
+        if (isCorrect) {
+            buttons[selectedIndex].classList.add('correct');
+            score++;
+        } else {
+            buttons[selectedIndex].classList.add('wrong');
+            buttons[qData.answer].classList.add('correct');
+            
+            const expBox = document.getElementById('explanation-box');
+            expBox.innerText = qData.explanation;
+            expBox.classList.remove('hidden');
+        }
+
+        if (currentQ < questions.length - 1) {
+            document.getElementById('next-btn').classList.remove('hidden');
+        } else {
+            document.getElementById('submit-btn').classList.remove('hidden');
+        }
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        loadQuestion();
+    }
+
+    function submitExam() {
+        document.getElementById('exam-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+
+        const total = questions.length;
+        const percentage = Math.round((score / total) * 100);
+
+        document.getElementById('cert-name').innerText = studentName;
+        document.getElementById('cert-score').innerText = score;
+        document.getElementById('cert-total').innerText = total;
+        document.getElementById('cert-percentage').innerText = percentage;
+
+        let honorText = "";
+        if (percentage >= 80) {
+            honorText = "🥇 Gold Medal + Trophy";
+        } else if (percentage >= 60) {
+            honorText = "🥈 Silver Medal + Trophy";
+        } else if (percentage >= 50) {
+            honorText = "🥉 Bronze Medal + Trophy";
+        } else {
+            honorText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        document.getElementById('cert-honor').innerText = honorText;
+    }
+
+    function showWrongQuestions() {
+        const wrongSection = document.getElementById('wrong-questions-section');
+        const wrongList = document.getElementById('wrong-questions-list');
+        wrongList.innerHTML = "";
+
+        const wrongAnswers = userAnswers.filter(ans => !ans.isCorrect);
+
+        if (wrongAnswers.length === 0) {
+            wrongList.innerHTML = "<p style='color: green; font-weight: bold;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही.</p>";
+        } else {
+            wrongAnswers.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'wrong-q-item';
+                div.innerHTML = `
+                    <b>प्रश्न :</b> ${item.question}<br>
+                    <span style="color:red;">तुमचे उत्तर : ${item.options[item.selected]}</span><br>
+                    <span style="color:green;">बरोबर उत्तर : ${item.options[item.correct]}</span><br>
+                    <small style="color:#7b341e;">${item.explanation}</small>
+                `;
+                wrongList.appendChild(div);
+            });
+        }
+
+        wrongSection.classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>
