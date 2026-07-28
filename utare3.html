@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट उतारे - जेऊर</title>
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #086e7d;
+            --bg-color: #f4f7f6;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 750px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0 0 5px 0;
+            font-size: 22px;
+        }
+
+        header h2 {
+            color: var(--secondary-color);
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .passage-box {
+            background-color: #eef7f9;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .question-box {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 6px;
+            color: #856404;
+            display: none;
+            font-size: 14px;
+        }
+
+        .certificate {
+            border: 8px double var(--primary-color);
+            padding: 20px;
+            background: #fffdf9;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .cert-header {
+            font-size: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .cert-details {
+            text-align: left;
+            margin: 15px 0;
+            line-height: 1.6;
+            font-size: 15px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 10px;
+        }
+
+        .cert-score {
+            font-size: 17px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+
+        .badge-box {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px;
+            background: #eef2f5;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .guides {
+            margin-top: 15px;
+            font-size: 13px;
+            text-align: left;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .guides p {
+            margin: 3px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- प्रत्येक पेज वरती हेडलाईन -->
+    <header>
+        <h1>🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट उतारे</h2>
+    </header>
+
+    <!-- स्क्रीन १: विद्यार्थ्याची माहिती -->
+    <div id="start-screen" class="screen active">
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+        </div>
+        <div class="form-group">
+            <label for="student-phone">मोबाईल नंबर:</label>
+            <input type="tel" id="student-phone" placeholder="१० अंकी मोबाईल नंबर">
+        </div>
+        <button type="button" class="btn" onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- स्क्रीन २: परीक्षा प्रश्न -->
+    <div id="exam-screen" class="screen">
+        <div class="passage-box" id="passage-text"></div>
+        <div class="question-box" id="question-text"></div>
+        <div class="options-container" id="options-container"></div>
+        
+        <div class="explanation" id="explanation-box"></div>
+
+        <button id="next-btn" class="btn" onclick="nextQuestion()" style="display: none;">नेक्स्ट क्वेश्चन</button>
+        <button id="submit-btn" class="btn" onclick="submitExam()" style="display: none; background-color: #28a745;">Submit Exam</button>
+    </div>
+
+    <!-- स्क्रीन ३: निकाल (Certificate Style) -->
+    <div id="result-screen" class="screen">
+        <div class="certificate">
+            <div class="cert-header">🏆 स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <p style="margin: 0; font-weight: bold; color: #555;">गुणपत्रक व प्रमाणपत्र</p>
+            
+            <div class="cert-details">
+                <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट उतारे</p>
+                <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="res-name"></span></p>
+                <p><strong>मोबाईल नंबर :</strong> <span id="res-phone"></span></p>
+            </div>
+
+            <div class="cert-score">
+                मिळालेले गुण : <span id="res-score"></span> / <span id="res-total"></span><br>
+                टक्केवारी : <span id="res-percentage"></span>%
+            </div>
+
+            <div class="badge-box" id="res-badge"></div>
+
+            <div class="guides">
+                <p><strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे (संपर्क : 8329684470)</p>
+                <p><strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे (संपर्क : 8208167846)</p>
+            </div>
+            
+            <button class="btn" onclick="location.reload()" style="background-color: #6c757d; margin-top: 15px;">पुन्हा परीक्षा द्या</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const passagesData = [
+        {
+            text: "भारतीय स्वातंत्र्यसंग्राम हा एक महत्त्वपूर्ण ऐतिहासिक काळ होता. 19व्या आणि 20व्या शतकात भारतीय लोकांनी इंग्रजांच्या विरोधात लढा दिला. महात्मा गांधी, जवाहरलाल नेहरू, सुभाषचंद्र बोस आणि सरदार वल्लभभाई पटेल हे या संग्रामतील प्रमुख नेते होते. 1947 साली भारत स्वतंत्र झाला. या संग्रामात सत्याग्रह, असहकार आंदोलन, वंदेमातरम् चळवळ आणि चलेजाव आंदोलनासारख्या अनेक घटना घडल्या. लाखो भारतीयांनी आपल्या देशासाठी बलिदान दिले. स्वातंत्र्यानंतर भारत एक लोकशाही राष्ट्र बनले.",
+            questions: [
+                { q: "1. भारतीय स्वातंत्र्यसंग्रामात प्रमुख नेते कोण होते?", options: ["(A) आंबेडकर, गांधी, बोस", "(B) गांधी, नेहरू, बोस, पटेल", "(C) नेहरू, पटेल, सावरकर", "(D) गांधी, सावरकर, पटेल"], correct: 1, exp: "महात्मा गांधी, जवाहरलाल नेहरू, सुभाषचंद्र बोस आणि सरदार वल्लभभाई पटेल हे प्रमुख नेते होते." },
+                { q: "2. भारत केव्हा स्वतंत्र झाला?", options: ["(A) 1945", "(B) 1946", "(C) 1947", "(D) 1948"], correct: 2, exp: "1947 साली भारत स्वतंत्र झाला." },
+                { q: "3. विशिष्ट गोष्ट घडून यावी म्हणून केलेला सामूहिक प्रयत्न?", options: ["(A) आंदोलन", "(B) संग्राम", "(C) युद्ध", "(D) झुंज"], correct: 0, exp: "विशिष्ट गोष्टीसाठी केलेला सामूहिक प्रयत्न म्हणजे आंदोलन." },
+                { q: "4. \"स्वातंत्र्य\" या शब्दाचा समानार्थी शब्द कोणता?", options: ["(A) गुलामीगिरी", "(B) स्वराज", "(C) न्याय", "(D) पारतंत्र्य"], correct: 1, exp: "'स्वातंत्र्य' चा समानार्थी शब्द 'स्वराज' आहे." },
+                { q: "5. \"स्वातंत्र्यसंग्राम\" या शब्दात कोणता प्रकार आहे?", options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"], correct: 0, exp: "'स्वातंत्र्यसंग्राम' हे एक नाम आहे." }
+            ]
+        },
+        {
+            text: "भारतीय कला आणि संस्कृती जगभरात प्रसिद्ध आहेत. भारतातील विविध प्रांतांत विविध कला प्रकार आहेत, जसे की भरतनाट्यम, कथक, ओडिसी आणि कुचिपुडी. संगीत क्षेत्रात शास्त्रीय संगीत, लोकसंगीत आणि भजनांचा समावेश होतो. भारतीय चित्रकला, मूर्तिकला आणि हस्तकला ह्या कला प्रकारातही भारताचा मोठा योगदान आहे. भारतीय संस्कृतीत योग, ध्यान, आणि आयुर्वेद हे महत्त्वपूर्ण भाग आहेत. विविध धर्म, सण आणि उत्सवांनी भारतीय संस्कृतीत विविधता आणि समृद्धता आणली आहे.",
+            questions: [
+                { q: "6. भारतीय कला प्रकार कोणते आहेत?", options: ["(A) भरतनाट्यम, कथक, ओडिसी", "(B) कथकली, लोकसंगीत, योग", "(C) भरतनाट्यम, भजन, ध्यान", "(D) मूर्तिकला, योग, आयुर्वेद"], correct: 0, exp: "भरतनाट्यम, कथक, ओडिसी आणि कुचिपुडी हे भारतीय कला/नृत्य प्रकार आहेत." },
+                { q: "7. भारतीय संगीत क्षेत्रात काय समाविष्ट आहे?", options: ["(A) लोकसंगीत, योग, ध्यान", "(B) शास्त्रीय संगीत, लोकसंगीत, भजन", "(C) कथक, आयुर्वेद, कुचिपुडी", "(D) चित्रकला, मूर्तिकला, हस्तकला"], correct: 1, exp: "संगीत क्षेत्रात शास्त्रीय संगीत, लोकसंगीत आणि भजनांचा समावेश होतो." },
+                { q: "8. भारतीय संस्कृतीत कोणते महत्त्वपूर्ण भाग आहेत?", options: ["(A) भरतनाट्यम, कथकली, ओडिसी", "(B) लोकसंगीत, भजन, आयुर्वेद", "(C) योग, ध्यान, आयुर्वेद", "(D) भजन, लोकसंगीत, मूर्तिकला"], correct: 2, exp: "योग, ध्यान, आणि आयुर्वेद हे भारतीय संस्कृतीचे महत्त्वपूर्ण भाग आहेत." },
+                { q: "9. \"संस्कृती\" या शब्दाचा समानार्थी शब्द कोणता?", options: ["(A) कला", "(B) परंपरा", "(C) नृत्य", "(D) संगीत"], correct: 1, exp: "'संस्कृती' चा समानार्थी शब्द 'परंपरा' आहे." },
+                { q: "10. \"भारतीय\" या शब्दात कोणता प्रकार आहे?", options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"], correct: 2, exp: "'भारतीय' हा शब्द विशेषण आहे." }
+            ]
+        },
+        {
+            text: "भारतीय अर्थव्यवस्था जगातील सर्वात वेगाने वाढणाऱ्या अर्थव्यवस्थ पैकी एक आहे. शेती, उद्योग, आणि सेवा क्षेत्र हे भारतीय अर्थव्यवस्थेचे तीन मुख्य आधार आहेत. शेती क्षेत्रात मुख्यतः धान्य, कापूस, चहा, आणि मसाल्यांची शेती केली जाती. उद्योग क्षेत्रात उत्पादन, निर्माण, आणि खाणकामाचा समावेश आहे. सेवा क्षेत्रात माहिती तंत्रज्ञान, बँकिंग, आणि पर्यटन हे मुख्य घटक आहेत.",
+            questions: [
+                { q: "11. भारतीय अर्थव्यवस्थेचे मुख्य आधार कोणते आहेत?", options: ["(A) शेती, उद्योग, आणि कला", "(B) उद्योग, सेवा, आणि कला", "(C) शेती, उद्योग, आणि सेवा", "(D) सेवा, कला, आणि निर्माण"], correct: 2, exp: "शेती, उद्योग, आणि सेवा क्षेत्र हे तीन मुख्य आधार आहेत." },
+                { q: "12. शेती क्षेत्रात कोणते उत्पादन केले जाते?", options: ["(A) धान्य, कापूस, तांदूळ", "(B) धान्य, कापूस, चहा, मसाले", "(C) तांदूळ, कापूस, तेल", "(D) चहा, मसाले, कोळसा"], correct: 1, exp: "धान्य, कापूस, चहा, आणि मसाल्यांची शेती केली जाते." },
+                { q: "13. सेवा क्षेत्रात कोणते घटक आहेत?", options: ["(A) बँकिंग, उत्पादन, पर्यटन", "(B) माहिती तंत्रज्ञान, खाणकाम, पर्यटन", "(C) माहिती तंत्रज्ञान, बँकिंग, पर्यटन", "(D) उत्पादन, खाणकाम, बँकिंग"], correct: 2, exp: "माहिती तंत्रज्ञान, बँकिंग, आणि पर्यटन हे सेवा क्षेत्रातील घटक आहेत." },
+                { q: "14. 'अर्थ' या शब्दाचा समानार्थी शब्द कोणता?", options: ["(A) व्यापार", "(B) वित्त", "(C) समृद्धी", "(D) उद्योग"], correct: 1, exp: "'अर्थ' चा समानार्थी शब्द 'वित्त' आहे." },
+                { q: "15. \"भारतीय\" या शब्दात कोणता प्रकार आहे?", options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"], correct: 2, exp: "'भारतीय' हा शब्द विशेषण दर्शवतो." }
+            ]
+        },
+        {
+            text: "भारतीय शिक्षण प्रणाली प्राचीन काळापासून प्रसिद्ध आहे. गुरुकुल प्रणालीत विद्यार्थ्यांना शिक्षण दिले जात असे. आधुनिक काळात, भारतीय शिक्षण प्रणालीत प्राथमिक, माध्यमिक, उच्च माध्यमिक आणि उच्च शिक्षण यांचा समावेश आहे. भारतीय शिक्षण प्रणालीत विज्ञान, कला, वाणिज्य, आणि तंत्रज्ञान या शाखांमध्ये शिक्षण दिले जाते.",
+            questions: [
+                { q: "16. प्राचीन भारतीय शिक्षण प्रणालीचे नाव काय होते?", options: ["(A) विद्यालय", "(B) गुरुकुल", "(C) शाळा", "(D) विद्यापीठ"], correct: 1, exp: "प्राचीन शिक्षण प्रणालीचे नाव 'गुरुकुल' होते." },
+                { q: "17. भारतीय शिक्षण प्रणालीत कोणते स्तर आहेत?", options: ["(A) प्राथमिक, माध्यमिक, उच्च माध्यमिक व उच्च शिक्षण", "(B) प्राथमिक, माध्यमिक, उच्च शिक्षण", "(C) उच्च माध्यमिक, माध्यमिक, प्राथमिक", "(D) प्राथमिक, उच्च माध्यमिक, माध्यमिक"], correct: 0, exp: "प्राथमिक, माध्यमिक, उच्च माध्यमिक व उच्च शिक्षण हे स्तर आहेत." },
+                { q: "18. भारतीय शिक्षणप्रणालीतील शाखा कोणत्या?", options: ["(A) कला, इतिहास, विज्ञान", "(B) कला, भाषा, विज्ञान", "(C) कला, विज्ञान, वाणिज्य", "(D) कला, विज्ञान, गणित"], correct: 3, exp: "दिलेल्या पर्यायांनुसार 'कला, विज्ञान, गणित' योग्य आहे." },
+                { q: "19. \"शिक्षण\" या शब्दाचा समानार्थी शब्द कोणता?", options: ["(A) ज्ञान", "(B) कला", "(C) तंत्रज्ञान", "(D) विज्ञान"], correct: 0, exp: "'शिक्षण' चा समानार्थी शब्द 'ज्ञान' आहे." },
+                { q: "20. \"शिक्षण\" या शब्दात कोणता प्रकार आहे?", options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"], correct: 0, exp: "'शिक्षण' हे भाववाचक नाम आहे." }
+            ]
+        }
+    ];
+
+    let allQuestions = [];
+    passagesData.forEach(p => {
+        p.questions.forEach(q => {
+            allQuestions.push({
+                passageText: p.text,
+                question: q.q,
+                options: q.options,
+                correct: q.correct,
+                exp: q.exp
+            });
+        });
+    });
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentPhone = "";
+
+    function startExam() {
+        studentName = document.getElementById("student-name").value.trim();
+        studentPhone = document.getElementById("student-phone").value.trim();
+
+        if (studentName === "" || studentPhone === "") {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर दोन्ही भरा!");
+            return;
+        }
+
+        document.getElementById("start-screen").classList.remove("active");
+        document.getElementById("exam-screen").classList.add("active");
+
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const qData = allQuestions[currentQuestionIndex];
+        
+        document.getElementById("passage-textinnerText" || "passage-text").innerText = qData.passageText;
+        document.getElementById("question-text").innerText = qData.question;
+        
+        const optionsContainer = document.getElementById("options-container");
+        optionsContainer.innerHTML = "";
+
+        const expBox = document.getElementById("explanation-box");
+        expBox.style.display = "none";
+        expBox.innerText = "";
+
+        document.getElementById("next-btn").style.display = "none";
+        document.getElementById("submit-btn").style.display = "none";
+
+        qData.options.forEach((opt, index) => {
+            const btn = document.createElement("button");
+            btn.className = "option-btn";
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(index);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(selectedIndex) {
+        const qData = allQuestions[currentQuestionIndex];
+        const options = document.querySelectorAll(".option-btn");
+
+        options.forEach(btn => btn.style.pointerEvents = "none");
+
+        if (selectedIndex === qData.correct) {
+            options[selectedIndex].classList.add("correct");
+            score++;
+        } else {
+            options[selectedIndex].classList.add("wrong");
+            options[qData.correct].classList.add("correct");
+            
+            const expBox = document.getElementById("explanation-box");
+            expBox.innerHTML = "<strong>चुकीचे उत्तर! स्पष्टीकरण:</strong> " + qData.exp;
+            expBox.style.display = "block";
+        }
+
+        if (currentQuestionIndex === allQuestions.length - 1) {
+            document.getElementById("submit-btn").style.display = "block";
+        } else {
+            document.getElementById("next-btn").style.display = "block";
+        }
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < allQuestions.length) {
+            loadQuestion();
+        }
+    }
+
+    function submitExam() {
+        document.getElementById("exam-screen").classList.remove("active");
+        document.getElementById("result-screen").classList.add("active");
+
+        const total = allQuestions.length;
+        const percentage = Math.round((score / total) * 100);
+
+        document.getElementById("res-name").innerText = studentName;
+        document.getElementById("res-phone").innerText = studentPhone;
+        document.getElementById("res-score").innerText = score;
+        document.getElementById("res-total").innerText = total;
+        document.getElementById("res-percentage").innerText = percentage;
+
+        const badgeBox = document.getElementById("res-badge");
+
+        if (percentage >= 80) {
+            badgeBox.innerHTML = "🥇 Gold Medal + Trophy";
+            badgeBox.style.color = "#d4af37";
+        } else if (percentage >= 60) {
+            badgeBox.innerHTML = "🥈 Silver Medal + Trophy";
+            badgeBox.style.color = "#c0c0c0";
+        } else if (percentage >= 50) {
+            badgeBox.innerHTML = "🥉 Bronze Medal + Trophy";
+            badgeBox.style.color = "#cd7f32";
+        } else {
+            badgeBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व \"पुढील परीक्षेसाठी शुभेच्छा\"";
+            badgeBox.style.color = "#d9534f";
+        }
+    }
+</script>
+
+</body>
+</html>
