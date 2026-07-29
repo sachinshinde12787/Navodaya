@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा - परिमिती व क्षेत्रफळ</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0284c7;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Arial';
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 15px;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        /* Header Styles */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-container img {
+            max-width: 120px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .header-title {
+            text-align: center;
+            color: var(--primary);
+            margin: 10px 0;
+            font-size: 22px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 5px;
+        }
+
+        /* Officers Section */
+        .officers-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        .officer-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 48%;
+            background: #f8fafc;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-sizing: border-box;
+        }
+
+        .officer-box img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        /* Footer Credit */
+        .footer-credit {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        /* Timer & Quiz */
+        .timer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fef3c7;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #92400e;
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #fff;
+            border: 2px solid #cbd5e1;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .option-btn.selected {
+            background: #dbeafe;
+            border-color: var(--secondary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Certificate / Result */
+        .certificate-box {
+            border: 6px double var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            background: #fffdf5;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .cert-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .cert-details {
+            text-align: left;
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .marks-badge {
+            font-size: 26px;
+            font-weight: bold;
+            color: #15803d;
+            margin: 15px 0;
+        }
+
+        .award-badge {
+            font-size: 20px;
+            font-weight: bold;
+            color: #b45309;
+            margin-bottom: 15px;
+        }
+
+        /* Wrong Questions Section */
+        .wrong-q-item {
+            background: #fff;
+            border-left: 4px solid #ef4444;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .explanation {
+            background: #f0fdf4;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #166534;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- PAGE 1: START FORM -->
+    <div id="start-page" style="display: block;">
+        <div class="logo-container">
+            <img src="https://drive.google.com/thumbnail?id=1Es1MWAbjyCjxzU11JHmEV6VeIgNkV9bt&sz=w500" alt="पंचायत समिती करमाळा">
+        </div>
+
+        <h2 class="header-title">नवोदय परीक्षा - परिमिती व क्षेत्रफळ</h2>
+
+        <div class="officers-section">
+            <div class="officer-box">
+                <img src="https://drive.google.com/thumbnail?id=1_XeUqnI-oMh8-Dbo4wJUkj7hVkjrov0Y&sz=w500" alt="मार्गदर्शक">
+                <div>
+                    <b>मार्गदर्शक</b><br>
+                    श्री नितीन कदम साहेब<br>
+                    <small>गटशिक्षणाधिकारी पं. स. करमाळा</small>
+                </div>
+            </div>
+            <div class="officer-box">
+                <div>
+                    <b>संकल्पना व निर्मिती</b><br>
+                    श्री सचिन शिंदे सर<br>
+                    <small>जि प प्रा शाळा नरसोबावाडी<br>मो. 8329684470</small>
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w500" alt="निर्मिती">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>विद्यार्थ्याचे नाव :</label>
+            <input type="text" id="std-name" placeholder="पूर्ण नाव टाका">
+        </div>
+        <div class="form-group">
+            <label>शाळेचे नाव :</label>
+            <input type="text" id="std-school" placeholder="शाळेचे नाव टाका">
+        </div>
+        <div class="form-group">
+            <label>केंद्र :</label>
+            <input type="text" id="std-center" placeholder="केद्राचे नाव टाका">
+        </div>
+        <button type="button" class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- PAGE 2: EXAM PAGE -->
+    <div id="exam-page" style="display: none;">
+        <div>
+            <div class="timer-container">
+                <span>प्रश्न: <span id="q-num">1</span>/<span id="total-q">25</span></span>
+                <span>वेळ शिल्लक: <span id="timer-display">30:00</span></span>
+            </div>
+
+            <div class="question-text" id="question-box"></div>
+
+            <div class="options-grid" id="options-box"></div>
+        </div>
+
+        <div>
+            <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट (पुढील प्रश्न)</button>
+            <button id="submit-btn" class="btn" style="background-color: #15803d; display: none;" onclick="submitExam()">SUBMIT EXAM</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3: RESULT PAGE (CERTIFICATE STYLE) -->
+    <div id="result-page" style="display: none;">
+        <div class="certificate-box">
+            <div class="cert-header">
+                🏆 पंचायत समिती शिक्षण विभाग करमाळा संचालित
+            </div>
+            <h3 style="margin: 5px 0; color: var(--secondary);">नवोदय परीक्षा - परिमिती व क्षेत्रफळ</h3>
+            
+            <div class="cert-details">
+                <b>विद्यार्थ्याचे नाव :</b> <span id="res-name"></span><br>
+                <b>शाळेचे नाव :</b> <span id="res-school"></span><br>
+                <b>केंद्र :</b> <span id="res-center"></span>
+            </div>
+
+            <div class="marks-badge">
+                मिळालेले गुण: <span id="res-marks"></span> / <span id="res-total-marks"></span>
+            </div>
+
+            <div class="award-badge" id="res-award"></div>
+
+            <div class="officers-section" style="margin-top:20px;">
+                <div class="officer-box">
+                    <img src="https://drive.google.com/thumbnail?id=1_XeUqnI-oMh8-Dbo4wJUkj7hVkjrov0Y&sz=w500" alt="मार्गदर्शक">
+                    <div>
+                        <b>मार्गदर्शक</b><br>
+                        श्री नितीन कदम साहेब<br>
+                        <small>गटशिक्षणाधिकारी पं. स. करमाळा</small>
+                    </div>
+                </div>
+                <div class="officer-box">
+                    <div>
+                        <b>संकल्पना व निर्मिती</b><br>
+                        श्री सचिन शिंदे सर<br>
+                        <small>जि प प्रा शाळा नरसोबावाडी<br>मो. 8329684470</small>
+                    </div>
+                    <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w500" alt="निर्मिती">
+                </div>
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #dc2626;" onclick="showWrongQuestions()">चुकलेले प्रश्न स्पष्टीकरणासह पहा</button>
+
+        <div id="wrong-questions-section" style="display: none; margin-top: 15px;">
+            <h3>चुकलेल्या प्रश्नांचे स्पष्टीकरण:</h3>
+            <div id="wrong-q-container"></div>
+        </div>
+    </div>
+
+    <!-- COMMON FOOTER -->
+    <div class="footer-credit">
+        टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे (मोबाईल नंबर: 8329684470)
+    </div>
+
+</div>
+
+<script>
+    const questions = [
+        { q: "1. एका चौरसाची बाजू 16 सेमी आहे, तर त्या चौरसाचे क्षेत्रफळ किती?", options: ["(A) 64 चौ.सेमी", "(B) 256 चौ.सेमी", "(C) 128 चौ.सेमी", "(D) 196 चौ.सेमी"], ans: 1, exp: "चौरसाचे क्षेत्रफळ = बाजू × बाजू = 16 × 16 = 256 चौ.सेमी." },
+        { q: "2. एका आयताची लांबी 18 मी व रुंदी 12 मी आहे. तर त्या आयताची परिमिती किती?", options: ["(A) 60 मी", "(B) 216 मी", "(C) 30 मी", "(D) 120 मी"], ans: 0, exp: "आयताची परिमिती = 2 × (लांबी + रुंदी) = 2 × (18 + 12) = 60 मी." },
+        { q: "3. एका चौरसाचे क्षेत्रफळ 144 चौ.सेमी आहे, तर त्या चौरसाची परिमिती किती असेल?", options: ["(A) 24 सेमी", "(B) 36 सेमी", "(C) 48 सेमी", "(D) 12 सेमी"], ans: 2, exp: "बाजू = √144 = 12 सेमी. परिमिती = 4 × बाजू = 4 × 12 = 48 सेमी." },
+        { q: "4. एका आयताचे क्षेत्रफळ 180 चौ.मी असून त्याची लांबी 15 मी आहे. तर त्या आयताची रुंदी किती?", options: ["(A) 10 मी", "(B) 12 मी", "(C) 14 मी", "(D) 16 मी"], ans: 1, exp: "रुंदी = क्षेत्रफळ / लांबी = 180 / 15 = 12 मी." },
+        { q: "5. एका चौरसाची आणि आयताची परिमिती समान (40 सेमी) आहे. जर आयताची रुंदी 8 सेमी असेल, तर आयताचे क्षेत्रफळ चौरसाच्या क्षेत्रफळापेक्षा कितीने कमी आहे?", options: ["(A) 4 चौ.सेमी", "(B) 10 चौ.सेमी", "(C) 16 चौ.सेमी", "(D) 20 चौ.सेमी"], ans: 0, exp: "चौरस बाजू=10, क्षेत्रफळ=100. आयत लांबी=12, क्षेत्रफळ=12×8=96. फरक = 100 - 96 = 4 चौ.सेमी." },
+        { q: "6. एका चौरसाची बाजू दुप्पट केली, तर त्याचे क्षेत्रफळ मूळ क्षेत्रफळाच्या किती पट होईल?", options: ["(A) 2 पट", "(B) 3 पट", "(C) 4 पट", "(D) 8 पट"], ans: 2, exp: "बाजू दुप्पट झाल्यास क्षेत्रफळ (2)² = 4 पट होते." },
+        { q: "7. एका चौरसाची परिमिती 64 मी आहे व आयताची लांबी 20 मी आहे. दोघांची परिमिती समान असल्यास आयताचे क्षेत्रफळ किती?", options: ["(A) 240 चौ.मी", "(B) 256 चौ.मी", "(C) 220 चौ.मी", "(D) 200 चौ.मी"], ans: 0, exp: "आयताची परिमिती = 64 मी. रुंदी = 12 मी. क्षेत्रफळ = 20 × 12 = 240 चौ.मी." },
+        { q: "8. 18 मी × 12 मी आकाराच्या हॉलमध्ये 15 सेमी × 10 सेमी आकाराच्या किती फरश्या लागतील?", options: ["(A) 12,000", "(B) 14,400", "(C) 15,000", "(D) 18,400"], ans: 1, exp: "फरश्या = (1800 × 1200) / (15 × 10) = 14,400." },
+        { q: "9. एका 6 मी × 4 मी च्या खोलीत बसवण्यासाठी 20 सेमी बाजू असणाऱ्या चौरसाकृती किती लाद्या लागतील?", options: ["(A) 300", "(B) 600", "(C) 1200", "(D) 1500"], ans: 1, exp: "लाद्या = (600 × 400) / (20 × 20) = 600." },
+        { q: "10. 30 सेमी × 20 सेमी मापाच्या 500 फरश्या एका खोलीत बसवल्यास खोलीचे क्षेत्रफळ किती चौ.मीटर असेल?", options: ["(A) 30 चौ.मी", "(B) 300 चौ.मी", "(C) 3000 चौ.मी", "(D) 3 चौ.मी"], ans: 0, exp: "क्षेत्रफळ = 500 × (0.3 × 0.2) = 30 चौ.मी." },
+        { q: "11. 25 मी बाजू असलेल्या चौरसाकृती बागेभोवती 5 पदरी तारेचे कुंपण घालण्यासाठी एकूण किती तार लागेल?", options: ["(A) 100 मी", "(B) 200 मी", "(C) 500 मी", "(D) 625 मी"], ans: 2, exp: "परिमिती = 4 × 25 = 100 मी. 5 पदरी तार = 100 × 5 = 500 मी." },
+        { q: "12. 40 मी लांब व 30 मी रुंद शेताभोवती 3 पदरी कुंपण घालायचे आहे. तारेचा दर ₹ 25 प्रतिमीटर असल्यास एकूण खर्च किती?", options: ["(A) ₹ 5,250", "(B) ₹ 10,500", "(C) ₹ 3,500", "(D) ₹ 7,000"], ans: 1, exp: "परिमिती = 2(40+30) = 140 मी. 3 फेऱ्या = 420 मी. खर्च = 420 × 25 = ₹ 10,500." },
+        { q: "13. 80 सेमी लांबीच्या तारेचा वापर करून आयत बनवला. रुंदी 15 सेमी असल्यास त्याचे क्षेत्रफळ किती?", options: ["(A) 375", "(B) 600", "(C) 300", "(D) 450"], ans: 0, exp: "परिमिती = 80 सेमी ⇒ लांबी = 25 सेमी. क्षेत्रफळ = 25 × 15 = 375 चौ.सेमी." },
+        { q: "14. 60 सेमी तारेपासून बनवलेल्या काटकोन चौकोनाचे कमाल क्षेत्रफळ किती असू शकते?", options: ["(A) 200 चौ.सेमी", "(B) 225 चौ.सेमी", "(C) 250 चौ.सेमी", "(D) 300 चौ.सेमी"], ans: 1, exp: "कमाल क्षेत्रफळासाठी चौरस हवा. बाजू = 15 सेमी ⇒ 15 × 15 = 225 चौ.सेमी." },
+        { q: "15. हॉलची लांबी व रुंदीत 10 मी फरक आहे (लांबी > रुंदी). जमिनीची परिमिती 100 मी असल्यास क्षेत्रफळ किती?", options: ["(A) 600 चौ.मी", "(B) 525 चौ.मी", "(C) 400 चौ.मी", "(D) 625 चौ.मी"], ans: 0, exp: "लांबी = 30 मी, रुंदी = 20 मी. क्षेत्रफळ = 30 × 20 = 600 चौ.मी." },
+        { q: "16. काटकोन त्रिकोणाचा पाया 9 सेमी व उंची 12 सेमी आहे, तर त्याची परिमिती किती?", options: ["(A) 36 सेमी", "(B) 21 सेमी", "(C) 54 सेमी", "(D) 30 सेमी"], ans: 0, exp: "कर्ण = √(9²+12²) = 15 सेमी. परिमिती = 9 + 12 + 15 = 36 सेमी." },
+        { q: "17. काटकोन त्रिकोणाचा पाया 15 सेमी आणि कर्ण 17 सेमी आहे, तर त्याचे क्षेत्रफळ किती?", options: ["(A) 120", "(B) 60", "(C) 127.5", "(D) 255"], ans: 1, exp: "उंची = √(17²-15²) = 8 सेमी. क्षेत्रफळ = 1/2 × 15 × 8 = 60 चौ.सेमी." },
+        { q: "18. समभुज त्रिकोणाची बाजू 12 सेमी आहे, तर त्याची परिमिती किती?", options: ["(A) 24 सेमी", "(B) 36 सेमी", "(C) 48 सेमी", "(D) 144 सेमी"], ans: 1, exp: "परिमिती = 3 × बाजू = 3 × 12 = 36 सेमी." },
+        { q: "19. 5 मी लांब, 3 मी रुंद आणि 1 मी उंच असलेल्या उघड्या पेटीचे एकूण पृष्ठफळ किती?", options: ["(A) 31 चौ.मी", "(B) 46 चौ.मी", "(C) 30 चौ.मी", "(D) 23 चौ.मी"], ans: 0, exp: "पृष्ठफळ = (5×3) + 2(5×1) + 2(3×1) = 15 + 10 + 6 = 31 चौ.मी." },
+        { q: "20. 10 सेमी × 8 सेमी × 5 सेमी आकाराच्या बंद पेटीचे एकूण पृष्ठफळ किती?", options: ["(A) 340 चौ.सेमी", "(B) 170 चौ.सेमी", "(C) 400 चौ.सेमी", "(D) 280 चौ.सेमी"], ans: 0, exp: "पृष्ठफळ = 2(10×8 + 8×5 + 10×5) = 2(80 + 40 + 50) = 340 चौ.सेमी." },
+        { q: "21. 10 मी × 4 मी × 3 मी च्या खोलीत 20 सेमी × 10 सेमी × 5 सेमी मापाच्या किती विटा बसतील?", options: ["(A) 1,20,000", "(B) 60,000", "(C) 1,200", "(D) 12,000"], ans: 0, exp: "विटा = (1000 × 400 × 300) / (20 × 10 × 5) = 1,20,000." },
+        { q: "22. 6 सेमी बाजू असलेल्या घनाचे घनफळ किती असेल?", options: ["(A) 216 घ.सेमी", "(B) 36 घ.सेमी", "(C) 144 घ.सेमी", "(D) 72 घ.सेमी"], ans: 0, exp: "घनफळ = बाजू³ = 6 × 6 × 6 = 216 घ.सेमी." },
+        { q: "23. 30 मी × 20 मी शेताच्या मध्यभागी 10 मी × 10 मी तळे खोदले. उरलेल्या शेताचे क्षेत्रफळ किती?", options: ["(A) 600 चौ.मी", "(B) 500 चौ.मी", "(C) 400 चौ.मी", "(D) 300 चौ.मी"], ans: 1, exp: "उरलेले क्षेत्रफळ = (30×20) - (10×10) = 600 - 100 = 500 चौ.मी." },
+        { q: "24. 15 मी बाजूच्या चौरसाकृती मैदानाभोवती बाहेरून 1 मी रुंदीचा रस्ता आहे. रस्त्याचे क्षेत्रफळ किती?", options: ["(A) 64 चौ.मी", "(B) 31 चौ.मी", "(C) 289 चौ.मी", "(D) 225 चौ.मी"], ans: 0, exp: "नवीन बाजू = 17 मी. रस्त्याचे क्षेत्रफळ = 17² - 15² = 289 - 225 = 64 चौ.मी." },
+        { q: "25. 20 सेमी चौरसाच्या चार कोपऱ्यांवरून 2 सेमी चौरस कापले. उरलेल्या आकृतीची परिमिती मूळ परिमितीपेक्षा किती बदलेल?", options: ["(A) 8 सेमी ने वाढेल", "(B) 8 सेमी ने कमी होईल", "(C) तीच राहील", "(D) 16 सेमी ने कमी होईल"], ans: 2, exp: "कोनातून चौरस कापल्यास लांबीमध्ये कोणताही बदल होत नाही; त्यामुळे परिमिती तीच राहते." }
+    ];
+
+    let currentQ = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let timer;
+    let totalTimeSeconds = 1800;
+
+    function startExam() {
+        var name = document.getElementById('std-name').value.trim();
+        var school = document.getElementById('std-school').value.trim();
+        var center = document.getElementById('std-center').value.trim();
+
+        if (!name || !school || !center) {
+            alert("कृपया विद्यार्थ्याचे नाव, शाळेचे नाव आणि केंद्र पूर्ण भरा.");
+            return;
+        }
+
+        document.getElementById('start-page').style.display = 'none';
+        document.getElementById('exam-page').style.display = 'block';
+
+        document.getElementById('total-q').innerText = questions.length;
+        loadQuestion();
+        startTimer();
+    }
+
+    function startTimer() {
+        timer = setInterval(function() {
+            totalTimeSeconds--;
+            let mins = Math.floor(totalTimeSeconds / 60);
+            let secs = totalTimeSeconds % 60;
+            document.getElementById('timer-display').innerText = 
+                (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+
+            if (totalTimeSeconds <= 0) {
+                clearInterval(timer);
+                alert("वेळ संपली आहे! तुमची परीक्षा सबमिट केली जात आहे.");
+                submitExam();
+            }
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        document.getElementById('q-num').innerText = currentQ + 1;
+        document.getElementById('question-box').innerText = questions[currentQ].q;
+        
+        let optionsBox = document.getElementById('options-box');
+        optionsBox.innerHTML = '';
+
+        questions[currentQ].options.forEach(function(opt, index) {
+            let btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'option-btn';
+            if (userAnswers[currentQ] === index) {
+                btn.classList.add('selected');
+            }
+            btn.innerText = opt;
+            btn.onclick = function() { selectOption(index); };
+            optionsBox.appendChild(btn);
+        });
+
+        if (currentQ === questions.length - 1) {
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('submit-btn').style.display = 'block';
+        } else {
+            document.getElementById('next-btn').style.display = 'block';
+            document.getElementById('submit-btn').style.display = 'none';
+        }
+
+        document.getElementById('next-btn').disabled = (userAnswers[currentQ] === null);
+    }
+
+    function selectOption(index) {
+        userAnswers[currentQ] = index;
+        let btns = document.querySelectorAll('.option-btn');
+        btns.forEach(function(b) { b.classList.remove('selected'); });
+        btns[index].classList.add('selected');
+        document.getElementById('next-btn').disabled = false;
+    }
+
+    function nextQuestion() {
+        if (currentQ < questions.length - 1) {
+            currentQ++;
+            loadQuestion();
+        }
+    }
+
+    function submitExam() {
+        clearInterval(timer);
+        document.getElementById('exam-page').style.display = 'none';
+        document.getElementById('result-page').style.display = 'block';
+
+        let score = 0;
+        questions.forEach(function(q, i) {
+            if (userAnswers[i] === q.ans) score += 2;
+        });
+
+        let totalMarks = questions.length * 2;
+        let percentage = (score / totalMarks) * 100;
+
+        document.getElementById('res-name').innerText = document.getElementById('std-name').value;
+        document.getElementById('res-school').innerText = document.getElementById('std-school').value;
+        document.getElementById('res-center').innerText = document.getElementById('std-center').value;
+        document.getElementById('res-marks').innerText = score;
+        document.getElementById('res-total-marks').innerText = totalMarks;
+
+        let awardBox = document.getElementById('res-award');
+        if (percentage >= 80) {
+            awardBox.innerHTML = "🥇 Gold Medal + Trophy <br><small>उत्कृष्ट कामगिरी!</small>";
+        } else if (percentage >= 60) {
+            awardBox.innerHTML = "🥈 Silver Medal + Trophy <br><small>छान कामगिरी!</small>";
+        } else if (percentage >= 50) {
+            awardBox.innerHTML = "🥉 Bronze Medal + Trophy <br><small>चांगला प्रयत्न!</small>";
+        } else {
+            awardBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ <br><small>पुढील परीक्षेसाठी शुभेच्छा!</small>";
+        }
+    }
+
+    function showWrongQuestions() {
+        let container = document.getElementById('wrong-q-container');
+        container.innerHTML = '';
+        let hasWrong = false;
+
+        questions.forEach(function(q, i) {
+            if (userAnswers[i] !== q.ans) {
+                hasWrong = true;
+                let userAnsText = userAnswers[i] !== null ? q.options[userAnswers[i]] : "उत्तर दिले नाही";
+                let correctAnsText = q.options[q.ans];
+
+                let div = document.createElement('div');
+                div.className = 'wrong-q-item';
+                div.innerHTML = `
+                    <b>${q.q}</b><br>
+                    <span style="color: #dc2626;">तुमचे उत्तर: ${userAnsText}</span><br>
+                    <span style="color: #15803d;">बरोबर उत्तर: ${correctAnsText}</span>
+                    <div class="explanation"><b>स्पष्टीकरण:</b> ${q.exp}</div>
+                `;
+                container.appendChild(div);
+            }
+        });
+
+        if (!hasWrong) {
+            container.innerHTML = "<p style='color: green; font-weight: bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</p>";
+        }
+
+        document.getElementById('wrong-questions-section').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
