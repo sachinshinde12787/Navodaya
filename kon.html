@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>नवोदय परीक्षा सराव टेस्ट - कोण व कोनांचे प्रकार</title>
@@ -209,7 +208,7 @@
             <label for="studentName">विद्यार्थ्याचे नाव :</label>
             <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" onkeydown="if(event.key==='Enter') startExam();">
         </div>
-        <button type="button" class="btn" id="start-btn">Start Exam</button>
+        <button type="button" class="btn" id="start-btn" onclick="startExam()">Start Exam</button>
 
         <div class="teachers-footer">
             <div class="teacher-box">
@@ -230,8 +229,8 @@
         
         <div id="explanation-box" class="explanation-box"></div>
         
-        <button type="button" class="btn" id="next-btn" style="display:none;">Next Question</button>
-        <button type="button" class="btn" id="submit-btn" style="display:none; background-color: #38a169;">Submit Exam</button>
+        <button type="button" class="btn" id="next-btn" style="display:none;" onclick="nextQuestion()">Next Question</button>
+        <button type="button" class="btn" id="submit-btn" style="display:none; background-color: #38a169;" onclick="showResult()">Submit Exam</button>
 
         <div class="teachers-footer">
             <div class="teacher-box">
@@ -286,7 +285,6 @@
 </div>
 
 <script>
-    // ३० नवोदय प्रश्न
     const questions = [
         { q: "1. ज्या कोनाचे माप 90° पेक्षा कमी असते, त्या कोनाला काय म्हणतात?", options: ["काटकोन", "विशालकोन", "लघुकोन", "प्रविशाल कोण"], ans: 2, exp: "90° पेक्षा लहान असणाऱ्या कोनाला 'लघुकोन' म्हणतात." },
         { q: "2. 180° मापाच्या कोनाला खालीलपैकी कोणते नाव दिले जाते?", options: ["पूर्णकोन", "सरळकोन", "विशालकोन", "काटकोन"], ans: 1, exp: "बरोबर 180° मापाच्या कोनाला 'सरळकोन' म्हणतात." },
@@ -324,11 +322,6 @@
     let score = 0;
     let studentName = "";
     let wrongAnswers = [];
-
-    // Event Listeners
-    document.getElementById('start-btn').addEventListener('click', startExam);
-    document.getElementById('next-btn').addEventListener('click', nextQuestion);
-    document.getElementById('submit-btn').addEventListener('click', showResult);
 
     function startExam() {
         const nameInput = document.getElementById('studentName');
@@ -384,7 +377,6 @@
             expBox.innerHTML = `<b>स्पष्टीकरण:</b> ${explanation}`;
             expBox.style.display = 'block';
 
-            // चुकलेला प्रश्न सेव्ह करा
             wrongAnswers.push({
                 question: currentQ.q,
                 userAns: currentQ.options[selectedIdx],
@@ -436,10 +428,13 @@
         document.getElementById('cert-badge').innerText = badge;
         document.getElementById('res-status').innerText = statusText;
 
-        // चुकलेले प्रश्न दाखवा
         if (wrongAnswers.length > 0) {
             const wrongContainer = document.getElementById('wrong-questions-list');
             wrongContainer.innerHTML = "";
 
             wrongAnswers.forEach((item) => {
-                const
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.innerHTML = `
+                    <div class="review-q">${item.question}</div>
+                    <div class="review-ans" style="color: #e53e3e;"><b>तुमचे उत्तर:</b> ${item.userAns}       
