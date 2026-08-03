@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - सर्वनाम</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 650px;
+            padding: 20px;
+            border: 2px solid #0056b3;
+        }
+
+        .header-title {
+            text-align: center;
+            color: #0056b3;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .sub-header {
+            text-align: center;
+            color: #28a745;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed #bbb;
+            padding-bottom: 10px;
+        }
+
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .btn-custom {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            color: white !important;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #003d80;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        /* Screen Controls */
+        .screen { display: none; }
+        .active { display: block; }
+
+        /* Quiz Styles */
+        .question-box {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .option-btn.correct {
+            background-color: #28a745 !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #dc3545 !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            color: #856404;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* Certificate Styles */
+        .certificate {
+            border: 5px double #0056b3;
+            padding: 20px;
+            border-radius: 10px;
+            background: #fffdf5;
+            text-align: center;
+        }
+
+        .badge-icon {
+            font-size: 45px;
+            margin: 10px 0;
+        }
+
+        .result-details {
+            text-align: left;
+            margin: 15px 0;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .wrong-questions-section {
+            text-align: left;
+            margin-top: 20px;
+            border-top: 2px solid #ddd;
+            padding-top: 15px;
+        }
+
+        .wrong-item {
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+
+    <!-- Screen 1: Start Screen -->
+    <div id="start-screen" class="screen active">
+        <div class="sub-header">नवोदय परीक्षा सराव टेस्ट - सर्वनाम</div>
+        
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+        </div>
+        
+        <div class="input-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" maxlength="10">
+        </div>
+
+        <button type="button" id="start-btn" class="btn-custom">Start Exam</button>
+
+        <div class="footer-teachers">
+            <div><strong>मार्गदर्शक शिक्षक:</strong> सचिन शिंदे<br><strong>संपर्क:</strong> 8329684470</div>
+            <div style="text-align: right;"><strong>मार्गदर्शक शिक्षक:</strong> सतीश चिंदे<br><strong>संपर्क:</strong> 8208167846</div>
+        </div>
+    </div>
+
+    <!-- Screen 2: Quiz Screen -->
+    <div id="quiz-screen" class="screen">
+        <div class="sub-header" id="quiz-title">नवोदय परीक्षा सराव टेस्ट</div>
+        
+        <div class="question-box" id="question-text">प्रश्न येथे येईल...</div>
+        <div class="options-box" id="options-container"></div>
+        
+        <div class="explanation" id="explanation-box"></div>
+
+        <button type="button" id="next-btn" class="btn-custom" style="display: none;">पुढील प्रश्न</button>
+        <button type="button" id="submit-btn" class="btn-custom" style="display: none; background-color: #28a745;">Submit Exam</button>
+    </div>
+
+    <!-- Screen 3: Certificate / Result Screen -->
+    <div id="result-screen" class="screen">
+        <div class="certificate">
+            <div class="header-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <hr style="margin: 10px 0;">
+            <div id="badge-display" class="badge-icon">🏆</div>
+            <h3 id="performance-title" style="color: #0056b3; margin-bottom: 10px;">गुणपत्रक व प्रमाणपत्र</h3>
+
+            <div class="result-details">
+                <strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट (सर्वनाम)<br>
+                <strong>विद्यार्थ्याचे नाव :</strong> <span id="res-name"></span><br>
+                <strong>मोबाईल नंबर :</strong> <span id="res-mobile"></span><br>
+                <strong>मिळालेले गुण :</strong> <span id="res-score"></span> / <span id="res-total"></span><br>
+                <strong>टक्केवारी :</strong> <span id="res-percentage"></span>%
+            </div>
+
+            <div id="performance-msg" style="font-weight: bold; font-size: 16px; margin: 10px 0; color: #d9534f;"></div>
+
+            <div class="footer-teachers">
+                <div><strong>मार्गदर्शक शिक्षक:</strong> सचिन शिंदे<br><strong>संपर्क:</strong> 8329684470</div>
+                <div style="text-align: right;"><strong>मार्गदर्शक शिक्षक:</strong> सतीश चिंदे<br><strong>संपर्क:</strong> 8208167846</div>
+            </div>
+        </div>
+
+        <div class="wrong-questions-section" id="wrong-section">
+            <h3 style="color: #dc3545; margin-bottom: 10px;">चुकलेले प्रश्न आणि स्पष्टीकरण:</h3>
+            <div id="wrong-list"></div>
+        </div>
+
+        <button type="button" id="restart-btn" class="btn-custom" style="margin-top: 20px;">पुन्हा परीक्षा द्या</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: '१. "शिक्षक वर्गात आले. _____ विद्यार्थ्यांना अभ्यासाचे महत्त्व सांगितले."', options: ['अ) त्यांनी', 'ब) त्याने', 'क) आम्ही', 'ड) तू'], ans: 0, exp: 'शिक्षकांविषयी आदर दर्शवण्यासाठी "त्यांनी" हे आदरार्थी बहुवचनी सर्वनाम वापरले जाते.' },
+        { q: '२. खालीलपैकी कोणत्या वाक्यात सर्वनामाचा योग्य वापर झाला आहे?', options: ['अ) आम्ही माझा गृहपाठ पूर्ण केला.', 'ब) मी आमचे पुस्तक वाचले.', 'क) आम्ही आमचा गृहपाठ पूर्ण केला.', 'ड) त्याने तिचे स्वतःला बोलावले.'], ans: 2, exp: '"आम्ही" या प्रथम पुरुषवाचक अनेकवचनी सर्वनामासोबत "आमचा" हेच सर्वनाम योग्य ठरते.' },
+        { q: '३. "रोहन आणि सोहम मैदानात गेले. _____ क्रिकेट खेळू लागले."', options: ['अ) त्यांनी', 'ब) तो', 'क) ते', 'ड) आम्ही'], ans: 2, exp: 'रोहन आणि सोहम (दोन व्यक्ती/तृतीय पुरुष अनेकवचन) साठी "ते" हे सर्वनाम योग्य आहे.' },
+        { q: '४. खालीलपैकी कोणते वाक्य अधिक योग्य आहे?', options: ['अ) सीमा म्हणाली, "मी उद्या येईन."', 'ब) सीमा म्हणाली, "ती उद्या येईन."', 'क) सीमा म्हणाली, "तो उद्या येईन."', 'ड) सीमा म्हणाली, "आम्ही उद्या येईन."'], ans: 0, exp: 'स्वतःबद्दल बोलताना प्रथम पुरुषवाचक एकवचनी "मी" सर्वनाम वापरले जाते.' },
+        { q: '५. "संगीता आणि कविता स्पर्धेत सहभागी झाल्या. _____ बक्षीस मिळाले."', options: ['अ) तिला', 'ब) त्यांना', 'क) आम्हाला', 'ड) त्याने'], ans: 1, exp: 'संगीता आणि कविता या दोन व्यक्तींसाठी अनेकवचनी "त्यांना" हे सर्वनाम वापरले जाते.' },
+        { q: '६. खालीलपैकी कोणत्या वाक्यात सर्वनामाचा वापर अयोग्य आहे?', options: ['अ) मी माझे काम पूर्ण केले.', 'ब) तुम्ही तुमचे पुस्तक आणा.', 'क) आम्ही आमचे गाव स्वच्छ ठेवतो.', 'ड) आम्ही माझे गाव स्वच्छ ठेवतो.'], ans: 3, exp: '"आम्ही" (अनेकवचन) सोबत "माझे" (एकवचन) वापरल्यामुळे ड हे वाक्य अयोग्य आहे.' },
+        { q: '७. खालील वाक्यात योग्य सर्वनाम निवडा: "आई म्हणाली, \'_____ वेळेवर घरी ये.\'"', options: ['अ) तो', 'ब) तू', 'क) ते', 'ड) आम्ही'], ans: 1, exp: 'समोरच्या व्यक्तीला उद्देशून बोलताना द्वितीय पुरुषवाचक "तू" सर्वनाम वापरतात.' },
+        { q: '८. खालीलपैकी पुनरावृत्ती टाळण्यासाठी योग्य वाक्य कोणते?', options: ['अ) रोहनने रोहनची बॅग उचलली.', 'ब) रोहनने त्याची बॅग उचलली.', 'क) त्याने रोहनची बॅग उचलली.', 'ड) रोहनने त्यांची बॅग उचलली.'], ans: 1, exp: 'नामाचा वारंवार होणारा वापर टाळण्यासाठी "त्याची" हे सर्वनाम वापरणे योग्य आहे.' },
+        { q: '९. "मी आणि माझा मित्र सहलीला गेलो. _____ खूप आनंद केला."', options: ['अ) आम्ही', 'ब) त्यांनी', 'क) ते', 'ड) तो'], ans: 0, exp: 'स्वतः आणि मित्र एकत्र असल्यामुळे अनेकवचनी "आम्ही" हे सर्वनाम वापरले जाते.' },
+        { q: '१०. खालीलपैकी योग्य वाक्य निवडा.', options: ['अ) प्रत्येक विद्यार्थ्यांनी आपले पुस्तक आणावे.', 'ब) प्रत्येक विद्यार्थी त्यांचे पुस्तक आणावे.', 'क) प्रत्येक विद्यार्थ्याने आपले पुस्तक आणावे.', 'ड) प्रत्येक विद्यार्थी तुमचे पुस्तक आणावे.'], ans: 2, exp: '"प्रत्येक" या एकवचनी नामासोबत "विद्यार्थ्याने आपले" ही रचना व्याकरणदृष्ट्या योग्य आहे.' },
+        { q: '११. खालीलपैकी कोणत्या वाक्यात सर्वनामाचा योग्य वापर झाला आहे?', options: ['अ) सीमा आणि मी सहलीला गेलो. ते खूप आनंदी होतो.', 'ब) सीमा आणि मी सहलीला गेलो. आम्ही खूप आनंदी होतो.', 'क) सीमा आणि मी सहलीला गेलो. ती खूप आनंदी होतो.', 'ड) सीमा आणि मी सहलीला गेलो. तुम्ही खूप आनंदी होतो.'], ans: 1, exp: 'बोलणारा स्वतः आणि सीमा यांचा उल्लेख करत असल्यामुळे "आम्ही" हे सर्वनाम योग्य आहे.' },
+        { q: '१२. "माझे आई-वडील घरी आले. _____ मला आशीर्वाद दिला."', options: ['अ) त्यांनी', 'ब) त्याने', 'क) तिने', 'ड) आम्ही'], ans: 0, exp: 'आई-वडील या आदरणीय/अनेकवचनी घटकासाठी "त्यांनी" हे सर्वनाम वापरतात.' },
+        { q: '१३. खालीलपैकी कोणत्या वाक्यात सर्वनामाचा वापर चुकीचा आहे?', options: ['अ) मी माझे काम केले.', 'ब) तू तुझे पुस्तक आण.', 'क) आम्ही आमचे घर स्वच्छ ठेवतो.', 'ड) ती त्याचे गृहपाठ पूर्ण करते.'], ans: 3, exp: '"ती" (स्त्रीलिंगी) सोबत "तिचे" असावे, "त्याचे" (पुल्लिंगी) वापरल्याने वाक्य चुकीचे आहे.' },
+        { q: '१४. "रीमा म्हणाली, \'_____ आज स्पर्धेत भाग घेईन.\'"', options: ['अ) ती', 'ब) आम्ही', 'क) मी', 'ड) तो'], ans: 2, exp: 'रीमा स्वतःबद्दल बोलत असल्यामुळे "मी" हे सर्वनाम वापरले जाईल.' },
+        { q: '१५. खालीलपैकी पुनरावृत्ती टाळण्यासाठी योग्य वाक्य कोणते?', options: ['अ) मुलांनी सामना जिंकला. त्यांनी आनंद साजरा केला.', 'ब) मुलांनी सामना जिंकला. मुलांनी आनंद साजरा केला.', 'क) मुलांनी सामना जिंकला. तो आनंद साजरा केला.', 'ड) मुलांनी सामना जिंकला. आम्ही आनंद साजरा केला.'], ans: 0, exp: '"मुलांनी" या नामाऐवजी दुसऱ्या वाक्यात "त्यांनी" हे सर्वनाम वापरल्याने पुनरावृत्ती टळते.' },
+        { q: '१६. "विद्यार्थ्यांनो, _____ उद्या वेळेवर या."', options: ['अ) आम्ही', 'ब) तुम्ही', 'क) ते', 'ड) तो'], ans: 1, exp: 'समोर उपस्थित अनेक विद्यार्थ्यांना उद्देशून बोलताना "तुम्ही" हे सर्वनाम वापरतात.' },
+        { q: '१७. खालीलपैकी योग्य वाक्य निवडा.', options: ['अ) आम्ही माझा देश प्रेम करतो.', 'ब) आम्ही आमच्या देशावर प्रेम करतो.', 'क) आम्ही तुझ्या देशावर प्रेम करतो.', 'ड) आम्ही त्याच्या देशावर प्रेम करतो.'], ans: 1, exp: '"आम्ही" या सर्वनामासोबत विभक्ती प्रत्ययानुसार "आमच्या" हे रूप योग्य ठरते.' },
+        { q: '१८. "मीना आणि गीता ग्रंथालयात गेल्या. _____ पुस्तके घेतली."', options: ['अ) त्यांनी', 'ब) तिने', 'क) त्याने', 'ड) आम्ही'], ans: 0, exp: 'मीना आणि गीता (अनेकवचन) साठी "त्यांनी" हे योग्य सर्वनाम आहे.' },
+        { q: '१९. खालीलपैकी कोणते वाक्य योग्य आहे?', options: ['अ) प्रत्येक विद्यार्थ्यांनी आपले काम करावे.', 'ब) प्रत्येक विद्यार्थ्याने आपले काम करावे.', 'क) प्रत्येक विद्यार्थी त्यांचे काम करावे.', 'ड) प्रत्येक विद्यार्थी माझे काम करावे.'], ans: 1, exp: '"प्रत्येक" सोबत एकवचनी तृतीया विभक्ती "विद्यार्थ्याने आपले" ही व्याकरणशुद्ध रचना आहे.' },
+        { q: '२०. "राहुल म्हणाला, \'_____ उद्या नक्की येईन.\'"', options: ['अ) आम्ही', 'ब) तो', 'क) मी', 'ड) ते'], ans: 2, exp: 'राहुल स्वतःबद्दल विधान करत असल्याने "मी" हे सर्वनाम आहे.' },
+        { q: '२१. "राजू, श्याम आणि मी विज्ञान प्रदर्शनात सहभागी झालो. _____ प्रथम क्रमांक मिळवला."', options: ['अ) त्यांनी', 'ब) आम्ही', 'क) ते', 'ड) तुम्ही'], ans: 1, exp: 'गटात बोलणारा स्वतः समाविष्ट असल्यामुळे प्रथम पुरुषी अनेकवचन "आम्ही" योग्य आहे.' },
+        { q: '२२. खालीलपैकी कोणत्या वाक्यात सर्वनामाचा वापर योग्य आहे?', options: ['अ) आम्ही माझे शेत पाहिले.', 'ब) त्यांनी त्यांचा निर्णय बदलला.', 'क) तू तुमचे काम पूर्ण कर.', 'ड) ती त्याचे पुस्तक वाचत होती.'], ans: 1, exp: '"त्यांनी" या आदरार्थी/अनेकवचनी सर्वनामासोबत "त्यांचा" वापरणे योग्य आहे.' },
+        { q: '२३. "शिक्षक म्हणाले, \'_____ उद्या प्रकल्प पूर्ण करून आणा.\'"', options: ['अ) त्यांनी', 'ब) आम्ही', 'क) तुम्ही', 'ड) तो'], ans: 2, exp: 'शिक्षक विद्यार्थ्यांना (द्वितीय पुरुष) सांगत असल्यामुळे "तुम्ही" हे सर्वनाम योग्य आहे.' },
+        { q: '२४. खालीलपैकी कोणते वाक्य अधिक योग्य आहे?', options: ['अ) सोनाली म्हणाली, "मी स्पर्धेत भाग घेईन."', 'ब) सोनाली म्हणाली, "ती स्पर्धेत भाग घेईन."', 'क) सोनाली म्हणाली, "तो स्पर्धेत भाग घेईन."', 'ड) सोनाली म्हणाली, "आम्ही स्पर्धेत भाग घेईन."'], ans: 0, exp: 'प्रत्यक्ष कथनात बोलणाऱ्या व्यक्तीसाठी "मी" हे सर्वनाम वापरले जाते.' },
+        { q: '२५. "माझी बहीण खूप हुशार आहे. _____ नेहमी प्रथम येते."', options: ['अ) तो', 'ब) ती', 'क) ते', 'ड) आम्ही'], ans: 1, exp: 'बहीण (स्त्रीलिंगी एकवचन) साठी "ती" हे सर्वनाम वापरले जाते.' },
+        { q: '२६. खालीलपैकी कोणत्या वाक्यात सर्वनामाचा वापर चुकीचा आहे?', options: ['अ) मी माझा गृहपाठ पूर्ण केला.', 'ब) आम्ही आमच्या शाळेचा अभिमान बाळगतो.', 'क) तू तुझे पुस्तक आण.', 'ड) आम्ही माझे गाव स्वच्छ ठेवतो.'], ans: 3, exp: '"आम्ही" सोबत "माझे" न वापरता "आमचे" असायला हवे होते.' },
+        { q: '२७. "मी आणि माझे मित्र सकाळी धावायला जातो. _____ रोज सराव करतो."', options: ['अ) आम्ही', 'ब) त्यांनी', 'क) तो', 'ड) ते'], ans: 0, exp: 'स्वतः आणि मित्रांच्या समूहासाठी "आम्ही" हे सर्वनाम योग्य आहे.' },
+        { q: '२८. खालीलपैकी योग्य वाक्य निवडा.', options: ['अ) प्रत्येक विद्यार्थ्यांनी आपले पुस्तक आणावे.', 'ब) प्रत्येक विद्यार्थ्याने आपले पुस्तक आणावे.', 'क) प्रत्येक विद्यार्थी त्यांचे पुस्तक आणावे.', 'ड) प्रत्येक विद्यार्थी तुमचे पुस्तक आणावे.'], ans: 1, exp: '"प्रत्येक" सोबत एकवचनी तृतीया विभक्ती रूप "विद्यार्थ्याने आपले" ही योग्य रचना आहे.' },
+        { q: '२९. "आई म्हणाली, \'_____ जेवण झाल्यावर अभ्यास कर.\'"', options: ['अ) तो', 'ब) ते', 'क) तू', 'ड) आम्ही'], ans: 2, exp: 'आई मुलाला सांगत असल्याने द्वितीय पुरुषी "तू" हे सर्वनाम योग्य आहे.' },
+        { q: '३०. खालीलपैकी पुनरावृत्ती टाळण्यासाठी योग्य वाक्य कोणते?', options: ['अ) सीमा सीमाचे पुस्तक घेऊन आली.', 'ब) सीमा तिचे पुस्तक घेऊन आली.', 'क) तिचे सीमा पुस्तक घेऊन आली.', 'ड) सीमा त्याचे पुस्तक घेऊन आली.'], ans: 1, exp: 'सीमा (स्त्रीलिंगी) या नामाऐवजी "तिचे" सर्वनाम वापरणे योग्य आहे.' }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let userAnswers = [];
+
+    // सुरक्षित इव्हेंट लिसनर (ज्यामुळे मोबाईल आणि GitHub वर बटण १००% चालेल)
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("start-btn").addEventListener("click", startExam);
+        document.getElementById("next-btn").addEventListener("click", nextQuestion);
+        document.getElementById("submit-btn").addEventListener("click", submitExam);
+        document.getElementById("restart-btn").addEventListener("click", () => location.reload());
+    });
+
+    function startExam() {
+        const nameInput = document.getElementById("student-name");
+        const mobileInput = document.getElementById("student-mobile");
+        
+        studentName = nameInput.value.trim();
+        studentMobile = mobileInput.value.trim();
+
+        if (studentName === "" || studentMobile.length !== 10) {
+            alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी वैध मोबाईल नंबर टाका!");
+            return;
+        }
+
+        // स्क्रीन बदलणे
+        document.getElementById("start-screen").classList.remove("active");
+        document.getElementById("quiz-screen").classList.add("active");
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const qData = questions[currentQ];
+        document.getElementById("question-text").innerText = qData.q;
+        const optionsBox = document.getElementById("options-container");
+        optionsBox.innerHTML = "";
+        
+        document.getElementById("explanation-box").style.display = "none";
+        document.getElementById("next-btn").style.display = "none";
+        document.getElementById("submit-btn").style.display = "none";
+
+        qData.options.forEach((opt, index) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "option-btn";
+            btn.innerText = opt;
+            btn.addEventListener("click", () => checkAnswer(index, btn));
+            optionsBox.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(selectedIndex, selectedBtn) {
+        const qData = questions[currentQ];
+        const allBtns = document.querySelectorAll(".option-btn");
+        
+        allBtns.forEach(btn => btn.style.pointerEvents = "none");
+
+        userAnswers.push({
+            question: qData.q,
+            selected: selectedIndex,
+            correct: qData.ans,
+            exp: qData.exp,
+            options: qData.options
+        });
+
+        if (selectedIndex === qData.ans) {
+            selectedBtn.classList.add("correct");
+            score++;
+        } else {
+            selectedBtn.classList.add("wrong");
+            if (allBtns[qData.ans]) {
+                allBtns[qData.ans].classList.add("correct");
+            }
+            const expBox = document.getElementById("explanation-box");
+            expBox.innerHTML = "<strong>स्पष्टीकरण:</strong> " + qData.exp;
+            expBox.style.display = "block";
+        }
+
+        if (currentQ < questions.length - 1) {
+            document.getElementById("next-btn").style.display = "block";
+        } else {
+            document.getElementById("submit-btn").style.display = "block";
+        }
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        loadQuestion();
+    }
+
+    function submitExam() {
+        document.getElementById("quiz-screen").classList.remove("active");
+        document.getElementById("result-screen").classList.add("active");
+
+        const percentage = Math.round((score / questions.length) * 100);
+
+        document.getElementById("res-name").innerText = stude
