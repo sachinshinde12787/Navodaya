@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Yantramanav', sans-serif; }
+        body { background: #f0f9ff; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; padding: 10px; }
+
+        header {
+            background: #1e3a8a;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 1.3rem; color: #fbbf24; }
+        header h2 { font-size: 0.95rem; font-weight: 500; margin-top: 4px; color: #e0f2fe; }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .screen { display: none; }
+        .screen.active { display: block !important; }
+
+        .input-box { margin-bottom: 15px; text-align: left; }
+        .input-box label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 1.05rem; }
+        .input-box input { width: 100%; padding: 12px; font-size: 1rem; border: 2px solid #cbd5e1; border-radius: 8px; outline: none; }
+
+        .click-btn {
+            display: block;
+            background: #2563eb;
+            color: #ffffff !important;
+            text-align: center;
+            padding: 12px 15px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            user-select: none;
+        }
+
+        .opt-btn {
+            display: block;
+            width: 100%;
+            background: #f8fafc;
+            border: 2px solid #cbd5e1;
+            padding: 12px;
+            margin: 10px 0;
+            text-align: left;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            cursor: pointer;
+        }
+        
+        .correct { background: #dcfce7 !important; border-color: #16a34a !important; color: #14532d; font-weight: bold; }
+        .wrong { background: #fee2e2 !important; border-color: #dc2626 !important; color: #7f1d1d; font-weight: bold; }
+
+        .explanation {
+            background: #fef3c7;
+            border-left: 4px solid #d97706;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            color: #78350f;
+            display: none;
+        }
+
+        .certificate-box {
+            border: 4px double #1e3a8a;
+            padding: 20px;
+            border-radius: 4px;
+            background: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .cert-header {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .cert-details {
+            text-align: left;
+            line-height: 2;
+            font-size: 1.05rem;
+            background: #f8fafc;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 15px;
+        }
+
+        .badge-box {
+            padding: 15px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            margin: 15px 0;
+        }
+
+        .wrong-q-card { 
+            background: #fff5f5; 
+            border: 1px solid #fecaca; 
+            border-radius: 8px; 
+            padding: 12px; 
+            margin-top: 10px; 
+            text-align: left; 
+        }
+
+        .footer-guides {
+            display: flex;
+            justify-content: space-between;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+        .footer-left { text-align: left; }
+        .footer-right { text-align: right; }
+    </style>
+</head>
+<body>
+
+    <!-- Header (Every Page) -->
+    <header>
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट - नाम</h2>
+    </header>
+
+    <div class="container">
+        <!-- SCREEN 1: START SCREEN -->
+        <div id="step1" class="screen active">
+            <h3 style="text-align: center; color: #1e3a8a; margin-bottom: 20px;">ऑनलाइन सराव चाचणी</h3>
+            
+            <div class="input-box">
+                <label>विद्यार्थ्याचे नाव *</label>
+                <input type="text" id="s_name" placeholder="पूर्ण नाव प्रविष्ट करा">
+            </div>
+
+            <a href="javascript:void(0)" class="click-btn" id="start-btn" onclick="startQuiz()">Start Exam (परीक्षा सुरू करा)</a>
+        </div>
+
+        <!-- SCREEN 2: QUIZ SCREEN -->
+        <div id="step2" class="screen">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: #1e3a8a; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">
+                <span id="q_no">प्रश्न १ / ३०</span>
+            </div>
+            
+            <h3 id="q_text" style="margin-bottom: 15px; font-size: 1.15rem; line-height: 1.5;"></h3>
+            <div id="opts"></div>
+
+            <div id="exp_box" class="explanation">
+                <strong>💡 स्पष्टीकरण:</strong> <span id="exp_text"></span>
+            </div>
+
+            <a href="javascript:void(0)" class="click-btn" id="next-btn" onclick="nextQuestion()" style="display: none;">पुढील प्रश्न (Next Question)</a>
+            <a href="javascript:void(0)" class="click-btn" id="submit-btn" onclick="showResult()" style="display: none; background: #16a34a;">Submit Exam (परीक्षा पूर्ण करा)</a>
+        </div>
+
+        <!-- SCREEN 3: RESULT SCREEN -->
+        <div id="step3" class="screen" style="text-align: center;">
+            <div class="certificate-box">
+                <div class="cert-header">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+                
+                <div class="cert-details">
+                    <div><b>परीक्षेचे नाव :</b> नवोदय परीक्षा सराव टेस्ट - नाम</div>
+                    <div><b>विद्यार्थ्याचे नाव :</b> <span id="r_name" style="color: #1e3a8a; font-weight: bold;"></span></div>
+                    <div><b>मिळालेले गुण :</b> <span id="r_score" style="font-weight: bold;"></span> / ३०</div>
+                    <div><b>टक्केवारी :</b> <span id="r_per" style="font-weight: bold;"></span>%</div>
+                </div>
+
+                <div class="badge-box">
+                    <div id="badge-icon" style="font-size: 3rem;"></div>
+                    <div id="badge-title" style="font-size: 1.2rem; font-weight: bold; color: #1e3a8a; margin-top: 5px;"></div>
+                </div>
+            </div>
+
+            <div id="wrong_container"></div>
+
+            <a href="javascript:void(0)" class="click-btn" onclick="location.reload()" style="background: #475569; margin-top: 20px;">पुन्हा परीक्षा द्या</a>
+        </div>
+    </div>
+
+    <!-- Footer with Left and Right Guides -->
+    <div class="footer-guides">
+        <div class="footer-left">
+            <b>मार्गदर्शक शिक्षक :</b> सचिन शिंदे<br>
+            <b>संपर्क :</b> 8329684470
+        </div>
+        <div class="footer-right">
+            <b>मार्गदर्शक शिक्षक :</b> सतीश चिंदे<br>
+            <b>संपर्क :</b> 8208167846
+        </div>
+    </div>
+
+    <script>
+        var questions = [
+            { q: "'शौर्य' हे भाववाचक नाम कोणत्या शब्दापासून बनले आहे?", o: ["शूर", "शौरी", "शिर", "शूरता"], a: 0, e: "'शूर' या विशेषणापासून 'शौर्य' हे भाववाचक नाम तयार होते." },
+            { q: "खालील पर्यायांपैकी 'सामान्य नाम' ओळखा ज्याचे भाववाचक नाम 'बालपण' होते.", o: ["बाळ", "बालक", "बालत्व", "अ आणि ब दोन्ही"], a: 3, e: "'बाळ' किंवा 'बालक' या सामान्य नामांपासून 'बालपण' हे भाववाचक नाम बनते." },
+            { q: "'शांतता' या शब्दाचा नामप्रकार कोणता?", o: ["सामान्य नाम", "विशेष नाम", "भाववाचक नाम", "धातू"], a: 2, e: "'शांतता' हा शब्द अदृश्य गुण किंवा भावना दर्शवतो." },
+            { q: "'कळप' हा शब्द सामान्य नामाच्या कोणत्या उपप्रकारात मोडतो?", o: ["पदार्थवाचक नाम", "समूहवाचक नाम", "भाववाचक नाम", "विशेष नाम"], a: 1, e: "'कळप' हा प्राण्यांच्या समूहाला दिलेला शब्द आहे." },
+            { q: "खालीलपैकी कोणत्या वाक्यात विशेष नाम आले आहे?", o: ["पक्षी आकाशात उडतात.", "मुले मैदानावर खेळतात.", "रोहन दररोज अभ्यास करतो.", "झाडावर फुले उमलली आहेत."], a: 2, e: "'रोहन' हे मुलाचे विशिष्ट नाव (विशेष नाम) आहे." },
+            { q: "'चांगुलपणा' या शब्दातील प्रत्यय कोणता?", o: ["चांग", "चांगुल", "पणा", "णा"], a: 2, e: "'चांगला' या शब्दाला 'पणा' प्रत्यय लावून भाववाचक नाम तयार झाले आहे." },
+            { q: "'मुलगा' या शब्दाचा नामप्रकार कोणता?", o: ["विशेष नाम", "सामान्य नाम", "भाववाचक नाम", "सर्वनाम"], a: 1, e: "'मुलगा' हा शब्द एका विशिष्ट घटकाला न दर्शवता संपूर्ण जातीचा बोध करतो." },
+            { q: "खालीलपैकी 'भाववाचक नाम' असलेला पर्याय ओळखा.", o: ["चतुर", "हुशार", "प्रामाणिकपणा", "दयाळू"], a: 2, e: "चतुर, हुशार, दयाळू ही विशेषणे आहेत; 'प्रामाणिकपणा' हे भाववाचक नाम आहे." },
+            { q: "'गंगा ही पवित्र नदी आहे.' या वाक्यात 'गंगा' हे कोणते नाम आहे?", o: ["भाववाचक नाम", "विशेष नाम", "सामान्य नाम", "सर्वनाम"], a: 1, e: "'गंगा' हे एका विशिष्ट नदीचे नाव आहे." },
+            { q: "खालीलपैकी कोणती जोडी 'सामान्य नाम - विशेष नाम' अशी योग्य आहे?", o: ["पर्वत - हिमालय", "भारत - देश", "नदी - पाणी", "झाड - पाने"], a: 0, e: "'पर्वत' हे सामान्य नाम असून 'हिमालय' हे त्याचे विशेष नाम आहे." },
+            { q: "'लबाडी' या भाववाचक नामाचा मूळ शब्द 'लबाड' व्याकरणदृष्ट्या काय आहे?", o: ["नाम", "विशेषण", "क्रियापद", "सर्वनाम"], a: 1, e: "'लबाड' हे विशेषण आहे. त्याला 'ई' प्रत्यय लागून 'लबाडी' नाम बनले." },
+            { q: "'तारा' हा शब्द विशेष नाम आणि सामान्य नाम या दोन्ही प्रकारांत वापरता येतो. खालीलपैकी सामान्य नाम दर्शवणारे वाक्य कोणते?", o: ["तारा परीक्षेत पहिली आली.", "आकाशात चमकणारा तारा खूप सुंदर दिसतो.", "ताराने गाणे गायले.", "ही तारा माझी बहीण आहे."], a: 1, e: "'ब' मध्ये 'तारा' हा शब्द खगोलीय वस्तूच्या संपूर्ण जातीचा बोध करतो." },
+            { q: "'सुंदरता' या भाववाचक नामाचे मूळ विशेषण कोणता?", o: ["सुंदर", "सुंदरी", "सौंदर्य", "सुदर्शन"], a: 0, e: "'सुंदर' या विशेषणाला 'ता' प्रत्यय लावून 'सुंदरता' हे भाववाचक नाम बनले आहे." },
+            { q: "खालील पर्यायांतून सामान्य नामाचा योग्य गट निवडा.", o: ["गाव, शहर, राज्य", "पुणे, मुंबई, नाशिक", "वात्सल्य, दया, क्षमा", "तो, ती, ते"], a: 0, e: "हे सर्व शब्द एका संपूर्ण जातीचा बोध करतात." },
+            { q: "खालीलपैकी 'विशेष नाम' ओळखा.", o: ["नदी", "शहर", "सह्याद्री", "झाड"], a: 2, e: "'सह्याद्री' हे एका विशिष्ट पर्वताचे नाव आहे." },
+            { q: "'माझ्या मित्राने मला मदत केली.' वाक्यातील 'मदत' या शब्दाचा नामप्रकार कोणता?", o: ["विशेष नाम", "भाववाचक नाम", "सामान्य नाम", "क्रियापद"], a: 1, e: "'मदत' ही एक संकल्पना किंवा भाव दर्शवणारे नाम आहे." },
+            { q: "खालीलपैकी 'सामान्य नाम' नसलेला शब्द कोणता?", o: ["पुस्तक", "मुलगी", "भारत", "देश"], a: 2, e: "'भारत' हे देश नसून एका विशिष्ट देशाचे 'विशेष नाम' आहे." },
+            { q: "'गुलाबी आंबा गोड लागला.' या वाक्यातील भाववाचक नाम कोणते?", o: ["गुलाबी", "आंबा", "गोडवा", "या वाक्यात भाववाचक नाम नाही"], a: 3, e: "'गोड' हे विशेषण आहे; भाववाचक नाम 'गोडवा' असते जे वाक्यात नाही." },
+            { q: "'कापूस, पाणी, दूध' हे शब्द नामाच्या कोणत्या प्रकारात येतात?", o: ["भाववाचक नाम", "विशेष नाम", "पदार्थवाचक नाम", "धातूरूप साधित नाम"], a: 2, e: "ज्या वस्तू लिटर, किलोग्रॅम किंवा मीटरमध्ये मोजल्या जातात त्यांना पदार्थवाचक नाम म्हणतात." },
+            { q: "'आमच्या वर्गात अनेक नारद आहेत.' या वाक्यात 'नारद' या शब्दाचा प्रकार कोणता?", o: ["विशेष नाम", "सामान्य नाम", "भाववाचक नाम", "सर्वनाम"], a: 1, e: "जेव्हा विशेष नामाचा वापर विशिष्ट गुण दाखवण्यासाठी अनेकवचनात होतो, तेव्हा ते सामान्य नाम बनते." },
+            { q: "'वकिली' हे भाववाचक नाम खालीलपैकी कशापासून बनले आहे?", o: ["नामापासून", "विशेषणापासून", "क्रियापदापासून", "अव्यायापासून"], a: 0, e: "'वकील' हे सामान्य नाम असून त्याला 'ई' प्रत्यय लागून 'वकिली' हे भाववाचक नाम बनले." },
+            { q: "'नम्रता हा मानवाचा श्रेष्ठ गुण आहे.' या वाक्यातील 'नम्रता' या शब्दाचा नामप्रकार ओळखा.", o: ["विशेष नाम", "सामान्य नाम", "भाववाचक नाम", "सर्वनाम"], a: 2, e: "'नम्रता' हा मानवी स्वभाव किंवा गुण दर्शवणारा शब्द आहे." },
+            { q: "खालीलपैकी भाववाचक नाम नसलेला गट कोणता?", o: ["धैर्य, क्रौर्य, माधुर्य", "गोडी, वाडी, जोडी", "गरिबी, श्रीमंती, हुशारी", "वात्सल्य, औदार्य, चातुर्य"], a: 1, e: "'वाडी' आणि 'जोडी' ही भाववाचक नामे नाहीत." },
+            { q: "'शिक्षकांनी मला धीर दिला.' या वाक्यातील 'धीर' हे कोणते नाम आहे?", o: ["विशेष नाम", "सामान्य नाम", "भाववाचक नाम", "सर्वनाम"], a: 2, e: "'धीर' हा मनाचा एक भाव किंवा गुण आहे." },
+            { q: "'वात्सल्य' या भाववाचक नामाचा मूळ शब्द कोणता?", o: ["वत्सल", "वात्स", "वत्सला", "वात्सल"], a: 0, e: "'वत्सल' (प्रेमळ) या विशेषणापासून 'वात्सल्य' हे भाववाचक नाम तयार होते." },
+            { q: "खालील वाक्यांपैकी ज्या वाक्यात 'भाववाचक नाम' आले आहे ते वाक्य ओळखा.", o: ["मुलगा आंबा खातो.", "सैनिकांचे धैर्य कौतुकास्पद होते.", "नाशिक हे सुंदर शहर आहे.", "पक्षी आकाशात भरारी घेतात."], a: 1, e: "'धैर्य' हा मानवी गुण दर्शवणारा शब्द भाववाचक नाम आहे." },
+            { q: "'चतुर' या शब्दापासून तयार होणारे भाववाचक नाम कोणते?", o: ["चतुराई", "चातुर्य", "चतुरा", "अ आणि ब दोन्ही"], a: 3, e: "'चतुर' या शब्दापासून 'चतुराई' आणि 'चातुर्य' ही दोन्ही भाववाचक नामे बनतात." },
+            { q: "'आनंद, दुःख, शांती' हे शब्द कोणत्या नामाच्या प्रकारात मोडतात?", o: ["सामान्य नाम", "विशेष नाम", "भाववाचक नाम", "पदार्थवाचक नाम"], a: 2, e: "मनातील भावना दर्शवणाऱ्या शब्दांना भाववाचक नाम म्हणतात." },
+            { q: "'विश्वास' हा शब्द खालीलपैकी कोणत्या वाक्यात भाववाचक नाम म्हणून वापरला आहे?", o: ["विश्वास काल शहरात गेला.", " मला तुझ्यावर पूर्ण विश्वास आहे.", "विश्वासने गणितात चांगले गुण मिळवले.", "शिक्षकांनी विश्वासाला शाबासकी दिली."], a: 1, e: "पर्याय 'ब' मधील 'विश्वास' हा मनातील भाव दर्शवतो; इतर ठिकाणी ते नाव आहे." },
+            { q: "'गोडी' या भाववाचक नामाचे मूळ विशेषण कोणते?", o: ["गोड", "गोडवा", "गोडीगुलाबी", "गोडसर"], a: 0, e: "'गोड' या विशेषणाला 'ई' प्रत्यय लागून 'गोडी' हे भाववाचक नाम बनते." }
+        ];
+
+        var cur = 0, score = 0, name = "", userAnsList = [];
+
+        function startQuiz() {
+            name = document.getElementById('s_name').value.trim();
+
+            if (name === "") {
+                alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");
+                return;
+            }
+
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            loadQ();
+        }
+
+        function loadQ() {
+            var item = questions[cur];
+            document.getElementById('q_no').innerText = "प्रश्न " + (cur + 1) + " / " + questions.length;
+            document.getElementById('q_text').innerText = (cur + 1) + ". " + item.q;
+            
+            var optDiv = document.getElementById('opts');
+            optDiv.innerHTML = '';
+            document.getElementById('exp_box').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('submit-btn').style.display = 'none';
+
+            var pre = ["अ) ", "ब) ", "क) ", "ड) "];
+            for (var i = 0; i < item.o.length; i++) {
+                (function(idx) {
+                    var btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'opt-btn';
+                    btn.innerHTML = '<b>' + pre[idx] + '</b>' + item.o[idx];
+                    btn.onclick = function() { check(idx); };
+                    optDiv.appendChild(btn);
+                })(i);
+            }
+        }
+
+        function check(idx) {
+            var item = questions[cur];
+            var btns = document.querySelectorAll('.opt-btn');
+            for(var i=0; i<btns.length; i++) { btns[i].disabled = true; }
+
+            var isCorrect = (idx === item.a);
+
+            if (isCorrect) {
+                score++;
+                btns[idx].classList.add('correct');
+            } else {
+                btns[idx].classList.add('wrong');
+                btns[item.a].classList.add('correct');
+                document.getElementById('exp_text').innerText = item.e;
+                document.getElementById('exp_box').style.display = 'block';
+            }
+
+            userAnsList.push({
+                q: item.q,
+                opts: item.o,
+                uAns: idx,
+                cAns: item.a,
+                isC: isCorrect,
+                exp: item.e
+            });
+
+            if (cur < questions.length - 1) {
+                document.getElementById('next-btn').style.display = 'block';
+            } else {
+                document.getElementById('submit-btn').style.display = 'block';
+            }
+        }
+
+        function nextQuestion() {
+            cur++;
+            loadQ();
+        }
+
+        function showResult() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            
+            var total = questions.length;
+            var per = Math.round((score / total) * 100);
+
+            document.getElementById('r_name').innerText = name;
+            document.getElementById('r_score').innerText = score;
+            document.getElementById('r_per').innerText = per;
+
+            var bIcon = "";
+            var bTitle = "";
+
+            if (per >= 80) {
+                bIcon = "🏆🥇";
+                bTitle = "Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+            } else if (per >= 60) {
+                bIcon = "🏆🥈";
+                bTitle = "Silver Medal + Trophy (छान कामगिरी!)";
+            } else if (per >= 50) {
+                bIcon = "🏆🥉";
+                bTitle = "Bronze Medal + Trophy (चांगली कामगिरी!)";
+            } else {
+                bIcon = "💐";
+                bTitle = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+            }
+
+            document.getElementById('badge-icon').innerText = bIcon;
+            document.getElementById('badge-title').innerText = bTitle;
+
+            var wrongDiv = document.getElementById('wrong_container');
+            wrongDiv.innerHTML = '';
+
+            var wrongs = userAnsList.filter(function(x) { return !x.isC; });
+
+            if (wrongs.length > 0) {
+                var html = '<h4 style="color:#dc2626; margin-top:15px; text-align:left; font-weight:bold;">❌ चुकलेले प्रश्न आणि स्पष्टीकरण (' + wrongs.length + '):</h4>';
+                var pre = ["अ", "ब", "क", "ड"];
+                
+                for(var j=0; j<wrongs.length; j++) {
+                    var w = wrongs[j];
+                    html += '<div class="wrong-q-card">' +
+                        '<div><b>' + (j + 1) + '. ' + w.q + '</b></div>' +
+                        '<div style="color:#dc2626;">तुमचे उत्तर: ' + pre[w.uAns] + ') ' + w.opts[w.uAns] + '</div>' +
+                        '<div style="color:#166534;">योग्य उत्तर: ' + pre[w.cAns] + ') ' + w.opts[w.cAns] + '</div>' +
+                        '<div style="margin-top:5px; font-size:0.95rem; color:#92400e;"><b>स्पष्टीकरण:</b> ' + w.exp + '</div>' +
+                    '</div>';
+                }
+                wrongDiv.innerHTML = html;
+            } else {
+                wrongDiv.innerHTML = '<div style="color:#166534; font-weight:bold; margin-top:15px; font-size:1.1rem;">अभिनंदन! तुमचे सर्व ३० प्रश्न बरोबर आले आहेत! 🎉</div>';
+            }
+        }
+    </script>
+</body>
+</html>
