@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - विशेषण</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h2 {
+            color: #007bff;
+            font-size: 20px;
+        }
+
+        .header h3 {
+            color: #28a745;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .footer-teachers div {
+            width: 48%;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input.error-border {
+            border-color: #dc3545;
+            background-color: #fff8f8;
+        }
+
+        .error-msg {
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .action-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .options-container {
+            margin-top: 15px;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+
+        .explanation-box {
+            background-color: #e9ecef;
+            border-left: 4px solid #17a2b8;
+            padding: 10px 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* Certificate Style (Square Border) */
+        .certificate {
+            border: 6px double #007bff;
+            padding: 20px;
+            border-radius: 0px;
+            text-align: center;
+            background-color: #fffdf5;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .badge-icon {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+
+        .result-info {
+            text-align: left;
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .wrong-item {
+            background: #ffffff;
+            border: 1px solid #dc3545;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- शीर्षलेख (प्रत्येक स्क्रीनवर दिसेल) -->
+    <div class="header">
+        <h2>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h2>
+        <h3>नवोदय परीक्षा सराव टेस्ट - विशेषण</h3>
+    </div>
+
+    <!-- स्क्रीन १: स्टार्ट स्क्रीन -->
+    <div id="start-screen">
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" maxlength="10" placeholder="१० अंकी मोबाईल नंबर">
+        </div>
+        <div id="form-error" class="error-msg">कृपया नाव आणि १० अंकी मोबाईल नंबर पूर्ण भरा!</div>
+        
+        <button type="button" id="start-btn" class="action-btn">Start Exam</button>
+
+        <div class="footer-teachers">
+            <div>
+                <strong>मार्गदर्शक शिक्षक:</strong><br>सचिन शिंदे<br>संपर्क: 8329684470
+            </div>
+            <div style="text-align: right;">
+                <strong>मार्गदर्शक शिक्षक:</strong><br>सतीश चिंदे<br>संपर्क: 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- स्क्रीन २: परीक्षा प्रश्न स्क्रीन -->
+    <div id="exam-screen" class="hidden">
+        <div id="question-count" style="font-weight: bold; margin-bottom: 10px; color: #555;"></div>
+        <div id="question-text" style="font-size: 16px; font-weight: bold; margin-bottom: 15px; line-height: 1.5;"></div>
+        <div id="options-box" class="options-container"></div>
+        
+        <div id="explanation-box" class="explanation-box">
+            <strong>स्पष्टीकरण:</strong> <span id="exp-text"></span>
+        </div>
+
+        <button type="button" id="next-btn" class="action-btn hidden">Next Question</button>
+        <button type="button" id="submit-btn" class="action-btn btn-success hidden">Submit Exam</button>
+
+        <div class="footer-teachers">
+            <div>
+                <strong>मार्गदर्शक शिक्षक:</strong><br>सचिन शिंदे<br>संपर्क: 8329684470
+            </div>
+            <div style="text-align: right;">
+                <strong>मार्गदर्शक शिक्षक:</strong><br>सतीश चिंदे<br>संपर्क: 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- स्क्रीन ३: निकाल / प्रमाणपत्र (Certificate Style) -->
+    <div id="result-screen" class="hidden">
+        <div class="certificate">
+            <h2>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h2>
+            <hr style="margin: 10px 0; border: 0; border-top: 2px solid #007bff;">
+            <div class="badge-icon" id="badge-display">🏆</div>
+            <h3 id="performance-msg" style="color: #007bff; margin-bottom: 10px;"></h3>
+            
+            <div class="result-info">
+                <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट (विशेषण)</p>
+                <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="res-name"></span></p>
+                <p><strong>मोबाईल नंबर :</strong> <span id="res-mobile"></span></p>
+                <p><strong>मिळालेले गुण :</strong> <span id="res-score"></span> / 30</p>
+                <p><strong>टक्केवारी :</strong> <span id="res-percentage"></span>%</p>
+            </div>
+
+            <div class="footer-teachers">
+                <div style="text-align: left;">
+                    <strong>मार्गदर्शक शिक्षक:</strong><br>सचिन शिंदे<br>संपर्क: 8329684470
+                </div>
+                <div style="text-align: right;">
+                    <strong>मार्गदर्शक शिक्षक:</strong><br>सतीश चिंदे<br>संपर्क: 8208167846
+                </div>
+            </div>
+        </div>
+
+        <!-- चुकलेले प्रश्न विभाग -->
+        <div style="margin-top: 25px;">
+            <h3 style="color: #dc3545; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">चुकलेले प्रश्न व स्पष्टीकरण:</h3>
+            <div id="wrong-list"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "१. \"त्या जुन्या, उंच आणि पडक्या इमारतीत कोणीही राहत नाही.\" या वाक्यात एकूण किती विशेषणे आली आहेत?", opts: ["१", "२", "३", "४"], ans: 2, exp: "'जुन्या', 'उंच' आणि 'पडक्या' ही तीन विशेषणे इमारतीबद्दल अधिक माहिती सांगतात." },
+        { q: "२. \"त्या अफाट समुद्रात तुफान लाटा उसळत होत्या.\" या वाक्यातील 'अफाट' या विशेषणाचा संबंध कोणत्या नामाशी (विशेष्याशी) आहे?", opts: ["लाटा", "समुद्र", "तुफान", "उसळत"], ans: 1, exp: "'अफाट' हे विशेषण 'समुद्र' या नामाबद्दल आले आहे." },
+        { q: "३. \"शाळेच्या स्नेहसंमेलनात मुलांनी अत्यंत सुरेल गाणी गायली.\" या वाक्यातील विशेषण कोणते?", opts: ["शाळा", "मुले", "सुरेल", "गाणी"], ans: 2, exp: "'सुरेल' हा शब्द 'गाणी' या नामाची वैशिष्ट्यपूर्ण माहिती देतो." },
+        { q: "४. \"रमेशने बाजारातून चार किलो रसाळ आणि गोड आंबे खरेदी केले.\" या वाक्यातील 'आंबे' या विशेष्याचे विशेषण खालीलपैकी कोणते नाही?", opts: ["चार किलो", "रसाळ", "गोड", "बाजारातून"], ans: 3, exp: "'बाजारातून' हे नामाचे ठिकाण दर्शवते, ते विशेषण नाही." },
+        { q: "५. \"वाळवंटातील तापलेल्या वाळूवर चालणे कठीण असते.\" या वाक्यात 'तापलेल्या' या विशेषणाचे विशेष्य कोणते?", opts: ["वाळवंट", "चालणे", "वाळू", "कठीण"], ans: 2, exp: "'तापलेली' ही 'वाळू' या नामाची माहिती देते, म्हणून वाळू हे विशेष्य आहे." },
+        { q: "६. \"त्या शांत रात्री आकाशात हजारो चांदण्या चमकत होत्या.\" या वाक्यात अनुक्रमे आलेली विशेषणे कोणती?", opts: ["आकाशात, चांदण्या", "शांत, हजारो", "रात्री, चमकत", "आकाशात, शांत"], ans: 1, exp: "'शांत' (रात्रीबद्दल) आणि 'हजारो' (चांदण्यांबद्दल) ही विशेषणे आहेत." },
+        { q: "७. \"संत तुकारामांनी समाजाला _____ उपदेश केला.\" (योग्य विशेषण निवडा)", opts: ["कडू", "अमूल्य", "तीक्ष्ण", "रुंद"], ans: 1, exp: "उपदेशासाठी 'अमूल्य' हेच योग्य व अर्थपूर्ण विशेषण जुळते." },
+        { q: "८. \"पैलवानाने कुस्तीत _____ ताकद दाखवून प्रतिस्पर्ध्याला नमवले.\"", opts: ["अफाट", "लांब", "गोल", "आकुड"], ans: 0, exp: "ताकदीचे वर्णन करण्यासाठी 'अफाट' हे विशेषण सर्वात सुयोग्य आहे." },
+        { q: "९. \"माझ्या आजीकडे प्राचीन काळातील _____ नाणी आहेत.\"", opts: ["हसरी", "दुर्मीळ", "बोलकी", "तीक्ष्ण"], ans: 1, exp: "प्राचीन काळातील नाणी सहसा 'दुर्मीळ' असतात." },
+        { q: "१०. \"हिमालयाच्या _____ शिखरांवर बर्फ साचलेला असतो.\"", opts: ["सखल", "उंचच उंच", "रुंद", "रसाळ"], ans: 1, exp: "पर्वताच्या शिखरांसाठी 'उंचच उंच' हेच विशेषण योग्य ठरते." },
+        { q: "११. \"वैद्यांनी रुग्णाला _____ औषध पिण्यास दिले.\"", opts: ["कडू", "गोडवा", "चतुर", "नम्र"], ans: 0, exp: "औषधाच्या चवीचे वर्णन करण्यासाठी 'कडू' हे योग्य विशेषण आहे." },
+        { q: "१२. \"ज्ञानेश्वरांनी अत्यंत _____ वयात ज्ञानेश्वरी हा ग्रंथ लिहिला.\"", opts: ["मोठ्या", "लहान", "उशिरा", "वृद्ध"], ans: 1, exp: "ज्ञानेश्वरांनी बालवयात (लहान वयात) ग्रंथनिर्मिती केली." },
+        { q: "१३. खालीलपैकी 'अयोग्य' विशेषण-विशेष्य जोडी कोणती?", opts: ["बोचरी थंडी", "खळखळणारा रस्ता", "मुसळधार पाऊस", "घट्ट मैत्री"], ans: 1, exp: "'रस्ता' खळखळणारा नसतो; नदी किंवा पाण्याचा प्रवाह खळखळणारा असतो." },
+        { q: "१४. खालीलपैकी अर्थाच्या दृष्टीने 'योग्य' विशेषण-विशेष्य जोडी निवडा.", opts: ["कडक बर्फ", "मंद वारा", "तिखट साखर", "रसाळ लाकूड"], ans: 1, exp: "वाऱ्याची गती मंद असू शकते, म्हणून 'मंद वारा' ही योग्य जोडी आहे." },
+        { q: "१५. 'प्रचंड' या विशेषणासाठी खालीलपैकी कोणते विशेष्य 'अयोग्य' ठरेल?", opts: ["गर्दी", "उत्साह", "वारा", "सुई"], ans: 3, exp: "सुई अत्यंत सूक्ष्म असते, तिला 'प्रचंड' हे विशेषण लावता येत नाही." },
+        { q: "१६. 'तीक्ष्ण' या विशेषणासाठी योग्य विशेष्य कोणते?", opts: ["नजर", "रस्ता", "पाणी", "दगड"], ans: 0, exp: "तीक्ष्ण (बारीक/तीव्र) ही 'नजर' असू शकते." },
+        { q: "१७. खालीलपैकी कोणती जोडी विशेषण आणि विशेष्य यांची अचूक रचना दर्शवते?", opts: ["दयाळू - मन", "धावणे - वेगाने", "झाड - उंच", "पाणी - स्वच्छता"], ans: 0, exp: "'दयाळू' हे विशेषण असून 'मन' हे त्याचे विशेष्य आहे." },
+        { q: "१८. 'खळखळणारी' या विशेषणासाठी योग्य विशेष्य ओळखा.", opts: ["हवा", "नदी", "वीज", "इमारत"], ans: 1, exp: "पाण्याचा प्रवाह दर्शवण्यासाठी 'खळखळणारी नदी' योग्य आहे." },
+        { q: "१९. खालील पर्यायांपैकी 'विशेषण नसलेला' शब्द ओळखा.", opts: ["चलाक", "प्रामाणिकपणा", "शूर", "दयाळू"], ans: 1, exp: "'प्रामाणिकपणा' हे भाववाचक नाम आहे, विशेषण 'प्रामाणिक' असते." },
+        { q: "२०. \"तो हुशार मुलगा दररोज नवीन पुस्तके आवडीने वाचतो.\" या वाक्यात विशेषण नसलेला शब्द कोणता?", opts: ["हुशार", "दररोज", "नवीन", "पुस्तके"], ans: 1, exp: "'दररोज' हे क्रियाविशेषण आहे, नामाचे विशेषण नाही." },
+        { q: "२१. खालीलपैकी कोणता शब्द नामाचे वर्णन करणारे 'विशेषण' म्हणून वापरता येणार नाही?", opts: ["गोड", "नम्र", "गाणे", "निळा"], ans: 2, exp: "'गाणे' हे स्वतः नाम किंवा क्रियापद आहे, विशेषण नाही." },
+        { q: "२२. \"श्रीमंत माणसाने गरिबांना मदत केली.\" या वाक्यात मूळ विशेषण असलेला पण वाक्यात नामासारखा वापरलेला शब्द कोणता?", opts: ["माणसाने", "श्रीमंत", "गरिबांना", "मदत"], ans: 2, exp: "'गरीब' हे मूळ विशेषण आहे, पण 'गरिबांना' हा शब्द येथे नाम म्हणून आला आहे." },
+        { q: "२३. खालीलपैकी विशेषण नसणारा पर्याय निवडा.", opts: ["सुवासिक", "चवदार", "सौंदर्य", "तेजस्वी"], ans: 2, exp: "'सौंदर्य' हे भाववाचक नाम आहे (विशेषण 'सुंदर' असते)." },
+        { q: "२४. \"आकाशात निरभ्र वातावरण होते.\" या वाक्यातील 'निरभ्र' हा शब्द काय दर्शवतो?", opts: ["क्रियेची वेळ", "वातावरणाचा गुण/विशेष माहिती", "व्यक्तीचे नाव", "दोन वाक्यांतील संबंध"], ans: 1, exp: "'निरभ्र' हा शब्द वातावरणाची विशेष माहिती (विशेषण) देतो." },
+        { q: "२५. खालीलपैकी 'विशेषणाचा अयोग्य किंवा विसंगत वापर' झालेले वाक्य कोणते?", opts: ["तलावातील पाणी स्वच्छ होते.", "बागेत सुंदर फुले आहेत.", "परीक्षेत विचारलेला प्रश्न खूप गोड होता.", "रस्त्यावर प्रचंड गर्दी होती."], ans: 2, exp: "प्रश्न 'कठीण' किंवा 'सोपा' असतो, त्याला 'गोड' म्हणणे अर्थदृष्ट्या चुकीचे आहे." },
+        { q: "२६. विशेषणाचा अचूक व अर्थपूर्ण वापर असलेले वाक्य निवडा.", opts: ["शिक्षकांनी खोडकर मुलाला शिक्षा केली.", "शिक्षकांनी रसाळ मुलाला शिक्षा केली.", "शिक्षकांनी तीक्ष्ण मुलाला शिक्षा केली.", "शिक्षकांनी रुंद मुलाला शिक्षा केली."], ans: 0, exp: "मुलाच्या वर्तनासाठी 'खोडकर' हेच योग्य विशेषण आहे." },
+        { q: "२७. \"त्या विशाल सभागृहात शेकडो प्रेक्षक शांतपणे बसले होते.\" या वाक्याबाबत कोणते विधान बरोबर आहे?", opts: ["वाक्यात एकही विशेषण नाही.", "वाक्यात 'विशाल' आणि 'शेकडो' ही दोन विशेषणे आहेत.", "वाक्यात 'सभागृह' हे विशेषण आहे.", "वाक्यात 'शांतपणे' हे विशेषण आहे."], ans: 1, exp: "'विशाल' (सभागृहाचे) आणि 'शेकडो' (प्रेक्षकांचे) ही दोन विशेषणे आहेत." },
+        { q: "२८. \"आईने बाजारातून ताजी पालेभाजी आणि कडक भाकरी आणली.\" या वाक्यातील योग्य विशेषण-विशेष्य जोड्या कोणत्या?", opts: ["ताजी - पालेभाजी, कडक - भाकरी", "आई - बाजार, ताजी - कडक", "बाजारातून - भाजी, आणली - भाकरी", "ताजी - आई, कडक - भाजी"], ans: 0, exp: "'ताजी' ही पालेभाजीसाठी आणि 'कडक' ही भाकरीसाठी आलेली विशेषणे आहेत." },
+        { q: "२९. खालीलपैकी कोणत्या वाक्यात विशेषणाचा सुयोग्य वापर केला आहे?", opts: ["सैनिकाने भित्री चाल केली.", "विज्ञानामुळे मानवी जीवन सुखकर झाले.", "नदीचे पाणी खूप कडू लागते.", "कावळ्याचा रंग हिरवा असतो."], ans: 1, exp: "'जीवन सुखकर झाले' या वाक्यात विशेषणाचा अचूक वापर केला आहे." },
+        { q: "३०. \"त्या उंच पर्वतावरून खळखळणारा धबधबा खाली कोसळत होता.\" या वाक्यातील विशेषणे व विशेष्य ओळखा.", opts: ["विशेषणे: उंच, खळखळणारा | विशेष्ये: पर्वत, धबधबा", "विशेषणे: पर्वत, धबधबा | विशेष्ये: उंच, खळखळणारा", "विशेषणे: उंच, खाली | विशेष्ये: पर्वतावरून, कोसळत", "विशेषणे: खळखळणारा, खाली | विशेष्ये: पर्वत, धबधबा"], ans: 0, exp: "'उंच' हे पर्वताचे आणि 'खळखळणारा' हे धबधब्याचे विशेषण आहे." }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let userAnswers = [];
+    let studentName = "";
+    let studentMobile = "";
+
+    const startBtn = document.getElementById("start-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const submitBtn = document.getElementById("submit-btn");
+    const nameInput = document.getElementById("student-name");
+    const mobileInput = document.getElementById("student-mobile");
+    const errorMsg = document.getElementById("form-error");
+
+    startBtn.addEventListener("click", function() {
+        studentName = nameInput.value.trim();
+        studentMobile = mobileInput.value.trim();
+
+        if (studentName === "" || studentMobile.length < 10) {
+            nameInput.classList.add("error-border");
+            mobileInput.classList.add("error-border");
+            errorMsg.style.display = "block";
+            return;
+        }
+
+        nameInput.classList.remove("error-border");
+        mobileInput.classList.remove("error-border");
+        errorMsg.style.display = "none";
+
+        document.getElementById("start-screen").classList.add("hidden");
+        document.getElementById("exam-screen").classList.remove("hidden");
+        loadQuestion();
+    });
+
+    nextBtn.addEventListener("click", function() {
+        currentQ++;
+        loadQuestion();
+    });
+
+    submitBtn.addEventListener("click", function() {
+        submitExam();
+    });
+
+    function loadQuestion() {
+        const qObj = questions[currentQ];
+        document.getElementById("question-count").innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+        document.getElementById("question-text").innerText = qObj.q;
+        
+        const optsContainer = document.getElementById("options-box");
+        optsContainer.innerHTML = "";
+
+        document.getElementById("explanation-box").style.display = "none";
+        nextBtn.classList.add("hidden");
+        submitBtn.classList.add("hidden");
+
+        qObj.opts.forEach((opt, idx) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "option-btn";
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(idx);
+            optsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(idx) {
+        const qObj = questions[currentQ];
+        const buttons = document.querySelectorAll(".option-btn");
+
+        buttons.forEach(btn => btn.disabled = true);
+        buttons[qObj.ans].classList.add("correct");
+
+        userAnswers[currentQ] = {
+            question: qObj.q,
+            options: qObj.opts,
+            selected: idx,
+            correct: qObj.ans,
+            exp: qObj.exp
+        };
+
+        if (idx === qObj.ans) {
+            score++;
+        } else {
+            buttons[idx].classList.add("wrong");
+        }
+
+        document.getElementById("exp-text").innerText = qObj.exp;
+        document.getElementById("explanation-box").style.display = "block";
+
+        if (currentQ === questions.length - 1) {
+            submitBtn.classList.remove("hidden");
+        } else {
+            nextBtn.classList.remove("hidden");
+        }
+    }
+
+    function submitExam() {
+        document.getElementById("exam-screen").classList.add("hidden");
+        document.getElementById("result-screen").classList.remove("hidden");
+
+        const percentage = Math.round((score / questions.length) * 100);
+
+        document.getElementById("res-name").innerText = studentName;
+        document.getElementById("res-mobile").innerText = studentMobile;
+        document.getElementById("res-score").innerText = score;
+        document.getElementById("res-percentage").innerText = percentage;
+
+        const badgeDisplay = document.getElementById("badge-display");
+        const perfMsg = document.getElementById("performance-msg");
+
+        if (percentage >= 80) {
+            badgeDisplay.innerText = "🥇🏆";
+            perfMsg.innerText = "अभिनंदन! Gold Medal + Trophy";
+        
