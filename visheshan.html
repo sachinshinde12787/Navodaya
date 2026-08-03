@@ -448,4 +448,21 @@ function submitExam() {
         perfMsg.style.color = "#dc3545";
     }
 
-    const wrongList 
+const wrongList = document.getElementById("wrong-list");
+wrongList.innerHTML = "";
+
+userAnswers.forEach((item) => {
+    if (item.selected !== item.correct) {
+        wrongList.innerHTML += `
+        <div class="wrong-item">
+            <strong>${item.question}</strong><br>
+            ❌ तुमचे उत्तर : ${item.options[item.selected]}<br>
+            ✅ बरोबर उत्तर : ${item.options[item.correct]}<br>
+            <b>स्पष्टीकरण:</b> ${item.exp}
+        </div>`;
+    }
+});
+}
+</script>
+</body>
+</html>
