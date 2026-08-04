@@ -1,0 +1,472 @@
+<!DOCTYPE html>  <html lang="mr">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>नवोदय परीक्षा सराव टेस्ट - उतारे</title>  
+    <style>  
+        :root {  
+            --primary-color: #1a2a6c;  
+            --secondary-color: #b21f1f;  
+            --success-color: #28a745;  
+            --bg-color: #f4f7f6;  
+        }  body {  
+        font-family: 'Segoe UI', Arial, sans-serif;  
+        background-color: var(--bg-color);  
+        margin: 0;  
+        padding: 15px;  
+        color: #333;  
+    }  
+
+    .container {  
+        max-width: 800px;  
+        margin: 0 auto;  
+        background: #ffffff;  
+        padding: 25px;  
+        border-radius: 12px;  
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);  
+    }  
+
+    .header {  
+        text-align: center;  
+        border-bottom: 3px double var(--primary-color);  
+        padding-bottom: 15px;  
+        margin-bottom: 20px;  
+    }  
+
+    .header h1 {  
+        color: var(--primary-color);  
+        margin: 0 0 8px 0;  
+        font-size: 24px;  
+    }  
+
+    .header h2 {  
+        color: var(--secondary-color);  
+        margin: 0;  
+        font-size: 20px;  
+    }  
+
+    .footer-teachers {  
+        display: flex;  
+        justify-content: space-between;  
+        margin-top: 25px;  
+        padding-top: 15px;  
+        border-top: 1px solid #ddd;  
+        font-size: 14px;  
+    }  
+
+    .teacher-box {  
+        width: 48%;  
+    }  
+
+    .teacher-box.right {  
+        text-align: right;  
+    }  
+
+    .input-group {  
+        margin: 25px 0;  
+        text-align: center;  
+    }  
+
+    .input-group label {  
+        font-size: 18px;  
+        display: block;  
+        margin-bottom: 10px;  
+        font-weight: bold;  
+    }  
+
+    .input-group input {  
+        width: 80%;  
+        max-width: 350px;  
+        padding: 12px;  
+        font-size: 16px;  
+        border: 2px solid #ccc;  
+        border-radius: 6px;  
+        outline: none;  
+    }  
+
+    .btn {  
+        background-color: var(--primary-color);  
+        color: white;  
+        border: none;  
+        padding: 12px 25px;  
+        font-size: 18px;  
+        border-radius: 6px;  
+        cursor: pointer;  
+        transition: background 0.3s;  
+        display: block;  
+        margin: 20px auto 0;  
+    }  
+
+    .btn:hover {  
+        background-color: #0f1b4a;  
+    }  
+
+    #quiz-screen {  
+        display: none;  
+    }  
+
+    .q-header {  
+        display: flex;  
+        justify-content: space-between;  
+        font-weight: bold;  
+        color: #666;  
+        margin-bottom: 15px;  
+    }  
+
+    .passage-box {  
+        background-color: #eef2f5;  
+        border-left: 5px solid var(--primary-color);  
+        padding: 15px;  
+        margin-bottom: 20px;  
+        border-radius: 6px;  
+        line-height: 1.6;  
+        font-size: 16px;  
+    }  
+
+    .passage-title {  
+        font-weight: bold;  
+        color: var(--primary-color);  
+        margin-bottom: 8px;  
+        font-size: 18px;  
+    }  
+
+    .question {  
+        font-size: 18px;  
+        font-weight: bold;  
+        margin-bottom: 15px;  
+        line-height: 1.5;  
+    }  
+
+    .options-container {  
+        display: flex;  
+        flex-direction: column;  
+        gap: 10px;  
+    }  
+
+    .option-btn {  
+        background: #f8f9fa;  
+        border: 2px solid #e9ecef;  
+        padding: 12px 18px;  
+        border-radius: 8px;  
+        text-align: left;  
+        font-size: 16px;  
+        cursor: pointer;  
+        transition: all 0.2s;  
+    }  
+
+    .option-btn:hover {  
+        background: #e2e6ea;  
+    }  
+
+    .option-btn.correct {  
+        background-color: #d4edda !important;  
+        border-color: #28a745 !important;  
+        color: #155724;  
+    }  
+
+    .option-btn.wrong {  
+        background-color: #f8d7da !important;  
+        border-color: #dc3545 !important;  
+        color: #721c24;  
+    }  
+
+    .explanation-box {  
+        display: none;  
+        margin-top: 15px;  
+        padding: 12px;  
+        background-color: #fff3cd;  
+        border: 1px solid #ffeeba;  
+        border-radius: 6px;  
+        color: #856404;  
+        font-size: 15px;  
+    }  
+
+    .next-btn {  
+        display: none;  
+        background-color: var(--secondary-color);  
+    }  
+
+    #result-screen {  
+        display: none;  
+    }  
+
+    .certificate {  
+        border: 6px double var(--primary-color);  
+        padding: 25px;  
+        background: #fffdf9;  
+        border-radius: 8px;  
+        text-align: center;  
+    }  
+
+    .cert-title {  
+        font-size: 22px;  
+        color: var(--primary-color);  
+        font-weight: bold;  
+        margin-bottom: 15px;  
+    }  
+
+    .cert-details {  
+        text-align: left;  
+        max-width: 450px;  
+        margin: 0 auto 20px;  
+        font-size: 17px;  
+        line-height: 1.8;  
+    }  
+
+    .honor-box {  
+        border: 2px dashed #e67e22;  
+        background: #fff8f0;  
+        padding: 15px;  
+        border-radius: 8px;  
+        margin: 20px 0;  
+    }  
+
+    .honor-icon {  
+        font-size: 40px;  
+        margin-bottom: 5px;  
+    }  
+
+    .honor-title {  
+        font-size: 20px;  
+        font-weight: bold;  
+        color: #d35400;  
+    }  
+
+    @media (max-width: 600px) {  
+        .footer-teachers {  
+            flex-direction: column;  
+            gap: 15px;  
+        }  
+        .teacher-box, .teacher-box.right {  
+            width: 100%;  
+            text-align: center;  
+        }  
+    }  
+</style>
+
+</head>  
+<body>  <div class="container">  
+    <!-- १. सुरुवात स्क्रीन -->  
+    <div id="start-screen">  
+        <div class="header">  
+            <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>  
+            <h2>नवोदय परीक्षा सराव टेस्ट (उतारे)</h2>  
+        </div>  <div class="input-group">  
+        <label for="student-name">विद्यार्थ्याचे नाव प्रविष्ट करा:</label>  
+        <input type="text" id="student-name" placeholder="पूर्ण नाव लिहा..." required>  
+        <br>  
+        <label for="student-mobile" style="margin-top: 15px;">मोबाईल नंबर प्रविष्ट करा:</label>  
+        <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर..." maxlength="10" required>  
+    </div>  
+
+    <button class="btn" onclick="startExam()">Start Exam</button>  
+
+    <div class="footer-teachers">  
+        <div class="teacher-box">  
+            <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>  
+            <strong>संपर्क :</strong> 8329684470  
+        </div>  
+        <div class="teacher-box right">  
+            <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>  
+            <strong>संपर्क :</strong> 8208167846  
+        </div>  
+    </div>  
+</div>  
+
+<!-- २. परीक्षा स्क्रीन -->  
+<div id="quiz-screen">  
+    <div class="header">  
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>  
+        <h2>नवोदय परीक्षा सराव टेस्ट</h2>  
+    </div>  
+
+    <div class="q-header">  
+        <span id="q-count">प्रश्न १ / २०</span>  
+    </div>  
+
+    <div class="passage-box">  
+        <div class="passage-title" id="passage-title">उतारा</div>  
+        <div id="passage-text"></div>  
+    </div>  
+
+    <div class="question" id="question-text"></div>  
+    <div class="options-container" id="options-container"></div>  
+
+    <div class="explanation-box" id="explanation-box"></div>  
+
+    <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>  
+
+    <div class="footer-teachers">  
+        <div class="teacher-box">  
+            <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे (8329684470)  
+        </div>  
+        <div class="teacher-box right">  
+            <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे (8208167846)  
+        </div>  
+    </div>  
+</div>  
+
+<!-- ३. निकाल / प्रमाणपत्र स्क्रीन -->  
+<div id="result-screen">  
+    <div class="certificate">  
+        <div class="cert-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>  
+        <h3 style="margin-top:0; color: #555;">गुणपत्रक व सन्मानपत्र</h3>  
+          
+        <div class="cert-details">  
+            <b>परीक्षेचे नाव :</b> नवोदय सराव टेस्ट (उतारे)<br>  
+            <b>विद्यार्थ्याचे नाव :</b> <span id="res-name"></span><br>  
+            <b>मोबाईल नंबर :</b> <span id="res-mobile"></span><br>  
+            <b>मिळालेले गुण :</b> <span id="res-score"></span> / २०<br>  
+            <b>टक्केवारी :</b> <span id="res-percentage"></span>%  
+        </div>  
+
+        <div class="honor-box">  
+            <div class="honor-icon" id="honor-icon">🏆</div>  
+            <div class="honor-title" id="honor-title"></div>  
+            <div id="honor-desc" style="margin-top: 5px; font-size: 15px;"></div>  
+        </div>  
+
+        <div class="footer-teachers" style="border-top: 1px dashed #bbb;">  
+            <div class="teacher-box">  
+                <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>  
+                <strong>संपर्क :</strong> 8329684470  
+            </div>  
+            <div class="teacher-box right">  
+                <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>  
+                <strong>संपर्क :</strong> 8208167846  
+            </div>  
+        </div>  
+    </div>  
+</div>
+
+</div>  <script>  
+    // डेटा (उतारे आणि प्रश्न)  
+    const passages = {  
+        p25: {  
+            title: "उतारा २५ (धोंडो केशव कर्वे)",  
+            text: "धोंडो केशव कर्वे हे आधुनिक महाराष्ट्रातील स्त्री सुधारणा करणारे एक महत्त्वाचे व्यक्तिमत्त्व होते. यांनी महिलांचे शिक्षण, त्यांचे हक्क, विधवा-पुनर्विवाह यासाठी आपले १०४ वर्षांचे जीवन वाहिले. सामाजिक सुधारणा विशेषतः स्त्रियांच्या शिक्षणासाठी त्यांनी वाहिलेले आधुनिक ऋषितुल्य जीवन त्यांच्या कार्याचा प्रारंभ हा विधवा विवाह पासून झाला आणि त्यांची परिणीती स्त्रियांच्या शिक्षणासाठी स्वतंत्र विद्यापीठ काढण्यामध्ये झाली. स्त्रियांच्या सर्वांगीण उन्नतीसाठी त्यांनी अविरत परिश्रम केले. त्यांनी सामाजिक सुधारणेसाठी महत्त्वपूर्ण योगदान दिलेले आहे."  
+        },  
+        p26: {  
+            title: "उतारा २६ (गोपाळ गणेश आगरकर)",  
+            text: "महाराष्ट्रातील समाज परिवर्तनाच्या प्रक्रियेला विवेकाचे, बुद्धिप्रामाण्याचे व व्यक्तिस्वातंत्र्याचे अधिष्ठान देऊन, परिवर्तनाचे विज्ञाननिष्ठ तत्त्वज्ञान निर्माण करण्याचे श्रेय गोपाळराव आगरकरांकडे जाते. सामाजिक परिवर्तनाच्या चळवळीला गती या काळामध्ये प्राप्त करून देण्याचे काम गोपाळ गणेश आगरकर यांनी केले. विज्ञाननिष्ठ दृष्टिकोन स्वीकारून ग्रंथ प्रामाण्याला विरोध करत बुद्धिप्रामाण्याची कास धरणारे तत्कालीन सुधारकांमध्ये आपला विचार परखडपणे मांडणारे सुधारक म्हणून आगरकर हे उल्लेखनीय आहेत. आगरकर हे बाळ गंगाधर टिळकांनी सुरू केलेल्या केसरी वृत्तपत्राचे पहिले संपादक होते."  
+        }  
+    };  
+  
+    const questionsPart1 = [  
+        // उतारा २५ चे प्रश्न (१ ते ५)  
+        { passageKey: 'p25', q: "१. धोंडो केशव कर्वे यांच्या कार्याचा प्रारंभ कशापासून झाला?", options: ["(A) शिक्षण", "(B) विधवा विवाह", "(C) हक्क", "(D) स्वतंत्र विद्यापीठ काढून"], correct: 2, exp: "उताऱ्यानुसार: त्यांच्या कार्याचा प्रारंभ 'विधवा विवाह' पासून झाला." },  
+        { passageKey: 'p25', q: "२. कर्वे यांनी आयुष्य कशासाठी वाहिले?", options: ["(A) महिलांचे शिक्षण व हक्क", "(B) परिश्रमासाठी", "(C) विद्यापीठ", "(D) आधुनिक जीवन"], correct: 1, exp: "उताऱ्यानुसार: त्यांनी महिलांचे शिक्षण, त्यांचे हक्क आणि विधवा-पुनर्विवाह यासाठी आयुष्य वाहिले." },  
+        { passageKey: 'p25', q: "३. 'प्रारंभ' या शब्दाचा खालीलपैकी कोणता समानार्थी शब्द नाही?", options: ["(A) श्रीगणेशा", "(B) सुरवात", "(C) उगम", "(D) अंत"], correct: 4, exp: "'अंत' म्हणजे शेवट, त्यामुळे हा 'प्रारंभ' चा समानार्थी शब्द नाही (विरुद्धार्थी आहे)." },  
+        { passageKey: 'p25', q: "४. 'आधुनिक' हे ............ आहे.", options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"], correct: 3, exp: "'आधुनिक' हा शब्द नामाबद्दल विशेष माहिती सांगत असल्याने विशेषण आहे." },  
+        { passageKey: 'p25', q: "५. उन्नती म्हणजे ......", options: ["(A) अवनती", "(B) अधोगती", "(C) प्रगति", "(D) विकृती"], correct: 3, exp: "उन्नती म्हणजे विकास किंवा 'प्रगति' होय." },  
+  
+        // उतारा २६ चे प्रश्न (६ ते १०)  
+        { passageKey: 'p26', q: "६. केसरी वृत्तपत्राचे पहिले संपादक कोण होते?", options: ["(A) लोकमान्य", "(B) बाळ गंगाधर टिळक", "(C) आगरकर", "(D) यांपैकी नाही"], correct: 3, exp: "उताऱ्याच्या शेवटच्या ओळीनुसार: आगरकर हे केसरी वृत्तपत्राचे पहिले संपादक होते." },  
+        { passageKey: 'p26', q: "७. कोणत्याही गोष्टींमध्ये नवचैतन्य निर्माण करून नवनिर्माण करणारी शक्ती म्हणजे...", options: ["(A) वृत्तपत्र", "(B) परिवर्तन", "(C) सुधारणा", "(D) विरोध"], correct: 2, exp: "उतारा संदर्भानुसार: नवचैतन्य आणून बदल घडवणे म्हणजे 'परिवर्तन' होय." },  
+        { passageKey: 'p26', q: "८. उल्लेखनीय हे ......... आहे.", options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"], correct: 3, exp: "'उल्लेखनीय' हा शब्द गुणधर्माचे वर्णन करतो, म्हणून तो विशेषण आहे." },  
+        { passageKey: 'p26', q: "९. त्यावेळचा व त्या काळातील......", options: ["(A) तत्कालीन", "(B) उल्लेखनीय", "(C) वृत्तपत्र", "(D) परिवर्तन"], correct: 1, exp: "त्यावेळच्या किंवा त्या काळातील गोष्टीसाठी 'तत्कालीन' हा शब्द वापरला जातो." },  
+        { passageKey: 'p26', q: "१०. 'विरोध' याचा समानार्थी शब्द कोणता नाही?", options: ["(A) शत्रुत्व", "(B) प्रतिकार", "(C) मतभेद", "(D) संमती"], correct: 4, exp: "'संमती' म्हणजे सहमती दर्शवणे, हा 'विरोध' चा समानार्थी शब्द नाही." }  
+    ];    // उतारा २७ व २८ चा डेटा  
+    passages.p27 = {  
+        title: "उतारा २७ (नवे वर्ष व निरोप)",  
+        text: "डिसेंबर महिना सुरू झाला की, वर्षाला निरोप देण्याची तयारी सुरू होते, अशावेळी मागील वर्षाचे गणित आपण मांडत असतो, आनंदाच्या दुःखाच्या क्षणांचा आढावा घेतो. सुखाच्या क्षणांची बेरीज करतो. दुःखाच्या क्षणांची वजाबाकी करतो. अशी गणिते मांडून सरत्या वर्षाला निरोप द्यायचा की, मागील वर्षात आलेला प्रत्येक अनुभव नवीन काहीतरी शिकवून गेला म्हणून सहजतेने तटस्थपणे पाहायचे हे आपल्यावर अवलंबून आहे."  
+    };  
+  
+    passages.p28 = {  
+        title: "उतारा २८ (गांधीजी व खेडा आंदोलन)",  
+        text: "शेतकऱ्यांची गावे अत्यंत घाणेरडी आणि आरोग्याच्या दृष्टीने हानिकारक ठेवली जात. तसेच दारू, अस्पृश्यता, पडदा पद्धत अशा अनेक समस्या या गावांमध्ये होत्या. यावर भर म्हणजे येथील दुष्काळ, पण इंग्रजांनी तरीही अनेक जाचक कर लादले होते आणि ते वाढतच होते. गुजरात मधील खेडामध्ये सुद्धा स्थिती काही वेगळी नव्हती. गांधीजींनी तिथे एक आश्रम उभारला. तिथे त्यांनी त्यांच्या लहान-मोठ्या सर्व अनुयायांना एकत्र केले. त्यांनी त्या भागातील परिस्थितीची माहिती गोळा केली व तिचा सखोल अभ्यास केला. गावकऱ्यांना विश्वासात घेऊन त्यांनी गावाच्या स्वच्छतेचे तसेच शाळा, रुग्णालयाच्या बांधकामाचे काम हाती घेतले. याचसोबत गावातील प्रमुखांना वर उल्लेखलेल्या प्रथा नष्ट करण्यास प्रवृत्त केले."  
+    };  
+  
+    const questionsPart2 = [  
+        // उतारा २७ चे प्रश्न (११ ते १५)  
+        { passageKey: 'p27', q: "११. मागील वर्षाचे गणित आपण केव्हा मांडत असतो?", options: ["(A) जानेवारी", "(B) डिसेंबर", "(C) फेब्रुवारी", "(D) मार्च"], correct: 2, exp: "उताऱ्याच्या पहिल्याच ओळीनुसार: डिसेंबर महिना सुरू झाला की आपण गणित मांडतो." },  
+        { passageKey: 'p27', q: "१२. कोणास एखाद्या ठिकाणाहून जाण्यास अनुमती देणे म्हणजे...", options: ["(A) परवानगी न देणे", "(B) निरोप देणे", "(C) शिकवून जाने", "(D) गणित मांडणे"], correct: 2, exp: "एखाद्याला जाण्याची अनुमती देणे म्हणजेच त्याला 'निरोप देणे' होय." },  
+        { passageKey: 'p27', q: "१३. आपण कोणत्या क्षणांची बेरीज करतो?", options: ["(A) दुःख", "(B) तटस्थ", "(C) हर्ष", "(D) गणित"], correct: 3, exp: "उताऱ्यात 'सुखाच्या क्षणांची बेरीज करतो' म्हटले आहे; 'हर्ष' म्हणजे सुख/आनंद." },  
+        { passageKey: 'p27', q: "१४. 'आनंद' या शब्दाचा खालीलपैकी कोणता समानार्थी शब्द नाही?", options: ["(A) हर्ष", "(B) प्रसन्नता", "(C) प्रमोद", "(D) निराशा"], correct: 4, exp: "'निराशा' हा आनंदाचा विरुद्धार्थी शब्द आहे, समानार्थी नाही." },  
+        { passageKey: 'p27', q: "१५. 'वर्ष' हे ............ आहे.", options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"], correct: 1, exp: "'वर्ष' हा कालावधी दर्शवणारा नाम शब्द आहे." },  
+  
+        // उतारा २८ चे प्रश्न (१६ ते २०)  
+        { passageKey: 'p28', q: "१६. तीव्र पाणी टंचाई म्हणजे......", options: ["(A) कर", "(B) पडदा", "(C) अस्पृश्यता", "(D) दुष्काळ"], correct: 4, exp: "पाण्याची प्रचंड टंचाई असणाऱ्या परिस्थितीला 'दुष्काळ' म्हणतात." },  
+        { passageKey: 'p28', q: "१७. गांधीजींनी आश्रम कोठे उभारला?", options: ["(A) प्रत्येक गावात", "(B) खेडात", "(C) प्रांतात", "(D) यांपैकी नाही"], correct: 2, exp: "उताऱ्यानुसार: गुजरात मधील 'खेडा' (खेडात) येथे त्यांनी आश्रम उभारला." },  
+        { passageKey: 'p28', q: "१८. गुजरामधील खेडामध्ये कशी स्थिती होती?", options: ["(A) अस्पृश्यता", "(B) पडदा पद्धत", "(C) दुष्काळ", "(D) वरील सर्व"], correct: 4, exp: "उताऱ्यात अस्पृश्यता, पडदा पद्धत आणि दुष्काळ या सर्व समस्यांचा उल्लेख आहे." },  
+        { passageKey: 'p28', q: "१९. 'परिपूर्ण ज्ञान/माहिती प्राप्त करणे' या शब्दसमुहाबद्दल उताऱ्यात कोणता शब्द आला आहे?", options: ["(A) परिस्थिती", "(B) भर", "(C) सखोल", "(D) प्रथा"], correct: 3, exp: "परिपूर्ण अभ्यासासाठी उताऱ्यात 'सखोल' (सखोल अभ्यास) हा शब्द आला आहे." },  
+        { passageKey: 'p28', q: "२०. 'केली' या क्रियापदाचा काळ कोणता?", options: ["(A) वर्तमानकाळ", "(B) भूतकाळ", "(C) भविष्यकाळ", "(D) अनिश्चित काळ"], correct: 2, exp: "'केली' हे घडून गेलेली क्रिया दर्शवते, म्हणून हा 'भूतकाळ' आहे." }  
+    ];  
+  
+    // सर्व प्रश्न एकत्र जोडणे  
+    const allQuestions = questionsPart1.concat(questionsPart2);  
+  
+    let currentQ = 0;  
+    let score = 0;  
+    let studentName = "";  
+    let studentMobile = "";  
+  
+    function startExam() {  
+        const nameInput = document.getElementById('student-name').value.trim();  
+        const mobileInput = document.getElementById('student-mobile').value.trim();  
+  
+        if (nameInput === "") {  
+            alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");  
+            return;  
+        }  
+        if (mobileInput === "" || mobileInput.length !== 10) {  
+            alert("कृपया १० अंकी योग्य मोबाईल नंबर प्रविष्ट करा!");  
+            return;  
+        }  
+  
+        studentName = nameInput;  
+        studentMobile = mobileInput;  
+  
+        document.getElementById('start-screen').style.display = 'none';  
+        document.getElementById('quiz-screen').style.display = 'block';  
+  
+        loadQuestion();  
+    }  
+  
+    function loadQuestion() {  
+        const qData = allQuestions[currentQ];  
+        const pData = passages[qData.passageKey];  
+  
+        // उतारा अपडेट करा  
+        document.getElementById('passage-title').innerText = pData.title;  
+        document.getElementById('passage-text').innerText = pData.text;  
+  
+        // प्रश्न क्रमांक व मजकूर अपडेट करा  
+        document.getElementById('q-count').innerText = `प्रश्न ${currentQ + 1} / ${allQuestions.length}`;  
+        document.getElementById('question-text').innerText = qData.q;  
+          
+        const optionsContainer = document.getElementById('options-container');  
+        optionsContainer.innerHTML = '';  
+  
+        document.getElementById('explanation-box').style.display = 'none';  
+        document.getElementById('next-btn').style.display = 'none';  
+  
+        qData.options.forEach((opt, idx) => {  
+            const btn = document.createElement('button');  
+            btn.className = 'option-btn';  
+            btn.innerText = opt;  
+            btn.onclick = () => selectOption(btn, idx + 1);  
+            optionsContainer.appendChild(btn);  
+        });  
+    }  
+  
+    function selectOption(selectedBtn, optionNum) {  
+        const qData = allQuestions[currentQ];  
+        const buttons = document.querySelectorAll('.option-btn');  
+          
+        // पर्याय निष्क्रिय करणे  
+        buttons.forEach(btn => btn.disabled = true);  
+  
+        const expBox = document.getElementById('explanation-box');  
+  
+        if (optionNum === qData.correct) {  
+            selectedBtn.classList.add('correct');  
+            score++;  
+        } else {  
+            selectedBtn.classList.add('wrong');  
+            // अचूक पर्याय दाखवणे  
+            buttons[qData.correct - 1].classList.add('correct');  
+              
+            // चुकीचे उत्तर असल्यास स्पष्टीकरण दाखवणे  
+            expBox.innerHTML = `<b>स्पष्टीकरण:</b> ${qData.exp}`;  
+   
