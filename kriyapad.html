@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - क्रियापद</title>
+    <style>
+        :root {
+            --primary-color: #1a2a6c;
+            --secondary-color: #b21f1f;
+            --success-color: #28a745;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px double var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin: 0 0 8px 0;
+            font-size: 24px;
+        }
+
+        .header h2 {
+            color: var(--secondary-color);
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .teacher-box {
+            width: 48%;
+        }
+
+        .teacher-box.right {
+            text-align: right;
+        }
+
+        .input-group {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .input-group label {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 80%;
+            max-width: 350px;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        .btn:hover {
+            background-color: #0f1b4a;
+        }
+
+        #quiz-screen {
+            display: none;
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background: #e2e6ea;
+        }
+
+        .option-btn.selected-green {
+            background-color: var(--success-color) !important;
+            color: white !important;
+            border-color: var(--success-color) !important;
+        }
+
+        .next-btn {
+            display: none;
+            background-color: var(--secondary-color);
+        }
+
+        #result-screen {
+            display: none;
+        }
+
+        .certificate {
+            border: 8px double var(--primary-color);
+            padding: 25px;
+            background: #fffdf9;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cert-title {
+            font-size: 22px;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .cert-details {
+            text-align: left;
+            max-width: 450px;
+            margin: 0 auto 20px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .honor-box {
+            border: 2px dashed #e67e22;
+            background: #fff8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .honor-icon {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+
+        .honor-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d35400;
+        }
+
+        .review-section {
+            margin-top: 35px;
+            text-align: left;
+        }
+
+        .review-title {
+            font-size: 20px;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .incorrect-card {
+            background: #fff5f5;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .incorrect-q {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .ans-info {
+            font-size: 15px;
+            margin: 4px 0;
+        }
+
+        .text-red { color: #dc3545; }
+        .text-green { color: #28a745; }
+
+        @media (max-width: 600px) {
+            .footer-teachers {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .teacher-box, .teacher-box.right {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="start-screen">
+        <div class="header">
+            <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+            <h2>नवोदय परीक्षा सराव टेस्ट : क्रियापद</h2>
+        </div>
+
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे नाव प्रविष्ट करा:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव लिहा..." required>
+            <br>
+            <label for="student-mobile" style="margin-top: 15px;">मोबाईल नंबर प्रविष्ट करा:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर..." maxlength="10" required>
+        </div>
+
+        <button class="btn" onclick="startExam()">Start Exam</button>
+
+        <div class="footer-teachers">
+            <div class="teacher-box">
+                <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                <strong>संपर्क :</strong> 8329684470
+            </div>
+            <div class="teacher-box right">
+                <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                <strong>संपर्क :</strong> 8208167846
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-screen">
+        <div class="header">
+            <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+            <h2>विषय : मराठी व्याकरण (क्रियापद)</h2>
+        </div>
+
+        <div class="q-header">
+            <span id="q-count">प्रश्न १ / ३०</span>
+        </div>
+
+        <div class="question" id="question-text"></div>
+        <div class="options-container" id="options-container"></div>
+
+        <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+
+        <div class="footer-teachers">
+            <div class="teacher-box">
+                <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे (8329684470)
+            </div>
+            <div class="teacher-box right">
+                <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे (8208167846)
+            </div>
+        </div>
+    </div>
+
+    <div id="result-screen">
+        <div class="certificate">
+            <div class="cert-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <h3 style="margin-top:0; color: #555;">गुणपत्रक व सन्मानपत्र</h3>
+            
+            <div class="cert-details">
+                <b>परीक्षेचे नाव :</b> नवोदय सराव टेस्ट (क्रियापद)<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="res-name"></span><br>
+                <b>मोबाईल नंबर :</b> <span id="res-mobile"></span><br>
+                <b>मिळालेले गुण :</b> <span id="res-score"></span> / ३०<br>
+                <b>टक्केवारी :</b> <span id="res-percentage"></span>%
+            </div>
+
+            <div class="honor-box">
+                <div class="honor-icon" id="honor-icon">🏆</div>
+                <div class="honor-title" id="honor-title"></div>
+                <div id="honor-desc" style="margin-top: 5px; font-size: 15px;"></div>
+            </div>
+
+            <div class="footer-teachers" style="border-top: 1px dashed #bbb;">
+                <div class="teacher-box">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                    <strong>संपर्क :</strong> 8329684470
+                </div>
+                <div class="teacher-box right">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                    <strong>संपर्क :</strong> 8208167846
+                </div>
+            </div>
+        </div>
+
+        <div class="review-section" id="review-section">
+            <div class="review-title">चुकलेले प्रश्न आणि त्यांचे स्पष्टीकरण :</div>
+            <div id="incorrect-list"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "१. 'पायऱ्या चढताना तिचे अचानक पाय सांजावले.' या वाक्यातील क्रियापद कोणते?", options: ["चढताना", "अचानक", "सांजावले", "पाय"], correct: 3, exp: "वाक्याचा अर्थ पूर्ण करणारा क्रियावाचक शब्द 'सांजावले' हा आहे." },
+        { q: "२. 'बाळाने दुधाची सर्व वाटी एकाच गुटक्यात ____.' योग्य क्रियापद निवडा.", options: ["संपवले", "संपवली", "संपवला", "संपवल्या"], correct: 2, exp: "कर्म 'वाटी' (स्त्रीलिंगी एकवचन) असल्याने 'संपवली' हे सुसंगत रूप येईल." },
+        { q: "३. 'तिच्या बोलण्याने सर्वांचे डोळे पाण्याने ____.' योग्य रूप निवडा.", options: ["पाणवले", "पाणावला", "पाणवली", "पाणावल्या"], correct: 1, exp: "'डोळे' (अनेकवचनी) या कर्त्यानुसार/कर्माच्या सुसंगतीने 'पाणवले' योग्य रूप ठरते." },
+        { q: "४. 'मुलांनी मैदानावर शिस्तबद्ध रीतीने रांगेत उभे ____.'", options: ["राहा", "राहतात", "राहणे", "राहिले"], correct: 4, exp: "मुलांनी (अनेकवचन) भूतकाळी सुसंगतीनुसार 'राहिले' योग्य क्रियापद आहे." },
+        { q: "५. 'झाडावरून सुके पान हळूच खाली गळाले.' या वाक्यातील क्रियापद शोधा.", options: ["गळाले", "झाडावरून", "सुके", "हळूच"], correct: 1, exp: "गळण्याची क्रिया पूर्ण दर्शवणारा शब्द 'गळाले' हा आहे." },
+        { q: "६. 'झाडावरून पिकलेली दोन फळे खाली ____.' योग्य क्रियापद भरा.", options: ["पडला", "पडले", "पडली", "पडल्या"], correct: 3, exp: "'फळे' (नपुंसकलिंगी अनेकवचन) असल्यामुळे 'पडली' हे योग्य रूप येईल." },
+        { q: "७. 'त्या घटनेने माझे मन खूप उंचावले.' या वाक्यातील क्रियापद कोणते?", options: ["उंचावले", "घटनेने", "माझे", "मन"], correct: 1, exp: "'उंचावले' हे वाक्याचा अर्थ पूर्ण करणारे नाम/विशेषणसाधित क्रियापद आहे." },
+        { q: "८. 'सैनिकाने शत्रूचा वार आपल्या ढालवर ____.'", options: ["झेलले", "झेलला", "झेलली", "झेलल्या"], correct: 2, exp: "कर्म 'वार' (पुल्लिंगी एकवचन) असल्यामुळे 'झेलला' हे सुसंगत रूप आहे." },
+        { q: "९. 'नदीला आलेला महापूर हळूहळू ____.'", options: ["ओसरले", "ओसरली", "ओसरला", "ओसरल्या"], correct: 3, exp: "'महापूर' (पुल्लिंगी) या शब्दानुसार 'ओसरला' हे योग्य क्रियापद ठरते." },
+        { q: "१०. 'राजा आणि प्रजा दोघेही आनंदाने ____.'", options: ["नाचले", "नाचला", "नाचली", "नाचलो"], correct: 1, exp: "दोघे एकत्र आल्याने अनेकवचनी सुसंगतीनुसार 'नाचले' योग्य रूप आहे." },
+        { q: "११. 'आम्ही उद्या सकाळी नक्कीच निघणार ____.'", options: ["आहे", "आहात", "आहेत", "आहोत"], correct: 4, exp: "'आम्ही' (प्रथम पुरुष अनेकवचन) असल्यामुळे 'आहोत' हे सहाय्यक रूप येईल." },
+        { q: "१२. 'त्याच्या गाडीचे चाक अचानक ____.'", options: ["निखळला", "निखळले", "निखळली", "निखळल्या"], correct: 2, exp: "चाक (नपुंसकलिंगी एकवचन) असल्याने 'निखळले' हे सुसंगत रूप आहे." },
+        { q: "१३. 'पक्षांच्या थव्याने आकाशात उंच भरारी ____.'", options: ["घेतली", "घेतला", "घेतले", "घेतल्या"], correct: 1, exp: "कर्म 'भरारी' (स्त्रीलिंगी एकवचन) असल्यामुळे 'घेतली' योग्य ठरेल." },
+        { q: "१४. 'झाडावरील सर्व पिकलेली फळे खाली पडला.' या वाक्यातील चुकीचा शब्द ओळखा.", options: ["पिकलेली", "पडला", "झाडावरील", "फळे"], correct: 2, exp: "'फळे' नुसार 'पडली' हवे होते, 'पडला' हा चुकीचा शब्द आहे." },
+        { q: "१५. 'माझ्या आजीने मला एक छान गोष्ट ____.'", options: ["सांगितला", "सांगितले", "सांगितली", "सांगितल्या"], correct: 3, exp: "कर्म 'गोष्ट' (स्त्रीलिंगी एकवचन) असल्यामुळे 'सांगितली' योग्य क्रियापद आहे." }
+    ];
+      const questions2 = [
+        { q: "१६. 'मुलींनी मैदानावर सुंदर खेळ ____.'", options: ["दाखवले", "दाखवली", "दाखवला", "दाखवल्या"], correct: 3, exp: "कर्म 'खेळ' (पुल्लिंगी एकवचन) असल्याने 'दाखवला' हे सुसंगत रूप येईल." },
+        { q: "१७. 'त्या दुर्दैवी घटनेची वार्ता वाऱ्यासारखी सर्वत्र ____.'", options: ["पसरला", "पसरले", "पसरल्या", "पसरली"], correct: 4, exp: "'वार्ता' (स्त्रीलिंगी) या कर्त्यानुसार 'पसरली' हे योग्य रूप आहे." },
+        { q: "१८. 'त्या सर्व लहान मुलांनी आपापली खेळणी खोक्यात ____.'", options: ["ठेवली", "ठेवला", "ठेवले", "ठेवल्या"], correct: 1, exp: "'खेळणी' (नपुंसकलिंगी अनेकवचन) कर्म असल्यामुळे 'ठेवली' योग्य ठरेल." },
+        { q: "१९. 'त्या सर्व खेळाडूंनी देशासाठी पदक ____.'", options: ["मिळवला", "मिळवले", "मिळवली", "मिळवल्या"], correct: 2, exp: "कर्म 'पदक' (नपुंसकलिंगी एकवचन) असल्याने 'मिळवले' हे योग्य रूप आहे." },
+        { q: "२०. 'कोकणात जाताना सायंकाळी साडेसहा वाजता उजाडले.' या वाक्यातील क्रियापद ओळखा.", options: ["कोकणात", "जाताना", "उजाडले", "सायंकाळी"], correct: 3, exp: "'उजाडले' हे अर्थ पूर्ण करणारे भावकर्तुक क्रियापद आहे." },
+        { q: "२१. 'त्याच्या डोळ्यात अचानक अश्रू तरळले.' या वाक्यातील योग्य क्रियापद शोधा.", options: ["त्याच्या", "डोळ्यात", "अश्रू", "तरळले"], correct: 4, exp: "क्रिया दर्शवणारा व वाक्य पूर्ण करणारा शब्द 'तरळले' हा आहे." },
+        { q: "२२. 'अंधार पडण्यापूर्वीच आम्ही घरी ____.'", options: ["पोहोचलो", "पोहोचला", "पोहोचले", "पोहोचली"], correct: 1, exp: "'आम्ही' या सर्वनामासाठी 'पोहोचलो' हे सुसंगत क्रियापद आहे." },
+        { q: "२३. 'आजारी माणसाला आता थोडे थोडे ____.'", options: ["चालतो", "चालतात", "चालवते", "चाला"], correct: 3, exp: "क्षमता किंवा शक्यता दर्शवण्यासाठी 'चालवते' हे योग्य रूप आहे." },
+        { q: "२४. 'ती मुलगी रोज सकाळी उठून अभ्यास करत ____.'", options: ["अस्तो", "असते", "असतात", "असलो"], correct: 2, exp: "'ती मुलगी' (स्त्रीलिंगी एकवचन) असल्याने 'असते' हे सहाय्यक रूप येईल." },
+        { q: "२५. 'तू ते अवघड काम वेळेत पूर्ण करायचे ____.'", options: ["होतास", "होते", "होता", "होतेस"], correct: 4, exp: "'तू' (द्वितीय पुरुष) या सर्वनाम सुसंगतीनुसार 'होतेस' योग्य ठरेल." },
+        { q: "२६. 'मंजूने बाहुलीला छान कपड्यांनी नटवले.' या वाक्यातील क्रियापद ओळखा.", options: ["नटवले", "मंजूने", "बाहुलीला", "छान"], correct: 1, exp: "'नटवले' हे वाक्य पूर्ण करणारे प्रयोजक क्रियापद आहे." },
+        { q: "२७. 'त्या चिमुकल्या मुलीचे हास्य सर्वांना ____.'", options: ["भावला", "भावली", "भावल्या", "भावले"], correct: 4, exp: "'हास्य' (नपुंसकलिंगी एकवचन) असल्याने 'भावले' हे योग्य रूप येईल." },
+        { q: "२८. 'माझ्या भावाने मला नवीन पुस्तक ____.'", options: ["दिला", "दिली", "दिल्या", "दिले"], correct: 4, exp: "कर्म 'पुस्तक' (नपुंसकलिंगी एकवचन) असल्यामुळे 'दिले' हे सुसंगत रूप आहे." },
+        { q: "२९. 'राजाला त्याचा नवीन मुकुट अतिशय शोभतो.' या वाक्यातील क्रिया दर्शविणारा शब्द कोणता?", options: ["मुकुट", "राजाला", "शोभतो", "अतिशय"], correct: 3, exp: "'शोभतो' हा शब्द क्रिया दर्शवून वाक्याचा अर्थ पूर्ण करतो." },
+        { q: "३०. 'पोपटाने बागेतील गोड पेरू खाल्ली.' या वाक्यातील चुकीचा क्रियापद शब्द ओळखा.", options: ["खाल्ली", "पेरू", "गोड", "पोपटाने"], correct: 1, exp: "कर्म 'पेरू' (पुल्लिंगी) असल्याने 'खाल्ला' हवे होते, 'खाल्ली' चुकीचे आहे." }
+    ];
+
+    const allQuestions = questions.concat(questions2);
+
+    let currentQ = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let userAnswers = [];
+
+    function startExam() {
+        const nameInput = document.getElementById('student-name').value.trim();
+        const mobileInput = document.getElementById('student-mobile').value.trim();
+
+        if (nameInput === "") {
+            alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");
+            return;
+        }
+        if (mobileInput === "" || mobileInput.length !== 10) {
+            alert("कृपया १० अंकी योग्य मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        studentName = nameInput;
+        studentMobile = mobileInput;
+
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const qData = allQuestions[currentQ];
+        document.getElementById('q-count').innerText = `प्रश्न ${currentQ + 1} / ${allQuestions.length}`;
+        document.getElementById('question-text').innerText = qData.q;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        document.getElementById('next-btn').style.display = 'none';
+
+        qData.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = `(${idx + 1}) ${opt}`;
+            btn.onclick = () => selectOption(btn, idx + 1);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(selectedBtn, optionNum) {
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(btn => btn.disabled = true);
+
+        selectedBtn.classList.add('selected-green');
+        userAnswers[currentQ] = optionNum;
+
+        if (optionNum === allQuestions[currentQ].correct) {
+            score++;
+        }
+
+        const nextBtn = document.getElementById('next-btn');
+        if (currentQ === allQuestions.length - 1) {
+            nextBtn.innerText = "Submit Exam";
+        } else {
+            nextBtn.innerText = "Next Question";
+        }
+        nextBtn.style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        if (currentQ < allQuestions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+
+        const percentage = Math.round((score / allQuestions.length) * 100);
+
+        document.getElementById('res-name').innerText = studentName;
+        document.getElementById('res-mobile').innerText = studentMobile;
+        document.getElementById('res-score').innerText = score;
+        document.getElementById('res-percentage').innerText = percentage;
+
+        const iconElem = document.getElementById('honor-icon');
+        const titleElem = document.getElementById('honor-title');
+        const descElem = document.getElementById('honor-desc');
+
+        if (percentage >= 80) {
+            iconElem.innerText = "🥇 🏆";
+            titleElem.innerText = "Gold Medal + Trophy";
+            descElem.innerText = "अभिनंदन! अतिशय उत्कृष्ट कामगिरी!";
+        } else if (percentage >= 60) {
+            iconElem.innerText = "🥈 🏆";
+            titleElem.innerText = "Silver Medal + Trophy";
+            descElem.innerText = "छान कामगिरी! उत्तम प्रयत्न!";
+        } else if (percentage >= 50) {
+            iconElem.innerText = "🥉 🏆";
+            titleElem.innerText = "Bronze Medal + Trophy";
+            descElem.innerText = "छावा! आणखी सरावाची गरज आहे!";
+        } else {
+            iconElem.innerText = "💐";
+            titleElem.innerText = "अभिनंदन!";
+            descElem.innerText = "फुलांचा गुच्छ व पुढील परीक्षेसाठी हार्दिक शुभेच्छा!";
+        }
+
+        const incorrectList = document.getElementById('incorrect-list');
+        incorrectList.innerHTML = '';
+
+        let incorrectCount = 0;
+
+        allQuestions.forEach((q, idx) => {
+            const uAns = userAnswers[idx];
+            if (uAns !== q.correct) {
+                incorrectCount++;
+                const card = document.createElement('div');
+                card.className = 'incorrect-card';
+
+                const uAnsText = uAns ? q.options[uAns - 1] : "उत्तर दिले नाही";
+                const cAnsText = q.options[q.correct - 1];
+
+                card.innerHTML = `
+                    <div class="incorrect-q">${q.q}</div>
+                    <div class="ans-info text-red"><b>तुमचे उत्तर:</b> (${uAns || '-'}) ${uAnsText}</div>
+                    <div class="ans-info text-green"><b>योग्य उत्तर:</b> (${q.correct}) ${cAnsText}</div>
+                    <div class="ans-info" style="color: #555; margin-top: 5px;"><b>स्पष्टीकरण:</b> ${q.exp}</div>
+                `;
+                incorrectList.appendChild(card);
+            }
+        });
+
+        if (incorrectCount === 0) {
+            incorrectList.innerHTML = "<p style='color: green; font-weight: bold;'>उत्कृष्ट! तुमचा एकही प्रश्न चुकलेला नाही!</p>";
+        }
+    }
+</script>
+
+</body>
+</html>
