@@ -3,29 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>वनस्पती आणि अनुकूलन - २०० प्रश्न टेस्ट</title>
+    <title>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर - नवोदय परीक्षा सराव टेस्ट</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 20px; padding: 0; }
-        .container { max-width: 800px; background: white; margin: 0 auto; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; }
-        .question-card { margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #ddd; }
-        .question-title { font-size: 18px; font-weight: bold; color: #333; }
-        .options { margin-top: 10px; }
-        .option-btn { display: block; width: 100%; text-align: left; background: #eef2f5; border: 1px solid #ccc; padding: 10px; margin: 5px 0; border-radius: 5px; cursor: pointer; }
-        .option-btn:hover { background: #dce4ec; }
-        .explanation { display: none; margin-top: 10px; padding: 10px; background: #e8f8f5; border-left: 4px solid #2ecc71; color: #16a085; }
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #f39c12;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #eef2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 2px solid #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            text-align: center;
+            padding: 20px 15px;
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header h2 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #f1c40f;
+        }
+
+        .footer-guides {
+            display: flex;
+            justify-content: space-between;
+            background-color: #e9ecef;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-top: 2px solid #ccc;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .guide-box {
+            width: 48%;
+        }
+
+        .guide-box.right {
+            text-align: right;
+        }
+
+        .content-area {
+            padding: 25px 20px;
+        }
+
+        /* Registration Screen */
+        #reg-screen {
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 80%;
+            max-width: 350px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Quiz Screen */
+        #quiz-screen {
+            display: none;
+        }
+
+        .q-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            background: #eef2f7;
+            padding: 12px;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: #fff;
+            border: 2px solid #dcdde1;
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background: #f1f2f6;
+            border-color: var(--primary-color);
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+
+        .explanation-box {
+            display: none;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .nav-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Certificate Screen */
+        #cert-screen {
+            display: none;
+        }
+
+        .certificate-border {
+            border: 8px double var(--primary-color);
+            padding: 25px 15px;
+            text-align: center;
+            background: #fffdf9;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .cert-title {
+            font-size: 22px;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-decoration: underline;
+        }
+
+        .cert-details {
+            font-size: 16px;
+            text-align: left;
+            max-width: 450px;
+            margin: 0 auto 20px auto;
+            line-height: 1.8;
+        }
+
+        .honor-badge {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+
+        .honor-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .wrong-questions-section {
+            margin-top: 30px;
+            text-align: left;
+            border-top: 2px dashed #bbb;
+            padding-top: 20px;
+        }
+
+        .wrong-questions-section h3 {
+            color: var(--danger-color);
+            margin-bottom: 15px;
+        }
+
+        .wrong-item {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--danger-color);
+        }
+
+        @media print {
+            body { background: none; }
+            .container { border: none; box-shadow: none; }
+            .btn, .nav-controls, .wrong-questions-section { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .footer-guides { flex-direction: column; text-align: center; gap: 8px; }
+            .guide-box.right { text-align: center; }
+            .header h1 { font-size: 20px; }
+            .header h2 { font-size: 15px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>वनस्पती आणि अनुकूलन (२०० प्रश्न ऑनलाइन टेस्ट)</h1>
-    <div id="quiz-container"></div>
-</div>
+    <div class="header">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट: वनस्पती - जमिनीवरील व पाण्यातील</h2>
+    </div>
 
+    <!-- नोंदणी स्क्रीन -->
+    <div id="reg-screen" class="content-area">
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे नाव प्रविष्ट करा:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव लिहा..." required>
+        </div>
+        <div class="input-group">
+            <label for="student-mobile">मोबाईल नंबर प्रविष्ट करा:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर..." maxlength="10">
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- परीक्षा स्क्रीन -->
+    <div id="quiz-screen" class="content-area">
+        <div class="q-header" id="question-text">प्रश्न येथे दिसेल...</div>
+        <div class="options-container" id="options-box"></div>
+        
+        <div class="explanation-box" id="explanation-box">
+            <strong>स्पष्टीकरण: </strong><span id="explanation-text"></span>
+        </div>
+
+        <div class="nav-controls">
+            <button class="btn" id="next-btn" onclick="nextQuestion()" style="display:none;">नेक्स्ट क्वेश्चन</button>
+            <button class="btn" id="submit-btn" onclick="submitExam()" style="display:none; background-color: var(--success-color);">Submit Exam</button>
+        </div>
+    </div>
+
+    <!-- निकाल / प्रमाणेपत्र स्क्रीन -->
+    <div id="cert-screen" class="content-area">
+        <div class="certificate-border">
+            <div class="cert-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <p style="font-size: 14px; font-weight: bold; color: #555; margin-bottom: 15px;">गुणवत्ता प्रमाणपत्र</p>
+            
+            <div class="cert-details">
+                <strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट (२०० प्रश्न)<br>
+                <strong>विद्यार्थ्याचे नाव :</strong> <span id="cert-name">____________</span><br>
+                <strong>मोबाईल नंबर :</strong> <span id="cert-mobile">____________</span><br>
+                <strong>मिळालेले गुण :</strong> <span id="cert-score">__ / __</span><br>
+                <strong>टक्केवारी :</strong> <span id="cert-percentage">__%</span>
+            </div>
+
+            <div class="honor-badge" id="cert-badge">🏆</div>
+            <div class="honor-title" id="cert-honor">कामगिरीनुसार सन्मान</div>
+
+            <div class="footer-guides" style="background: transparent; border-color: #444;">
+                <div class="guide-box">
+                    मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                    संपर्क : 8329684470
+                </div>
+                <div class="guide-box right">
+                    मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+                    संपर्क : 8208167846
+                </div>
+            </div>
+        </div>
+
+        <div class="wrong-questions-section" id="wrong-section">
+            <h3>चुकलेले प्रश्न व त्यांचे स्पष्टीकरण:</h3>
+            <div id="wrong-list"></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" onclick="window.print()">प्रमाणपत्र प्रिंट करा / PDF सेव्ह करा</button>
+        </div>
+    </div>
+
+    <div class="footer-guides" id="main-footer">
+        <div class="guide-box">
+            मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+            संपर्क : 8329684470
+        </div>
+        <div class="guide-box right">
+            मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+            संपर्क : 8208167846
+        </div>
+    </div>
+</div>
+    
 <script>
-// भाग १: प्रश्न १ ते ३५
-const questionsPart1 = [
+//const questionsPart1 = [
     { q: "प्र. १. जमिनीवर उगवणाऱ्या वनस्पतींना काय म्हणतात?", options: ["जलवनस्पती", "भूवनस्पती", "हवेतील वनस्पती", "परोपजीवी वनस्पती"], ans: 1, exp: "जमिनीवर उगवणाऱ्या वनस्पतींना भूवनस्पती म्हणतात." },
     { q: "प्र. २. वाळवंटी प्रदेशात आढळणाऱ्या वनस्पतींचे प्रमुख वैशिष्ट्य कोणते?", options: ["मोठी व मऊ पाने", "भरपूर फुले येणे", "पाण्यावर तरंगणे", "पानांचे काट्यांत रूपांतर"], ans: 3, exp: "पाण्याचे बाष्पीभवन रोखण्यासाठी पानांचे काट्यांत रूपांतर होते." },
     { q: "प्र. ३. निवडुंग (Cactus) ही वनस्पती प्रामुख्याने कोणत्या अधिवासात आढळते?", options: ["दलदलीचा प्रदेश", "वाळवंटी प्रदेश", "बर्फाच्छादित प्रदेश", "खोल समुद्र"], ans: 1, exp: "निवडूंग ही वाळवंटी अधिवासात आढळते." },
@@ -61,9 +393,6 @@ const questionsPart1 = [
     { q: "प्र. ३३. जलपर्णी (Water Hyacinth) ही वनस्पती कोणत्या प्रकारात येते?", options: ["पूर्णपणे पाण्याखाली असणारी", "पाण्यावर मोकळी तरंगणारी", "चिखलात मुळे असणारी", "वाळवंटी"], ans: 1, exp: "जलपर्णी पाण्याच्या पृष्ठभागावर मोकळी तरंगते." },
     { q: "प्र. ३४. कमल (Lotus) वनस्पतीची मुळे कोठे असतात?", options: ["पाण्यावर मोकळी तरंगतात", "हवेत असतात", "झाडाच्या खोडावर असतात", "जलाशयाच्या तळाशी चिखलात रुजलेली असतात"], ans: 3, exp: "कमळाची मुळे तळाशी चिखलात रुजलेली असतात." },
     { q: "प्र. ३५. कमळाचे फूल आणि पाने कोठे असतात?", options: ["पाण्याखाली तळाशी", "पाण्याच्या पृष्ठभागावर मिणमिणत / वर तरंगत", "जमिनीवरील मातीत", "झाडाच्या फांदीवर"], ans: 1, exp: "देठ लांब असल्याने कमळाची पाने व फुले पाण्याच्या पृष्ठभागावर तरंगतात." }
-];
-    // भाग २: प्रश्न ३६ ते ७०
-const questionsPart2 = [
     { q: "प्र. ३६. हायड्रिला (Hydrilla) ही वनस्पती कोठे वाढते?", options: ["पाण्यावर मोकळी तरंगते", "कोरड्या मातीत", "संपूर्णपणे पाण्याखाली", "झाडांच्या वर"], ans: 2, exp: "हायड्रिला ही संपूर्णपणे पाण्याखाली वाढणारी वनस्पती आहे." },
     { q: "प्र. ३७. व्हॅलिसनेरिया (Tape grass) ही वनस्पती कोणत्या प्रकारची जलवनस्पती आहे?", options: ["पाण्याखाली वाढणारी", "पाण्यावर मोकळी तरंगणारी", "भूवनस्पती", "वाळवंटी वनस्पती"], ans: 0, exp: "व्हॅलिसनेरिया संपूर्ण पाण्याखालील वनस्पती आहे." },
     { q: "प्र. ३८. पिस्टिया (Pistia) किंवा डकवीड (Duckweed) या वनस्पती कशा असतात?", options: ["पाण्याखाली गाडलेल्या", "दलदलीतील उंचावर वाढणाऱ्या", "वाळवंटातील", "पाण्याच्या पृष्ठभागावर मुक्तपणे तरंगणाऱ्या"], ans: 3, exp: "पिस्टिया पाण्यावर मोकळी तरंगते." },
@@ -99,9 +428,6 @@ const questionsPart2 = [
     { q: "प्र. ६८. बटाटा व आले (Ginger) हे वनस्पतीचे कोणते भाग आहेत?", options: ["मुळे", "पाने", "फळे", "रूपांतरित भुईगत खोड (Underground Stem)"], ans: 3, exp: "बटाटा आणि आले हे भुईगत खोड आहेत." },
     { q: "प्र. ६९. बाभळीचे काटे हे कशाचे रूपांतर आहे?", options: ["पानांचे व उपपर्णांचे", "मुळांचे", "फुलांचे", "फळांचे"], ans: 0, exp: "पानांचे रूपांतर काट्यात होते." },
     { q: "प्र. ७०. 'व्हिनस फ्लायट्रॅप' (Venus Flytrap) ही कोणती वनस्पती आहे?", options: ["वाळवंटी वनस्पती", "कीटकभक्षी वनस्पती", "जलवनस्पती", "परोपजीवी वनस्पती"], ans: 1, exp: "व्हिनस फ्लायट्रॅप ही कीटकभक्षी वनस्पती आहे." }
-];
-    // भाग ३: प्रश्न ७१ ते १०५
-const questionsPart3 = [
     { q: "प्र. ७१. मुळांचे मुख्य कार्य कोणते?", options: ["अन्न तयार करणे", "वनस्पतीला मातीत घट्ट रोवून ठेवणे व पाणी-खनिजे शोषून घेणे", "फुले फुलवणे", "बिया तयार करणे"], ans: 1, exp: "आधार देणे आणि पोषण शोषून घेणे हे मुळाचे काम आहे." },
     { q: "प्र. ७२. खोडाचे मुख्य कार्य कोणते?", options: ["जमिनीतून पाणी शोषून घेणे", "बिया पसरवणे", "पाणी व अन्न संपूर्ण वनस्पतीला पोहोचवणे व झाडाला आधार देणे", "कीटक पकडणे"], ans: 2, exp: "खोडाद्वारे पाणी व अन्न संपूर्ण वनस्पतीला पोहोचवले जाते." },
     { q: "प्र. ७३. पानांचे मुख्य कार्य कोणते?", options: ["माती पकडून ठेवणे", "प्रकाशसंश्लेषणाद्वारे अन्न तयार करणे", "वनस्पती स्थिर ठेवणे", "मूळ वाढवणे"], ans: 1, exp: "पाने प्रकाशसंश्लेषण करून अन्न तयार करतात." },
@@ -137,8 +463,6 @@ const questionsPart3 = [
     { q: "प्र. १०३. वनस्पतींचा हिरवा रंग कशामुळे असतो?", options: ["कॅरोटीन", "हरितद्रव्य (Chlorophyll)", "मेण", "पाणी"], ans: 1, exp: "हरितद्रव्यामुळे वनस्पतीची पाने हिरवी दिसतात." },
     { q: "प्र. १०४. पानांमध्ये अन्न तयार होण्याच्या क्रियेला काय म्हणतात?", options: ["श्वसन", "बाष्पोत्सर्जन", "प्रकाशसंश्लेषण (Photosynthesis)", "प्रजनन"], ans: 2, exp: "सूर्यप्रकाशात अन्न तयार होण्याच्या क्रियेला प्रकाशसंश्लेषण म्हणतात." },
     { q: "प्र. १०५. वाळवंटातील वनस्पतींच्या खोडावर प्रकाशसंश्लेषण का होते?", options: ["कारण पानांचे रूपांतर काट्यांत होते", "कारण मुळे खोडात असतात", "कारण खोड लांब असते", "कारण फुले नसतात"], ans: 0, exp: "पाने काट्यांत बदलल्यामुळे खोडच अन्न तयार करते." }
-];// भाग ४: प्रश्न १०६ ते १४०
-const questionsPart4 = [
     { q: "प्र. १०६. सदाहरित जंगलातील पाने एकाच वेळी का गळत नाहीत?", options: ["पाने गळतच नाहीत", "वेगवेगळ्या वनस्पतींची पाने गळण्याचा काळ वेगवेगळा असतो", "झाडे खूप उंच असतात", "नेहमी पाऊस पडतो"], ans: 1, exp: "वेगवेगळ्या वेळी पाने गळल्यामुळे जंगल नेहमी हिरवेगार दिसते." },
     { q: "प्र. १०७. कांदळवनाची झाडे जमिनीची धूप रोखण्यास कशी मदत करतात?", options: ["ती उंच वाढतात", "त्यांना मोठे काटे असतात", "त्यांची दाट मुळे माती घट्ट धरून ठेवतात", "त्यांची पाने मोठी असतात"], ans: 2, exp: "दाट मुळांचे जाळे किनाऱ्याची माती धरून ठेवते." },
     { q: "प्र. १०८. खालीलपैकी कोणत्या वनस्पतीमध्ये अन्न साठा खोडामध्ये होतो?", options: ["गाजर", "रताळे", "मुळा", "बटाटा"], ans: 3, exp: "बटाटा हे रूपांतरित भुईगत खोड आहे." },
@@ -174,9 +498,6 @@ const questionsPart4 = [
     { q: "प्र. १३८. फळामध्ये काय असतात ज्यांच्यापासून नवीन वनस्पती उगवते?", options: ["बिया (Seeds)", "काटे", "मुळे", "पाने"], ans: 0, exp: "बिया रुजून नवीन रोप तयार होते." },
     { q: "प्र. १३९. खालीलपैकी कोणत्या फळामध्ये एकच बी असते?", options: ["पेरू", "आंबा", "कलिंगड", "पपई"], ans: 1, exp: "आंब्याच्या फळात एकच मोठी बी (कोय) असते." },
     { q: "प्र. १४०. खालीलपैकी कोणत्या फळामध्ये अनेक बिया असतात?", options: ["आंबा", "जांभूळ", "काजू", "पपई / पेरू"], ans: 3, exp: "पपई आणि पेरूमध्ये भरपूर बिया असतात." }
-];
-// भाग ५: प्रश्न १४१ ते १७५
-const questionsPart5 = [
     { q: "प्र. १४१. गाजराचा लाल-केशरी रंग कशामुळे असतो?", options: ["हरितद्रव्य", "कॅरोटीन (Carotene)", "मेण", "पाणी"], ans: 1, exp: "कॅरोटीन या रंगद्रव्यामुळे गाजराला केशरी रंग मिळतो." },
     { q: "प्र. १४२. बटाट्यावर असणाऱ्या लहान खड्ड्यांना काय म्हणतात?", options: ["काटे", "मुळे", "डोळे (Eyes)", "पाने"], ans: 2, exp: "बटाट्यावरील मुकुलांना 'डोळे' म्हणतात ज्यातून नवीन कोंब फुटतात." },
     { q: "प्र. १४३. आल्याच्या खोडाला काय म्हणतात?", options: ["प्रकंद (Rhizome)", "कंद", "सोडमूळ", "पारंबी"], ans: 0, exp: "आल्याचे भूईगत खोड 'प्रकंद' प्रकारात मोडते." },
@@ -212,9 +533,6 @@ const questionsPart5 = [
     { q: "प्र. १७३. वनस्पतींच्या कोणत्या भागापासून अत्तर / सुगंधी द्रव्ये बनवतात?", options: ["मुळापासून", "पानांपासून", "सुवासिक फुलांपासून", "काट्यांपासून"], ans: 2, exp: "सुवासिक फुलांपासून अत्तर बनवले जाते." },
     { q: "प्र. १७४. झाडाची पाने पिवळी पडण्याचे मुख्य कारण काय असू शकते?", options: ["हरितद्रव्याचा ऱ्हास किंवा पोषणाची कमतरता", "खूप जास्त अन्न तयार होणे", "कीटक मिळणे", "झाड उंच होणे"], ans: 0, exp: "हरितद्रव्य कमी झाल्यास पाने पिवळी पडतात." },
     { q: "प्र. १७५. खालीलपैकी कोणती वनस्पती औषधी आहे?", options: ["देवदार", "तुळस व कडुनिंब", "जलपर्णी", "अमरवेल"], ans: 1, exp: "तुळस आणि कडुनिंब या अत्यंत गुणकारी औषधी वनस्पती आहेत." }
-];
-    // भाग ६: प्रश्न १७६ ते २००
-const questionsPart6 = [
     { q: "प्र. १७६. कडुनिंबाच्या पानांचा उपयोग प्रामुख्याने कशासाठी होतो?", options: ["अन्न शिजवण्यासाठी", "इंधन म्हणून", "कीटकनाशक व औषध म्हणून", "रंग देण्यासाठी"], ans: 2, exp: "कडुनिंब जंतुनाशक व औषधी असते." },
     { q: "प्र. १७७. वाळवंटातील वनस्पतींमध्ये बाष्पोत्सर्जन कमी का होते?", options: ["पाने लहान किंवा काट्यांच्या रूपात असतात म्हणून", "झाडे खूप उंच असतात म्हणून", "पावसाचे पाणी खूप असते म्हणून", "मुळे वर असतात म्हणून"], ans: 0, exp: "पानांचे क्षेत्रफळ कमी असल्यामुळे बाष्पोत्सर्जन घटते." },
     { q: "प्र. १७८. पाण्यातील हायड्रिला वनस्पती सूर्यप्रकाश कसा मिळवते?", options: ["पाण्यातून विरघळलेला सूर्यप्रकाश शोषून", "पाण्याच्या पृष्ठभागावरून वाहून येणाऱ्या प्रकाशातून", "रात्रीच्या वेळी", "मातीतून"], ans: 1, exp: "पाण्यातून झिरपणाऱ्या सूर्यप्रकाशाचा वापर करते." },
@@ -241,52 +559,140 @@ const questionsPart6 = [
     { q: "प्र. १९९. वनस्पती जगतात अन्न उत्पादक कोणाला म्हटले जाते?", options: ["हिरव्या वनस्पतींना", "प्राण्यांना", "बुरशीला", "कीटकांना"], ans: 0, exp: "हिरव्या वनस्पती सर्व सजीवांसाठी अन्न तयार करतात." },
     { q: "प्र. २००. नवोदय व स्पर्धा परीक्षेसाठी वनस्पतींचा अभ्यास करताना कोणता दृष्टिकोन महत्त्वाचा आहे?", options: ["रट्टा मारणे", "अधिवास, अनुकूलन व वैज्ञानिक वैशिष्ट्ये समजून घेणे", "केवळ नावे पाठ करणे", "काहीही न वाचणे"], ans: 1, exp: "अधिवास, अनुकूलन व वैशिष्ट्ये समजून घेणे आवश्यक आहे." }
 ];
+let currentQIndex = 0;
+let score = 0;
+let studentName = "";
+let studentMobile = "";
+let userAnswers = [];
 
-// ६ भाग एकत्र जोडून पूर्ण २०० प्रश्नांची लिस्ट तयार करणे
-const questionsData = [
-    ...questionsPart1,
-    ...questionsPart2,
-    ...questionsPart3,
-    ...questionsPart4,
-    ...questionsPart5,
-    ...questionsPart6
-];
+function startExam() {
+    const nameInput = document.getElementById('student-name').value.trim();
+    const mobileInput = document.getElementById('student-mobile').value.trim();
 
-// टेस्ट स्क्रीनवर दाखवणारा JavaScript कोड
-const quizContainer = document.getElementById('quiz-container');
+    if (nameInput === "") {
+        alert("कृपया तुमचे नाव प्रविष्ट करा!");
+        return;
+    }
 
-questionsData.forEach((item, index) => {
-    const card = document.createElement('div');
-    card.className = 'question-card';
+    studentName = nameInput;
+    studentMobile = mobileInput || "माहिती नाही";
+
+    document.getElementById('reg-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'block';
+
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questionsData[currentQIndex];
+    document.getElementById('question-text').innerText = qData.q;
     
-    let optionsHtml = '';
-    item.options.forEach((opt, optIndex) => {
-        optionsHtml += `<button class="option-btn" onclick="checkAnswer(${index}, ${optIndex})">${String.fromCharCode(65 + optIndex)}. ${opt}</button>`;
+    const optionsBox = document.getElementById('options-box');
+    optionsBox.innerHTML = "";
+    
+    document.getElementById('explanation-box').style.display = 'none';
+    document.getElementById('next-btn').style.display = 'none';
+
+    qData.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = `${String.fromCharCode(65 + index)}) ${opt}`;
+        btn.onclick = () => selectOption(index);
+        optionsBox.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIndex) {
+    const qData = questionsData[currentQIndex];
+    const optionBtns = document.querySelectorAll('.option-btn');
+    
+    optionBtns.forEach(btn => btn.disabled = true);
+
+    const isCorrect = (selectedIndex === qData.ans);
+    
+    userAnswers.push({
+        question: qData.q,
+        selected: selectedIndex,
+        correct: qData.ans,
+        options: qData.options,
+        explanation: qData.exp,
+        isCorrect: isCorrect
     });
 
-    card.innerHTML = `
-        <div class="question-title">${item.q}</div>
-        <div class="options">${optionsHtml}</div>
-        <div class="explanation" id="exp-${index}">
-            <strong>स्पष्टीकरण:</strong> ${item.exp}
-        </div>
-    `;
-    quizContainer.appendChild(card);
-});
-
-function checkAnswer(qIndex, selectedOpt) {
-    const q = questionsData[qIndex];
-    const expDiv = document.getElementById(`exp-${qIndex}`);
-    if (selectedOpt === q.ans) {
-        alert("बरोबर उत्तर! 👍");
+    if (isCorrect) {
+        optionBtns[selectedIndex].classList.add('correct');
+        score++;
     } else {
-        alert("चुकीचे उत्तर. योग्य पर्याय: " + String.fromCharCode(65 + q.ans));
+        optionBtns[selectedIndex].classList.add('wrong');
+        optionBtns[qData.ans].classList.add('correct');
+        
+        document.getElementById('explanation-text').innerText = qData.exp;
+        document.getElementById('explanation-box').style.display = 'block';
     }
-    expDiv.style.display = 'block';
+
+    if (currentQIndex < questionsData.length - 1) {
+        document.getElementById('next-btn').style.display = 'inline-block';
+    } else {
+        document.getElementById('submit-btn').style.display = 'inline-block';
+    }
+}
+
+function nextQuestion() {
+    currentQIndex++;
+    loadQuestion();
+                            }
+                                                                                        
+ function submitExam() {
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('main-footer').style.display = 'none';
+    document.getElementById('cert-screen').style.display = 'block';
+
+    const totalQuestions = questionsData.length;
+    const percentage = Math.round((score / totalQuestions) * 100);
+
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-mobile').innerText = studentMobile;
+    document.getElementById('cert-score').innerText = `${score} / ${totalQuestions}`;
+    document.getElementById('cert-percentage').innerText = `${percentage}%`;
+
+    const badgeElem = document.getElementById('cert-badge');
+    const honorElem = document.getElementById('cert-honor');
+
+    if (percentage >= 80) {
+        badgeElem.innerText = "🏆 🥇";
+        honorElem.innerText = "Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+    } else if (percentage >= 60) {
+        badgeElem.innerText = "🏆 🥈";
+        honorElem.innerText = "Silver Medal + Trophy (छान कामगिरी!)";
+    } else if (percentage >= 50) {
+        badgeElem.innerText = "🏆 🥉";
+        honorElem.innerText = "Bronze Medal + Trophy (चांगली कामगिरी!)";
+    } else {
+        badgeElem.innerText = "💐";
+        honorElem.innerText = "अभिनंदन! फुलांचा गुच्छ व \"पुढील परीक्षेसाठी शुभेच्छा\"";
+    }
+
+    const wrongListElem = document.getElementById('wrong-list');
+    wrongListElem.innerHTML = "";
+
+    const wrongAnswers = userAnswers.filter(ans => !ans.isCorrect);
+
+    if (wrongAnswers.length === 0) {
+        wrongListElem.innerHTML = "<p style='color:green; font-weight:bold;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही.</p>";
+    } else {
+        wrongAnswers.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'wrong-item';
+            div.innerHTML = `
+                <strong>प्रश्न:</strong> ${item.question}<br>
+                <span style="color:red;">तुमचे उत्तर: ${String.fromCharCode(65 + item.selected)}) ${item.options[item.selected]}</span><br>
+                <span style="color:green;">बरोबर उत्तर: ${String.fromCharCode(65 + item.correct)}) ${item.options[item.correct]}</span><br>
+                <div style="margin-top: 5px; font-size: 14px; color: #555;"><strong>स्पष्टीकरण:</strong> ${item.explanation}</div>
+            `;
+            wrongListElem.appendChild(div);
+        });
+    }
 }
 </script>
-
 </body>
 </html>
-
-    
