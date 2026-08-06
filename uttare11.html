@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</title>
+    <style>
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #f39c12;
+            --success-color: #27ae60;
+            --danger-color: #c0392b;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 800px;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin: 0 0 5px 0;
+            font-size: 24px;
+        }
+
+        .header h2 {
+            color: var(--secondary-color);
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .passage-box {
+            background-color: #eef2f5;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .question-box {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            background-color: #fff;
+            border: 2px solid #ddd;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            border-color: var(--primary-color);
+            background-color: #f0f4f8;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda;
+            border-color: var(--success-color);
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da;
+            border-color: var(--danger-color);
+            color: #721c24;
+            font-weight: bold;
+        }
+
+        .explanation-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 15px;
+        }
+
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .teacher-info p {
+            margin: 3px 0;
+        }
+
+        /* Certificate Styles */
+        .certificate-container {
+            display: none;
+            border: 10px double var(--primary-color);
+            padding: 30px;
+            text-align: center;
+            background-color: #fff;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+        }
+
+        .certificate-title {
+            font-size: 26px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .cert-details {
+            font-size: 18px;
+            line-height: 2;
+            text-align: left;
+            margin: 20px 0;
+            display: inline-block;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .badge-icon {
+            font-size: 60px;
+            margin: 15px 0;
+        }
+
+        .performance-msg {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .hide {
+            display: none !important;
+        }
+
+        .progress-bar {
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- HEADER (प्रत्येक पेजवर दिसणार) -->
+    <div class="header">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट (उतारे)</h2>
+    </div>
+
+    <!-- START SCREEN -->
+    <div id="start-screen">
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव :</label>
+            <input type="text" id="student-name" placeholder="तुमचे पूर्ण नाव टाका" required>
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर :</label>
+            <input type="tel" id="student-mobile" placeholder="10 अंकी मोबाईल नंबर" required maxlength="10">
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen" class="hide">
+        <div class="progress-bar" id="progress-text">प्रश्न 1 / 20</div>
+        
+        <div class="passage-box" id="passage-text"></div>
+        
+        <div class="question-box" id="question-text"></div>
+        
+        <div class="options-container" id="options-box"></div>
+        
+        <div class="explanation-box" id="explanation-box"></div>
+        
+        <button class="btn hide" id="next-btn" onclick="nextQuestion()">पुढील प्रश्न</button>
+        <button class="btn hide" id="submit-btn" onclick="submitExam()">Submit Exam</button>
+    </div>
+
+    <!-- RESULT CERTIFICATE SCREEN -->
+    <div id="certificate-screen" class="certificate-container">
+        <div class="certificate-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+        <hr style="border-top: 2px dashed var(--primary-color);">
+        <h3>परीक्षेचे नाव : नवोदय सराव टेस्ट (उतारे)</h3>
+        
+        <div class="badge-icon" id="cert-badge"></div>
+        <div class="performance-msg" id="cert-msg"></div>
+
+        <div class="cert-details">
+            <b>विद्यार्थ्याचे नाव :</b> <span id="cert-name"></span><br>
+            <b>मोबाईल नंबर :</b> <span id="cert-mobile"></span><br>
+            <b>मिळालेले गुण :</b> <span id="cert-marks"></span> / 20<br>
+            <b>टक्केवारी :</b> <span id="cert-percentage"></span>%
+        </div>
+
+        <button class="btn" onclick="window.print()" style="margin-top: 15px; background-color: #333;">प्रमाणपत्र प्रिंट करा / PDF सेव्ह करा</button>
+    </div>
+
+    <!-- FOOTER (प्रत्येक पेजवर डाव्या व उजव्या बाजूला मार्गदर्शक शिक्षक) -->
+    <div class="footer-teachers">
+        <div class="teacher-info">
+            <p><b>मार्गदर्शक शिक्षक :</b> सचिन शिंदे</p>
+            <p><b>संपर्क :</b> 8329684470</p>
+        </div>
+        <div class="teacher-info" style="text-align: right;">
+            <p><b>मार्गदर्शक शिक्षक :</b> सतीश चिंदे</p>
+            <p><b>संपर्क :</b> 8208167846</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // उताऱ्यांचा डेटाबेस
+    const quizData = [
+        // उतारा 1
+        {
+            passage: "<b>उतारा 1:</b> दुबई, संयुक्त अरब अमिरातीतील एक प्रमुख शहर, आपल्या अलिशान जीवनशैलीसाठी आणि आंतरराष्ट्रीय व्यापारासाठी प्रसिद्ध आहे. बुर्ज खलिफा, दुबई मॉल आणि पाम जुमेराह ही दुबईतील प्रमुख आकर्षणे आहेत. हे शहर आपल्या आधुनिक आर्किटेक्चर, उच्चभ्रू जीवनशैली, आणि गगनचुंबी इमारतींसाठी प्रसिद्ध आहे. दुबई हे व्यापार, पर्यटन, आणि वित्तीय क्षेत्राचे एक महत्त्वाचे केंद्र आहे. दुबईतील विविध शॉपिंग मॉल्स, कृत्रिम बेटे, आणि वाळवंट सफारी पर्यटकांना आकर्षित करतात.",
+            question: "1. दुबई कोणत्या देशात आहे?",
+            options: ["(A) सौदी अरेबिया", "(B) संयुक्त अरब अमिरात", "(C) कुवैत", "(D) कतार"],
+            correct: 1,
+            explanation: "स्पष्टीकरण: उताऱ्याच्या पहिल्याच ओळीत दिले आहे की, 'दुबई, संयुक्त अरब अमिरातीतील एक प्रमुख शहर आहे'."
+        },
+        {
+            passage: "<b>उतारा 1:</b> दुबई, संयुक्त अरब अमिरातीतील एक प्रमुख शहर, आपल्या अलिशान जीवनशैलीसाठी आणि आंतरराष्ट्रीय व्यापारासाठी प्रसिद्ध आहे. बुर्ज खलिफा, दुबई मॉल आणि पाम जुमेराह ही दुबईतील प्रमुख आकर्षणे आहेत. हे शहर आपल्या आधुनिक आर्किटेक्चर, उच्चभ्रू जीवनशैली, आणि गगनचुंबी इमारतींसाठी प्रसिद्ध आहे. दुबई हे व्यापार, पर्यटन, आणि वित्तीय क्षेत्राचे एक महत्त्वाचे केंद्र आहे. दुबईतील विविध शॉपिंग मॉल्स, कृत्रिम बेटे, आणि वाळवंट सफारी पर्यटकांना आकर्षित करतात.",
+            question: "2. दुबईमधील प्रसिद्ध स्थळ कोणते आहे?",
+            options: ["(A) एफिल टॉवर", "(B) ताज महल", "(C) बुर्ज खलिफा", "(D) ग्रेट वॉल ऑफ चायना"],
+            correct: 2,
+            explanation: "स्पष्टीकरण: उताऱ्यानुसार 'बुर्ज खलिफा, दुबई मॉल आणि पाम जुमेराह ही दुबईतील प्रमुख आकर्षणे (प्रसिद्ध स्थळे) आहेत'."
+        },
+        {
+            passage: "<b>उतारा 1:</b> दुबई, संयुक्त अरब अमिरातीतील एक प्रमुख शहर, आपल्या अलिशान जीवनशैलीसाठी आणि आंतरराष्ट्रीय व्यापारासाठी प्रसिद्ध आहे. बुर्ज खलिफा, दुबई मॉल आणि पाम जुमेराह ही दुबईतील प्रमुख आकर्षणे आहेत. हे शहर आपल्या आधुनिक आर्किटेक्चर, उच्चभ्रू जीवनशैली, आणि गगनचुंबी इमारतींसाठी प्रसिद्ध आहे. दुबई हे व्यापार, पर्यटन, आणि वित्तीय क्षेत्राचे एक महत्त्वाचे केंद्र आहे. दुबईतील विविध शॉपिंग मॉल्स, कृत्रिम बेटे, आणि वाळवंट सफारी पर्यटकांना आकर्षित करतात.",
+            question: "3. दुबई कोणत्या गोष्टीसाठी प्रसिद्ध आहे?",
+            options: ["(A) औद्योगिकीकरण", "(B) कृषी", "(C) अलिशान जीवनशैली आणि व्यापार", "(D) संगणक तंत्रज्ञान"],
+            correct: 2,
+            explanation: "स्पष्टीकरण: दुबई आपल्या अलिशान जीवनशैलीसाठी आणि आंतरराष्ट्रीय व्यापारासाठी प्रसिद्ध आहे."
+        },
+        {
+            passage: "<b>उतारा 1:</b> दुबई, संयुक्त अरब अमिरातीतील एक प्रमुख शहर, आपल्या अलिशान जीवनशैलीसाठी आणि आंतरराष्ट्रीय व्यापारासाठी प्रसिद्ध आहे. बुर्ज खलिफा, दुबई मॉल आणि पाम जुमेराह ही दुबईतील प्रमुख आकर्षणे आहेत. हे शहर आपल्या आधुनिक आर्किटेक्चर, उच्चभ्रू जीवनशैली, आणि गगनचुंबी इमारतींसाठी प्रसिद्ध आहे. दुबई हे व्यापार, पर्यटन, आणि वित्तीय क्षेत्राचे एक महत्त्वाचे केंद्र आहे. दुबईतील विविध शॉपिंग मॉल्स, कृत्रिम बेटे, आणि वाळवंट सफारी पर्यटकांना आकर्षित करतात.",
+            question: "4. \"अलिशान\" या शब्दाचा समानार्थी शब्द काय आहे?",
+            options: ["(A) सामान्य", "(B) साधा", "(C) वैभवशाली", "(D) अज्ञात"],
+            correct: 2,
+            explanation: "स्पष्टीकरण: 'अलिशान' या शब्दाचा योग्य समानार्थी शब्द 'वैभवशाली' असा होतो."
+        },
+        {
+            passage: "<b>उतारा 1:</b> दुबई, संयुक्त अरब अमिरातीतील एक प्रमुख शहर, आपल्या अलिशान जीवनशैलीसाठी आणि आंतरराष्ट्रीय व्यापारासाठी प्रसिद्ध आहे. बुर्ज खलिफा, दुबई मॉल आणि पाम जुमेराह ही दुबईतील प्रमुख आकर्षणे आहेत. हे शहर आपल्या आधुनिक आर्किटेक्चर, उच्चभ्रू जीवनशैली, आणि गगनचुंबी इमारतींसाठी प्रसिद्ध आहे. दुबई हे व्यापार, पर्यटन, आणि वित्तीय क्षेत्राचे एक महत्त्वाचे केंद्र आहे. दुबईतील विविध शॉपिंग मॉल्स, कृत्रिम बेटे, आणि वाळवंट सफारी पर्यटकांना आकर्षित करतात.",
+            question: "5. \"जीवनशैली\" या शब्दात कोणता भाग वाक्याचा आहे?",
+            options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"],
+            correct: 0,
+            explanation: "स्पष्टीकरण: 'जीवनशैली' हा शब्द नामाचा (Name/Noun) प्रकार आहे."
+        },
+
+        // उतारा 2
+        {
+            passage: "<b>उतारा 2:</b> मोर हा एक अत्यंत सुंदर पक्षी आहे. त्याच्या रंगीबेरंगी पिसार्यामुळे तो सहज लक्षात येतो. मोराची पिसे हिरव्या, निळ्या आणि सोनेरी रंगाच्या असतात, ज्यामुळे त्याला एक अद्वितीय आकर्षकता मिळते. मोर आपला पिसारा पसरवून नृत्य करताना फारच मनोहारी दिसतो. त्याच्या पिसाराला 'पंख' असेही म्हणतात. पावसाळ्यात मोराचे नृत्य पाहायला मिळणे खूपच आनंददायक असते. मोराचा आवाजही वेगळा आणि गोड असतो.",
+            question: "6. मोराचे वैशिष्ट्य.....",
+            options: ["(A) चोच", "(B) पिसारा", "(C) नखे", "(D) पाय"],
+            correct: 1,
+            explanation: "स्पष्टीकरण: उताऱ्यानुसार मोराचे मुख्य वैशिष्ट्य त्याचा 'रंगीबेरंगी पिसारा' आहे."
+        },
+        {
+            passage: "<b>उतारा 2:</b> मोर हा एक अत्यंत सुंदर पक्षी आहे. त्याच्या रंगीबेरंगी पिसार्यामुळे तो सहज लक्षात येतो. मोराची पिसे हिरव्या, निळ्या आणि सोनेरी रंगाच्या असतात, ज्यामुळे त्याला एक अद्वितीय आकर्षकता मिळते. मोर आपला पिसारा पसरवून नृत्य करताना फारच मनोहारी दिसतो. त्याच्या पिसाराला 'पंख' असेही म्हणतात. पावसाळ्यात मोराचे नृत्य पाहायला मिळणे खूपच आनंददायक असते. मोराचा आवाजही वेगळा आणि गोड असतो.",
+            question: "7. मोराचे पिसे कोणत्या रंगाचे असतात?",
+            options: ["(A) पांढरे आणि काळे", "(B) हिरवे, निळे, आणि सोनेरी", "(C) लाल आणि पिवळे", "(D) निळे आणि पांढरे"],
+            correct: 1,
+            explanation: "स्पष्टीकरण: मोराची पिसे हिरव्या, निळ्या आणि सोनेरी रंगाची असतात."
+        },
+        {
+            passage: "<b>उतारा 2:</b> मोर हा एक अत्यंत सुंदर पक्षी आहे. त्याच्या रंगीबेरंगी पिसार्यामुळे तो सहज लक्षात येतो. मोराची पिसे हिरव्या, निळ्या आणि सोनेरी रंगाच्या असतात, ज्यामुळे त्याला एक अद्वितीय आकर्षकता मिळते. मोर आपला पिसारा पसरवून नृत्य करताना फारच मनोहारी दिसतो. त्याच्या पिसाराला 'पंख' असेही म्हणतात. पावसाळ्यात मोराचे नृत्य पाहायला मिळणे खूपच आनंददायक असते. मोराचा आवाजही वेगळा आणि गोड असतो.",
+            question: "8. मोर कोणत्या ऋतूमध्ये नृत्य करतो?",
+            options: ["(A) ग्रीष्म ऋतूत", "(B) शरद ऋतूत", "(C) वर्षा ऋतूत", "(D) वसंत ऋतूत"],
+            correct: 2,
+            explanation: "स्पष्टीकरण: पावसाळ्यात (वर्षा ऋतूत) मोराचे नृत्य पाहायला मिळणे खूपच आनंददायक असते."
+        },
+        {
+            passage: "<b>उतारा 2:</b> मोर हा एक अत्यंत सुंदर पक्षी आहे. त्याच्या रंगीबेरंगी पिसार्यामुळे तो सहज लक्षात येतो. मोराची पिसे हिरव्या, निळ्या आणि सोनेरी रंगाच्या असतात, ज्यामुळे त्याला एक अद्वितीय आकर्षकता मिळते. मोर आपला पिसारा पसरवून नृत्य करताना फारच मनोहारी दिसतो. त्याच्या पिसाराला 'पंख' असेही म्हणतात. पावसाळ्यात मोराचे नृत्य पाहायला मिळणे खूपच आनंददायक असते. मोराचा आवाजही वेगळा आणि गोड असतो.",
+            question: "9. 'मनोहारी' या शब्दाचा समानार्थी शब्द कोणता?",
+            options: ["(A) चांगले", "(B) वेगळा", "(C) गोड", "(D) आकर्षक"],
+            correct: 3,
+            explanation: "स्पष्टीकरण: 'मनोहारी' या शब्दाचा अर्थ 'मन मोहून घेणारा' म्हणजेच 'आकर्षक' असा होतो."
+        },
+        {
+            passage: "<b>उतारा 2:</b> मोर हा एक अत्यंत सुंदर पक्षी आहे. त्याच्या रंगीबेरंगी पिसार्यामुळे तो सहज लक्षात येतो. मोराची पिसे हिरव्या, निळ्या आणि सोनेरी रंगाच्या असतात, ज्यामुळे त्याला एक अद्वितीय आकर्षकता मिळते. मोर आपला पिसारा पसरवून नृत्य करताना फारच मनोहारी दिसतो. त्याच्या पिसाराला 'पंख' असेही म्हणतात. पावसाळ्यात मोराचे नृत्य पाहायला मिळणे खूपच आनंददायक असते. मोराचा आवाजही वेगळा आणि गोड असतो.",
+            question: "10. 'मोराचा आवाज गोड असतो.' यातील 'गोड' हा कोणत्या शब्दाचा प्रकार आहे?",
+            options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"],
+            correct: 2,
+            explanation: "स्पष्टीकरण: 'गोड' हा शब्द आवाजाबद्दल विशेष माहिती सांगतो, म्हणून ते 'विशेषण' आहे."
+        },
+
+        // उतारा 3
+        {
+            passage: "<b>उतारा 3:</b> वाघ हा एक भव्य आणि ताकदवान प्राणी आहे, जो भारतासह अनेक आशियाई देशांमध्ये आढळतो. वाघाचे शास्त्रीय नाव पॅंथेरा टाइग्रिस आहे. वाघाच्या शरीरावर असलेल्या काळ्या पट्ट्यांमुळे त्याचे सहज ओळख पटते. वाघ हा मांसाहारी प्राणी असून तो मुख्यतः हरिण, रानगवे आणि रानडुकरे यांसारख्या प्राण्यांवर शिकारी करतो. वाघ हा एकांतप्रिय प्राणी आहे आणि तो स्वतःच्या क्षेत्राचे रक्षण करतो. वाघाचे संवर्धन करण्यासाठी राष्ट्रीय उद्याने आणि वन्यजीव अभयारण्ये स्थापन केली गेली आहेत.",
+            question: "11. वाघाचे शास्त्रीय नाव काय आहे?",
+            options: ["(A) पॅंथेरा लिओ", "(B) पॅंथेरा टाइग्रिस", "(C) पॅंथेरा पार्डस", "(D) पॅंथेरा उन्सिया"],
+            correct: 1,
+            explanation: "स्पष्टीकरण: उताऱ्यानुसार वाघाचे शास्त्रीय नाव 'पॅंथेरा टाइग्रिस' आहे."
+        },
+        {
+            passage: "<b>उतारा 3:</b> वाघ हा एक भव्य आणि ताकदवान प्राणी आहे, जो भारतासह अनेक आशियाई देशांमध्ये आढळतो. वाघाचे शास्त्रीय नाव पॅंथेरा टाइग्रिस आहे. वाघाच्या शरीरावर असलेल्या काळ्या पट्ट्यांमुळे त्याचे सहज ओळख पटते. वाघ हा मांसाहारी प्राणी असून तो मुख्यतः हरिण, रानगवे आणि रानडुकरे यांसारख्या प्राण्यांवर शिकारी करतो. वाघ हा एकांतप्रिय प्राणी आहे आणि तो स्वतःच्या क्षेत्राचे रक्षण करतो. वाघाचे संवर्धन करण्यासाठी राष्ट्रीय उद्याने आणि वन्यजीव अभयारण्ये स्थापन केली गेली आहेत.",
+            question: "12. वाघाच्या शरीरावर कोणत्या रंगाच्या पट्ट्या असतात?",
+            options: ["(A) पांढऱ्या", "(B) तपकिरी", "(C) काळ्या", "(D) निळ्या"],
+            correct: 2,
+            explanation: "स्पष्टीकरण: वाघाच्या शरीरावर काळ्या रंगाच्या पट्ट्या असतात."
+        },
+        {
+            passage: "<b>उतारा 3:</b> वाघ हा एक भव्य आणि ताकदवान प्राणी आहे, जो भारतासह अनेक आशियाई देशांमध्ये आढळतो. वाघाचे शास्त्रीय नाव पॅंथेरा टाइग्रिस आहे. वाघाच्या शरीरावर असलेल्या काळ्या पट्ट्यांमुळे त्याचे सहज ओळख पटते. वाघ हा मांसाहारी प्राणी असून तो मुख्यतः हरिण, रानगवे आणि रानडुकरे यांसारख्या प्राण्यांवर शिकारी करतो. वाघ हा एकांतप्रिय प्राणी आहे आणि तो स्वतःच्या क्षेत्राचे रक्षण करतो. वाघाचे संवर्धन करण्यासाठी राष्ट्रीय उद्याने आणि वन्यजीव अभयारण्ये स्थापन केली गेली आहेत.",
+            question: "13. वाघ मुख्यतः कोणत्या प्रकारच्या प्राण्यांची शिकारी करतो?",
+            options: ["(A) माकडे", "(B) साप", "(C) मृगराज", "(D) गवे"],
+            correct: 3,
+            explanation: "स्पष्टीकरण: वाघ मुख्यतः हरिण, रानगवे (गवे) आणि रानडुकरे यांची शिकार करतो."
+        },
+        {
+            passage: "<b>उतारा 3:</b> वाघ हा एक भव्य आणि ताकदवान प्राणी आहे, जो भारतासह अनेक आशियाई देशांमध्ये आढळतो. वाघाचे शास्त्रीय नाव पॅंथेरा टाइग्रिस आहे. वाघाच्या शरीरावर असलेल्या काळ्या पट्ट्यांमुळे त्याचे सहज ओळख पटते. वाघ हा मांसाहारी प्राणी असून तो मुख्यतः हरिण, रानगवे आणि रानडुकरे यांसारख्या प्राण्यांवर शिकारी करतो. वाघ हा एकांतप्रिय प्राणी आहे आणि तो स्वतःच्या क्षेत्राचे रक्षण करतो. वाघाचे संवर्धन करण्यासाठी राष्ट्रीय उद्याने आणि वन्यजीव अभयारण्ये स्थापन केली गेली आहेत.",
+            question: "14. \"प्राणी\" या शब्दाचा समानार्थी शब्द कोणता?",
+            options: ["(A) पक्षी", "(B) वन्यजीव", "(C) मासा", "(D) कीटक"],
+            correct: 1,
+            explanation: "स्पष्टीकरण: दिलेल्या पर्यायांपैकी 'वन्यजीव' हा शब्द प्राण्याशी संबंधित योग्य समानार्थी पर्याय आहे."
+        },
+        {
+            passage: "<b>उतारा 3:</b> वाघ हा एक भव्य आणि ताकदवान प्राणी आहे, जो भारतासह अनेक आशियाई देशांमध्ये आढळतो. वाघाचे शास्त्रीय नाव पॅंथेरा टाइग्रिस आहे. वाघाच्या शरीरावर असलेल्या काळ्या पट्ट्यांमुळे त्याचे सहज ओळख पटते. वाघ हा मांसाहारी प्राणी असून तो मुख्यतः हरिण, रानगवे आणि रानडुकरे यांसारख्या प्राण्यांवर शिकारी करतो. वाघ हा एकांतप्रिय प्राणी आहे आणि तो स्वतःच्या क्षेत्राचे रक्षण करतो. वाघाचे संवर्धन करण्यासाठी राष्ट्रीय उद्याने आणि वन्यजीव अभयारण्ये स्थापन केली गेली आहेत.",
+            question: "15. \"वाघ\" हा शब्दाचा कोणता प्रकार आहे?",
+            options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"],
+            correct: 0,
+            explanation: "स्पष्टीकरण: 'वाघ' हे एका प्राण्याचे नाव आहे, म्हणून ते 'नाम' आहे."
+        },
+
+        // उतारा 4
+        {
+            passage: "<b>उतारा 4:</b> हत्ती हा पृथ्वीवरील सर्वांत मोठा स्थलीय प्राणी आहे. हत्तीचे शास्त्रीय नाव एलेफस मॅक्सिमस आहे. हत्तीच्या शरीराचे मुख्य वैशिष्ट्य म्हणजे त्याचे मोठे कान, लांब सोंड आणि मजबूत पाय. हत्ती मुख्यतः गवत, फळे, पाने आणि साल खातो. हत्ती सामाजिक प्राणी आहे आणि तो समूहात राहतो. हत्तीच्या संवर्धनासाठी अनेक राष्ट्रीय उद्याने आणि अभयारण्ये आहेत.",
+            question: "16. हत्ती कोणत्या प्रकारचा प्राणी आहे?",
+            options: ["(A) मांसाहारी", "(B) मिश्राहारी", "(C) शाकाहारी", "(D) निश्चित सांगता येत नाही"],
+            correct: 2,
+            explanation: "स्पष्टीकरण: हत्ती गवत, फळे आणि पाने खातो, त्यामुळे तो 'शाकाहारी' प्राणी आहे."
+        },
+        {
+            passage: "<b>उतारा 4:</b> हत्ती हा पृथ्वीवरील सर्वांत मोठा स्थलीय प्राणी आहे. हत्तीचे शास्त्रीय नाव एलेफस मॅक्सिमस आहे. हत्तीच्या शरीराचे मुख्य वैशिष्ट्य म्हणजे त्याचे मोठे कान, लांब सोंड आणि मजबूत पाय. हत्ती मुख्यतः गवत, फळे, पाने आणि साल खातो. हत्ती सामाजिक प्राणी आहे आणि तो समूहात राहतो. हत्तीच्या संवर्धनासाठी अनेक राष्ट्रीय उद्याने आणि अभयारण्ये आहेत.",
+            question: "17. हत्तीच्या शरीराचे मुख्य वैशिष्ट्य कोणते आहे?",
+            options: ["(A) लहान कान", "(B) लांब सोंड", "(C) पातळ पाय", "(D) लहान डोके"],
+            correct: 1,
+            explanation: "स्पष्टीकरण: उताऱ्यानुसार हत्तीच्या मुख्य वैशिष्ट्यांमध्ये 'लांब सोंड' चा समावेश आहे."
+        },
+        {
+            passage: "<b>उतारा 4:</b> हत्ती हा पृथ्वीवरील सर्वांत मोठा स्थलीय प्राणी आहे. हत्तीचे शास्त्रीय नाव एलेफस मॅक्सिमस आहे. हत्तीच्या शरीराचे मुख्य वैशिष्ट्य म्हणजे त्याचे मोठे कान, लांब सोंड आणि मजबूत पाय. हत्ती मुख्यतः गवत, फळे, पाने आणि साल खातो. हत्ती सामाजिक प्राणी आहे आणि तो समूहात राहतो. हत्तीच्या संवर्धनासाठी अनेक राष्ट्रीय उद्याने आणि अभयारण्ये आहेत.",
+            question: "18. हत्ती मुख्यतः काय खातो?",
+            options: ["(A) मासे", "(B) गवत", "(C) कीटक", "(D) पक्षी"],
+            correct: 1,
+            explanation: "स्पष्टीकरण: उताऱ्यात दिले आहे की, हत्ती मुख्यतः 'गवत', फळे, पाने खातो."
+        },
+        {
+            passage: "<b>उतारा 4:</b> हत्ती हा पृथ्वीवरील सर्वांत मोठा स्थलीय प्राणी आहे. हत्तीचे शास्त्रीय नाव एलेफस मॅक्सिमस आहे. हत्तीच्या शरीराचे मुख्य वैशिष्ट्य म्हणजे त्याचे मोठे कान, लांब सोंड आणि मजबूत पाय. हत्ती मुख्यतः गवत, फळे, पाने आणि साल खातो. हत्ती सामाजिक प्राणी आहे आणि तो समूहात राहतो. हत्तीच्या संवर्धनासाठी अनेक राष्ट्रीय उद्याने आणि अभयारण्ये आहेत.",
+            question: "19. \"मोठा\" या शब्दाचा समानार्थी शब्द कोणता?",
+            options: ["(A) लहान", "(B) विशाल", "(C) पातळ", "(D) नाजूक"],
+            correct: 1,
+            explanation: "स्पष्टीकरण: 'मोठा' या शब्दाचा समानार्थी शब्द 'विशाल' असा होतो."
+        },
+        {
+            passage: "<b>उतारा 4:</b> हत्ती हा पृथ्वीवरील सर्वांत मोठा स्थलीय प्राणी आहे. हत्तीचे शास्त्रीय नाव एलेफस मॅक्सिमस आहे. हत्तीच्या शरीराचे मुख्य वैशिष्ट्य म्हणजे त्याचे मोठे कान, लांब सोंड आणि मजबूत पाय. हत्ती मुख्यतः गवत, फळे, पाने आणि साल खातो. हत्ती सामाजिक प्राणी आहे आणि तो समूहात राहतो. हत्तीच्या संवर्धनासाठी अनेक राष्ट्रीय उद्याने आणि अभयारण्ये आहेत.",
+            question: "20. \"मजबूत\" हा शब्दाचा कोणता प्रकार आहे?",
+            options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"],
+            correct: 2,
+            explanation: "स्पष्टीकरण: 'मजबूत' हे हत्तीच्या पायांचे वैशिष्ट्य दर्शवते, म्हणून तो शब्द 'विशेषण' आहे."
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+
+    function startExam() {
+        studentName = document.getElementById('student-name').value.trim();
+        studentMobile = document.getElementById('student-mobile').value.trim();
+
+        if (studentName === "" || studentMobile === "") {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर पूर्ण भरा!");
+            return;
+        }
+
+        if(studentMobile.length !== 10) {
+            alert("कृपया १० अंकी वैध मोबाईल नंबर टाका!");
+            return;
+        }
+
+        document.getElementById('start-screen').classList.add('hide');
+        document.getElementById('quiz-screen').classList.remove('hide');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const q = quizData[currentQuestion];
+        
+        document.getElementById('progress-text').innerText = `प्रश्न ${currentQuestion + 1} / ${quizData.length}`;
+        document.getElementById('passage-text').innerHTML = q.passage;
+        document.getElementById('question-text').innerText = q.question;
+        
+        const optionsBox = document.getElementById('options-box');
+        optionsBox.innerHTML = "";
+
+        const expBox = document.getElementById('explanation-box');
+        expBox.style.display = "none";
+        expBox.innerText = "";
+
+        document.getElementById('next-btn').classList.add('hide');
+        document.getElementById('submit-btn').classList.add('hide');
+
+        q.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(index);
+            optionsBox.appendChild(btn);
+        });
+    }
+
+    function selectOption(selectedIndex) {
+        const q = quizData[currentQuestion];
+        const buttons = document.querySelectorAll('.option-btn');
+        
+        // Disable all buttons after choice
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (selectedIndex === q.correct) {
+            buttons[selectedIndex].classList.add('correct');
+            score++;
+        } else {
+            buttons[selectedIndex].classList.add('wrong');
+            buttons[q.correct].classList.add('correct');
+            
+            // Show Explanation if Wrong
+            const expBox = document.getElementById('explanation-box');
+            expBox.innerText = q.explanation;
+            expBox.style.display = "block";
+        }
+
+        if (currentQuestion < quizData.length - 1) {
+            document.getElementById('next-btn').classList.remove('hide');
+        } else {
+            document.getElementById('submit-btn').classList.remove('hide');
+        }
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        loadQuestion();
+    }
+
+    function submitExam() {
+        document.getElementById('quiz-screen').classList.add('hide');
+        document.getElementById('certificate-screen').style.display = "block";
+
+        const percentage = ((score / quizData.length) * 100).toFixed(1);
+
+        document.getElementById('cert-name').innerText = studentName;
+        document.getElementById('cert-mobile').innerText = studentMobile;
+        document.getElementById('cert-marks').innerText = score;
+        document.getElementById('cert-percentage').innerText = percentage;
+
+        const badgeBox = document.getElementById('cert-badge');
+        const msgBox = document.getElementById('cert-msg');
+
+        if (percentage >= 80) {
+            badgeBox.innerText = "🥇🏆";
+            msgBox.innerText = "अभिनंदन! Gold Medal + Trophy प्राप्त झाली!";
+        } else if (percentage >= 60) {
+            badgeBox.innerText = "🥈🏆";
+            msgBox.innerText = "छान कामगिरी! Silver Medal + Trophy प्राप्त झाली!";
+        } else if (percentage >= 50) {
+            badgeBox.innerText = "🥉🏆";
+            msgBox.innerText = "छान प्रयत्न! Bronze Medal + Trophy प्राप्त झाली!";
+        } else {
+            badgeBox.innerText = "💐";
+            msgBox.innerText = "अभिनंदन! पुढील परीक्षेसाठी हार्दिक शुभेच्छा!";
+        }
+    }
+</script>
+
+</body>
+</html>
