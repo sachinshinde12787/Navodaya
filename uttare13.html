@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 15px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #2c3e50;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        .header h2 {
+            color: #e67e22;
+            font-size: 18px;
+        }
+        .welcome-screen, .quiz-screen, .result-screen {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #219150;
+        }
+        .btn-next {
+            background-color: #2980b9;
+        }
+        .btn-next:hover {
+            background-color: #1f6391;
+        }
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+            font-size: 14px;
+        }
+        .passage-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid #e67e22;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .question-box {
+            margin-bottom: 20px;
+        }
+        .options-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        .option-item {
+            background: #f1f2f6;
+            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid #dcdde1;
+            transition: 0.2s;
+        }
+        .option-item:hover {
+            background: #e1e2e6;
+        }
+        .option-item.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option-item.wrong {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .explanation {
+            margin-top: 12px;
+            padding: 10px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            border-radius: 6px;
+            display: none;
+        }
+        /* Certificate Styles */
+        .certificate-border {
+            border: 6px double #2c3e50;
+            padding: 20px;
+            text-align: center;
+            background: #fffdf9;
+            position: relative;
+            margin-top: 10px;
+        }
+        .cert-title {
+            color: #2c3e50;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .cert-details {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 500px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .badge-icon {
+            font-size: 45px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Page Label -->
+    <div class="header">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट उतारे</h2>
+    </div>
+
+    <!-- Screen 1: Welcome & Student Details -->
+    <div id="welcomeScreen" class="welcome-screen active">
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका">
+        </div>
+        <div class="form-group">
+            <label for="mobileNo">मोबाईल नंबर:</label>
+            <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर">
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam</button>
+
+        <div class="footer-teachers">
+            <div>
+                <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                <strong>संपर्क :</strong> 8329684470
+            </div>
+            <div style="text-align: right;">
+                <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                <strong>संपर्क :</strong> 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 2: Quiz Operation -->
+    <div id="quizScreen" class="quiz-screen">
+        <div id="passageBox" class="passage-box"></div>
+        <div class="question-box">
+            <h3 id="questionText"></h3>
+            <ul id="optionsList" class="options-list"></ul>
+            <div id="explanationBox" class="explanation"></div>
+        </div>
+        <button id="nextBtn" class="btn btn-next" onclick="nextQuestion()" style="display:none;">नेक्स्ट क्वेश्चन</button>
+        <button id="submitBtn" class="btn" onclick="submitExam()" style="display:none;">Submit Exam</button>
+    </div>
+
+    <!-- Screen 3: Certificate Result -->
+    <div id="resultScreen" class="result-screen">
+        <div class="certificate-border">
+            <div class="cert-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <hr>
+            <div class="badge-icon" id="certBadge">🏆</div>
+            <div class="cert-details">
+                <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट</p>
+                <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="resName"></span></p>
+                <p><strong>मोबाईल नंबर :</strong> <span id="resMobile"></span></p>
+                <p><strong>मिळालेले गुण :</strong> <span id="resScore"></span> / <span id="resTotal"></span></p>
+                <p><strong>टक्केवारी :</strong> <span id="resPercentage"></span>%</p>
+            </div>
+            <h3 id="awardMessage" style="color:#d35400; margin: 15px 0;"></h3>
+
+            <div class="footer-teachers">
+                <div style="text-align: left;">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                    <strong>संपर्क :</strong> 8329684470
+                </div>
+                <div style="text-align: right;">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                    <strong>संपर्क :</strong> 8208167846
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// २. उताऱ्यांचा आणि प्रश्नांचा संपूर्ण डेटाबेस (एकूण ४ उतारे - २० प्रश्न)
+const examData = [
+    {
+        passageId: 422,
+        passageText: "<strong>उतारा - ४२२:</strong><br>सूक्ष्मदर्शक हे एक महत्त्वाचे वैज्ञानिक उपकरण आहे जे सूक्ष्म जीव, पेशी, आणि लहान घटकांच्या अभ्यासासाठी वापरले जाते. पहिला सूक्ष्मदर्शक १६व्या शतकात जॅकॅरिया जॅन्सन यांनी तयार केला. आधुनिक सूक्ष्मदर्शकांमध्ये ऑप्टिकल, इलेक्ट्रॉन आणि फ्लोरोसंट सूक्ष्मदर्शकांचा समावेश आहे. ऑप्टिकल सूक्ष्मदर्शक प्रकाशाचा वापर करून वस्तूंचे निरीक्षण करतो, तर इलेक्ट्रॉन सूक्ष्मदर्शक इलेक्ट्रॉनच्या किरणांचा वापर करून अधिक सूक्ष्म तपशील देतो. फ्लोरोसंट सूक्ष्मदर्शकात विशेष रंगद्रव्यांचा वापर करून विशिष्ट घटकांना हायलाइट केले जाते. सूक्ष्मदर्शकांमुळे जीवशास्त्र, रसायनशास्त्र आणि भौतिकशास्त्रातील संशोधन अधिक सखोल व प्रभावी झाले आहे.",
+        questions: [
+            {
+                q: "१. सूक्ष्मदर्शकाचा उपयोग कशासाठी केला जातो?",
+                options: ["(A) मोठ्या वस्तू पाहण्यासाठी", "(B) सूक्ष्म जीवांचा अभ्यास करण्यासाठी", "(C) अन्न शिजवण्यासाठी", "(D) संगीत वाजवण्यासाठी"],
+                ans: 1,
+                exp: "उताऱ्यानुसार: सूक्ष्मदर्शक हे उपकरण सूक्ष्म जीव, पेशी आणि लहान घटकांच्या अभ्यासासाठी वापरले जाते."
+            },
+            {
+                q: "२. पहिला सूक्ष्मदर्शक कोणी तयार केला?",
+                options: ["(A) आईन्स्टाईन", "(B) न्यूटन", "(C) जॅकॅरिया जॅन्सन", "(D) थॉमस एडिसन"],
+                ans: 2,
+                exp: "उताऱ्यानुसार: पहिला सूक्ष्मदर्शक १६व्या शतकात जॅकॅरिया जॅन्सन यांनी तयार केला."
+            },
+            {
+                q: "३. इलेक्ट्रॉन सूक्ष्मदर्शक कशाचा वापर करून निरीक्षण करतो?",
+                options: ["(A) प्रकाश", "(B) इलेक्ट्रॉनच्या किरणा", "(C) विशेष रंगद्रव्य", "(D) चुंबकीय"],
+                ans: 1,
+                exp: "उताऱ्यानुसार: इलेक्ट्रॉन सूक्ष्मदर्शक इलेक्ट्रॉनच्या किरणांचा वापर करून अधिक सूक्ष्म तपशील देतो."
+            },
+            {
+                q: "४. 'महत्त्वाचे' या शब्दाचा समानार्थी शब्द कोणता?",
+                options: ["(A) नगण्य", "(B) आवश्यक", "(C) क्षुल्लक", "(D) कमी"],
+                ans: 1,
+                exp: "'महत्त्वाचे' म्हणजे 'आवश्यक' किंवा गरजेचे."
+            },
+            {
+                q: "५. 'जॅन्सन यांनी सूक्ष्मदर्शक तयार केला.' या वाक्यातील क्रियापद कोणते?",
+                options: ["(A) तयार", "(B) केला", "(C) सूक्ष्मदर्शक", "(D) शतक"],
+                ans: 1,
+                exp: "वाक्याचा अर्थ पूर्ण करणाऱ्या शब्दाला क्रियापद म्हणतात, येथे 'केला' हे क्रियापद आहे."
+            }
+        ]
+    },
+    {
+        passageId: 411,
+        passageText: "<strong>उतारा - ४११:</strong><br>पार्ले-जी हे भारतात उत्पादित केलेल्या बिस्किटांचा एक प्रसिद्ध प्रकार आहे. पार्ले कंपनीचे हे बिस्किट नील्सन सर्वेक्षणानुसार, 2011 मध्ये जगातील सर्वात मोठे बिस्किटांची ब्रँड आहे. पार्ले प्रॉडक्ट्सची स्थापना 1929 मध्ये मुंबईच्या विलेपार्ले उपनगरात मिठाई बन कंपनी म्हणून झाली. 1939 मध्ये भारत स्वतंत्र होण्यापूर्वी बिस्किटांची निर्मिती करण्यास सुरुवात केली. 1947 मध्ये भारत स्वतंत्र झाल्यानंतर, कंपनीने बिस्किटाचा ग्लूको ब्रँड प्रदर्शित केला. पार्ले-जी बिस्किटांना पूर्वी 1980 पर्यंत पार्ले ग्लूको बिस्किट म्हटले जाते. पार्ले-जी नावाच्या 'जी' मूळतः 'ग्लुकोज' साठी होते, नंतरच्या ब्रँड स्लोगनमध्ये 'जी फॉर जीनियस' देखील म्हटले गेले. 2013 मध्ये पार्ले-जी किरकोळ विक्रीतील ₹ 5,000 कोटींचा आकडा पार करणारा पहिला एफएमसीजी ब्रँड बनला.",
+        questions: [
+            {
+                q: "६. पार्ले कंपनीची स्थापना कोणत्या वर्षी झाली?",
+                options: ["(A) 1930", "(B) 1920", "(C) 1929", "(D) 1939"],
+                ans: 2,
+                exp: "उताऱ्यानुसार: पार्ले प्रॉडक्ट्सची स्थापना 1929 मध्ये विलेपार्ले उपनगरात झाली."
+            },
+            {
+                q: "७. 'मिठाई' हा शब्द कोणत्या श्रेणीत येतो?",
+                options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"],
+                ans: 0,
+                exp: "'मिठाई' ही एका पदार्थाची वस्तूवाचक ओळख म्हणजेच 'नाम' आहे."
+            },
+            {
+                q: "८. 'ग्लूको' हा शब्द कोणत्या भागाचे वाचन करणारे शब्द आहे?",
+                options: ["(A) नाम", "(B) सर्वनाम", "(C) विशेषण", "(D) क्रियापद"],
+                ans: 2,
+                exp: "'ग्लूको' हा बिस्किटाचा प्रकार/वैशिष्ट्य दर्शवणारा विशेषण शब्द आहे."
+            },
+            {
+                q: "९. 'स्थापना' या शब्दाचा समानार्थी शब्द कोणता आहे?",
+                options: ["(A) सृष्टी", "(B) सुरुवात", "(C) उत्पन्न", "(D) बंदिश"],
+                ans: 1,
+                exp: "स्थापना करणे म्हणजे निर्मिती किंवा 'सुरुवात' करणे."
+            },
+            {
+                q: "१०. 'लहानसहान' या शब्दासाठी उताऱ्यात कोणता शब्द आला आहे?",
+                options: ["(A) पूर्वी", "(B) मिठाई", "(C) विक्री", "(D) किरकोळ"],
+                ans: 3,
+                exp: "उताऱ्यामध्ये लहानसहान प्रमाणावरील व्यापारासाठी 'किरकोळ' हा शब्द आला आहे."
+            }
+        ]
+    },
+    {
+        passageId: 423,
+        passageText: "<strong>उतारा - ४२३:</strong><br>महाळुंग ही वनस्पती काटेरी असून दोन ते तीन मीटर उंच वाढते. पाने संयुक्त, एकाआड एक व एकदली असून पर्णिका लांबट, आंडॉकृती व दंतुर असतात. पानांवर तेलग्रंथी असून पाने चुरगळल्यावर तेल बाहेर पडून त्यांचा सुगंध दरवळतो. फुले पांढरी किंवा गुलाबी व द्विलिंगी असतात. फळ देठाकडे आकाराने मोठे व जाडसर असते १२-१५ सेंमी. लांब असते. देठाकडे खवले जास्त असतात. त्याची साल जाड व तेलकट असते याचे आयुर्वेदिक औषधी मध्ये महत्त्वाचे स्थान आहे. फळाचा रंग प्रथम हिरवा असतो व नंतर पिवळा होतो. फळ चवीला आंबट व किंचित कडवट असते यात रस अजिबात आढळत नाही. फळाच्या टोकाला फुगवटा असतो. काही फळांत कधीकधी दोन-तीन फुगवटे दिसून येतात.",
+        questions: [
+            {
+                q: "११. महाळुंगची पाने कशी असतात?",
+                options: ["(A) साधी व गोल", "(B) संयुक्त, दंतुर", "(C) एकाआड एक व गुळगुळीत", "(D) साधी व लांबट"],
+                ans: 1,
+                exp: "उताऱ्यानुसार: महाळुंगची पाने संयुक्त व दंतुर असतात."
+            },
+            {
+                q: "१२. महाळुंगची फुले कोणत्या रंगाची असतात?",
+                options: ["(A) पिवळी", "(B) निळी", "(C) पांढरी किंवा गुलाबी", "(D) लाल"],
+                ans: 2,
+                exp: "उताऱ्यानुसार: फुले पांढरी किंवा गुलाबी व द्विलिंगी असतात."
+            },
+            {
+                q: "१३. महाळुंगच्या पानांचा सुगंध कशामुळे दरवळतो?",
+                options: ["(A) एकदली पानांमुळे", "(B) तेलग्रंथींमुळे", "(C) पांढऱ्या फुलांमुळे", "(D) तेलकट पणामुळे"],
+                ans: 1,
+                exp: "उताऱ्यानुसार: पानांवर तेलग्रंथी असल्यामुळे चुरगळल्यावर तेल बाहेर पडून त्यांचा सुगंध दरवळतो."
+            },
+            {
+                q: "१४. 'सुगंध' या शब्दाचा समानार्थी शब्द कोणता नाही?",
+                options: ["(A) सुवास", "(B) आमोद", "(C) श्वेत", "(D) परिमल"],
+                ans: 2,
+                exp: "सुवास, आमोद, परिमल हे सुगंधाचे समानार्थी आहेत. 'श्वेत' म्हणजे पांढरा रंग."
+            },
+            {
+                q: "१५. खालील वाक्यातून विशेषण ओळखा: 'महाळुंगची फुले पांढरी किंवा गुलाबी व द्विलिंगी असतात.'",
+                options: ["(A) फुले", "(B) व", "(C) महाळुंग", "(D) पांढरी किंवा गुलाबी"],
+                ans: 3,
+                exp: "फुलांचा रंग आणि गुणधर्म सांगणारे 'पांढरी किंवा गुलाबी' हे विशेषण आहे."
+            }
+        ]
+    },
+    {
+        passageId: 394,
+        passageText: "<strong>उतारा - ३९४:</strong><br>शार्क हा एक महासागरातील खूप जुना आणि भयानक माशाचा प्रकार आहे. शार्कच्या अनेक प्रजाती आहेत, त्यापैकी काही लहान आहेत तर काही प्रजाती अत्यंत मोठ्या आणि धोकादायक आहेत. शार्कचे दात तीक्ष्ण आणि खूप शक्तिशाली असतात, ज्यामुळे ते शिकार सहजपणे करू शकतात. शार्क त्यांच्या तीव्र संवेदनांसाठी आणि जलद पोहण्याच्या क्षमतेसाठी ओळखले जातात. काही शार्क मांसाहारी असतात आणि ते इतर समुद्री प्राण्यांना आपली शिकार बनवतात. शार्कची संख्या कमी होत असल्यामुळे पर्यावरण संतुलनासाठी त्यांचे संरक्षण महत्त्वाचे आहे. जगभरातील समुद्रांमध्ये शार्क आढळतात आणि त्यांच्या विविधतेमुळे ते समुद्री जीवनाच्या अभ्यासासाठी आकर्षक ठरतात.",
+        questions: [
+            {
+                q: "१६. शार्क कशासाठी ओळखले जातात?",
+                options: ["(A) संथ पोहण्यासाठी", "(B) तीव्र संवेदनांसाठी आणि जलद पोहण्यासाठी", "(C) गोड्या पाण्यात राहण्यासाठी", "(D) कमी संवेदनांसाठी"],
+                ans: 1,
+                exp: "उताऱ्यानुसार: शार्क त्यांच्या तीव्र संवेदनांसाठी आणि जलद पोहण्याच्या क्षमतेसाठी ओळखले जातात."
+            },
+            {
+                q: "१७. शार्कच्या दातांची विशेषता काय आहे?",
+                options: ["(A) मऊ आणि लहान", "(B) तीक्ष्ण आणि शक्तिशाली", "(C) गोलाकार", "(D) साधे आणि छोटे"],
+                ans: 1,
+                exp: "उताऱ्यानुसार: शार्कचे दात तीक्ष्ण आणि खूप शक्तिशाली असतात."
+            },
+            {
+                q: "१८. शार्क कशाची शिकार करतात?",
+                options: ["(A) फळे आणि भाज्या", "(B) समुद्री प्राणी", "(C) जमिनीवरचे प्राणी", "(D) पक्षी"],
+                ans: 1,
+                exp: "उताऱ्यानुसार: शार्क इतर समुद्री प्राण्यांना आपली शिकार बनवतात."
+            },
+            {
+                q: "१९. 'तीव्र' या शब्दाचा विरुद्धार्थी शब्द निवडा.",
+                options: ["(A) शक्तिशाली", "(B) संथ", "(C) वेगवान", "(D) तीक्ष्ण"],
+                ans: 1,
+                exp: "'तीव्र' च्या विरुद्धार्थी मंद किंवा 'संथ' हा पर्याय योग्य आहे."
+            },
+            {
+                q: "२०. खालीलपैकी कोणता शब्द विशेषण आहे?",
+                options: ["(A) महासागर", "(B) प्रजाती", "(C) तीक्ष्ण", "(D) मासा"],
+                ans: 2,
+                exp: "'तीक्ष्ण' हे दातांचे गुणवैशिष्ट्य दाखवणारे विशेषण आहे."
+            }
+        ]
+    }
+];
+// ३. लॉजिक ऑपरेशन्स
+let flatQuestions = [];
+let currentQIndex = 0;
+let score = 0;
+let studentNameVal = "";
+let mobileNoVal = "";
+let selectedAnswer = null;
+
+// सर्व प्रश्न एका सरळ ॲरेमध्ये जोडणे
+function prepareData() {
+    flatQuestions = [];
+    examData.forEach(p => {
+        p.questions.forEach(q => {
+            flatQuestions.push({
+                passageText: p.passageText,
+                qText: q.q,
+                options: q.options,
+                ans: q.ans,
+                exp: q.exp
+            });
+        });
+    });
+}
+
+function startExam() {
+    studentNameVal = document.getElementById("studentName").value.trim();
+    mobileNoVal = document.getElementById("mobileNo").value.trim();
+
+    if(!studentNameVal || !mobileNoVal) {
+        alert("कृपया तुमचे नाव आणि मोबाईल नंबर पूर्ण भरा!");
+        return;
+    }
+
+    prepareData();
+    document.getElementById("welcomeScreen").classList.remove("active");
+    document.getElementById("quizScreen").classList.add("active");
+    
+    showQuestion();
+}
+
+function showQuestion() {
+    selectedAnswer = null;
+    let currentData = flatQuestions[currentQIndex];
+
+    document.getElementById("passageBox").innerHTML = currentData.passageText;
+    document.getElementById("questionText").innerText = currentData.qText;
+    
+    let optList = document.getElementById("optionsList");
+    optList.innerHTML = "";
+
+    document.getElementById("explanationBox").style.display = "none";
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("submitBtn").style.display = "none";
+
+    currentData.options.forEach((optText, index) => {
+        let li = document.createElement("li");
+        li.className = "option-item";
+        li.innerText = optText;
+        li.onclick = () => selectOption(index);
+        optList.appendChild(li);
+    });
+}
+
+function selectOption(index) {
+    if(selectedAnswer !== null) return; // एकदा उत्तर निवडल्यावर बदलता येणार नाही
+    selectedAnswer = index;
+
+    let currentData = flatQuestions[currentQIndex];
+    let options = document.querySelectorAll(".option-item");
+
+    if(index === currentData.ans) {
+        options[index].classList.add("correct");
+        score++;
+    } else {
+        options[index].classList.add("wrong");
+        options[currentData.ans].classList.add("correct"); // बरोबर उत्तर हिरवे दाखवणे
+        
+        // उत्तर चुकल्यास स्पष्टीकरण दाखवणे
+        let expBox = document.getElementById("explanationBox");
+        expBox.innerHTML = "<strong>स्पष्टीकरण:</strong> " + currentData.exp;
+        expBox.style.display = "block";
+    }
+
+    if(currentQIndex < flatQuestions.length - 1) {
+        document.getElementById("nextBtn").style.display = "block";
+    } else {
+        document.getElementById("submitBtn").style.display = "block";
+    }
+}
+
+function nextQuestion() {
+    currentQIndex++;
+    if(currentQIndex < flatQuestions.length) {
+        showQuestion();
+    }
+}
+// ४. निकाल आणि सर्टिफिकेट जनरेशन logic
+function submitExam() {
+    document.getElementById("quizScreen").classList.remove("active");
+    document.getElementById("resultScreen").classList.add("active");
+
+    let total = flatQuestions.length;
+    let percentage = Math.round((score / total) * 100);
+
+    document.getElementById("resName").innerText = studentNameVal;
+    document.getElementById("resMobile").innerText = mobileNoVal;
+    document.getElementById("resScore").innerText = score;
+    document.getElementById("resTotal").innerText = total;
+    document.getElementById("resPercentage").innerText = percentage;
+
+    let badge = "";
+    let msg = "";
+
+    if (percentage >= 80) {
+        badge = "🥇🏆";
+        msg = "अभिनंदन! प्रथम श्रेणी! (Gold Medal + Trophy)";
+    } else if (percentage >= 60) {
+        badge = "🥈🏆";
+        msg = "छान कामगिरी! द्वितीय श्रेणी! (Silver Medal + Trophy)";
+    } else if (percentage >= 50) {
+        badge = "🥉🏆";
+        msg = "उत्तम प्रयत्न! तृतीय श्रेणी! (Bronze Medal + Trophy)";
+    } else {
+        badge = "💐";
+        msg = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी मनःपूर्वक शुभेच्छा!";
+    }
+
+    document.getElementById("certBadge").innerText = badge;
+    document.getElementById("awardMessage").innerText = msg;
+}
+</script>
+
+</body>
+</html>
