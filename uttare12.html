@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट उतारे - स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0284c7;
+            --accent-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --correct-color: #15803d;
+            --correct-bg: #dcfce7;
+            --wrong-color: #b91c1c;
+            --wrong-bg: #fee2e2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Mukta', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #1e3a8a, #0284c7);
+            color: white;
+            text-align: center;
+            padding: 20px 15px;
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .header-banner h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-banner h2 {
+            font-size: 18px;
+            font-weight: 400;
+            color: #fef08a;
+        }
+
+        .teacher-footer {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f1f5f9;
+            padding: 12px 20px;
+            border-top: 2px solid var(--border-color);
+            font-size: 14px;
+            font-weight: bold;
+            color: #334155;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .teacher-box {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .teacher-box.right {
+            text-align: right;
+        }
+
+        @media (max-width: 600px) {
+            .teacher-box.right {
+                text-align: left;
+            }
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1e3a8a, #0284c7);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #15803d, #16a34a);
+            margin-top: 15px;
+            display: none;
+        }
+
+        .passage-box {
+            background-color: #f0f9ff;
+            border-left: 5px solid var(--secondary-color);
+            padding: 18px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 16.5px;
+            text-align: justify;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.03);
+        }
+
+        .passage-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .question-box {
+            margin-bottom: 15px;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #0f172a;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 550px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-btn {
+            background-color: #ffffff;
+            border: 2px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            border-color: var(--secondary-color);
+            background-color: #f0f9ff;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-color) !important;
+            color: var(--correct-color) !important;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-color) !important;
+            color: var(--wrong-color) !important;
+            font-weight: bold;
+        }
+
+        .explanation-box {
+            margin-top: 15px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 15px;
+            display: none;
+        }
+
+        .explanation-box.show-correct {
+            display: block;
+            background-color: var(--correct-bg);
+            border: 1px solid var(--correct-color);
+            color: var(--correct-color);
+        }
+
+        .explanation-box.show-wrong {
+            display: block;
+            background-color: var(--wrong-bg);
+            border: 1px solid var(--wrong-color);
+            color: var(--wrong-color);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.3s ease;
+        }
+
+        /* Certificate Styling */
+        .certificate-container {
+            border: 8px double #1e3a8a;
+            padding: 25px;
+            border-radius: 12px;
+            background: #fffdf5;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0,0,0,0.08);
+        }
+
+        .certificate-title {
+            font-size: 22px;
+            color: #1e3a8a;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-decoration: underline;
+        }
+
+        .cert-details {
+            text-align: left;
+            margin: 20px 0;
+            font-size: 17px;
+            line-height: 1.8;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .cert-badge {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+
+        .award-box {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .award-gold { background-color: #fef9c3; color: #854d0e; border: 2px solid #eab308; }
+        .award-silver { background-color: #f1f5f9; color: #334155; border: 2px solid #94a3b8; }
+        .award-bronze { background-color: #ffedd5; color: #9a3412; border: 2px solid #f97316; }
+        .award-general { background-color: #f0fdf4; color: #166534; border: 2px solid #22c55e; }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header present on every page -->
+    <div class="header-banner">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट उतारे</h2>
+    </div>
+
+    <!-- SCREEN 1: WELCOME SCREEN -->
+    <div id="welcome-screen" class="card-body">
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव :</label>
+            <input type="text" id="student-name" class="form-control" placeholder="पूर्ण नाव प्रविष्ट करा..." required>
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर :</label>
+            <input type="tel" id="student-mobile" class="form-control" placeholder="१० अंकी मोबाईल नंबर टाका..." maxlength="10">
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+    </div>
+
+    <!-- SCREEN 2: EXAM SCREEN -->
+    <div id="exam-screen" class="card-body hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span id="question-count-text" style="font-weight: bold; color: var(--primary-color);">प्रश्न १ / २०</span>
+            <span id="score-text" style="font-weight: bold; color: var(--correct-color);">गुण: ०</span>
+        </div>
+        <div class="progress-bar-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+
+        <div class="passage-box">
+            <div id="passage-title" class="passage-title">उतारा १</div>
+            <div id="passage-text">उतारा लोड होत आहे...</div>
+        </div>
+
+        <div class="question-box">
+            <div id="question-text" class="question-title">प्रश्न...</div>
+            <div id="options-container" class="options-grid"></div>
+        </div>
+
+        <div id="explanation-box" class="explanation-box"></div>
+
+        <button id="btn-next" class="btn btn-next" onclick="nextQuestion()">पुढील प्रश्न (Next Question)</button>
+        <button id="btn-submit" class="btn hidden" style="background: linear-gradient(135deg, #1e3a8a, #0284c7); margin-top:15px;" onclick="finishExam()">Submit Exam (निकाल पहा)</button>
+    </div>
+
+    <!-- SCREEN 3: RESULT / CERTIFICATE SCREEN -->
+    <div id="result-screen" class="card-body hidden">
+        <div class="certificate-container">
+            <div class="certificate-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <p style="font-weight: bold; color: #475569; margin-top: 5px;">नवोदय सराव परीक्षा - गुणपत्रक व सन्मान</p>
+
+            <div id="cert-badge" class="cert-badge">🏆</div>
+
+            <div class="cert-details">
+                <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट उतारे</p>
+                <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="cert-student-name">____________</span></p>
+                <p><strong>मोबाईल नंबर :</strong> <span id="cert-student-mobile">____________</span></p>
+                <p><strong>मिळालेले गुण :</strong> <span id="cert-score">-- / --</span></p>
+                <p><strong>टक्केवारी :</strong> <span id="cert-percentage">--%</span></p>
+            </div>
+
+            <div id="cert-award-box" class="award-box award-gold"></div>
+
+            <button class="btn" style="margin-top: 20px; background: #475569;" onclick="location.reload()">पुन्हा परीक्षा द्या (Retake Exam)</button>
+        </div>
+    </div>
+
+    <!-- Footer with guide teachers on every page -->
+    <div class="teacher-footer">
+        <div class="teacher-box">
+            मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+            संपर्क : 8329684470
+        </div>
+        <div class="teacher-box right">
+            मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+            संपर्क : 8208167846
+        </div>
+    </div>
+              </div>
+              <script>
+const passagesData = [
+    {
+        id: 1,
+        title: "उतारा ४२९ (ससा आणि कासव)",
+        text: "एकदा एका मोठ्या जंगलात एक ससा आणि कासव राहत होते. ससा नेहमी कासवाची मजाक करत असे कारण कासव खूप हळू चालत असे. एके दिवशी, ससा कासवाला म्हणाला, \"चला, आपण शर्यत लावूया.\" कासवाने ससाच्या आव्हानाला स्वीकारले. शर्यत सुरू झाली, ससा खूप वेगाने धावू लागला आणि लवकरच कासवाला मागे टाकले. ससा खूप पुढे गेल्यावर थकला आणि एका झाडाखाली झोपला. कासव हळूहळू पण अखंडपणे चालत राहिला आणि ससा झोपेत असतानाच त्याने शर्यत जिंकली. कासवाच्या धैर्याने आणि संयमाने ससाला खूप धडा शिकवला.",
+        questions: [
+            {
+                q: "१. ससा नेहमी कोणाची मजाक करत असे?",
+                options: ["A) हत्ती", "B) सिंह", "C) कासव", "D) गाढव"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: उताऱ्यात स्पष्ट दिले आहे की, कासव हळू चालत असल्यामुळे ससा नेहमी कासवाची मजाक करत असे."
+            },
+            {
+                q: "२. ससा कासवाला कोणते आव्हान दिले?",
+                options: ["A) झोपण्याचे", "B) खाण्याचे", "C) शर्यत लावण्याचे", "D) उडण्याचे"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: सशाने कासवाला शर्यत लावण्याचे (पळण्याची शर्यत) आव्हान दिले."
+            },
+            {
+                q: "३. शर्यतीत कोण जिंकले?",
+                options: ["A) ससा", "B) कासव", "C) सिंह", "D) हत्ती"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: ससा झाडाखाली झोपून राहिल्याने कासव न थांबता अखंड चालत राहिला आणि शर्यत जिंकला."
+            },
+            {
+                q: "४. 'धैर्य' शब्दाचा पर्याय कोणता आहे?",
+                options: ["A) भीती", "B) धाडस", "C) हळू", "D) धाव"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: 'धैर्य' या शब्दाचा समानार्थी/पर्यायी शब्द 'धाडस' किंवा 'धीर' हा आहे."
+            },
+            {
+                q: "५. \"ससा खूप पुढे गेल्यावर थकला आणि एका झाडाखाली झोपला.\" या वाक्यातील 'झाडाखाली' शब्द कोणत्या प्रकारात मोडतो?",
+                options: ["A) नाम", "B) सर्वनाम", "C) विशेषण", "D) क्रियापद"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: 'झाडाखाली' हे झाडाची स्थिती/विशेष स्थान दर्शवत असल्यामुळे विशेषणात्मक अव्यय/विशेषण रूपात कार्य करते."
+            }
+        ]
+    },
+    {
+        id: 2,
+        title: "उतारा ४२८ (कवठ फळ)",
+        text: "कवठ या फळाच्या गरापासून खाण्यासाठी चटणी, मोरंबा, जेली, बर्फी बनवतात. हे फळ पित्ताचे शमन करण्यास मदत करते व यामुळे भूक वाढते. कवठ कंठाची शुद्धी करते, दमा, क्षयरोग, रक्ताधिकार, उलटी, वातदोष, श्रम, उचकी, विष, तृष्णा, ग्लानी वगैरे तक्रारीत हितकर असते. तिन्ही दोषांचे संतुलन करते. शौचास आव, मूळव्याध वगैरे त्रासावर कवठाच्या बिया व धागे काढलेला गर ताकासह घेण्याचा उपयोग होतो. फळाची साल पित्तावर उपयुक्त असते, तसेच ती कातडी कमवण्यासाठी व रंगवण्यासाठी वापरतात. वाळलेली फुले उकळून त्यापासून रंग मिळतो.",
+        questions: [
+            {
+                q: "६. कवठ फळांच्या गरापासून कोणते पदार्थ बनवले जातात?",
+                options: ["A) रस, लोणचे, सूप", "B) मुरंबा, बर्फी", "C) चहा, कॉफी, शेक", "D) भजी, पराठा, कचोरी"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: उताऱ्यात पहिल्याच ओळीत सांगितले आहे की कवठाच्या गरापासून चटणी, मोरंबा, जेली, बर्फी बनवतात."
+            },
+            {
+                q: "७. कवठ फळाचा कोणत्या तक्रारीत उपयोग होतो?",
+                options: ["A) हृदयविकार", "B) पित्ताचे शमन", "C) नेत्रविकार", "D) सांधेदुखी"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: हे फळ पित्ताचे शमन करण्यास मदत करते."
+            },
+            {
+                q: "८. कवठाचा गर ताकासह घेण्याचा उपयोग कोणत्या तक्रारीत होतो?",
+                options: ["A) दातदुखी", "B) सर्दी", "C) शौचास आव, मूळव्याध", "D) पोटफुगी"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: शौचास आव आणि मूळव्याध या त्रासावर गर ताकासह घेणे उपयुक्त ठरते."
+            },
+            {
+                q: "९. \"हितकर\" या शब्दाचा समानार्थी शब्द कोणता?",
+                options: ["A) हानिकारक", "B) उपयुक्त", "C) साधारण", "D) निरुपयोगी"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: 'हितकर' म्हणजे फायदेशीर किंवा 'उपयुक्त' होय."
+            },
+            {
+                q: "१०. खालील वाक्यातून नाम ओळखा: \"कवठ कंठाची शुद्धी करते, दमा, तृष्णा, ग्लानी वगैरे तक्रारीत हितकर असते.\"",
+                options: ["A) शुद्धी", "B) हितकर", "C) कंठ", "D) करते"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: 'कंठ' (घसा/गळा) हे शरीराच्या भागाचे नाव असल्याने नाम आहे."
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "उतारा ४३६ (वनसंवर्धन)",
+        text: "वनसंवर्धन हा पर्यावरण रक्षणाचा महत्त्वाचा भाग आहे. जंगलात मोठ्या प्रमाणात वनस्पती आणि प्राणी आढळतात, ज्यामुळे पर्यावरण संतुलन राखले जाते. परंतु, जंगलतोड आणि अवैध शिकार यामुळे वन्यजीवांचा विनाश होत आहे. वनसंवर्धनासाठी सरकारने कठोर नियम लागू केले आहेत. वन्यजीव अभयारण्ये आणि राष्ट्रीय उद्याने स्थापन करून वन्यजीवांचे संरक्षण केले जात आहे. वनसंवर्धनामुळे पर्यावरण संतुलन राखले जाते आणि भविष्यातील पिढ्यांसाठी नैसर्गिक साधनसंपत्तीचे संरक्षण होते.",
+        questions: [
+            {
+                q: "११. वनसंवर्धनाचे मुख्य उद्दिष्ट काय आहे?",
+                options: ["A) आर्थिक विकास", "B) वन्यजीवांचे संरक्षण", "C) अवैध शिकार", "D) शहरीकरण"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: वनसंवर्धनाचे मुख्य उद्दिष्ट वन्यजीव व पर्यावरणाचे संरक्षण करणे हे आहे."
+            },
+            {
+                q: "१२. वनसंवर्धनासाठी सरकारने कोणते उपाय केले आहेत?",
+                options: ["A) औद्योगिकीकरण", "B) राष्ट्रीय उद्याने स्थापन", "C) अवैध शिकार", "D) प्रवास"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: सरकारने राष्ट्रीय उद्याने व अभयारण्ये स्थापन करून कठोर नियम लागू केले आहेत."
+            },
+            {
+                q: "१३. पर्यावरणाचा समतोल राखणारे घटक कोणते?",
+                options: ["A) शिक्षण", "B) आर्थिक साधनसंपत्ती", "C) प्राणी व वनस्पती", "D) व्यापार"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: जंगलातील प्राणी आणि वनस्पती पर्यावरणाचा समतोल राखतात."
+            },
+            {
+                q: "१४. \"वन्य\" या शब्दाचा समानार्थी शब्द काय आहे?",
+                options: ["A) वनस्पती", "B) रानटी", "C) मानव", "D) कीड"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: 'वन्य' म्हणजे वनात/जंगलात राहणारे म्हणजेच 'रानटी'."
+            },
+            {
+                q: "१५. \"राष्ट्रीय\" हा शब्द व्याकरणाच्या दृष्टीने कोणता प्रकार आहे?",
+                options: ["A) नाम", "B) सर्वनाम", "C) विशेषण", "D) क्रियापद"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: 'राष्ट्रीय' (उदा. राष्ट्रीय उद्यान) हा शब्द नामाबद्दल विशेष माहिती देणारा विशेषण शब्द आहे."
+            }
+        ]
+    },
+    {
+        id: 4,
+        title: "उतारा ४३० (राणीचे स्वप्न)",
+        text: "एक दिवस, राणी नावाच्या एका मुलीने स्वप्न पाहिले की ती एका जादुई बागेत फिरत आहे. त्या बागेत फुले, फळे, आणि झाडे सर्व काही चमचमीत होते. तिथे एक मोठा जादूचा झरा होता. राणीने त्या झऱ्याचे पाणी पिताच ती खूप आनंदी झाली आणि तिला सगळ्या गोष्टी शक्य झाल्या. तिने तिथे एक मोठा किल्ला बांधला आणि सर्व प्राण्यांना बोलावून त्या किल्ल्यात राहण्यास सांगितले. सर्व प्राणी तिचे मित्र बनले आणि त्यांनी मिळून खूप मजा केली. ती जागी झाल्यावर तिला हे स्वप्न असल्याचे कळले, पण तिने त्या स्वप्नातील आनंद आपल्या हृदयात कायम ठेवला.",
+        questions: [
+            {
+                q: "१६. राणीने स्वप्नात काय पाहिले?",
+                options: ["A) एक मोठा समुद्र", "B) एक जादुई बाग", "C) एक उंच पर्वत", "D) एक सुंदर शहर"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: राणीने स्वप्नात पाहिले की ती एका जादुई बागेत फिरत आहे."
+            },
+            {
+                q: "१७. त्या बागेत काय चमचमीत होते?",
+                options: ["A) पाण्याचे झरे", "B) प्राणी", "C) फुले, फळ आणि झाडे", "D) माती"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: जादुई बागेतील फुले, फळे आणि झाडे सर्व काही चमचमीत होते."
+            },
+            {
+                q: "१८. राणीने त्या झऱ्याचे पाणी प्याल्यावर काय झाले?",
+                options: ["A) ती दुःखी झाली", "B) ती झोपली", "C) ती खूप आनंदी झाली", "D) ती उडू लागली"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: झऱ्याचे पाणी पिताच राणी खूप आनंदी झाली."
+            },
+            {
+                q: "१९. 'आनंदी' शब्दाचा पर्याय कोणता आहे?",
+                options: ["A) दुःखी", "B) प्रसन्न", "C) उदास", "D) रागीट"],
+                correct: 1,
+                explanation: "स्पष्टीकरण: 'आनंदी' या शब्दाचा समानार्थी शब्द 'प्रसन्न' हा आहे."
+            },
+            {
+                q: "२०. \"ती जागी झाल्यावर तिला हे स्वप्न असल्याचे कळले.\" या वाक्यातील 'जागी' शब्द कोणता प्रकार दर्शवतो?",
+                options: ["A) नाम", "B) सर्वनाम", "C) विशेषण", "D) क्रियापद"],
+                correct: 2,
+                explanation: "स्पष्टीकरण: 'जागी' ही अवस्था/गुण दर्शवत असल्याने विशेषण रूपात वापरली जाते."
+            }
+        ]
+    }
+];
+
+let allQuestions = [];
+passagesData.forEach((p) => {
+    p.questions.forEach((q) => {
+        allQuestions.push({
+            passageTitle: p.title,
+            passageText: p.text,
+            qText: q.q,
+            options: q.options,
+            correctIndex: q.correct,
+            explanation: q.explanation
+        });
+    });
+});
+                let currentQuestionIndex = 0;
+let userScore = 0;
+let studentName = "";
+let studentMobile = "";
+
+function startExam() {
+    const nameInput = document.getElementById('student-name').value.trim();
+    const mobileInput = document.getElementById('student-mobile').value.trim();
+
+    if (!nameInput) {
+        alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");
+        return;
+    }
+
+    studentName = nameInput;
+    studentMobile = mobileInput || "उपलब्ध नाही";
+
+    document.getElementById('welcome-screen').classList.add('hidden');
+    document.getElementById('exam-screen').classList.remove('hidden');
+
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = allQuestions[currentQuestionIndex];
+
+    document.getElementById('question-count-text').innerText = `प्रश्न ${currentQuestionIndex + 1} / ${allQuestions.length}`;
+    document.getElementById('score-text').innerText = `गुण: ${userScore}`;
+    
+    const progressPercent = ((currentQuestionIndex) / allQuestions.length) * 100;
+    document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+    document.getElementById('passage-title').innerText = qData.passageTitle;
+    document.getElementById('passage-text').innerText = qData.passageText;
+    document.getElementById('question-text').innerText = qData.qText;
+
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+
+    qData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(idx);
+        optionsContainer.appendChild(btn);
+    });
+
+    const expBox = document.getElementById('explanation-box');
+    expBox.className = 'explanation-box';
+    expBox.style.display = 'none';
+
+    document.getElementById('btn-next').style.display = 'none';
+    document.getElementById('btn-submit').classList.add('hidden');
+}
+
+function selectOption(selectedIndex) {
+    const qData = allQuestions[currentQuestionIndex];
+    const optionBtns = document.querySelectorAll('.option-btn');
+
+    optionBtns.forEach(btn => btn.disabled = true);
+
+    const expBox = document.getElementById('explanation-box');
+
+    if (selectedIndex === qData.correctIndex) {
+        userScore++;
+        optionBtns[selectedIndex].classList.add('correct');
+        expBox.innerText = " अभिनंदन! बरोबर उत्तर.\n" + qData.explanation;
+        expBox.className = 'explanation-box show-correct';
+    } else {
+        optionBtns[selectedIndex].classList.add('wrong');
+        optionBtns[qData.correctIndex].classList.add('correct');
+        expBox.innerText = " चूक! योग्य उत्तर पर्याय " + (qData.correctIndex + 1) + " आहे.\n" + qData.explanation;
+        expBox.className = 'explanation-box show-wrong';
+    }
+
+    document.getElementById('score-text').innerText = `गुण: ${userScore}`;
+
+    if (currentQuestionIndex < allQuestions.length - 1) {
+        document.getElementById('btn-next').style.display = 'block';
+    } else {
+        document.getElementById('btn-submit').classList.remove('hidden');
+    }
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < allQuestions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+    }
+}
+     function finishExam() {
+    document.getElementById('exam-screen').classList.add('hidden');
+    document.getElementById('result-screen').classList.remove('hidden');
+
+    const totalQuestions = allQuestions.length;
+    const percentage = Math.round((userScore / totalQuestions) * 100);
+
+    document.getElementById('cert-student-name').innerText = studentName;
+    document.getElementById('cert-student-mobile').innerText = studentMobile;
+    document.getElementById('cert-score').innerText = `${userScore} / ${totalQuestions}`;
+    document.getElementById('cert-percentage').innerText = `${percentage}%`;
+
+    const badgeEl = document.getElementById('cert-badge');
+    const awardBox = document.getElementById('cert-award-box');
+
+    if (percentage >= 80) {
+        badgeEl.innerText = "🥇 🏆";
+        awardBox.className = "award-box award-gold";
+        awardBox.innerText = "उत्कृष्ट कामगिरी! - Gold Medal + Trophy प्राप्त";
+    } else if (percentage >= 60) {
+        badgeEl.innerText = "🥈 🏆";
+        awardBox.className = "award-box award-silver";
+        awardBox.innerText = "छान कामगिरी! - Silver Medal + Trophy प्राप्त";
+    } else if (percentage >= 50) {
+        badgeEl.innerText = "🥉 🏆";
+        awardBox.className = "award-box award-bronze";
+        awardBox.innerText = "चांगली कामगिरी! - Bronze Medal + Trophy प्राप्त";
+    } else {
+        badgeEl.innerText = "💐";
+        awardBox.className = "award-box award-general";
+        awardBox.innerText = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी हार्दिक शुभेच्छा!";
+    }
+}
+</script>
+
+</body>
+</html>
