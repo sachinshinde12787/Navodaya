@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - ज्ञानेंद्रिये</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 15px 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        .header h2 {
+            font-size: 16px;
+            font-weight: normal;
+            color: #ffd700;
+        }
+        .container {
+            max-width: 800px;
+            width: 95%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            flex-grow: 1;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .footer-guide {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            background-color: #eef2f5;
+            padding: 12px;
+            border-radius: 5px;
+        }
+        .guide-box {
+            width: 48%;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .option-btn:hover {
+            background-color: #e9ecef;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 5px;
+            color: #856404;
+            display: none;
+            font-size: 14px;
+        }
+        .certificate-border {
+            border: 8px double #1e3c72;
+            padding: 25px;
+            text-align: center;
+            background: #fffdf5;
+            border-radius: 5px;
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .certificate-title {
+            color: #1e3c72;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .badge-box {
+            font-size: 22px;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f1f3f5;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .wrong-questions-section {
+            margin-top: 25px;
+            text-align: left;
+        }
+        .wrong-card {
+            border-left: 4px solid #dc3545;
+            background: #fff;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .page-footer {
+            background-color: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट - ज्ञानेंद्रिये</h2>
+    </div>
+
+    <div class="container" id="app">
+        <!-- Start Screen -->
+        <div id="start-screen">
+            <h3 style="text-align: center; margin-bottom: 20px; color: #1e3c72;">विद्यार्थी नोंदणी</h3>
+            <div class="form-group">
+                <label for="studentName">विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="studentName" placeholder="पूर्ण नाव टाका">
+            </div>
+            <div class="form-group">
+                <label for="mobileNo">मोबाईल नंबर:</label>
+                <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर टाका">
+            </div>
+            <button class="btn" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+
+            <div class="footer-guide">
+                <div class="guide-box">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                    <strong>संपर्क :</strong> 8329684470
+                </div>
+                <div class="guide-box" style="text-align: right;">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                    <strong>संपर्क :</strong> 8208167846
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" style="display: none;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: #555;">
+                <span id="question-count">प्रश्न १ / ५०</span>
+                <span id="timer-display"></span>
+            </div>
+            <h3 id="question-text" style="margin-bottom: 15px;"></h3>
+            <div id="options-container"></div>
+            <div id="explanation-box" class="explanation"></div>
+            <br>
+            <button id="next-btn" class="btn" onclick="nextQuestion()" style="display: none;">पुढील प्रश्न</button>
+            <button id="submit-btn" class="btn" onclick="submitExam()" style="display: none; background-color: #dc3545;">Submit Exam (परीक्षा जमा करा)</button>
+        </div>
+
+        <!-- Result / Certificate Screen -->
+        <div id="result-screen" style="display: none;">
+            <div class="certificate-border">
+                <div class="certificate-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+                <hr style="margin-bottom: 15px;">
+                <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट - ज्ञानेंद्रिये</p>
+                <p style="margin: 8px 0;"><strong>विद्यार्थ्याचे नाव :</strong> <span id="cert-name"></span></p>
+                <p style="margin: 8px 0;"><strong>मोबाईल नंबर :</strong> <span id="cert-mobile"></span></p>
+                <p style="margin: 8px 0;"><strong>मिळालेले गुण :</strong> <span id="cert-score"></span> / ५०</p>
+                <p style="margin: 8px 0;"><strong>टक्केवारी :</strong> <span id="cert-percent"></span>%</p>
+                
+                <div class="badge-box" id="cert-badge"></div>
+
+                <div class="footer-guide" style="margin-top: 20px; background: transparent; border-top: 1px dashed #1e3c72;">
+                    <div class="guide-box" style="text-align: left;">
+                        <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                        <strong>संपर्क :</strong> 8329684470
+                    </div>
+                    <div class="guide-box" style="text-align: right;">
+                        <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                        <strong>संपर्क :</strong> 8208167846
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrong-questions-section">
+                <h3 style="color: #dc3545; margin-bottom: 15px;">चुकलेले प्रश्न व त्यांचे स्पष्टीकरण:</h3>
+                <div id="wrong-questions-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर | सर्व हक्क राखीव
+    </div>
+
+    <script>
+  const questionsListPart1 = [
+    {
+        q: "१. खालीलपैकी कोणते ज्ञानेंद्रिय मानवी शरीरातील सर्वात मोठे ज्ञानेंद्रिय आहे?",
+        options: ["A) डोळे", "B) जीभ", "C) त्वचा", "D) कान"],
+        ans: 2,
+        exp: "स्पष्टीकरण: त्वचा हे मानवी शरीराचे संपूर्ण पृष्ठभाग व्यापणारे सर्वात मोठे ज्ञानेंद्रिय आहे."
+    },
+    {
+        q: "२. शरीराच्या बाह्य वातावरणातील बदलांची जाणीव मेंदूला करून देणाऱ्या अवयवांना काय म्हणतात?",
+        options: ["A) कार्येंद्रिये", "B) ज्ञानेंद्रिये", "C) पचनेंद्रिये", "D) श्वसनेंद्रिये"],
+        ans: 1,
+        exp: "स्पष्टीकरण: बाह्य संवेदना (दृष्टी, आवाज, वास, चव, स्पर्श) ग्रहण करून मेंदूपर्यंत पोहचवण्याचे काम ज्ञानेंद्रिये करतात."
+    },
+    {
+        q: "३. डोके आणि चेहऱ्यावर एकूण किती ज्ञानेंद्रिये स्थित असतात?",
+        options: ["A) ३", "B) ५", "C) ४", "D) २"],
+        ans: 2,
+        exp: "स्पष्टीकरण: डोळे, कान, नाक आणि जीभ ही ४ ज्ञानेंद्रिये चेहऱ्यावर/डोक्यावर असतात, तर त्वचा संपूर्ण शरीरावर असते."
+    },
+    {
+        q: "४. खालीलपैकी चुकीची जोडी ओळखा.",
+        options: ["A) नाक — घ्राणेंद्रिय", "B) जीभ — रसनेन्द्रिय", "C) कान — श्रवणेंद्रिय", "D) डोळे — स्पर्शेंद्रिय"],
+        ans: 3,
+        exp: "स्पष्टीकरण: डोळे हे 'दृष्टीज्ञानेंद्रिय' आहेत, स्पर्शेंद्रिय हे त्वचेचे कार्य आहे."
+    },
+    {
+        q: "५. डोळ्यांच्या कोणत्या भागामुळे मानवी डोळ्यांचा रंग (काळा, तपकिरी, निळा) ठरतो आणि प्रकाश नियंत्रण होते?",
+        options: ["A) पापण्या", "B) बाहुली", "C) बुबुळ (Iris)", "D) भुवया"],
+        ans: 2,
+        exp: "स्पष्टीकरण: बुबुळ (Iris) हे डोळ्यातील रंगीत भाग असून ते बाहुलीचा आकार नियंत्रित करते."
+    },
+    {
+        q: "६. एखादी वस्तू खूप लांब आहे की जवळ, हे ओळखण्यासाठी प्रामुख्याने कोणते इंद्रिय कार्य करते?",
+        options: ["A) त्वचा", "B) डोळे", "C) कान", "D) नाक"],
+        ans: 1,
+        exp: "स्पष्टीकरण: डोळ्यांमुळे आपल्याला वस्तूचा आकार, अंतर आणि रंग समजतो."
+    },
+    {
+        q: "७. 'घ्राणेंद्रिय' हे नाव कोणत्या ज्ञानेंद्रियासाठी वापरले जाते?",
+        options: ["A) जीभ", "B) त्वचा", "C) नाक", "D) कान"],
+        ans: 2,
+        exp: "स्पष्टीकरण: नाकाला शास्त्रीय भाषेत घ्राणेंद्रिय (वास घेणारे इंद्रिय) म्हणतात."
+    },
+    {
+        q: "८. अन्नाचा वास घेतल्यावर तोंडाला पाणी सुटते, यात प्रामुख्याने कोणत्या दोन ज्ञानेंद्रियांचा परस्परसंबंध येतो?",
+        options: ["A) नाक आणि जीभ", "B) कान आणि डोळे", "C) त्वचा आणि जीभ", "D) नाक आणि त्वचा"],
+        ans: 0,
+        exp: "स्पष्टीकरण: नाकाने गंध ओळखल्याबरोबर मेंदू जिभेवरील लाळ ग्रंथींना उत्तेजित करतो."
+    },
+    {
+        q: "९. खालीलपैकी वेगळा घटक ओळखा.",
+        options: ["A) डोळे", "B) कान", "C) फुप्फुस", "D) जीभ"],
+        ans: 2,
+        exp: "स्पष्टीकरण: डोळे, कान, जीभ ही ज्ञानेंद्रिये आहेत, तर फुप्फुस हे श्वसनेंद्रिय आहे."
+    },
+    {
+        q: "१०. गरम वस्तूचा चटका लागल्यावर आपण हात लगेच मागे घेतो, ही जाणीव आणि प्रतिक्रिया कोणामार्फत होते?",
+        options: ["A) फक्त हाडे", "B) त्वचा आणि मज्जासंस्था", "C) जीभ", "D) नाक"],
+        ans: 1,
+        exp: "स्पष्टीकरण: त्वचेतील संवेदक संदेश मज्जासंस्थेमार्फत मेंदू/मज्जारज्जूकडे पाठवून तात्काळ प्रतिक्रिया देतात."
+    },
+    {
+        q: "११. 'श्रावण बाळने नदीवर पाणी भरण्याचा आवाज ऐकला.' या वाक्यात कोणते ज्ञानेंद्रिय कार्यरत आहे?",
+        options: ["A) डोळे", "B) त्वचा", "C) कान", "D) नाक"],
+        ans: 2,
+        exp: "स्पष्टीकरण: आवाज ऐकण्याचे कार्य कानाद्वारे (श्रवणेंद्रिय) होते."
+    },
+    {
+        q: "१२. हवेतील आवाजाच्या लहरी गोळा करण्याचे काम कानाचा कोणता बाह्य भाग करतो?",
+        options: ["A) कानाची पाळी (Pinna)", "B) पडदा", "C) अंतर्कर्ण", "D) मज्जातंतू"],
+        ans: 0,
+        exp: "स्पष्टीकरण: कानाची पाळी (Pinna) हवेतील ध्वनी लहरी एकत्रित करून कानाच्या नळीत पाठवते."
+    },
+    {
+        q: "१३. अंधारात अचानक प्रकाश पडल्यावर डोळ्यांच्या बाहुल्यांचे आकुंचन होते, ही क्रिया कोणत्या यंत्रणेद्वारे नियंत्रित केली जाते?",
+        options: ["A) ऐच्छिक हालचाल", "B) प्रतिक्षिप्त क्रिया (Reflex Action)", "C) पचन संस्था", "D) अस्थि संस्था"],
+        ans: 1,
+        exp: "स्पष्टीकरण: अनैच्छिक व त्वरित होणाऱ्या अशा प्रतिसादाला प्रतिक्षिप्त क्रिया म्हणतात."
+    },
+    {
+        q: "१४. पदार्थ गरम आहे की थंड, हे स्पर्श न करता फक्त पाहून ओळखणे कठीण असते, यासाठी कशाची गरज असते?",
+        options: ["A) दृष्टी", "B) त्वचेचा स्पर्श", "C) गंध", "D) स्वाद"],
+        ans: 1,
+        exp: "स्पष्टीकरण: तापमान (गरम/थंड) समजण्यासाठी त्वचेतील तापमान संवेदक कार्य करतात."
+    },
+    {
+        q: "१५. ज्ञानेंद्रियांबद्दल अयोग्य विधान ओळखा.",
+        options: ["A) त्वचा संपूर्ण शरीरावर असते.", "B) जिभेमुळे आपल्याला बोलण्यास मदत होते.", "C) कानाचा उपयोग फक्त तोल सावरण्यासाठी होतो.", "D) डोळ्यांमुळे वस्तूचा आकार समजतो."],
+        ans: 2,
+        exp: "स्पष्टीकरण: कानाचे मुख्य कार्य ऐकणे आणि द्वितीय कार्य शरीराचा तोल सावरणे हे दोन्ही आहे."
+    },
+    {
+        q: "१६. तीव्र सर्दी झाल्यावर अन्नाची चव नीट लागत नाही, याचे मुख्य कारण काय?",
+        options: ["A) जीभ खराब होते.", "B) नाक बंद असल्याने गंधाची जाणीव होत नाही आणि स्वाद प्रक्रियेवर परिणाम होतो.", "C) डोळ्यांना दिसत नाही.", "D) कान दुखतात."],
+        ans: 1,
+        exp: "स्पष्टीकरण: अन्नाचा पूर्ण आस्वाद घेण्यासाठी चव (जीभ) आणि गंध (नाक) या दोन्हीची एकत्रित गरज असते."
+    },
+    {
+        q: "१७. चालताना किंवा धावताना शरीराचा समतोल राखण्यासाठी 'अंतर्कर्णातील' द्रवाचा उपयोग होतो, यावरून कानाचे दुसरे महत्त्वाचे कार्य कोणते?",
+        options: ["A) रक्ताभिसरण", "B) तोल सावरणे (Balancing)", "C) श्वास घेणे", "D) अन्नाचे पचन"],
+        ans: 1,
+        exp: "स्पष्टीकरण: अंतर्कर्णातील विशिष्ट रचना शरीराची स्थिती व तोल सांभाळण्याचे कार्य करते."
+    },
+    {
+        q: "१८. डोळ्यांचे धुळीपासून व बाह्य आघातापासून संरक्षण करण्यासाठी निसर्गाने कोणती रचना केली आहे?",
+        options: ["A) कान", "B) नाक", "C) पापण्या आणि भुवया", "D) दात"],
+        ans: 2,
+        exp: "स्पष्टीकरण: पापण्या, फटके आणि भुवया डोळ्यांत धूळ व घााम जाण्यापासून वाचवतात."
+    },
+    {
+        q: "१९. अंधाऱ्या खोलीत एखादी वस्तू शोधताना आपण प्रामुख्याने कोणत्या संवेदना/ज्ञानेंद्रियाचा आधार घेतो?",
+        options: ["A) डोळे", "B) त्वचा (स्पर्श)", "C) जीभ", "D) नाक"],
+        ans: 1,
+        exp: "स्पष्टीकरण: अंधारात दृष्टी कार्य करत नसल्याने चाचपडून (स्पर्शाने) वस्तू शोधावी लागते."
+    },
+    {
+        q: "२०. खालीलपैकी कोणता गट फक्त ज्ञानेंद्रियांचा आहे?",
+        options: ["A) हृदय, फुप्फुस, डोळे", "B) नाक, जीभ, कान", "C) हात, पाय, डोके", "D) जठर, यकृत, त्वचा"],
+        ans: 1,
+        exp: "स्पष्टीकरण: नाक, जीभ आणि कान हे तिन्ही ज्ञानेंद्रिये आहेत."
+    },
+    {
+        q: "२१. आपण कोणत्याही वस्तूचे स्पष्ट चित्र किंवा रंग ________ द्वारे पाहतो.",
+        options: ["A) पापण्या", "B) चष्म्या", "C) डोळे", "D) प्रकाश"],
+        ans: 2,
+        exp: "स्पष्टीकरण: डोळे हे प्रकाश संवेदना ग्रहण करणारे इंद्रिय आहे."
+    },
+    {
+        q: "२२. वाघाची डरकाळी ऐकून जंगलातील प्राणी सावध झाले, यात कोणत्या ज्ञानेंद्रियाचा वापर झाला?",
+        options: ["A) श्रवणेंद्रिय (कान)", "B) घ्राणेंद्रिय (नाक)", "C) स्पर्शेंद्रिय (त्वचा)", "D) रसनेन्द्रिय (जीभ)"],
+        ans: 0,
+        exp: "स्पष्टीकरण: ध्वनी संदेश ग्रहण करण्याचे काम श्रवणेंद्रिय म्हणजेच कान करते."
+    },
+    {
+        q: "२३. लिंबू सरबत पिताना 'आंबट आणि गोड' या दोन्ही चवींची नोंद कोणाद्वारे होते?",
+        options: ["A) फक्त दात", "B) जीभ", "C) ओठ", "D) पडजीभ"],
+        ans: 1,
+        exp: "स्पष्टीकरण: जिभेवरील रुचीकलिका निरनिराळ्या चवींची जाणीव मेंदूपर्यंत पोहचवतात."
+    },
+    {
+        q: "२४. कापूस मऊ आहे आणि दगड कठीण आहे, हा गुणधर्म कशावरून समजतो?",
+        options: ["A) वजनावरून", "B) रंगावरून", "C) स्पर्शावरून", "D) वासावरून"],
+        ans: 2,
+        exp: "स्पष्टीकरण: मऊपणा किंवा कठीणपणा त्वचेच्या स्पर्शाने जाणवतो."
+    },
+    {
+        q: "२५. दुर्गंधी आल्यावर आपण नाकावर रुमाल ठेवतो, ही क्रिया काय दर्शवते?",
+        options: ["A) ऐकणे", "B) स्व-संरक्षण आणि जाणीवपूर्वक प्रतिसाद", "C) चव घेणे", "D) पाहणे"],
+        ans: 1,
+        exp: "स्पष्टीकरण: वाईट वासाचा त्रास टाळण्यासाठी शरीराने दिलेला हा संरक्षक प्रतिसाद आहे."
+    }
+];
+      const questionsListPart2 = [
+    {
+        q: "२६. रस्ता ओलांडताना सुरक्षिततेसाठी आपण कोणत्या दोन ज्ञानेंद्रियांचा सर्वाधिक वापर करतो?",
+        options: ["A) जीभ आणि नाक", "B) डोळे आणि कान", "C) त्वचा आणि जीभ", "D) नाक आणि त्वचा"],
+        ans: 1,
+        exp: "स्पष्टीकरण: वाहने पाहण्यासाठी डोळे आणि त्यांचा हॉर्न ऐकण्यासाठी कानाचा वापर होतो."
+    },
+    {
+        q: "२७. कानाच्या पडद्याला (Eardrum) दुखापत झाल्यास खालीलपैकी कशावर थेट परिणाम होईल?",
+        options: ["A) दिसणे बंद होईल", "B) ऐकण्याच्या क्षमतेवर परिणाम होईल", "C) चव लागणार नाही", "D) वास येणार नाही"],
+        ans: 1,
+        exp: "स्पष्टीकरण: कानाचा पडदा ध्वनी लहरींचे कंपन करतो, तो खराब झाल्यास ऐकू येणे मंदावते."
+    },
+    {
+        q: "२८. जिभेवर असणाऱ्या अतिसूक्ष्म उंचवट्यांना काय म्हणतात ज्याद्वारे चव समजते?",
+        options: ["A) फोड", "B) रुचीकलिका (Taste buds)", "C) दाणे", "D) सूक्ष्म छिद्रे"],
+        ans: 1,
+        exp: "स्पष्टीकरण: रुचीकलिका (Taste buds) स्वाद ओळखणाऱ्या पेशींनी बनलेल्या असतात."
+    },
+    {
+        q: "२९. चांगला सुगंध आणि वाईट दुर्गंध यातील फरक कोणामुळे स्पष्ट होतो?",
+        options: ["A) डोळ्यांमुळे", "B) नाकामुळे", "C) कानामुळे", "D) त्वचेमुळे"],
+        ans: 1,
+        exp: "स्पष्टीकरण: नाकातील घ्राण मज्जातंतू वासाचे पृथक्करण करतात."
+    },
+    {
+        q: "३०. डोळे बंद असताना समोर गुलाबाचे फूल आहे, हे तुम्ही कशावरून निश्चित करू शकता?",
+        options: ["A) रंगावरून", "B) आकारावरून", "C) वासावरून", "D) हालचालीवरून"],
+        ans: 2,
+        exp: "स्पष्टीकरण: गुलाबाचा विशिष्ट सुगंध नाकाद्वारे ओळखून फूल कोणते आहे ते समजते."
+    },
+    {
+        q: "३१. शरीरातील सर्व ज्ञानेंद्रियांकडून येणाऱ्या संदेशांवर प्रक्रिया करून निर्णय घेणारा मुख्य अवयव कोणता?",
+        options: ["A) हृदय", "B) मज्जारज्जू", "C) मेंदू", "D) हाडे"],
+        ans: 2,
+        exp: "स्पष्टीकरण: मेंदू हा मध्यवर्ती मज्जासंस्थेचा केंद्रबिंदू असून सर्व ज्ञानेंद्रियांचे नियंत्रण करतो."
+    },
+    {
+        q: "३२. शास्त्रानुसार प्रकाशाची संवेदना ग्रहण करणाऱ्या अवयवाला काय म्हणतात?",
+        options: ["A) नाक", "B) दृष्टी ज्ञानेंद्रिय (डोळे)", "C) कान", "D) त्वचा"],
+        ans: 1,
+        exp: "स्पष्टीकरण: डोळे प्रकाशाच्या सहाय्याने प्रतिमा तयार करतात."
+    },
+    {
+        q: "३३. जोड्या लावा संकल्पनेत खालीलपैकी अयोग्य जोडी कोणती?",
+        options: ["A) डोळे — चित्रपट पाहणे", "B) कान — संगीत ऐकणे", "C) जीभ — गरम वाटणे", "D) नाक — अत्तर हुंगणे"],
+        ans: 2,
+        exp: "स्पष्टीकरण: गरम वाटणे ही त्वचेची (तापमानाची) संवेदना आहे, जिभेचे कार्य चव घेणे आहे."
+    },
+    {
+        q: "३४. सहसंबंध पूर्ण करा: त्वचा : स्पर्श :: जीभ : ________",
+        options: ["A) दृष्टी", "B) चव / स्वाद", "C) गंध", "D) आवाज"],
+        ans: 1,
+        exp: "स्पष्टीकरण: त्वचेचे कार्य स्पर्श ओळखणे, तर जिभेचे मुख्य कार्य चव ओळखणे आहे."
+    },
+    {
+        q: "३५. एका मुलाने डोळे बांधलेले असताना हाताने चाचपडून वस्तू गोल आहे हे सांगितले, त्याने कोणते इंद्रिय वापरले?",
+        options: ["A) कान", "B) नाक", "C) त्वचा (स्पर्श)", "D) जीभ"],
+        ans: 2,
+        exp: "स्पष्टीकरण: वस्तूचा पृष्ठभाग व आकार स्पर्शाने (त्वचा) ओळखता येतो."
+    },
+    {
+        q: "३६. ज्ञानेंद्रियांना शरीराच्या 'खिडक्या' का म्हटले जाते?",
+        options: ["A) त्या पारदर्शक असतात", "B) त्या बाहेरील जगातील माहिती शरीराच्या आत मेंदूपर्यंत पोहचवतात", "C) त्या हवेत उघडतात", "D) त्या सुंदर दिसतात"],
+        ans: 1,
+        exp: "स्पष्टीकरण: जशा खिडकीतून बाहेरचे दृश्य दिसते, तसेच ज्ञानेंद्रियांमुळे बाहेरील परिस्थितीची माहिती शरीराला मिळते."
+    },
+    {
+        q: "३७. बोलताना स्पष्ट शब्द उच्चारण्यासाठी दातांसोबत कोणत्या ज्ञानेंद्रियाची हालचाल महत्त्वाची असते?",
+        options: ["A) नाक", "B) जीभ", "C) कान", "D) त्वचा"],
+        ans: 1,
+        exp: "स्पष्टीकरण: जीभ ही स्नायूंची बनलेली असून ती ध्वनी आणि उच्चार स्पष्ट करण्यास मदत करते."
+    },
+    {
+        q: "३८. आपण झोपलेले असतानाही खालीलपैकी कोणत्या ज्ञानेंद्रियांचे कार्य अविरतपणे सुरू राहू शकते?",
+        options: ["A) डोळे", "B) त्वचा आणि नाक", "C) फक्त जीभ", "D) यापैकी नाही"],
+        ans: 1,
+        exp: "स्पष्टीकरण: झोपेतही त्वचेला स्पर्शाची व नाकाला तीव्र वासाची/श्वसनाची संवेदना होते."
+    },
+    {
+        q: "३९. आंबा चांगला पिकला आहे हे तपासताना योग्य क्रमाने कोणती ज्ञानेंद्रिये वापरली जातात?",
+        options: ["A) पाहणे (डोळे), वास घेणे (नाक), चव घेणे (जीभ)", "B) ऐकणे, पाहणे, स्पर्श करणे", "C) चव घेणे, पाहणे, ऐकणे", "D) फक्त स्पर्श करणे"],
+        ans: 0,
+        exp: "स्पष्टीकरण: प्रथम आपण रंग पाहतो, नंतर सुगंध घेतो आणि शेवटी खाऊन चव पाहतो."
+    },
+    {
+        q: "४०. कानाची कार्यक्षमता टिकवण्यासाठी कोणती काळजी घेतली पाहिजे?",
+        options: ["A) मोठ्या आवाजात संगीत ऐकणे", "B) कानात तीक्ष्ण वस्तू घालणे टाळणे", "C) कानात पाणी साचू देणे", "D) जोराने कान टोकरणे"],
+        ans: 1,
+        exp: "स्पष्टीकरण: कानात कठीण किंवा तीक्ष्ण वस्तू घातल्यास पडद्याला दुखापत होऊन बहिरेपणा येऊ शकतो."
+    },
+    {
+        q: "४१. डोळ्यांचे आरोग्य चांगले ठेवण्यासाठी आहारात कोणत्या घटकांचा समावेश असावा?",
+        options: ["A) जंक फूड", "B) जीवनसत्त्व 'अ' युक्त हिरव्या पालेभाज्या व गाजर", "C) फक्त गोड पदार्थ", "D) तेलकट पदार्थ"],
+        ans: 1,
+        exp: "स्पष्टीकरण: व्हिटॅमिन 'A' मुळे दृष्टी उत्तम राहते आणि रातंधळेपणा टळतो."
+    },
+    {
+        q: "४२. वेगळा घटक ओळखा: गोड, कडू, सुगंध, आंबट.",
+        options: ["A) गोड", "B) कडू", "C) सुगंध", "D) आंबट"],
+        ans: 2,
+        exp: "स्पष्टीकरण: गोड, कडू, आंबट या जिभेच्या चवी आहेत, तर 'सुगंध' हा नाकाचा गंध आहे."
+    },
+    {
+        q: "४३. त्वचेमध्ये स्पर्श, दाब आणि तापमान यांची जाणीव करून देणारे काय पसरलेले असते?",
+        options: ["A) हाडांचे सांगाडे", "B) चेतातंतूंचे (Nerve endings) जाळे", "C) अन्नाचे कण", "D) फक्त केस"],
+        ans: 1,
+        exp: "स्पष्टीकरण: त्वचेखालील सूक्ष्म चेतातंतूंचे जाळे संवेदना मेंदूपर्यंत वाहून नेते."
+    },
+    {
+        q: "४४. अचानक डोळ्यांवर तीव्र प्रकाश पडल्यास किंवा शिंक आल्यास डोळे आपोआप बंद होतात, या क्रियेला काय म्हणतात?",
+        options: ["A) ऐच्छिक क्रिया", "B) प्रतिक्षिप्त क्रिया (Reflex Action)", "C) आळस", "D) सवय"],
+        ans: 1,
+        exp: "स्पष्टीकरण: अनपेक्षित धोक्यापासून अवयवाचे रक्षण करण्यासाठी मज्जारज्जूद्वारे होणारा हा त्वरित प्रतिसाद आहे."
+    },
+    {
+        q: "४५. कानाचा अंतर्कर्ण हा भाग ऐकण्याव्यतिरिक्त आणखी कोणत्या कार्यात मदत करतो?",
+        options: ["A) श्वासोच्छवास", "B) रक्तदाब", "C) शरीराचा तोल सांभाळणे", "D) अन्न पचन"],
+        ans: 2,
+        exp: "स्पष्टीकरण: अंतर्कर्णात द्रव भरलेल्या नलिका असतात ज्या शरीराची स्थिती व तोल नियंत्रित करतात."
+    },
+    {
+        q: "४६. जीभ (चव) आणि नाक (वास) यांच्या कार्यपद्धतीत काय साम्य आहे?",
+        options: ["A) दोन्ही प्रकाशावर चालतात", "B) दोन्ही रासायनिक (Chemical) संवेदना ओळखून काम करतात", "C) दोन्ही हाडांनी बनले आहेत", "D) दोन्ही ध्वनी लहरी पकडतात"],
+        ans: 1,
+        exp: "स्पष्टीकरण: अन्नातील व हवेतील रासायनिक घटकांना प्रतिसाद देऊन या दोन्ही ज्ञानेंद्रियांचे कार्य चालते."
+    },
+    {
+        q: "४७. जर एखाद्या व्यक्तीची घ्राणेंद्रिय (नाक) क्षमता पूर्णपणे नष्ट झाली, तर त्याच्यावर काय परिणाम होईल?",
+        options: ["A) त्याला ऐकू येणार नाही", "B) त्याला गंध समजणार नाही आणि अन्नातील स्वादाची जाणीव कमी होईल", "C) त्याला अंधत्व येईल", "D) त्याला चालता येणार नाही"],
+        ans: 1,
+        exp: "स्पष्टीकरण: वासाची जाणीव नसल्यास अन्नाची खरी चव/स्वाद पूर्णपणे अनुभवता येत नाही."
+    },
+    {
+        q: "४८. स्वयंपाकघरातून काहीतरी करपल्याचा वास आला, तर त्वरित काय करणे सुरक्षित ठरेल?",
+        options: ["A) गाणे ऐकत बसणे", "B) नाकाच्या संवेदनेचा वापर करून गॅस/अन्न तपासणे", "C) टीव्हीचा आवाज वाढवणे", "D) दुर्लक्ष करणे"],
+        ans: 1,
+        exp: "स्पष्टीकरण: नाकाने दिलेला धोक्याचा इशारा ओळखून त्वरित गॅस बंद करणे ही योग्य कृती आहे."
+    },
+    {
+        q: "४९. डोळ्यांच्या बाहुलीचा (Pupil) आकार मंद प्रकाशात कसा होतो?",
+        options: ["A) लहान होतो", "B) मोठा (रुंद) होतो", "C) बंद होतो", "D) बदलत नाही"],
+        ans: 1,
+        exp: "स्पष्टीकरण: जास्त प्रकाश आत जावा म्हणून मंद प्रकाशात बाहुली मोठी होते, तर तीव्र प्रकाशात लहान होते."
+    },
+    {
+        q: "५०. मानवी शरीराला बाह्य जगाशी जोडणारा आणि पर्यावरणातील बदलांची माहिती देणारा महत्त्वाचा दुवा कोणता?",
+        options: ["A) रक्तवाहिन्या", "B) ५ ज्ञानेंद्रिये", "C) स्नायू", "D) नखे"],
+        ans: 1,
+        exp: "स्पष्टीकरण: ५ ज्ञानेंद्रिये (डोळे, कान, नाक, जीभ, त्वचा) आपल्याला बाह्य जगाचे ज्ञान देतात."
+    }
+];
+
+const allQuestions = [...questionsListPart1, ...questionsListPart2];
+
+      let currentQuestionIndex = 0;
+let score = 0;
+let userAnswers = [];
+let studentNameData = "";
+let mobileNoData = "";
+
+function startExam() {
+    const nameInput = document.getElementById("studentName").value.trim();
+    const mobileInput = document.getElementById("mobileNo").value.trim();
+
+    if (nameInput === "") {
+        alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");
+        return;
+    }
+    if (mobileInput === "" || mobileInput.length < 10) {
+        alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+        return;
+    }
+
+    studentNameData = nameInput;
+    mobileNoData = mobileInput;
+
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-screen").style.display = "block";
+
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = allQuestions[currentQuestionIndex];
+    document.getElementById("question-count").innerText = `प्रश्न ${currentQuestionIndex + 1} / ${allQuestions.length}`;
+    document.getElementById("question-text").innerText = qData.q;
+
+    const optionsContainer = document.getElementById("options-container");
+    optionsContainer.innerHTML = "";
+
+    const expBox = document.getElementById("explanation-box");
+    expBox.style.display = "none";
+    expBox.innerHTML = "";
+
+    document.getElementById("next-btn").style.display = "none";
+    document.getElementById("submit-btn").style.display = "none";
+
+    qData.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(idx);
+        optionsContainer.appendChild(btn);
+    });
+
+    // restore previous answer if exists
+    if (userAnswers[currentQuestionIndex] !== undefined) {
+        showSelectedAnswer(userAnswers[currentQuestionIndex]);
+    }
+}
+
+function selectOption(selectedIdx) {
+    if (userAnswers[currentQuestionIndex] !== undefined) return; // already answered
+
+    userAnswers[currentQuestionIndex] = selectedIdx;
+    showSelectedAnswer(selectedIdx);
+}
+
+function showSelectedAnswer(selectedIdx) {
+    const qData = allQuestions[currentQuestionIndex];
+    const optionBtns = document.querySelectorAll(".option-btn");
+
+    optionBtns.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === qData.ans) {
+            btn.classList.add("correct");
+        }
+        if (idx === selectedIdx && selectedIdx !== qData.ans) {
+            btn.classList.add("incorrect");
+        }
+    });
+
+    const expBox = document.getElementById("explanation-box");
+    expBox.style.display = "block";
+    expBox.innerText = qData.exp;
+
+    if (currentQuestionIndex < allQuestions.length - 1) {
+        document.getElementById("next-btn").style.display = "block";
+    } else {
+        document.getElementById("submit-btn").style.display = "block";
+    }
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < allQuestions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+    }
+}
+
+function submitExam() {
+    // calculate score
+    score = 0;
+    allQuestions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.ans) {
+            score++;
+        }
+    });
+
+    const percentage = Math.round((score / allQuestions.length) * 100);
+
+    document.getElementById("quiz-screen").style.display = "none";
+    document.getElementById("result-screen").style.display = "block";
+
+    document.getElementById("cert-name").innerText = studentNameData;
+    document.getElementById("cert-mobile").innerText = mobileNoData;
+    document.getElementById("cert-score").innerText = score;
+    document.getElementById("cert-percent").innerText = percentage;
+
+    // Badge allocation
+    const badgeBox = document.getElementById("cert-badge");
+    if (percentage >= 80) {
+        badgeBox.innerHTML = "🏆<br>🥇 Gold Medal + Trophy<br><span style='font-size:14px; color:green;'>उत्कृष्ट कामगिरी! अतिशय छान!</span>";
+    } else if (percentage >= 60) {
+        badgeBox.innerHTML = "🏆<br>🥈 Silver Medal + Trophy<br><span style='font-size:14px; color:blue;'>छान कामगिरी! अभिनंदन!</span>";
+    } else if (percentage >= 50) {
+        badgeBox.innerHTML = "🏆<br>🥉 Bronze Medal + Trophy<br><span style='font-size:14px; color:orange;'>चांगला प्रयत्न! आणखी सराव करा.</span>";
+    } else {
+        badgeBox.innerHTML = "💐<br>अभिनंदन! फुलांचा गुच्छ<br><span style='font-size:16px; color:#c70039; font-weight:bold;'>\"पुढील परीक्षेसाठी शुभेच्छा\"</span>";
+    }
+
+    // Wrong questions summary
+    const wrongContainer = document.getElementById("wrong-questions-list");
+    wrongContainer.innerHTML = "";
+
+    let hasWrong = false;
+    allQuestions.forEach((q, idx) => {
+        if (userAnswers[idx] !== q.ans) {
+            hasWrong = true;
+            const card = document.createElement("div");
+            card.className = "wrong-card";
+
+            const userAnsText = userAnswers[idx] !== undefined ? q.options[userAnswers[idx]] : "उत्तर दिले नाही";
+            const correctAnsText = q.options[q.ans];
+
+            card.innerHTML = `
+                <strong>${q.q}</strong><br>
+                <span style="color: #dc3545;">तुमचे उत्तर: ${userAnsText}</span><br>
+                <span style="color: #28a745; font-weight: bold;">योग्य उत्तर: ${correctAnsText}</span><br>
+                <div style="margin-top: 5px; font-size: 13px; color: #666;">${q.exp}</div>
+            `;
+            wrongContainer.appendChild(card);
+        }
+    });
+
+    if (!hasWrong) {
+        wrongContainer.innerHTML = "<p style='color: green; font-weight: bold;'>अभिनंदन! तुमचे सर्व ५० प्रश्न बरोबर आहेत!</p>";
+    }
+}
+</script>
+</body>
+</html>
