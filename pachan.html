@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - पचन संस्था</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1b4332;
+            --secondary-color: #2d6a4f;
+            --accent-color: #d4af37;
+            --light-bg: #f8f9fa;
+            --correct-color: #2f855a;
+            --wrong-color: #c53030;
+            --card-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Baloo 2', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+            color: #212529;
+            padding: 15px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            position: relative;
+            border: 2px solid #dee2e6;
+        }
+
+        .header-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 26px;
+            font-weight: 800;
+            border-bottom: 3px double var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px dashed #cbd5e0;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .teacher-box {
+            background: #f7fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        /* Entry Screen */
+        .input-group {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"]:focus, input[type="tel"]:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 8px rgba(45, 106, 79, 0.3);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(27, 67, 50, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Quiz Screen */
+        .quiz-status {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 15px;
+            background: #edf2f7;
+            padding: 8px 15px;
+            border-radius: 6px;
+        }
+
+        .question-box {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a202c;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #2d3748;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background: #e2e8f0;
+            border-color: #cbd5e0;
+        }
+
+        .option-btn.correct {
+            background-color: #c6f6d5 !important;
+            border-color: var(--correct-color) !important;
+            color: #22543d !important;
+        }
+
+        .option-btn.wrong {
+            background-color: #fed7d7 !important;
+            border-color: var(--wrong-color) !important;
+            color: #742a2a !important;
+        }
+
+        .explanation-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ebf8ff;
+            border-left: 5px solid #3182ce;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #2b6cb0;
+            display: none;
+        }
+
+        .next-btn-container {
+            margin-top: 20px;
+        }
+
+        /* Certificate / Result Style */
+        .certificate-card {
+            border: 8px double var(--accent-color);
+            padding: 30px 20px;
+            background: #fffdf5;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .cert-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .cert-subtitle {
+            font-size: 18px;
+            font-weight: 700;
+            color: #b7791f;
+            margin-bottom: 20px;
+        }
+
+        .cert-details {
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto 20px auto;
+            font-size: 18px;
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        .honor-badge {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 15px 0;
+            padding: 12px;
+            border-radius: 8px;
+            background: #fff;
+            display: inline-block;
+            border: 2px dashed var(--accent-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .review-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .review-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--wrong-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #feb2b2;
+            padding-bottom: 5px;
+        }
+
+        .wrong-item {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .wrong-q {
+            font-weight: 700;
+            font-size: 17px;
+            color: #9b2c2c;
+            margin-bottom: 5px;
+        }
+
+        .wrong-ans {
+            font-weight: 600;
+            color: var(--correct-color);
+            margin-bottom: 5px;
+        }
+
+        .wrong-exp {
+            font-size: 15px;
+            color: #4a5568;
+            background: #edf2f7;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .footer-teachers {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .cert-details {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Always Present -->
+    <div class="header-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+
+    <!-- 1. Start Screen -->
+    <div id="start-screen">
+        <h2 style="text-align: center; color: var(--secondary-color); margin-bottom: 15px;">नवोदय परीक्षा सराव टेस्ट: पचन संस्था</h2>
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा..." required>
+            
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर..." maxlength="10" required>
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+
+        <div class="footer-teachers">
+            <div class="teacher-box">
+                मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                संपर्क : 8329684470
+            </div>
+            <div class="teacher-box" style="text-align: right;">
+                मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+                संपर्क : 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Quiz Screen -->
+    <div id="quiz-screen" style="display: none;">
+        <div class="quiz-status">
+            <span id="question-count">प्रश्न १ / ५०</span>
+            <span id="student-display-name"></span>
+        </div>
+
+        <div class="question-box" id="question-text"></div>
+        <div class="options-list" id="options-container"></div>
+        
+        <div class="explanation-box" id="explanation-box"></div>
+
+        <div class="next-btn-container">
+            <button class="btn" id="next-btn" onclick="nextQuestion()" style="display: none;">नेक्स्ट क्वेश्चन</button>
+        </div>
+
+        <div class="footer-teachers">
+            <div class="teacher-box">
+                मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                संपर्क : 8329684470
+            </div>
+            <div class="teacher-box" style="text-align: right;">
+                मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+                संपर्क : 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Result Certificate Screen -->
+    <div id="result-screen" style="display: none;">
+        <div class="certificate-card">
+            <div class="cert-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <div class="cert-subtitle">🏆 गुणपत्रक व सन्मानपत्र 🏆</div>
+
+            <div class="cert-details">
+                <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट (पचन संस्था)</p>
+                <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="res-name"></span></p>
+                <p><strong>मोबाईल नंबर :</strong> <span id="res-mobile"></span></p>
+                <p><strong>मिळालेले गुण :</strong> <span id="res-score"></span> / ५०</p>
+                <p><strong>टक्केवारी :</strong> <span id="res-percentage"></span>%</p>
+            </div>
+
+            <div class="honor-badge" id="res-badge"></div>
+
+            <div class="footer-teachers">
+                <div class="teacher-box" style="text-align: left;">
+                    मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                    संपर्क : 8329684470
+                </div>
+                <div class="teacher-box" style="text-align: right;">
+                    मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+                    संपर्क : 8208167846
+                </div>
+            </div>
+        </div>
+
+        <div class="review-section" id="review-container" style="display: none;">
+            <div class="review-title">❌ चुकलेले प्रश्न आणि त्यांचे स्पष्टीकरण:</div>
+            <div id="wrong-questions-list"></div>
+        </div>
+
+        <button class="btn" style="margin-top: 25px;" onclick="location.reload()">पुन्हा परीक्षा द्या</button>
+    </div>
+</div>
+
+<script>
+    // 50 Questions Data Array
+    const questions = [
+        { q: "१. वनस्पतींच्या फुलांमधील मकरंद (मध) शोषून घेणारा पक्षी कोणता?", options: ["(A) कावळा", "(B) सूर्यपक्षी", "(C) चिमणी", "(D) पोपट"], correct: 1, exp: "स्पष्टीकरण: सूर्यपक्षी फुलांमधील मकरंद (मध) शोषून घेतात." },
+        { q: "२. अजगरासारखे सर्प अन्न कसे ग्रहण करतात?", options: ["(A) चावून खातात", "(B) शोषून घेतात", "(C) भक्ष्याला थेट गिळंकृत करतात", "(D) फिल्टर करून खातात"], correct: 2, exp: "स्पष्टीकरण: अजगरासारखे सर्प आपल्या भक्ष्याला थेट गिळंकृत करतात." },
+        { q: "३. जटिल अन्न घटकांचे सोप्या स्वरूपात विभाजन करण्याच्या प्रक्रियेला काय म्हणतात?", options: ["(A) शोषण", "(B) पचन", "(C) श्वासोच्छ्वास", "(D) बहिःक्षेप"], correct: 1, exp: "स्पष्टीकरण: जटिल अन्न घटकांचे सोप्या स्वरूपात विघटन होण्याच्या प्रक्रियेला पचन म्हणतात." },
+        { q: "४. मानवी पचनक्रिया शरीराच्या कोणत्या अवयवापासून सुरू होते?", options: ["(A) जठर", "(B) लहान आतडे", "(C) तोंड", "(D) अन्ननलिका"], correct: 2, exp: "स्पष्टीकरण: मानवामध्ये पचनप्रक्रिया तोंडाच्या पोकळीपासून सुरू होते." },
+        { q: "५. दातांद्वारे अन्न चावून त्याचे लहान तुकडे करण्याच्या प्रक्रियेला काय म्हणतात?", options: ["(A) रासायनिक पचन", "(B) यांत्रिक पचन", "(C) शोषण", "(D) स्वांगीकरण"], correct: 1, exp: "स्पष्टीकरण: दातांद्वारे अन्न बारीक तुकड्यांमध्ये विभक्त करण्याच्या क्रियेला यांत्रिक पचन म्हणतात." },
+        { q: "६. अन्नाचा घास बऱ्याच वेळ चावल्यानंतर तो गोड का लागतो?", options: ["(A) अन्नात साखर मिसळली जाते", "(B) लाळेमुळे पिष्टमय पदार्थांचे (स्टार्च) साखरेत रूपांतर होते", "(C) दातांमुळे अन्नाची चव बदलते", "(D) जिभेमुळे गोड चव तयार होते"], correct: 1, exp: "स्पष्टीकरण: लाळेतील पाचक रस पिष्टमय पदार्थांचे साखरेत विघटन करतो, ज्यामुळे अन्न गोड लागते." },
+        { q: "७. स्टार्चच्या अस्तित्वाची चाचणी करण्यासाठी कोणते द्रावण वापरतात?", options: ["(A) सोडियम द्रावण", "(B) आयोडीन द्रावण", "(C) कॅल्शियम द्रावण", "(D) पोटॅशियम द्रावण"], correct: 1, exp: "स्पष्टीकरण: अन्नातील स्टार्च तपासण्यासाठी आयोडीन द्रावणाचा वापर केला जातो." },
+        { q: "८. आयोडीन द्रावण शिजवलेल्या भातावर टाकल्यास कोणता रंग येतो?", options: ["(A) लाल-पिवळा", "(B) निळसर-काळा", "(C) हिरवा", "(D) गुलाबी"], correct: 1, exp: "स्पष्टीकरण: आयोडीनची स्टार्चशी अभिक्रिया होऊन निळसर-काळा रंग प्राप्त होतो." },
+        { q: "९. अन्ननलिकेला दुसरे नाव काय आहे?", options: ["(A) ग्रासिका", "(B) श्वासनलिका", "(C) जठर", "(D) पेषणी"], correct: 0, exp: "स्पष्टीकरण: अन्ननलिकेला 'ग्रासिका' (Esophagus) असेही म्हटले जाते." },
+        { q: "१०. अन्ननलिकेत अन्नाची हालचाल कशी होते?", options: ["(A) वेगाने घसरून", "(B) लाटेसारख्या आकुंचन आणि प्रसरणाने", "(C) थेट गुरुत्वाकर्षणामुळे", "(D) रक्ताच्या प्रवाहामुळे"], correct: 1, exp: "स्पष्टीकरण: अन्ननलिकेच्या भिंतींच्या लाटेसारख्या आकुंचन-प्रसरणामुळे अन्न खाली सरकते." },
+        { q: "११. जठराच्या स्रावामध्ये खालीलपैकी कोणता घटक नसतो?", options: ["(A) पाचक रस", "(B) आम्ल", "(C) श्लेष्मा", "(D) पित्त"], correct: 3, exp: "स्पष्टीकरण: पित्त हे यकृतात तयार होते, जठराच्या स्रावात पाचक रस, आम्ल आणि श्लेष्मा असतात." },
+        { q: "१२. जठरामधील आम्लाचे मुख्य कार्य कोणते?", options: ["(A) अन्नाला गोड करणे", "(B) हानिकारक जिवाणूंचा नाश करणे", "(C) पाण्याचे शोषण करणे", "(D) चरबीचे पचन करणे"], correct: 1, exp: "स्पष्टीकरण: जठरातील आम्ल अन्नासोबत आलेल्या हानिकारक जिवाणूंचा नाश करते." },
+        { q: "१३. जठराच्या आतील अस्तराचे आम्लापासून संरक्षण कोण करते?", options: ["(A) पाचक रस", "(B) श्लेष्मा", "(C) पित्त", "(D) लाळ"], correct: 1, exp: "स्पष्टीकरण: श्लेष्मा (Mucus) जठराच्या अस्तराचे तीव्र आम्लापासून संरक्षण करतो." },
+        { q: "१४. पोटातील पचनक्रियेचा शोध कोणत्या डॉक्टरांनी लावला?", options: ["(A) डॉ. विल्यम ब्युमॉन्ट", "(B) डॉ. ॲलेक्सिस", "(C) डॉ. चरक", "(D) डॉ. अलेक्झांडर"], correct: 0, exp: "स्पष्टीकरण: १८२२ मध्ये डॉ. विल्यम ब्युमॉन्ट यांनी जठरातील पचनक्रियेचा शोध लावला." },
+        { q: "१५. डॉ. ब्युमॉन्ट यांनी पोटाच्या कार्याचा शोध कोणत्या रुग्णावर प्रयोग करून लावला?", options: ["(A) सेंट पॉल", "(B) ॲलेक्सिस सेंट मार्टिन", "(C) जॉन मार्टिन", "(D) रॉबर्ट हुक"], correct: 1, exp: "स्पष्टीकरण: ॲलेक्सिस सेंट मार्टिन नावाच्या सैनिकाच्या पोटातील गोळीच्या जखमेवर अभ्यास करून हा शोध लागला." },
+        { q: "१६. मानवी आहार नलिकेतील सर्वात लांब भाग कोणता आहे?", options: ["(A) अन्ननलिका", "(B) मोठे आतडे", "(C) लहान आतडे", "(D) जठर"], correct: 2, exp: "स्पष्टीकरण: लहान आतडे हा आहार नलिकेचा सर्वात लांब भाग आहे." },
+        { q: "१७. लहान आतड्याची लांबी सुमारे किती असते?", options: ["(A) १.५ मीटर", "(B) ३ मीटर", "(C) ६ मीटर", "(D) १० मीटर"], correct: 2, exp: "स्पष्टीकरण: मानवातील लहान आतड्याची लांबी सुमारे ६ मीटर असते." },
+        { q: "१८. पित्त (Bile) कोण स्रवते?", options: ["(A) स्वादुपिंड", "(B) यकृत", "(C) जठर", "(D) लहान आतडे"], correct: 1, exp: "स्पष्टीकरण: यकृत (Liver) पित्तरस स्रवते." },
+        { q: "१९. यकृताने स्रवलेले पित्त प्रामुख्याने कोणाच्या पचनास मदत करते?", options: ["(A) प्रथिने", "(B) चरबी (स्निग्ध पदार्थ)", "(C) जीवनसत्त्वे", "(D) स्टार्च"], correct: 1, exp: "स्पष्टीकरण: पित्त हे अन्नातील चरबीचे लहान थेंबांमध्ये विघटन करून पचनास मदत करते." },
+        { q: "२०. लहान आतड्याच्या आतील भित्तिकेवर असणाऱ्या बोटांसारख्या प्रवर्धांना (उंचवट्यांना) काय म्हणतात?", options: ["(A) पेषणी", "(B) रसांकुर (Villi)", "(C) ग्रंथी", "(D) रोमंथक"], correct: 1, exp: "स्पष्टीकरण: लहान आतड्यात शोषणासाठी रसांकुर (Villi) नावाचे बोटांसारखे उंचवटे असतात." },
+        { q: "२१. रसांकुरांचे मुख्य कार्य काय आहे?", options: ["(A) अन्न चावणे", "(B) पोषकत्वांच्या शोषणासाठी पृष्ठभाग वाढवणे", "(C) आम्ल तयार करणे", "(D) टाकाऊ पदार्थ बाहेर टाकणे"], correct: 1, exp: "स्पष्टीकरण: रसांकुर पोषक घटक शोषून घेण्यासाठी आतड्याचा आतील पृष्ठभाग वाढवतात." },
+        { q: "२२. 'सीलिएक रोग' (Celiac Disease) असणाऱ्या व्यक्तींना धान्यातील कोणत्या घटकाची आंतड्याला इजा होते?", options: ["(A) स्टार्च", "(B) ग्लूटेन प्रथिन", "(C) मेद", "(D) साखरेची"], correct: 1, exp: "स्पष्टीकरण: सीलिएक रोगामध्ये गव्हात आढळणाऱ्या 'ग्लूटेन' प्रथिनामुळे आतड्याच्या अस्तराला इजा होते." },
+        { q: "२३. सीलिएक रोगात कोणते धान्य खाणे टाळावे?", options: ["(A) ज्वारी", "(B) बाजरी", "(C) गहू", "(D) रागी"], correct: 2, exp: "स्पष्टीकरण: गहू, बार्ली आणि राई यामध्ये ग्लूटेन असल्याने ते खाणे टाळावे." },
+        { q: "२४. नैसर्गिकरीत्या ग्लूटेन-मुक्त असणारे धान्य कोणते?", options: ["(A) गहू", "(B) बाजरी", "(C) बार्ली", "(D) राई"], correct: 1, exp: "स्पष्टीकरण: बाजरी, ज्वारी व रागी ही धान्ये नैसर्गिकरीत्या ग्लूटेन-मुक्त असतात." },
+        { q: "२५. मोठ्या आतड्याची लांबी सुमारे किती असते?", options: ["(A) ६ मीटर", "(B) १.५ मीटर", "(C) ३ मीटर", "(D) ०.५ मीटर"], correct: 1, exp: "स्पष्टीकरण: मोठ्या आतड्याची लांबी सुमारे १.५ मीटर असते." },
+        { q: "२६. मोठ्या आतड्याचे मुख्य कार्य कोणते?", options: ["(A) प्रथिनांचे पचन", "(B) अपचित अन्नातून पाणी आणि क्षार शोषून घेणे", "(C) पित्तरस तयार करणे", "(D) अन्न चावणे"], correct: 1, exp: "स्पष्टीकरण: न पचलेल्या अन्नातून पाणी व क्षार शोषण्याचे कार्य मोठे आतडे करते." },
+        { q: "२७. शरीरातून टाकाऊ पदार्थ गुदद्वाराद्वारे बाहेर टाकण्याच्या प्रक्रियेला काय म्हणतात?", options: ["(A) पचन", "(B) स्वांगीकरण", "(C) बहिःक्षेप", "(D) श्वसन"], correct: 2, exp: "स्पष्टीकरण: शरीरातून टाकाऊ पदार्थ बाहेर टाकण्याच्या प्रक्रियेला 'बहिःक्षेप' म्हणतात." },
+        { q: "२८. अर्ध-घन टाकाऊ पदार्थ कुठे साठवले जातात?", options: ["(A) लहान आतडे", "(B) मलाशय", "(C) यकृत", "(D) जठर"], correct: 1, exp: "स्पष्टीकरण: विष्ठा (अर्ध-घन टाकाऊ पदार्थ) मलाशयात साठवली जाते." },
+        { q: "२९. पचनसंस्था निरोगी ठेवण्यासाठी कोणते पदार्थ उपयुक्त असतात?", options: ["(A) तेलकट पदार्थ", "(B) आंबवलेले पदार्थ (दही, ताक इत्यादी)", "(C) फास्ट फूड", "(D) मैदायुक्त पदार्थ"], correct: 1, exp: "स्पष्टीकरण: आंबवलेले पदार्थ (दही, ताक) पाचक आरोग्यासाठी फायदेशीर असतात." },
+        { q: "३०. 'चरक संहिता' हा ग्रंथ कोणत्या क्षेत्राशी संबंधित आहे?", options: ["(A) खगोलशास्त्र", "(B) आयुर्वेद", "(C) गणित", "(D) भौतिकशास्त्र"], correct: 1, exp: "स्पष्टीकरण: चरक संहिता हा प्राचीन आयुर्वेदिक ग्रंथ आहे." },
+        { q: "३१. पचनशक्ती वाढवण्यासाठी चरक संहितेमध्ये कोणत्या मसाल्यांचा वापर सुचवला आहे?", options: ["(A) आले, काळी मिरी, जिरे", "(B) लवंग आणि दालचिनी", "(C) हळद आणि तिखट", "(D) इलायची आणि बडीशेप"], correct: 0, exp: "स्पष्टीकरण: चरक संहितेमध्ये आले, काळी मिरी आणि जिरे यांचा वापर पचन वाढवण्यासाठी सुचवला आहे." },
+        { q: "३२. गाई आणि म्हशी अन्न गिळल्यानंतर ते पोटातील कोणत्या भागात साठवतात?", options: ["(A) मलाशय", "(B) पेषणी", "(C) पोटाचा पहिला भाग (गवत साठवण्याची जागा)", "(D) लहान आतडे"], correct: 2, exp: "स्पष्टीकरण: गवत खाणारे प्राणी अन्न न चावता पहिल्यांदा पोटातील विशिष्ट भागात साठवतात." },
+        { q: "३३. गवत खाणारे प्राणी अर्धवट पचलेले अन्न पुन्हा तोंडात आणून चावतात, या प्रक्रियेला काय म्हणतात?", options: ["(A) बहिःक्षेप", "(B) रवांथ करणे (Rumination)", "(C) पचन", "(D) श्वासोच्छ्वास"], correct: 1, exp: "स्पष्टीकरण: अर्धवट पचलेले अन्न तोंडात आणून हळूहळू चावण्याला 'रवांथ करणे' म्हणतात." },
+        { q: "३४. रवंथ करणाऱ्या प्राण्यांना काय म्हणतात?", options: ["(A) मांसभक्षक", "(B) रोमंथक (Ruminants)", "(C) जलचर", "(D) उभयचर"], correct: 1, exp: "स्पष्टीकरण: रवंथ करणाऱ्या प्राण्यांना 'रोमंथक' (Ruminants) म्हणतात." },
+        { q: "३५. एक गाय दिवसातून सुमारे किती तास अन्न चघळण्यात घालवते?", options: ["(A) २ तास", "(B) ५ तास", "(C) ८ तास", "(D) १२ तास"], correct: 2, exp: "स्पष्टीकरण: गाय दिवसातून सुमारे ८ तास फक्त अन्न चघळण्यात घालवते." },
+        { q: "३६. पक्ष्यांच्या शरीरात अन्न बारीक/दळण्यासाठी कोणता विशेष अवयव असतो?", options: ["(A) दातांची रांग", "(B) पेषणी (Gizzard)", "(C) जठर", "(D) यकृत"], correct: 1, exp: "स्पष्टीकरण: पक्ष्यांमध्ये अन्न बारीक करण्यासाठी 'पेषणी' (Gizzard) हा अवयव असतो." },
+        { q: "३७. पक्षी पेषणीमध्ये अन्न बारीक करण्यासाठी कशाची मदत घेतात?", options: ["(A) पाण्याचा", "(B) लहान खड्यांच्या/दगडांच्या", "(C) लाळेचा", "(D) रसायनांचा"], correct: 1, exp: "स्पष्टीकरण: पक्षी पेषणीत लहान खडे/दगड गिळून त्याच्या मदतीने अन्न दळतात." },
+        { q: "३८. पोषणातून मिळालेल्या पोषकत्वांचे शरीरात वापरण्यायोग्य ऊर्जेत रूपांतर होण्याच्या प्रक्रियेला काय म्हणतात?", options: ["(A) पचन", "(B) श्वासोच्छ्वास", "(C) उत्सर्जन", "(D) परिसंचरण"], correct: 1, exp: "स्पष्टीकरण: पोषक तत्वांचे ऊर्जेत रूपांतर होण्याच्या क्रियेला श्वासोच्छ्वास/श्वसन म्हणतात." },
+        { q: "३९. लहान आतड्यापेक्षा मोठे आतडे लांबीने कमी असूनही त्याला 'मोठे आतडे' का म्हणतात?", options: ["(A) ते अधिक लांब असते", "(B) ते अधिक रुंद असते", "(C) ते वरच्या बाजूला असते", "(D) ते वजनदार असते"], correct: 1, exp: "स्पष्टीकरण: मोठे आतडे लहान आतड्यापेक्षा अधिक रुंद असल्यामुळे त्याला मोठे आतडे म्हणतात." },
+        { q: "४०. मानवामध्ये कार्बोहायड्रेट्सचे प्राथमिक पचन कुठे होते?", options: ["(A) जठरात", "(B) तोंडाच्या पोकळीत", "(C) लहान आतड्यात", "(D) मोठ्या आतड्यात"], correct: 1, exp: "स्पष्टीकरण: लाळेतील रसांमुळे तोंडाच्या पोकळीतच कार्बोहायड्रेटचे पचन सुरू होते." },
+        { q: "४१. मानवी पचनसंस्थेत पित्तरस तयार होण्याचे ठिकाण कोणते?", options: ["(A) स्वादुपिंड", "(B) यकृत", "(C) जठर", "(D) लाळग्रंथी"], correct: 1, exp: "स्पष्टीकरण: यकृत (Liver) शरीरात पित्तरस तयार करते." },
+        { q: "४२. जिभेचे पचनक्रियेतील मुख्य कार्य कोणते?", options: ["(A) अन्न बारीक करणे", "(B) अन्न लाळेत मिसळणे व गिळण्यास मदत करणे", "(C) आम्ल तयार करणे", "(D) पाण्याचे शोषण करणे"], correct: 1, exp: "स्पष्टीकरण: जीभ अन्न लाळेत मिसळून ते अन्ननलिकेत ढकलण्यास मदत करते." },
+        { q: "४३. जठराचा आकार कसा असतो?", options: ["(A) गोल", "(B) पिशवीसारखा", "(C) नळीसारखा", "(D) चपटा"], correct: 1, exp: "स्पष्टीकरण: जठर हा मानवी शरीरातील पिशवीसारखा स्नायूंचा अवयव आहे." },
+        { q: "४४. अन्न पचल्यानंतर मिळणारी पोषक तत्त्वे शरीराच्या सर्व भागात कोणाद्वारे पोहोचवली जातात?", options: ["(A) हवेद्वारे", "(B) रक्ताद्वारे", "(C) पाण्याद्वारे", "(D) नसांद्वारे"], correct: 1, exp: "स्पष्टीकरण: शोषलेली पोषक तत्त्वे रक्ताद्वारे शरीराच्या विविध भागांत वाहून नेली जातात." },
+        { q: "४५. तंतूमय पदार्थ (Fibre) खाल्ल्यामुळे शरीराला कोणता फायदा होतो?", options: ["(A) दात मजबूत होतात", "(B) मोठ्या आतड्याचे कार्य सुरळीत चालून विष्ठा सहज बाहेर पडते", "(C) रक्त वेगाने वाहते", "(D) डोळ्यांची दृष्टी सुधारते"], correct: 1, exp: "स्पष्टीकरण: तंतूमय पदार्थ पचनसंस्था साफ ठेवून विष्ठा सहज बाहेर टाकण्यास मदत करतात." },
+        { q: "४६. खालीलपैकी कोणता प्राणी अन्न गाळून (फिल्टर करून) खातो?", options: ["(A) सर्प", "(B) जलचर प्राणी", "(C) गाय", "(D) पक्षी"], correct: 1, exp: "स्पष्टीकरण: काही सूक्ष्म जलचर प्राणी पाण्यात तरंगणारे कण गाळून खातात." },
+        { q: "४७. स्वादुपिंडातून स्रवणारा रस कसा असतो?", options: ["(A) अति-आम्लधर्मी", "(B) आम्लारीधर्मी", "(C) विषारी", "(D) चवहीन"], correct: 1, exp: "स्पष्टीकरण: स्वादुपिंडातून स्रवणारा स्वादुरस हा आम्लारीधर्मी (Alkaline) असतो." },
+        { q: "४८. चावलेल्या भातामध्ये आयोडीन घातल्यास रंगात बदल का होत नाही?", options: ["(A) भात खराब होतो", "(B) लाळेमुळे स्टार्चचे विघटन झालेले असते", "(C) आयोडीन काम करत नाही", "(D) भातात पाणी जास्त असते"], correct: 1, exp: "स्पष्टीकरण: चावल्यामुळे लाळेतील पाचक रस स्टार्चचे साखरेत रूपांतर करतो, त्यामुळे स्टार्च शिल्लक राहत नाही." },
+        { q: "४९. दातांची निगा राखण्यासाठी दिवसातून किमान किती वेळा दात घासले पाहिजेत?", options: ["(A) एक वेळा", "(B) दोन वेळा", "(C) तीन वेळा", "(D) गरज नाही"], correct: 1, exp: "स्पष्टीकरण: तोंड स्वच्छ व निरोगी ठेवण्यासाठी दिवसातून दोनदा दात घासले पाहिजेत." },
+        { q: "५०. लहान आतड्यात अन्नातील घटकांचे पचन पूर्ण झाल्यावर शोषलेले घटक कुठे जातात?", options: ["(A) रक्ताभिसरण प्रणालीत / रक्तात", "(B) श्वासानुलिकेत", "(C) फुप्फुसात", "(D) मोठ्या आतड्यात"], correct: 0, exp: "स्पष्टीकरण: रसांकुरांद्वारे शोषलेली पोषक तत्त्वे थेट रक्तवाहिन्यांमधील रक्तात मिसळतात." }
+    ];
+
+    let currentQIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let wrongAnswersList = [];
+
+    function startExam() {
+        const nameInput = document.getElementById("student-name").value.trim();
+        const mobileInput = document.getElementById("student-mobile").value.trim();
+
+        if (nameInput === "" || mobileInput === "") {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर पूर्ण भरा!");
+            return;
+        }
+
+        studentName = nameInput;
+        studentMobile = mobileInput;
+
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("quiz-screen").style.display = "block";
+        document.getElementById("student-display-name").innerText = "विद्यार्थी: " + studentName;
+
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const qData = questions[currentQIndex];
+        document.getElementById("question-count").innerText = `प्रश्न ${currentQIndex + 1} / ${questions.length}`;
+        document.getElementById("question-text").innerText = qData.q;
+        
+        const optionsContainer = document.getElementById("options-container");
+        optionsContainer.innerHTML = "";
+
+        const expBox = document.getElementById("explanation-box");
+        expBox.style.display = "none";
+        expBox.innerText = "";
+
+        const nextBtn = document.getElementById("next-btn");
+        nextBtn.style.display = "none";
+
+        qData.options.forEach((opt, index) => {
+            const btn = document.createElement("button");
+            btn.className = "option-btn";
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(index);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(selectedIndex) {
+        const qData = questions[currentQIndex];
+        const buttons = document.querySelectorAll(".option-btn");
+
+        // Disable all buttons after selection
+        buttons.forEach(btn => btn.disabled = true);
+
+        const expBox = document.getElementById("explanation-box");
+        expBox.innerText = qData.exp;
+        expBox.style.display = "block";
+
+        if (selectedIndex === qData.correct) {
+            buttons[selectedIndex].classList.add("correct");
+            score++;
+        } else {
+            buttons[selectedIndex].classList.add("wrong");
+            buttons[qData.correct].classList.add("correct");
+
+            // Record wrong answer for certificate review
+            wrongAnswersList.push({
+                q: qData.q,
+                userAns: qData.options[selectedIndex],
+                correctAns: qData.options[qData.correct],
+                exp: qData.exp
+            });
+        }
+
+        const nextBtn = document.getElementById("next-btn");
+        if (currentQIndex === questions.length - 1) {
+            nextBtn.innerText = "Submit Exam (परीक्षा सबमिट करा)";
+        } else {
+            nextBtn.innerText = "नेक्स्ट क्वेश्चन";
+        }
+        nextBtn.style.display = "block";
+    }
+
+    function nextQuestion() {
+        currentQIndex++;
+        if (currentQIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        document.getElementById("quiz-screen").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+
+        const percentage = Math.round((score / questions.length) * 100);
+
+        document.getElementById("res-name").innerText = studentName;
+        document.getElementById("res-mobile").innerText = studentMobile;
+        document.getElementById("res-score").innerText = score;
+        document.getElementById("res-percentage").innerText = percentage;
+
+        const badgeBox = document.getElementById("res-badge");
+        if (percentage >= 80) {
+            badgeBox.innerHTML = "🏆 🥇 Gold Medal + Trophy <br><span style='font-size:16px; color:#2f855a;'>उत्कृष्ट कामगिरी! खूप खूप अभिनंदन!</span>";
+        } else if (percentage >= 60) {
+            badgeBox.innerHTML = "🥈 Silver Medal + Trophy <br><span style='font-size:16px; color:#2b6cb0;'>छान कामगिरी! अभिनंदन!</span>";
+        } else if (percentage >= 50) {
+            badgeBox.innerHTML = "🥉 Bronze Medal + Trophy <br><span style='font-size:16px; color:#b7791f;'>चांगली कामगिरी! पुढील वाटचालीस शुभेच्छा!</span>";
+        } else {
+            badgeBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        // Show wrong questions if any
+        if (wrongAnswersList.length > 0) {
+            document.getElementById("review-container").style.display = "block";
+            const wrongListDiv = document.getElementById("wrong-questions-list");
+            wrongListDiv.innerHTML = "";
+
+            wrongAnswersList.forEach((item, i) => {
+                const div = document.createElement("div");
+                div.className = "wrong-item";
+                div.innerHTML = `
+                    <div class="wrong-q">${i + 1}. ${item.q}</div>
+                    <div style="color: #c53030; font-weight:600;">तुमचे उत्तर: ${item.userAns}</div>
+                    <div class="wrong-ans">बरोबर उत्तर: ${item.correctAns}</div>
+                    <div class="wrong-exp">${item.exp}</div>
+                `;
+                wrongListDiv.appendChild(div);
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
