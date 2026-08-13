@@ -1,1 +1,659 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 750px;
+            padding: 25px;
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #0056b3;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            color: #0056b3;
+            margin: 0 0 5px 0;
+            font-size: 24px;
+        }
+        .header h3 {
+            color: #333;
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 2px dashed #ccc;
+            font-size: 14px;
+            font-weight: bold;
+            color: #444;
+        }
+        .teacher-box {
+            width: 48%;
+        }
+        .teacher-right {
+            text-align: right;
+        }
+        .btn {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #003d80;
+        }
+        .btn-next {
+            background-color: #28a745;
+        }
+        .btn-next:hover {
+            background-color: #1e7e34;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            background-color: #e2e6ea;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        .wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            color: #856404;
+            font-size: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        /* Certificate Style */
+        .certificate {
+            border: 8px double #0056b3;
+            padding: 25px;
+            text-align: center;
+            background: #fffdf5;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .certificate h2 {
+            color: #0056b3;
+            margin-top: 0;
+        }
+        .cert-details {
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+        .award-icon {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+        .wrong-answers-section {
+            text-align: left;
+            margin-top: 25px;
+            border-top: 2px solid #ddd;
+            padding-top: 15px;
+        }
+        .wrong-item {
+            background: #fff;
+            border: 1px solid #ffcdd2;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <div class="header">
+        <h2>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h2>
+        <h3>नवोदय परीक्षा सराव टेस्ट - श्वसन संस्था व सजीव</h3>
+    </div>
+
+    <!-- Step 1: Student Details Form -->
+    <div id="start-screen">
+        <label for="student-name"><b>विद्यार्थ्याचे नाव :</b></label>
+        <input type="text" id="student-name" placeholder="पूर्ण नाव टाका..." required>
+        
+        <label for="student-phone"><b>मोबाईल नंबर :</b></label>
+        <input type="tel" id="student-phone" placeholder="१० अंकी मोबाईल नंबर..." required>
+        
+        <button class="btn" onclick="startExam()">Start Exam</button>
+
+        <div class="footer-teachers">
+            <div class="teacher-box">
+                मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                संपर्क : 8329684470
+            </div>
+            <div class="teacher-box teacher-right">
+                मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+                संपर्क : 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Question Section -->
+    <div id="quiz-screen" style="display: none;">
+        <div id="question-container"></div>
+        <div id="explanation-box" class="explanation"></div>
+        <button id="next-btn" class="btn btn-next" style="display: none;" onclick="nextQuestion()">Next Question</button>
+        <button id="submit-btn" class="btn" style="display: none; background-color: #dc3545;" onclick="submitExam()">Submit Exam</button>
+    </div>
+
+    <!-- Step 3: Certificate Result Screen -->
+    <div id="result-screen" style="display: none;">
+        <div class="certificate">
+            <h2>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h2>
+            <hr style="border: 1px solid #0056b3;">
+            <div class="award-icon" id="award-badge">🏆</div>
+            <div class="cert-details">
+                <b>परीक्षेचे नाव :</b> नवोदय परीक्षा सराव टेस्ट (श्वसन संस्था)<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="res-name"></span><br>
+                <b>मोबाईल नंबर :</b> <span id="res-phone"></span><br>
+                <b>मिळालेले गुण :</b> <span id="res-score"></span> / <span id="res-total"></span><br>
+                <b>टक्केवारी :</b> <span id="res-percent"></span>%<br>
+                <b>कामगिरीनुसार सन्मान :</b> <span id="res-honor" style="font-weight: bold; color: #0056b3;"></span>
+            </div>
+
+            <div class="footer-teachers">
+                <div class="teacher-box">
+                    मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                    संपर्क : 8329684470
+                </div>
+                <div class="teacher-box teacher-right">
+                    मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+                    संपर्क : 8208167846
+                </div>
+            </div>
+        </div>
+
+        <div id="wrong-answers-container" class="wrong-answers-section"></div>
+    </div>
+  </div>
+  <script>
+const questions = [
+    {
+        q: "प्रश्‍न १. हवा श्वासाद्वारे आत घेणे आणि बाहेर सोडणे या प्रक्रियेला काय म्हणतात?",
+        options: ["(A) श्वसन", "(B) श्वासोच्छ्वास", "(C) रक्ताभिसरण", "(D) उत्सर्ग"],
+        ans: 1,
+        exp: "हवा शरीरात आत घेणे (Inhalation) आणि हवा बाहेर सोडणे (Exhalation) या भौतिक क्रियेला 'श्वासोच्छ्वास' म्हणतात."
+    },
+    {
+        q: "प्रश्‍न २. नाकातील लहान केस आणि श्लेष्मा (म्युकस) मुख्यत्वे कोणते कार्य करतात?",
+        options: ["(A) हवेतील ऑक्सिजनचे प्रमाण वाढवणे", "(B) हवेतील धूळ व सूक्ष्मजंतू अडवणे", "(C) हवा थंड करणे", "(D) कार्बन डायऑक्साइड तयार करणे"],
+        ans: 1,
+        exp: "नाकातील केस आणि ओलसर श्लेष्मा हवेतील धूळ, घाण व सूक्ष्मजंतू अडवतात, ज्यामुळे स्वच्छ हवा फुफ्फुसात जाते."
+    },
+    {
+        q: "प्रश्‍न ३. फुफ्फुसांमध्ये वायूंच्या देवाणघेवाणीसाठी असणाऱ्या फुग्यासारख्या लहान रचनांना काय म्हणतात?",
+        options: ["(A) श्वासनालिकेचे तुकडे", "(B) अल्व्हियोली (वायुकोष)", "(C) मध्यपटल", "(D) कल्ले"],
+        ans: 1,
+        exp: "श्वासवाहिन्यांच्या टोकाशी अल्व्हियोली (वायुकोष) असतात. यांच्या पातळ भिंतींमधूनच वायूंची देवाणघेवाण होते."
+    },
+    {
+        q: "प्रश्‍न ४. मानवी शरीरात फुफ्फुसांचे रक्षण प्रामुख्याने कशाद्वारे केले जाते?",
+        options: ["(A) मध्यपटलाद्वारे", "(B) बरगड्यांच्या पिंजऱ्याद्वारे", "(C) नासिका पोकळीद्वारे", "(D) पाठीच्या कण्याद्वारे"],
+        ans: 1,
+        exp: "छातीच्या पोकळीत असणाऱ्या नाजूक फुफ्फुसांचे रक्षण करण्यासाठी त्यांच्या सभोवताली बरगड्यांचा पिंजरा असतो."
+    },
+    {
+        q: "प्रश्‍न ५. श्वास आत घेताना (Inhalation) मध्यपटल (डायाफ्राम) कोणत्या दिशेने हालचाल करतो?",
+        options: ["(A) वरच्या दिशेने", "(B) खालच्या दिशेने (सपाट होतो)", "(C) उजव्या बाजूला", "(D) डाव्या बाजूला"],
+        ans: 1,
+        exp: "श्वास आत घेताना डायाफ्राम आकुंचन पावून खाली सरकतो आणि छातीची पोकळी वाढते."
+    },
+    {
+        q: "प्रश्‍न ६. श्वास सोडताना (Exhalation) बरगड्यांची हालचाल कशी होते?",
+        options: ["(A) वर आणि बाहेर", "(B) खाली आणि आत", "(C) फक्त डावीकडे", "(D) हालचाल होत नाही"],
+        ans: 1,
+        exp: "श्वास बाहेर सोडताना बरगड्या खाली आणि आतील बाजूला सरकतात, ज्यामुळे छातीचे आकारमान कमी होते."
+    },
+    {
+        q: "प्रश्‍न ७. ग्लुकोजचे ऑक्सिजनच्या मदतीने विघटन होकर ऊर्जा, कार्बन डायऑक्साइड आणि पाणी मुक्त होण्याच्या प्रक्रियेला काय म्हणतात?",
+        options: ["(A) श्वासोच्छ्वास", "(B) कोशिकीय श्वसन (Cellular Respiration)", "(C) प्रकाशसंश्लेषण", "(D) पचन"],
+        ans: 1,
+        exp: "पेशींच्या आत ग्लुकोजचे ऑक्सिजनच्या साह्याने विघटन होकर ऊर्जा निर्माण होण्याच्या रासायनिक क्रियेला कोशिकीय श्वसन म्हणतात."
+    },
+    {
+        q: "प्रश्‍न ८. श्वसन प्रक्रियेचे अचूक शब्द-समीकरण कोणते आहे?",
+        options: [
+            "(A) ग्लुकोज + कार्बन डायऑक्साइड → ऑक्सिजन + पाणी + ऊर्जा",
+            "(B) ग्लुकोज + ऑक्सिजन → कार्बन डायऑक्साइड + पाणी + ऊर्जा",
+            "(C) पाणी + ऑक्सिजन → ग्लुकोज + ऊर्जा",
+            "(D) कार्बन डायऑक्साइड + पाणी → ऑक्सिजन + ग्लुकोज"
+        ],
+        ans: 1,
+        exp: "अन्न पचनानंतर बनलेल्या ग्लुकोजचा वापर ऑक्सिजन सोबत करून शरीर ऊर्जा निर्मिती करते."
+    },
+    {
+        q: "प्रश्‍न ९. आपण श्वासाद्वारे सोडलेल्या हवेत खालीलपैकी कोणत्या वायूचे प्रमाण आत घेतलेल्या हवेपेक्षा जास्त असते?",
+        options: ["(A) ऑक्सिजन", "(B) नायट्रोजन", "(C) कार्बन डायऑक्साइड", "(D) ऑक्सिजन व नायट्रोजन दोन्ही"],
+        ans: 2,
+        exp: "शरीरात श्वसन क्रियेदरम्यान CO₂ तयार होत असल्यामुळे सोडल्या जाणाऱ्या हवेत CO₂ चे प्रमाण जास्त असते."
+    },
+    {
+        q: "प्रश्‍न १०. सोडलेल्या हवेत कार्बन डायऑक्साइड असतो हे सिद्ध करण्यासाठी कोणत्या द्रवाचा वापर केला जातो?",
+        options: ["(A) ताजे तयार केलेले चुन्याचे पाणी (Lime water)", "(B) मिठाचे पाणी", "(C) साखरेचे द्रावण", "(D) लिंबाचा रस"],
+        ans: 0,
+        exp: "चुन्याच्या पाण्यातून कार्बन डायऑक्साइड प्रवाहित केल्यास कॅल्शियम कार्बोनेट तयार होऊन पाणी दुधाळ बनते."
+    },
+    {
+        q: "प्रश्‍न ११. मासे पाण्यातील ऑक्सिजन शोषून घेण्यासाठी कोणत्या अवयवाचा वापर करतात?",
+        options: ["(A) फुफ्फुसे", "(B) कल्ले (Gills)", "(C) त्वचा", "(D) श्वासनलिका"],
+        ans: 1,
+        exp: "माशांमध्ये पाण्यात विरघळलेला ऑक्सिजन शोषून घेण्यासाठी 'कल्ले' (Gills) नावाचा विशिष्ट अवयव असतो."
+    },
+    {
+        q: "प्रश्‍न १२. गांडूळ (Earthworm) वायूंच्या देवाणघेवाणीसाठी शरीराच्या कोणत्या भागाचा वापर करतो?",
+        options: ["(A) कल्ले", "(B) कोरडी त्वचा", "(C) ओलसर व चिवट त्वचा", "(D) फुफ्फुसे"],
+        ans: 2,
+        exp: "गांडूळाच्या ओलसर व चिवट त्वचेतील रक्तवाहिन्यांद्वारे हवेतील वायू थेट शोषले जातात."
+    },
+    {
+        q: "प्रश्‍न १३. बेडकाच्या टॅडपोल (डिंभ) अवस्थेत श्वसन मुख्यत्वे कशाद्वारे होते?",
+        options: ["(A) फुफ्फुसांद्वारे", "(B) कल्ल्यांद्वारे (Gills)", "(C) केवल तोंडाद्वारे", "(D) पायांद्वारे"],
+        ans: 1,
+        exp: "टॅडपोल पूर्णपणे पाण्यात राहतो, त्यामुळे तो माशांप्रमाणे कल्ल्यांद्वारे (Gills) श्वास घेतो."
+    },
+    {
+        q: "प्रश्‍न १४. प्रौढ बेडूक जमिनीवर असताना कशाच्या सहाय्याने श्वास घेतो?",
+        options: ["(A) कल्ले", "(B) फुफ्फुसे", "(C) पंख", "(D) केवळ नाकपुड्या"],
+        ans: 1,
+        exp: "प्रौढ बेडूक जमिनीवर असताना मानवाप्रमाणेच फुफ्फुसांचा वापर करून श्वास घेतो."
+    },
+    {
+        q: "प्रश्‍न १५. प्रौढ बेडूक पाण्यात असताना वायूंची देवाणघेवाण कशाद्वारे करतो?",
+        options: ["(A) कल्ले", "(B) आपली ओलसर त्वचा", "(C) फुफ्फुसे", "(D) श्वासनलिका"],
+        ans: 1,
+        exp: "बेडूक पाण्यात असताना आपल्या ओलसर त्वचेद्वारे (Moist skin) थेट पाण्यात विरघळलेला ऑक्सिजन घेतो."
+    },
+    {
+        q: "प्रश्‍न १६. खालीलपैकी कोणता प्राणी फुफ्फुसांद्वारे श्वास घेतो?",
+        options: ["(A) मासा", "(B) सापासारखे सरपटणारे प्राणी", "(C) गांडूळ", "(D) टॅडपोल"],
+        ans: 1,
+        exp: "पक्षी, हत्ती, गाय, सरडे आणि साप हे सरपटणारे प्राणी फुफ्फुसांद्वारे श्वास घेतात."
+    },
+    {
+        q: "प्रश्‍न १७. धूम्रपानामुळे फुफ्फुसांचा कोणता गंभीर आजार होण्याचा सर्वाधिक धोका असतो?",
+        options: ["(A) कावीळ", "(B) कर्करोग (Cancer)", "(C) मतिमंदत्व", "(D) मूतखडा"],
+        ans: 1,
+        exp: "धूम्रपानातील विषारी रसायनांमुळे फुफ्फुसांच्या पेशींचे नुकसान होऊन कर्करोग (Lung Cancer) होतो."
+    },
+    {
+        q: "प्रश्‍न १८. 'निष्क्रीय धूम्रपान' (Passive Smoking) म्हणजे काय?",
+        options: [
+            "(A) स्वतः सिगारेट पिणे",
+            "(B) धूम्रपान करणाऱ्या व्यक्तीच्या हवेतील विषारी धूर श्वासात घेणे",
+            "(C) प्राणायाम करणे",
+            "(D) गांडूळासारखे श्वसन करणे"
+        ],
+        ans: 1,
+        exp: "धूम्रपान करणाऱ्या व्यक्तीने सोडलेला धूर न कळत श्वासात घेणे म्हणजे निष्क्रीय धूम्रपान होय."
+    },
+    {
+        q: "प्रश्‍न १९. कोविड-१९ (SARS-CoV-2) विषाणूचा प्रामुख्याने मानवाच्या कोणत्या संस्थेवर गंभीर परिणाम झाला होता?",
+        options: ["(A) पचन संस्था", "(B) श्वसन संस्था", "(C) अस्थिसंस्था", "(D) उत्सर्जन संस्था"],
+        ans: 1,
+        exp: "कोरोना विषाणू प्रामुख्याने फुफ्फुसांवर आणि श्वासमार्गावर (श्वसन संस्था) हल्ला करतो."
+    },
+    {
+        q: "प्रश्‍न २०. लडाखमधील लोक फुफ्फुसांचे कार्य सुधारण्यासाठी व अतिथंड हवामानात शरीर उबदार ठेवण्यासाठी कोणत्या श्वसन तंत्राचा वापर करतात?",
+        options: ["(A) अनुलोम-विलोम", "(B) तुम्मो (Tummo) श्वासोच्छ्वास", "(C) भस्त्रिका", "(D) शीतली"],
+        ans: 1,
+        exp: "लडाखमधील लोक अतिथंड हवामानात फुफ्फुसांची क्षमता वाढवण्यासाठी 'तुम्मो' (Tummo) श्वासोच्छ्वास पद्धतीचा वापर करतात."
+    },
+      {
+        q: "प्रश्‍न २१. फुफ्फुसांच्या प्रतिकृतीमध्ये नळीच्या टोकाला बांधलेले दोन फुगे कशाचे प्रतिनिधित्व करतात?",
+        options: ["(A) नाकाचे", "(B) फुफ्फुसांचे", "(C) हृदयाचे", "(D) बरगड्यांचे"],
+        ans: 1,
+        exp: "Y आकाराच्या नळीच्या टोकाला बांधलेले फुगे मानवी फुफ्फुसांचे प्रतिनिधित्व करतात."
+    },
+    {
+        q: "प्रश्‍न २२. मानवी श्वसन प्रणालीची सुरुवात शरीराच्या कोणत्या भागापासून होते?",
+        options: ["(A) श्वासनलिका", "(B) नासिका मार्ग / नाकपुड्या", "(C) फुफ्फुसे", "(D) घसा"],
+        ans: 1,
+        exp: "श्वसनमार्गाची सुरुवात नाकाच्या छिद्रांपासून (नाकपुड्या) होते."
+    },
+    {
+        q: "प्रश्‍न २३. श्वास आत घेताना छातीचे आकारमान काय होते?",
+        options: ["(A) वाढते", "(B) कमी होते", "(C) स्थिर राहते", "(D) शून्य होते"],
+        ans: 0,
+        exp: "श्वास आत घेताना बरगड्या बाहेर सरकतात व डायाफ्राम खाली जातो, ज्यामुळे छातीचे आकारमान वाढते."
+    },
+    {
+        q: "प्रश्‍न २४. श्वास सोडताना छातीचे आकारमान काय होते?",
+        options: ["(A) वाढते", "(B) कमी होते", "(C) दुप्पट होते", "(D) बदलत नाही"],
+        ans: 1,
+        exp: "श्वास सोडताना बरगड्या आत सरकतात व डायाफ्राम मूळ स्थितीत येतो, ज्यामुळे छातीचे आकारमान कमी होते."
+    },
+    {
+        q: "प्रश्‍न २५. आपण तोंडाऐवजी नाकाने श्वास घेणे का योग्य मानले जाते?",
+        options: [
+            "(A) नाकातून हवा लवकर जाते",
+            "(B) नाकातील केस व श्लेष्मा हवेतील धूळ व जंतू गाळतात",
+            "(C) तोंडाने श्वास घेता येत नाही",
+            "(D) नाकातून जास्त ऑक्सिजन मिळतो"
+        ],
+        ans: 1,
+        exp: "नाकातील केस आणि ओलसर श्लेष्मा हवेतील धूळ आणि जंतू नैसर्गिकरीत्या गाळण्याचे काम करतात."
+    },
+    {
+        q: "प्रश्‍न २६. वनस्पती रात्रीच्या वेळी श्वसनासाठी कोणता वायू वापरतात?",
+        options: ["(A) कार्बन डायऑक्साइड", "(B) ऑक्सिजन", "(C) नायट्रोजन", "(D) हायड्रोजन"],
+        ans: 1,
+        exp: "सर्व सजीव श्वसनासाठी ऑक्सिजनच वापरतात. (वनस्पती फक्त प्रकाशसंश्लेषणासाठी CO₂ वापरतात)."
+    },
+    {
+        q: "प्रश्‍न २७. वनस्पतींच्या पानांवर वायूंच्या देवाणघेवाणीसाठी असणाऱ्या लहान छिद्रांना काय म्हणतात?",
+        options: ["(A) अल्व्हियोली", "(B) पर्णरंध्रे (Stomata)", "(C) श्वासछिद्रे", "(D) कल्ले"],
+        ans: 1,
+        exp: "पानांच्या पृष्ठभागावर सूक्ष्म छिद्रे असतात ज्यांना 'पर्णरंध्रे' (Stomata) म्हणतात."
+    },
+    {
+        q: "प्रश्‍न २८. चुन्याच्या पाण्याचा रंग कार्बन डायऑक्साइड वायूमुळे दुधाळ का होतो?",
+        options: [
+            "(A) कॅल्शियम हायड्रॉक्साइड तयार झाल्यामुळे",
+            "(B) अघुलनशील कॅल्शियम कार्बोनेट तयार झाल्यामुळे",
+            "(C) मिठाचे खडे बनल्यामुळे",
+            "(D) ऑक्सिजन वायू विरघळल्यामुळे"
+        ],
+        ans: 1,
+        exp: "पांढऱ्या रंगाचे अघुलनशील CaCO₃ (कॅल्शियम कार्बोनेट) तयार झाल्याने पाणी दुधाळ बनते."
+    },
+    {
+        q: "प्रश्‍न २९. श्वासनालिकेचे पुढे दोन फुफ्फुसांत प्रवेश करणारे दोन मुख्य विभाग होतात, त्यांना काय म्हणतात?",
+        options: ["(A) अल्व्हियोली", "(B) श्वासवाहिन्या (Bronchi)", "(C) केशवाहिन्या", "(D) महाधमणी"],
+        ans: 1,
+        exp: "श्वासनालिकेचे दोन भाग होतात ज्यांना श्वासवाहिन्या (Bronchi) म्हणतात."
+    },
+    {
+        q: "प्रश्‍न ३०. रक्तातील कोणता घटक फुफ्फुसातील ऑक्सिजन शोषून घेऊन शरीराच्या इतर पेशींपर्यंत पोहोचवतो?",
+        options: ["(A) पांढऱ्या रक्तपेशी (WBC)", "(B) हिमोग्लोबिन (Hemoglobin)", "(C) प्लेटलेट्स", "(D) पाणी"],
+        ans: 1,
+        exp: "तांबड्या रक्तपेशींमध्ये (RBC) असणारे हिमोग्लोबिन ऑक्सिजन संपूर्ण शरीराला पुरवते."
+    },
+    {
+        q: "प्रश्‍न ३१. माशांच्या कल्ल्यांमध्ये वायूंची देवाणघेवाण वेगाने होण्यासाठी कशाचे जाळे पसरलेले असते?",
+        options: ["(A) हाडांचे", "(B) रक्तवाहिन्यांचे", "(C) स्नायूंचे", "(D) चरबीचे"],
+        ans: 1,
+        exp: "कल्ल्यांमध्ये दाट रक्तवाहिन्यांचे जाळे असते, ज्यामुळे O₂ थेट रक्तात शोषला जातो."
+    },
+    {
+        q: "प्रश्‍न ३२. गांडूळाची त्वचा श्वसनासाठी कशी असणे अत्यंत आवश्यक आहे?",
+        options: ["(A) कोरडी व कडक", "(B) ओलसर आणि चिकट/चिवट", "(C) खवलेयुक्त", "(D) जाड व कडक"],
+        ans: 1,
+        exp: "गांडूळाची त्वचा वाळल्यास वायूंची देवाणघेवाण थांबते व गांडूळ गुदमरून मरतो."
+    },
+    {
+        q: "प्रश्‍न ३३. खूप धावल्यानंतर किंवा कष्टाचे काम केल्यानंतर मानवी स्नायूंमध्ये थकवा/गोळे (Cramps) का येतात?",
+        options: [
+            "(A) स्नायूंमध्ये पाणी जमा झाल्यामुळे",
+            "(B) स्नायूंमध्ये ऑक्सिजनच्या कमतरतेमुळे लॅक्टिक ॲसिड साचल्यामुळे",
+            "(C) कार्बन डायऑक्साइड वाढल्यामुळे",
+            "(D) हाडे तुटल्यामुळे"
+        ],
+        ans: 1,
+        exp: "अपुऱ्या ऑक्सिजनमुळे स्नायूंमध्ये लॅक्टिक ॲसिड साचते, ज्यामुळे स्नायू दुखतात."
+    },
+    {
+        q: "प्रश्‍न ३४. स्नायूंचा थकवा दूर करण्यासाठी गरम पाण्याने आंघोळ किंवा मालिश केल्याने काय होते?",
+        options: [
+            "(A) रक्ताभिसरण सुधारून स्नायूंना ऑक्सिजनचा पुरवठा वाढतो",
+            "(B) लॅक्टिक ॲसिडचे प्रमाण वाढते",
+            "(C) श्वास बंद होतो",
+            "(D) स्नायू कडक होतात"
+        ],
+        ans: 0,
+        exp: "मालिशमुळे रक्ताभिसरण सुधारते, O₂ पुरवठा वाढतो आणि लॅक्टिक ॲसिड नष्ट होते."
+    },
+    {
+        q: "प्रश्‍न ३५. सामान्य विश्रांतीच्या स्थितीत एका निरोगी प्रौढ माणसाचा श्वासोच्छ्वासाचा दर प्रति मिनिट किती असतो?",
+        options: ["(A) ५ ते ८ वेळा", "(B) १५ ते १८ वेळा", "(C) ३० ते ४० वेळा", "(D) ७२ ते ८० वेळा"],
+        ans: 1,
+        exp: "सामान्य स्थितीत माणूस मिनिटाला १५ ते १८ वेळा श्वास घेतो व सोडतो."
+    },
+    {
+        q: "प्रश्‍न ३६. जास्त व्यायाम करताना श्वासोच्छ्वासाच्या दरावर काय परिणाम होतो?",
+        options: [
+            "(A) श्वासोच्छ्वासाचा दर कमी होतो",
+            "(B) श्वासोच्छ्वासाचा दर प्रति मिनिट २५ वेळा किंवा त्याहून अधिक वाढतो",
+            "(C) श्वासोच्छ्वास पूर्णपणे थांबतो",
+            "(D) काहीच बदल होत नाही"
+        ],
+        ans: 1,
+        exp: "व्यायामाच्या वेळी ऊर्जेची गरज भागवण्यासाठी श्वासोच्छ्वासाचा दर प्रति मिनिट २५ किंवा अधिक होतो."
+    },
+    {
+        q: "प्रश्‍न ३७. मानवी फुफ्फुसांचा रंग सामान्यतः निरोगी अवस्थेत कसा दिसतो?",
+        options: ["(A) काळा", "(B) गुलाबी (Pinkish)", "(C) पिवळा", "(D) निळा"],
+        ans: 1,
+        exp: "निरोगी फुफ्फुसे मऊ, स्पंजसारखी आणि गुलाबी रंगाची असतात."
+    },
+    {
+        q: "प्रश्‍न ३८. Whale (देवमासा) आणि Dolphin (डॉल्फिन) पाण्यात राहूनही श्वसनासाठी कशाचा वापर करतात?",
+        options: ["(A) कल्ले", "(B) फुफ्फुसे आणि शिरामुख (Blowholes)", "(C) त्वचा", "(D) पंख"],
+        ans: 1,
+        exp: "हे स्तनधारी प्राणी असून पाण्याच्या पृष्ठभागावर येऊन Blowholes द्वारे फुफ्फुसांत हवा घेतात."
+    },
+    {
+        q: "प्रश्‍न ३९. मन शांत करणे आणि श्वसनसंस्थेचे आरोग्य सुधारण्यासाठी भारतातील प्रसिद्ध पद्धत कोणती?",
+        options: ["(A) प्राणायाम", "(B) धावणे", "(C) क्रिकेट खेळणे", "(D) जिम करणे"],
+        ans: 0,
+        exp: "प्राणायाम हा श्वासोच्छ्वासाचा व्यायाम फुफ्फुसांची क्षमता वाढवतो."
+    },
+    {
+        q: "प्रश्‍न ४०. श्वासोच्छ्वासादरम्यान वायूंची देवाणघेवाण शरीरात होण्याचा मुख्य उद्देश कोणता?",
+        options: [
+            "(A) रक्ताचा रंग लाल करणे",
+            "(B) पेशींना ऑक्सिजन पुरवून अन्नापासून ऊर्जा मिळवणे",
+            "(C) वजन कमी करणे",
+            "(D) शरीरातील पाणी बाहेर टाकणे"
+        ],
+        ans: 1,
+        exp: "पेशींना ऑक्सिजन पुरवून अन्नापासून रोजच्या कार्यासाठी ऊर्जा (ATP) मिळवणे हा मुख्य हेतू आहे."
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let userAnswers = [];
+let studentName = "";
+let studentPhone = "";
+
+function startExam() {
+    studentName = document.getElementById("student-name").value.trim();
+    studentPhone = document.getElementById("student-phone").value.trim();
+
+    if (studentName === "" || studentPhone === "") {
+        alert("कृपया तुमचे नाव आणि मोबाईल नंबर पूर्ण भरा!");
+        return;
+    }
+
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-screen").style.display = "block";
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQuestion];
+    const container = document.getElementById("question-container");
+    const expBox = document.getElementById("explanation-box");
+    const nextBtn = document.getElementById("next-btn");
+    const submitBtn = document.getElementById("submit-btn");
+
+    expBox.style.display = "none";
+    nextBtn.style.display = "none";
+    submitBtn.style.display = "none";
+
+    let html = `<h3 style="color:#333;">${qData.q}</h3>`;
+    qData.options.forEach((opt, idx) => {
+        html += `<button class="option-btn" id="opt-${idx}" onclick="selectOption(${idx})">${opt}</button>`;
+    });
+
+    container.innerHTML = html;
+}
+
+function selectOption(selectedIndex) {
+    const qData = questions[currentQuestion];
+    const expBox = document.getElementById("explanation-box");
+    const nextBtn = document.getElementById("next-btn");
+    const submitBtn = document.getElementById("submit-btn");
+
+    // Disable all options
+    for (let i = 0; i < qData.options.length; i++) {
+        document.getElementById(`opt-${i}`).disabled = true;
+    }
+
+    userAnswers[currentQuestion] = selectedIndex;
+
+    if (selectedIndex === qData.ans) {
+        document.getElementById(`opt-${selectedIndex}`).classList.add("correct");
+        score++;
+    } else {
+        document.getElementById(`opt-${selectedIndex}`).classList.add("wrong");
+        document.getElementById(`opt-${qData.ans}`).classList.add("correct");
+        
+        // Show Explanation
+        expBox.innerHTML = `<b>स्पष्टीकरण:</b> ${qData.exp}`;
+        expBox.style.display = "block";
+    }
+
+    if (currentQuestion < questions.length - 1) {
+        nextBtn.style.display = "block";
+    } else {
+        submitBtn.style.display = "block";
+    }
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    loadQuestion();
+}
+
+function submitExam() {
+    document.getElementById("quiz-screen").style.display = "none";
+    document.getElementById("result-screen").style.display = "block";
+
+    const percentage = Math.round((score / questions.length) * 100);
+
+    document.getElementById("res-name").innerText = studentName;
+    document.getElementById("res-phone").innerText = studentPhone;
+    document.getElementById("res-score").innerText = score;
+    document.getElementById("res-total").innerText = questions.length;
+    document.getElementById("res-percent").innerText = percentage;
+
+    let honorText = "";
+    let badge = "";
+
+    if (percentage >= 80) {
+        badge = "🏆 🥇";
+        honorText = "Gold Medal + Trophy";
+    } else if (percentage >= 60) {
+        badge = "🥈";
+        honorText = "Silver Medal + Trophy";
+    } else if (percentage >= 50) {
+        badge = "🥉";
+        honorText = "Bronze Medal + Trophy";
+    } else {
+        badge = "💐";
+        honorText = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा";
+    }
+
+    document.getElementById("award-badge").innerHTML = badge;
+    document.getElementById("res-honor").innerText = honorText;
+
+    // Generate Wrong Answers Section
+    let wrongHtml = "";
+    let wrongCount = 0;
+
+    questions.forEach((q, idx) => {
+        if (userAnswers[idx] !== q.ans) {
+            wrongCount++;
+            let userAnsText = userAnswers[idx] !== undefined ? q.options[userAnswers[idx]] : "उत्तर दिले नाही";
+            wrongHtml += `
+                <div class="wrong-item">
+                    <p style="margin: 0 0 5px 0;"><b>${q.q}</b></p>
+                    <p style="margin: 0; color: #dc3545;">तुम्ही दिलेले उत्तर: ${userAnsText}</p>
+                    <p style="margin: 0; color: #28a745;">बरोबर उत्तर: ${q.options[q.ans]}</p>
+                    <p style="margin: 5px 0 0 0; color: #856404; font-size: 14px;"><b>स्पष्टीकरण:</b> ${q.exp}</p>
+                </div>
+            `;
+        }
+    });
+
+    if (wrongCount > 0) {
+        document.getElementById("wrong-answers-container").innerHTML = 
+            `<h3 style="color:#dc3545;">चुकलेले प्रश्न आणि त्यांचे स्पष्टीकरण:</h3>` + wrongHtml;
+    } else {
+        document.getElementById("wrong-answers-container").innerHTML = 
+            `<h3 style="color:#28a745; text-align:center;">अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</h3>`;
+    }
+}
+</script>
+</body>
+</html>
+  
