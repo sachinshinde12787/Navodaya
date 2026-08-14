@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - रक्ताभिसरण</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            padding: 25px;
+            position: relative;
+            border-top: 6px solid #1e3c72;
+        }
+        .top-banner {
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+        .sub-banner {
+            text-align: center;
+            color: #1e3c72;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+        }
+        input[type="text"]:focus, input[type="tel"]:focus {
+            border-color: #2a5298;
+        }
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #1d4ed8;
+        }
+        .btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+        .teacher-box {
+            width: 48%;
+        }
+        .teacher-left { text-align: left; }
+        .teacher-right { text-align: right; }
+        
+        /* Quiz Section Styles */
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: #475569;
+            margin-bottom: 15px;
+            background: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .question-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .options-list {
+            list-style: none;
+        }
+        .option-item {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .option-item:hover {
+            background: #eff6ff;
+            border-color: #93c5fd;
+        }
+        .option-item.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d;
+            font-weight: bold;
+        }
+        .option-item.wrong {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c;
+            font-weight: bold;
+        }
+        .explanation-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 15px;
+            display: none;
+        }
+        
+        /* Certificate & Result Styles */
+        .certificate-box {
+            border: 8px double #1e3c72;
+            padding: 25px;
+            border-radius: 8px;
+            background: #fffdfa;
+            text-align: center;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .cert-title {
+            color: #1e3c72;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .cert-subtitle {
+            font-size: 16px;
+            color: #475569;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .cert-details {
+            text-align: left;
+            display: inline-block;
+            margin: 15px 0;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .trophy-badge {
+            font-size: 45px;
+            margin: 10px 0;
+        }
+        .performance-msg {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        .wrong-q-section {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .wrong-q-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .wrong-q-title {
+            font-weight: bold;
+            color: #b91c1c;
+            margin-bottom: 5px;
+        }
+        
+        .hide { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top Fixed Banner -->
+    <div class="top-banner">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+
+    <!-- START SCREEN -->
+    <div id="start-screen">
+        <div class="sub-banner">नवोदय परीक्षा सराव टेस्ट - रक्ताभिसरण</div>
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" maxlength="10">
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+
+        <div class="footer-teachers">
+            <div class="teacher-box teacher-left">
+                मार्गदर्शक शिक्षक : सचिन शिंदे<br>संपर्क : 8329684470
+            </div>
+            <div class="teacher-box teacher-right">
+                मार्गदर्शक शिक्षक : सतीश चिंदे<br>संपर्क : 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen" class="hide">
+        <div class="sub-banner">नवोदय परीक्षा सराव टेस्ट - रक्ताभिसरण</div>
+        <div class="q-header">
+            <span id="question-count">प्रश्न १ / ५०</span>
+            <span id="score-count">गुण: ०</span>
+        </div>
+        <div class="question-title" id="question-text">प्रश्नाचा मजकूर येथे येईल...</div>
+        <div class="options-list" id="options-container">
+            <!-- Options populated dynamically -->
+        </div>
+        <div class="explanation-box" id="explanation-box">
+            <strong>स्पष्टीकरण:</strong> <span id="explanation-text"></span>
+        </div>
+        <button class="btn" id="next-btn" onclick="nextQuestion()" style="margin-top: 15px;" disabled>नेक्स्ट क्वेश्चन</button>
+
+        <div class="footer-teachers">
+            <div class="teacher-box teacher-left">
+                मार्गदर्शक शिक्षक : सचिन शिंदे<br>संपर्क : 8329684470
+            </div>
+            <div class="teacher-box teacher-right">
+                मार्गदर्शक शिक्षक : सतीश चिंदे<br>संपर्क : 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN / CERTIFICATE -->
+    <div id="result-screen" class="hide">
+        <div class="certificate-box">
+            <div class="cert-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <div class="cert-subtitle">परीक्षेचे नाव : नवोदय परीक्षा सराव टेस्ट - रक्ताभिसरण</div>
+            <hr style="border: 1px solid #1e3c72; margin-bottom: 15px;">
+            
+            <div class="cert-details">
+                <strong>विद्यार्थ्याचे नाव :</strong> <span id="cert-name"></span><br>
+                <strong>मोबाईल नंबर :</strong> <span id="cert-mobile"></span><br>
+                <strong>मिळालेले गुण :</strong> <span id="cert-score"></span> / ५०<br>
+                <strong>टक्केवारी :</strong> <span id="cert-percentage"></span>%
+            </div>
+
+            <div class="trophy-badge" id="cert-trophy">🏆</div>
+            <div class="performance-msg" id="cert-performance"></div>
+
+            <div class="footer-teachers" style="margin-top:20px;">
+                <div class="teacher-box teacher-left">
+                    मार्गदर्शक शिक्षक : सचिन शिंदे<br>संपर्क : 8329684470
+                </div>
+                <div class="teacher-box teacher-right">
+                    मार्गदर्शक शिक्षक : सतीश चिंदे<br>संपर्क : 8208167846
+                </div>
+            </div>
+        </div>
+
+        <!-- Wrong Questions Section -->
+        <div id="wrong-questions-container" class="wrong-q-section">
+            <h3 style="color: #b91c1c; margin-bottom: 15px;">चुकलेले प्रश्न आणि त्यांचे अचूक स्पष्टीकरण:</h3>
+            <div id="wrong-list"></div>
+        </div>
+
+        <button class="btn" onclick="location.reload()" style="background:#059669;">पुन्हा परीक्षा द्या</button>
+    </div>
+  </div>
+  <script>
+const quizQuestions = [
+    {
+        q: "१. शरीराच्या सर्व भागांपर्यंत ऑक्सिजन व अन्नद्रव्ये वाहून नेणाऱ्या संस्थेला काय म्हणतात?",
+        options: ["रक्ताभिसरण संस्था", "श्वसन संस्था", "पचन संस्था", "मज्जा संस्था"],
+        ans: 0,
+        exp: "हृदय, रक्त आणि रक्तवाहिन्या मिळून रक्ताभिसरण संस्था बनते."
+    },
+    {
+        q: "२. मानवी शरीरातील रक्त हा कोणत्या प्रकारचा घटक/उती आहे?",
+        options: ["मज्जा उती", "स्नायू उती", "द्रव संयोजी उती", "मेद उती"],
+        ans: 2,
+        exp: "रक्त संपूर्ण शरीरात वहनाचे काम करते, म्हणून ती 'द्रव संयोजी उती' आहे."
+    },
+    {
+        q: "३. रक्ताला लाल रंग खालीलपैकी कशामुळे प्राप्त होतो?",
+        options: ["प्लाझ्मा", "हिमोग्लोबिन", "पांढऱ्या पेशी", "प्लेटलेट्स"],
+        ans: 1,
+        exp: "तांबड्या रक्तपेशींमधील लोहयुक्त प्रथिन म्हणजेच 'हिमोग्लोबिन'मुळे रक्ताला लाल रंग येतो."
+    },
+    {
+        q: "४. रक्तातील पिवळसर रंगाच्या द्रव भागाला काय म्हणतात?",
+        options: ["लसिका", "सिरम", "तांबड्या पेशी", "प्लाझ्मा (रक्तद्रव)"],
+        ans: 3,
+        exp: "रक्ताचा सुमारे ५५% द्रव भाग प्लाझ्मा असतो."
+    },
+    {
+        q: "५. रक्तातील प्लाझ्मामध्ये पाण्याचे प्रमाण सुमारे किती टक्के असते?",
+        options: ["९० ते ९२%", "७० ते ७५%", "५० ते ५५%", "३० ते ३५%"],
+        ans: 0,
+        exp: "प्लाझ्मामध्ये ९० ते ९२% पाणी आणि उर्वरित भागात पोषक घटक असतात."
+    },
+    {
+        q: "६. शरीराच्या विविध पेशींपर्यंत ऑक्सिजन वाहून नेण्याचे मुख्य कार्य कोणत्या पेशी करतात?",
+        options: ["पांढऱ्या रक्तपेशी (WBC)", "तांबड्या रक्तपेशी (RBC)", "प्लेटलेट्स", "प्लाझ्मा पेशी"],
+        ans: 1,
+        exp: "RBC मधील हिमोग्लोबिन ऑक्सिजनशी जोडून पेशींपर्यंत ऑक्सिजन पोहोचवते."
+    },
+    {
+        q: "७. शरीरात प्रवेश करणाऱ्या रोगांच्या जंतूंशी लढून शरीराचे रक्षण कोण करते?",
+        options: ["तांबड्या रक्तपेशी", "प्लेटलेट्स", "पांढऱ्या रक्तपेशी", "हिमोग्लोबिन"],
+        ans: 2,
+        exp: "पांढऱ्या रक्तपेशींना शरीराचे सैनिक म्हणतात."
+    },
+    {
+        q: "८. शरीराला जखम झाल्यावर रक्त गोठण्याची (Blood Clotting) क्रिया कोणामुळे होते?",
+        options: ["तांबड्या रक्तपेशी", "पांढऱ्या रक्तपेशी", "प्लाझ्मा", "प्लेटलेट्स (रक्तबिंबिका)"],
+        ans: 3,
+        exp: "प्लेटलेट्स जाळी तयार करून रक्तस्त्राव थांबवतात."
+    },
+    {
+        q: "९. तांबड्या रक्तपेशींचा (RBC) सरासरी कार्यकाळ किंवा आयुष्यमान किती असते?",
+        options: ["१० ते १५ दिवस", "१०० ते १२० दिवस", "२५० ते ३०० दिवस", "१ ते २ वर्षे"],
+        ans: 1,
+        exp: "तांबड्या पेशी सुमारे १०० ते १२० दिवस जगतात."
+    },
+    {
+        q: "१०. मानवाच्या कोणत्या परिपक्व रक्तपेशींमध्ये केंद्रक (Nucleus) आढळत नाही?",
+        options: ["तांबड्या रक्तपेशी (RBC)", "पांढऱ्या रक्तपेशी (WBC)", "लिम्फोसाइट्स", "यांपैकी सर्व"],
+        ans: 0,
+        exp: "जास्त ऑक्सिजन सामावण्यासाठी परिपक्व RBC मध्ये केंद्रक नसते."
+    },
+    {
+        q: "११. हिमोग्लोबिनमध्ये प्रामुख्याने कोणते खनिज/घटक आढळते?",
+        options: ["कॅल्शियम", "सोडियम", "लोह (Iron)", "पोटॅशियम"],
+        ans: 2,
+        exp: "हिमोग्लोबिन हे लोहयुक्त प्रथिन असते."
+    },
+    {
+        q: "१२. रक्तामध्ये हिमोग्लोबिनचे प्रमाण कमी झाल्यास कोणता आजार होतो?",
+        options: ["गलगंड", "रिकेट्स", "स्कर्वी", "ॲनिमिया (पांडुरोग)"],
+        ans: 3,
+        exp: "हिमोग्लोबिन कमी झाल्याने ॲनिमिया होतो."
+    },
+    {
+        q: "१३. मानवी हृदयाचे एकूण किती कप्पे (Chambers) असतात?",
+        options: ["४", "३", "२", "६"],
+        ans: 0,
+        exp: "हृदयाचे ४ कप्पे असतात (२ आलिंद व २ निलय)."
+    },
+    {
+        q: "१४. हृदयाच्या वरील दोन कप्प्यांना काय म्हणतात?",
+        options: ["निलय", "आलिंद", "धमन्या", "शिरा"],
+        ans: 1,
+        exp: "वरील कप्प्यांना आलिंद आणि खालील कप्प्यांना निलय म्हणतात."
+    },
+    {
+        q: "१५. हृदयाचा कोणता कप्पा सर्वात जाड आणि मजबूत भिंती असलेला असतो?",
+        options: ["उजवा अलिंद", "डावा अलिंद", "उजवा निलय", "डावा निलय"],
+        ans: 3,
+        exp: "डाव्या निलयाला संपूर्ण शरीराला उच्च दाबाने रक्त पुरवावे लागते."
+    },
+    {
+        q: "१६. मानवी हृदयाचा आकार साधारणपणे कसा असतो?",
+        options: ["गोल चेंडूएवढा", "बदामासारखा", "स्वतःच्या मिटलेल्या मुठीएवढा", "अंडाकृती"],
+        ans: 2,
+        exp: "हृदयाचा आकार व्यक्तीच्या मुठीएवढा असतो."
+    },
+    {
+        q: "१७. मानवी हृदय छातीच्या पिंजऱ्यात कुठे वसलेले असते?",
+        options: ["दोन्ही फुफ्फुसांच्या मध्ये, किंचित डावीकडे", "उजव्या फुफ्फुसाच्या खाली", "पोटाच्या डाव्या बाजूला", "पाठीच्या कण्याजवळ"],
+        ans: 0,
+        exp: "हृदय छातीत मध्यभागी थोडे डावीकडे झुकलेले असते."
+    },
+    {
+        q: "१८. निरोगी माणसाच्या हृदयाचे एका मिनिटात सरासरी किती ठोके पडतात?",
+        options: ["५२", "७२", "९२", "१०२"],
+        ans: 1,
+        exp: "विश्रांतीच्या स्थितीत एका मिनिटात ७२ ठोके पडतात."
+    },
+    {
+        q: "१९. डॉक्टरांद्वारे हृदयाचे ठोके ऐकण्यासाठी कोणते उपकरण वापरले जाते?",
+        options: ["थर्मामीटर", "बॅरोमीटर", "स्टेथॉस्कोप", "पेरीस्कोप"],
+        ans: 2,
+        exp: "स्टेथॉस्कोप हृदयाचे ठोके ऐकण्यासाठी वापरतात."
+    },
+    {
+        q: "२०. हृदयाकडून शरीराच्या विविध अवयवांकडे रक्त वाहून नेणाऱ्या वाहिन्यांना काय म्हणतात?",
+        options: ["शिरा", "केशवाहिन्या", "मज्जातंतू", "धमन्या (Arteries)"],
+        ans: 3,
+        exp: "धमन्या हृदयाकडून शरीराकडे रक्त नेतात."
+    },
+    {
+        q: "२१. शरीराच्या विविध भागांकडून अशुद्ध रक्त हृदयाकडे परत आणणाऱ्या वाहिन्यांना काय म्हणतात?",
+        options: ["शिरा (Veins)", "धमन्या", "केशवाहिन्या", "मज्जारज्जू"],
+        ans: 0,
+        exp: "शिरा अशुद्ध रक्त हृदयाकडे आणतात."
+    },
+    {
+        q: "२२. खालीलपैकी कोणत्या रक्तवाहिनीत सामान्यतः शुद्ध (ऑक्सिजनयुक्त) रक्त वाहते?",
+        options: ["शिरा", "धमणी", "महाशिरा", "यांपैकी सर्व"],
+        ans: 1,
+        exp: "धमन्यांमध्ये ऑक्सिजनयुक्त शुद्ध रक्त वाहते."
+    },
+    {
+        q: "२३. धमण्यांचा अपवाद असलेली कोणती धमणी अशुद्ध रक्त वाहून नेते?",
+        options: ["महाधमणी", "वृक्क धमणी", "फुफ्फुस धमणी", "यकृत धमणी"],
+        ans: 2,
+        exp: "फुफ्फुस धमणी हृदयाकडून फुफ्फुसांकडे अशुद्ध रक्त नेते."
+    },
+    {
+        q: "२४. शिरांचा अपवाद असलेली कोणती शिरा शुद्ध रक्त वाहून नेते?",
+        options: ["महाशिरा", "यकृत शिरा", "वृक्क शिरा", "फुफ्फुस शिरा"],
+        ans: 3,
+        exp: "फुफ्फुस शिरा फुफ्फुसांकडून शुद्ध रक्त हृदयाकडे आणते."
+    },
+    {
+        q: "२५. रक्त मागे वाहू नये म्हणून कोणत्या रक्तवाहिन्यांमध्ये 'झडपा' (Valves) असतात?",
+        options: ["शिरा", "धमन्या", "केशवाहिन्या", "यांपैकी सर्व"],
+        ans: 0,
+        exp: "शिरांमध्ये रक्ताचा दाब कमी असल्याने रक्त मागे वाहू नये म्हणून झडपा असतात."
+    },
+    {
+        q: "२६. धमण्यांच्या भिंती शिरांच्या तुलनेत कशा असतात?",
+        options: ["पातळ व कमजोर", "जाड व लवचिक", "अत्यंत मऊ", "पारदर्शक"],
+        ans: 1,
+        exp: "रक्ताचा दाब सहन करण्यासाठी धमण्यांच्या भिंती जाड व लवचिक असतात."
+    },
+    {
+        q: "२७. धमण्या आणि शिरा यांना जोडणाऱ्या अतिशय बारीक वाहिन्यांना काय म्हणतात?",
+        options: ["महाधमणी", "महाशिरा", "केशवाहिन्या (Capillaries)", "लिम्फ वाहिन्या"],
+        ans: 2,
+        exp: "केशवाहिन्या अत्यंत बारीक असतात व तिथे पदार्थांची देवाणघेवाण होते."
+    },
+    {
+        q: "२८. शरीराच्या त्वचेवर वरच्या बाजूला निळसर किंवा हिरवट रंगाच्या दिसणाऱ्या वाहिन्या कोणत्या?",
+        options: ["धमन्या", "केशवाहिन्या", "मज्जातंतू", "शिरा"],
+        ans: 3,
+        exp: "त्वचेच्या जवळ शिरा असतात व त्या निळसर दिसतात."
+    },
+    {
+        q: "२९. संपूर्ण शरीरातून आलेले अशुद्ध रक्त प्रथम हृदयाच्या कोणत्या कप्प्यात जमा होते?",
+        options: ["उजवा अलिंद", "उजवा निलय", "डावा अलिंद", "डावा निलय"],
+        ans: 0,
+        exp: "अशुद्ध रक्त सर्वप्रथम उजव्या अलिंदात जमा होते."
+    },
+    {
+        q: "३०. अशुद्ध रक्ताचे शुद्धीकरण शरीरातील कोणत्या अवयवात होते?",
+        options: ["हृदयामध्ये", "फुफ्फुसांमध्ये", "यकृतामध्ये", "वृक्कामध्ये"],
+        ans: 1,
+        exp: "फुफ्फुसांत CO2 बाहेर पडून O2 रक्तामध्ये मिसळतो."
+    },
+    {
+        q: "३१. फुफ्फुसांतून शुद्ध झालेले रक्त हृदयाच्या कोणत्या कप्प्यात प्रवेश करते?",
+        options: ["उजवा अलिंद", "उजवा निलय", "डावा अलिंद", "डावा निलय"],
+        ans: 2,
+        exp: "शुद्ध रक्त फुफ्फुस शिरेद्वारे डाव्या अलिंदात येते."
+    },
+    {
+        q: "३२. डाव्या निलयातून शुद्ध रक्त संपूर्ण शरीराकडे घेऊन जाणाऱ्या मुख्य वाहिनीचे नाव काय?",
+        options: ["फुफ्फुस धमणी", "फुफ्फुस शिरा", "महाशिरा", "महाधमणी (Aorta)"],
+        ans: 3,
+        exp: "महाधमणी ही सर्वात मोठी धमणी असून ती संपूर्ण शरीराला शुद्ध रक्त पुरवते."
+    },
+    {
+        q: "३३. मानवी रक्ताभिसरण प्रक्रियेचा शोध कोणी लावला?",
+        options: ["विलियम हार्वे", "एडवर्ड जेन्नर", "लुई पाश्चर", "रॉबर्ट हूक"],
+        ans: 0,
+        exp: "डॉ. विलियम हार्वे यांनी रक्ताभिसरणाचा शोध लावला."
+    },
+    {
+        q: "३४. मानवी शरीरातील रक्तदाब (Blood Pressure) मोजण्यासाठी कोणते उपकरण वापरतात?",
+        options: ["थर्मामीटर", "स्पिग्मोमॅनोमीटर", "लॅक्टोमीटर", "बॅरोमीटर"],
+        ans: 1,
+        exp: "स्पिग्मोमॅनोमीटरने रक्तदाब मोजतात."
+    },
+    {
+        q: "३५. कोणत्या रक्तगटाला 'सर्वयोग्य दाता' (Universal Donor) म्हणतात?",
+        options: ["A", "B", "O", "AB"],
+        ans: 2,
+        exp: "'O' रक्तगटाचे रक्त सर्वांना चालते."
+    },
+    {
+        q: "३६. कोणत्या रक्तगटाला 'सर्वयोग्य ग्राहक' (Universal Acceptor) म्हणतात?",
+        options: ["O", "A", "B", "AB"],
+        ans: 3,
+        exp: "'AB' रक्तगट सर्वांकडून रक्त घेऊ शकतो."
+    },
+    {
+        q: "३७. मानवात मुख्यत्वे किती मुख्य रक्तगट (Blood Groups) असतात?",
+        options: ["४", "२", "३", "८"],
+        ans: 0,
+        exp: "A, B, AB आणि O हे मुख्य ४ रक्तगट आहेत."
+    },
+    {
+        q: "३८. लहान आतड्यात पचलेले अन्न रक्ताच्या कोणत्या घटकामध्ये विरघळून वाहून नेले जाते?",
+        options: ["तांबड्या पेशी", "प्लाझ्मा (रक्तद्रव)", "पांढऱ्या पेशी", "प्लेटलेट्स"],
+        ans: 1,
+        exp: "पोषक घटक रक्तातील प्लाझ्मामध्ये विरघळतात."
+    },
+    {
+        q: "३९. रक्तातील द्रव टाकाऊ पदार्थ (उदा. युरिया) गाळून बाहेर टाकण्याचे काम कोणता अवयव करतो?",
+        options: ["हृदय", "फुफ्फुस", "वृक्क / मूत्रपिंड (Kidneys)", "यकृत"],
+        ans: 2,
+        exp: "वृक्क रक्तातील टाकाऊ पदार्थ गाळून मूत्राद्वारे बाहेर टाकतात."
+    },
+    {
+        q: "४०. उच्छ्वासाद्वारे बाहेर टाकला जाणारा कार्बन डायऑक्साइड वायू रक्ताद्वारे कुठे आणला जातो?",
+        options: ["हृदयाकडे", "मूत्रपिंडाकडे", "पोटाकडे", "फुफ्फुसांकडे"],
+        ans: 3,
+        exp: "CO2 फुफ्फुसांत आणला जातो व बाहेर टाकला जातो."
+    },
+    {
+        q: "४१. हृदयाचे आकुंचन व प्रसरण या एकत्र क्रियेला काय म्हणतात?",
+        options: ["हृदयाचा ठोका", "श्वसन दर", "रक्तदाब", "नाडी"],
+        ans: 0,
+        exp: "आकुंचन व प्रसरण मिळून एक ठोका बनतो."
+    },
+    {
+        q: "४२. शारीरिक व्यायाम किंवा धावताना हृदयाच्या ठोक्यांची गती काय होते?",
+        options: ["कमी होते", "वाढते", "तीच राहते", "शून्य होते"],
+        ans: 1,
+        exp: "जास्त ऑक्सिजनच्या गरजेमुळे ठोक्यांची गती वाढते."
+    },
+    {
+        q: "४३. रक्ताभिसरणाचा अचूक क्रम कोणता आहे?",
+        options: ["फुफ्फुसे -> हृदय -> शरीर -> फुफ्फुसे", "शरीर -> फुफ्फुसे -> हृदय -> शरीर", "हृदय -> फुफ्फुसे -> हृदय -> संपूर्ण शरीर", "शरीर -> हृदय -> शरीर -> फुफ्फुसे"],
+        ans: 2,
+        exp: "अशुद्ध रक्त हृदयाकडून फुफ्फुसांत, तिथे शुद्ध होऊन परत हृदयाकडे व शेवटी शरीराकडे जाते."
+    },
+    {
+        q: "४४. ऑक्सिजनयुक्त (शुद्ध) रक्ताचा रंग सामान्यतः कसा असतो?",
+        options: ["चमकदार लाल", "काळा-निळा", "पिवळा", "हिरवा"],
+        ans: 0,
+        exp: "ऑक्सिजन जोडलेला असल्यामुळे शुद्ध रक्त चमकदार लाल असते."
+    },
+    {
+        q: "४५. ऑक्सिजनविरहित (अशुद्ध) रक्तात प्रामुख्याने कोणता वायू जास्त असतो?",
+        options: ["ऑक्सिजन", "कार्बन डायऑक्साइड", "नायट्रोजन", "हायड्रोजन"],
+        ans: 1,
+        exp: "अशुद्ध रक्तात CO2 चे प्रमाण जास्त असते."
+    },
+    {
+        q: "४६. आपल्या हाताच्या मनगटावर जाणवणारी नाडीची स्पंदने (Pulse) कशामुळे असतात?",
+        options: ["शिरांमधील प्रवाहामुळे", "हाडांच्या हालचालीमुळे", "धमणीतील रक्ताच्या दाबामुळे", "त्वचेच्या आकुंचनामुळे"],
+        ans: 2,
+        exp: "धमणीतून रक्त वाहताना रक्ताच्या दाबामुळे स्पंदने जाणवतात."
+    },
+    {
+        q: "४७. मानवी रक्ताचे स्वरूप निसर्गानुसार कसे असते?",
+        options: ["तीव्र आम्लयुक्त", "उदासीन (Neutral)", "अत्यंत विषारी", "किंचित क्षारीय (Slightly Alkaline)"],
+        ans: 3,
+        exp: "रक्ताचा pH ७.४ च्या आसपास असतो, म्हणजे ते किंचित क्षारीय असते."
+    },
+    {
+        q: "४८. डेंग्यू या आजारात रक्तातील कोणत्या पेशींचे प्रमाण अत्यंत वेगाने घटते?",
+        options: ["प्लेटलेट्स (रक्तबिंबिका)", "तांबड्या रक्तपेशी", "पांढऱ्या रक्तपेशी", "प्लाझ्मा"],
+        ans: 0,
+        exp: "डेंग्यूच्या संसर्गात प्लेटलेट्स कमी होतात."
+    },
+    {
+        q: "४९. खालीलपैकी कोणता अवयव रक्ताभिसरण संस्थेचा भाग मानला जात नाही?",
+        options: ["हृदय", "लहान आतडे", "धमन्या", "केशवाहिन्या"],
+        ans: 1,
+        exp: "लहान आतडे हा मुख्यत्वे पचनसंस्थेचा भाग आहे."
+    },
+    {
+        q: "५०. रक्त व पेशी यांच्यामध्ये पोषक घटक व वायूंची अदलाबदल करणाऱ्या सर्वात सूक्ष्म वाहिन्या कोणत्या?",
+        options: ["महाधमणी", "महाशिरा", "मज्जातंतू", "केशवाहिन्या (Capillaries)"],
+        ans: 3,
+        exp: "केशवाहिन्या अत्यंत बारीक असल्यामुळे पेशींशी सहजरीत्या अदलाबदल करू शकतात."
+    }
+];
+    let currentQuestionIndex = 0;
+let userScore = 0;
+let studentName = "";
+let studentMobile = "";
+let userAnswers = [];
+
+function startExam() {
+    studentName = document.getElementById('student-name').value.trim();
+    studentMobile = document.getElementById('student-mobile').value.trim();
+
+    if(studentName === "") {
+        alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा.");
+        return;
+    }
+    if(studentMobile.length !== 10 || isNaN(studentMobile)) {
+        alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा.");
+        return;
+    }
+
+    document.getElementById('start-screen').classList.add('hide');
+    document.getElementById('quiz-screen').classList.remove('hide');
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = quizQuestions[currentQuestionIndex];
+    document.getElementById('question-count').innerText = `प्रश्न ${currentQuestionIndex + 1} / ${quizQuestions.length}`;
+    document.getElementById('score-count').innerText = `गुण: ${userScore}`;
+    document.getElementById('question-text').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = "";
+    
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'none';
+
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.disabled = true;
+    if(currentQuestionIndex === quizQuestions.length - 1) {
+        nextBtn.innerText = "Submit Exam (परीक्षेचा निकाल पहा)";
+    } else {
+        nextBtn.innerText = "नेक्स्ट क्वेश्चन";
+    }
+
+    qData.options.forEach((opt, idx) => {
+        const optDiv = document.createElement('div');
+        optDiv.className = 'option-item';
+        optDiv.innerText = `${String.fromCharCode(65 + idx)}) ${opt}`;
+        optDiv.onclick = () => selectOption(idx, optDiv);
+        optionsContainer.appendChild(optDiv);
+    });
+}
+
+function selectOption(selectedIndex, element) {
+    const qData = quizQuestions[currentQuestionIndex];
+    const allOptions = document.querySelectorAll('.option-item');
+
+    // Disable multiple clicks
+    allOptions.forEach(opt => opt.style.pointerEvents = 'none');
+
+    userAnswers[currentQuestionIndex] = {
+        question: qData.q,
+        selected: selectedIndex,
+        correct: qData.ans,
+        options: qData.options,
+        explanation: qData.exp
+    };
+
+    if (selectedIndex === qData.ans) {
+        element.classList.add('correct');
+        userScore++;
+        document.getElementById('score-count').innerText = `गुण: ${userScore}`;
+    } else {
+        element.classList.add('wrong');
+        allOptions[qData.ans].classList.add('correct');
+        
+        // Show explanation for wrong answer
+        const expBox = document.getElementById('explanation-box');
+        document.getElementById('explanation-text').innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    if(currentQuestionIndex < quizQuestions.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    document.getElementById('quiz-screen').classList.add('hide');
+    document.getElementById('result-screen').classList.remove('hide');
+
+    const total = quizQuestions.length;
+    const percentage = Math.round((userScore / total) * 100);
+
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-mobile').innerText = studentMobile;
+    document.getElementById('cert-score').innerText = userScore;
+    document.getElementById('cert-percentage').innerText = percentage;
+
+    const trophyElem = document.getElementById('cert-trophy');
+    const perfElem = document.getElementById('cert-performance');
+
+    if (percentage >= 80) {
+        trophyElem.innerText = "🥇🏆";
+        perfElem.innerText = "उत्कृष्ट कामगिरी! Gold Medal + Trophy";
+        perfElem.style.color = "#d97706";
+    } else if (percentage >= 60) {
+        trophyElem.innerText = "🥈🏆";
+        perfElem.innerText = "छान कामगिरी! Silver Medal + Trophy";
+        perfElem.style.color = "#475569";
+    } else if (percentage >= 50) {
+        trophyElem.innerText = "🥉🏆";
+        perfElem.innerText = "अभिनंदन! Bronze Medal + Trophy";
+        perfElem.style.color = "#b45309";
+    } else {
+        trophyElem.innerText = "💐";
+        perfElem.innerText = "अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        perfElem.style.color = "#2563eb";
+    }
+
+    // Populate Wrong Questions
+    const wrongListElem = document.getElementById('wrong-list');
+    wrongListElem.innerHTML = "";
+
+    let hasWrong = false;
+    userAnswers.forEach((ansObj, i) => {
+        if(ansObj.selected !== ansObj.correct) {
+            hasWrong = true;
+            const wrongCard = document.createElement('div');
+            wrongCard.className = 'wrong-q-card';
+            wrongCard.innerHTML = `
+                <div class="wrong-q-title">${ansObj.question}</div>
+                <div style="color: #b91c1c;"><strong>तुमचे उत्तर:</strong> ${String.fromCharCode(65 + ansObj.selected)}) ${ansObj.options[ansObj.selected]}</div>
+                <div style="color: #15803d;"><strong>अचूक उत्तर:</strong> ${String.fromCharCode(65 + ansObj.correct)}) ${ansObj.options[ansObj.correct]}</div>
+                <div style="margin-top: 5px; font-size: 14px; color: #334155;"><strong>स्पष्टीकरण:</strong> ${ansObj.explanation}</div>
+            `;
+            wrongListElem.appendChild(wrongCard);
+        }
+    });
+
+    if(!hasWrong) {
+        document.getElementById('wrong-questions-container').style.display = 'none';
+    }
+}
+</script>
+
+</body>
+</html>
