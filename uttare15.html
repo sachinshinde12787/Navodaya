@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा सराव टेस्ट - जेऊर</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #d69e2e;
+            --success: #2f855a;
+            --danger: #c53030;
+            --bg: #f7fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Mukta', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #2d3748;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+            position: relative;
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #1a365d, #2b6cb0);
+            color: white;
+            text-align: center;
+            padding: 20px 15px;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .header-banner h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header-banner h2 {
+            font-size: 18px;
+            font-weight: 400;
+            color: #feebc8;
+        }
+
+        .content-body {
+            padding: 25px;
+        }
+
+        /* Start Screen Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--secondary);
+        }
+
+        .btn-start, .btn-next, .btn-submit, .btn-print {
+            background: linear-gradient(135deg, #2b6cb0, #1a365d);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-start:hover, .btn-next:hover, .btn-submit:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+        }
+
+        /* Footer Guide Teachers */
+        .footer-teachers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px dashed #cbd5e0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .teacher-box {
+            width: 48%;
+        }
+
+        .teacher-box.right {
+            text-align: right;
+        }
+
+        /* Passage and Exam styling */
+        .passage-box {
+            background: #ebf8ff;
+            border-left: 5px solid var(--secondary);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 16px;
+            text-align: justify;
+        }
+
+        .passage-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .question-box {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #f7fafc;
+            border: 2px solid #cbd5e0;
+            padding: 12px 15px;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        .option-btn:hover {
+            background: #edf2f7;
+            border-color: #a0aec0;
+        }
+
+        .option-btn.correct {
+            background-color: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            margin-top: 15px;
+            padding: 12px 15px;
+            border-radius: 6px;
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            color: #744210;
+            font-size: 15px;
+            display: none;
+        }
+
+        /* Certificate Styling */
+        .certificate-container {
+            border: 10px double var(--primary);
+            padding: 25px;
+            border-radius: 10px;
+            background: #fffdfa;
+            text-align: center;
+            position: relative;
+        }
+
+        .certificate-title {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-decoration: underline;
+        }
+
+        .cert-details {
+            text-align: left;
+            margin: 20px 0;
+            font-size: 16px;
+            line-height: 2;
+        }
+
+        .honor-box {
+            background: #feefc3;
+            border: 2px dashed #d69e2e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #744210;
+        }
+
+        .badge-icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            height: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .main-card { box-shadow: none; border: none; }
+            .btn-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>नवोदय परीक्षा सराव टेस्ट (उतारे)</h2>
+    </div>
+
+    <div class="content-body">
+        <!-- SCREEN 1: START EXAM -->
+        <div id="start-screen">
+            <div class="form-group">
+                <label for="studentName">विद्यार्थ्याचे नाव प्रविष्ट करा:</label>
+                <input type="text" id="studentName" placeholder="उदा. आदित्य गणेश माने" required>
+            </div>
+            <div class="form-group">
+                <label for="mobileNo">मोबाईल नंबर:</label>
+                <input type="tel" id="mobileNo" placeholder="उदा. 9876543210" maxlength="10">
+            </div>
+            <button class="btn-start" onclick="startExam()">Start Exam (परीक्षा सुरू करा)</button>
+
+            <div class="footer-teachers">
+                <div class="teacher-box">
+                    मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                    संपर्क : 8329684470
+                </div>
+                <div class="teacher-box right">
+                    मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+                    संपर्क : 8208167846
+                </div>
+            </div>
+  </div>
+              <!-- SCREEN 2: EXAM SCREEN -->
+        <div id="exam-screen" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span id="question-count" style="font-weight: bold; color: var(--primary);">प्रश्न १ / २०</span>
+                <span id="passage-indicator" style="font-size: 14px; background: #e2e8f0; padding: 4px 8px; border-radius: 4px;">उतारा १</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+
+            <!-- Passage -->
+            <div class="passage-box">
+                <div class="passage-title" id="passage-title">उतारा</div>
+                <div id="passage-text">उतारा लोड होत आहे...</div>
+            </div>
+
+            <!-- Question & Options -->
+            <div class="question-box">
+                <div class="question-text" id="question-text">प्रश्न लोड होत आहे...</div>
+                <div class="options-grid" id="options-container"></div>
+                <div class="explanation-box" id="explanation-box"></div>
+            </div>
+
+            <button class="btn-next" id="next-btn" onclick="nextQuestion()" style="display: none;">नेक्स्ट क्वेश्चन ➔</button>
+            <button class="btn-submit" id="submit-btn" onclick="submitExam()" style="display: none;">Submit Exam (परीक्षा सबमिट करा)</button>
+        </div>
+
+        <!-- SCREEN 3: CERTIFICATE / RESULT SCREEN -->
+        <div id="result-screen" style="display: none;">
+            <div class="certificate-container">
+                <div class="certificate-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+                <p style="font-size: 15px; color: #718096; margin-bottom: 15px;">- गुणपत्रक व सन्मानपत्र -</p>
+                
+                <div class="cert-details">
+                    <strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट (उतारे)<br>
+                    <strong>विद्यार्थ्याचे नाव :</strong> <span id="cert-name"></span><br>
+                    <strong>मोबाईल नंबर :</strong> <span id="cert-mobile"></span><br>
+                    <strong>मिळालेले गुण :</strong> <span id="cert-score"></span> / २०<br>
+                    <strong>टक्केवारी :</strong> <span id="cert-percentage"></span>%
+                </div>
+
+                <div class="honor-box" id="honor-box">
+                    <span class="badge-icon" id="badge-icon">🏆</span>
+                    <span id="honor-text">कामगिरीनुसार सन्मान...</span>
+                </div>
+
+                <div class="footer-teachers" style="margin-top: 30px;">
+                    <div class="teacher-box">
+                        मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                        संपर्क : 8329684470
+                    </div>
+                    <div class="teacher-box right">
+                        मार्गदर्शक शिक्षक : सतीश चिंदे<br>
+                        संपर्क : 8208167846
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-print" onclick="window.print()" style="margin-top: 20px;">🖨️ निकाल प्रिंट करा / PDF सेव्ह करा</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// --- QUESTION BANK & PASSAGES ---
+const passages = [
+    {
+        id: 1,
+        title: "उतारा १: प्रसिद्ध फुटबॉलपटू – लिओनेल मेस्सी",
+        text: "लिओनेल मेस्सी हा जागतिक फुटबॉल जगतातील एक अत्यंत महान आणि जगप्रसिद्ध फुटबॉलपटू आहे. अर्जेंटिना या देशात जन्मलेल्या मेस्सीने लहानपणापासूनच फुटबॉल या खेळावर अथांग प्रेम केले. बालपणात त्याला 'ग्रोथ संप्रेरक' ची गंभीर शारीरिक समस्या होती, परंतु त्याच्या अफाट जिद्दीसमोर आणि खेळाच्या अद्भूत कौशल्यासमोर या शारीरिक अडथळ्यानेही अखेर हार मानली. स्पेनमधील प्रसिद्ध 'बार्सिलोना' क्लबने त्याच्या वैद्यकीय उपचाराचा पूर्ण खर्च उचलला आणि त्याला आपल्या अकादमीत प्रवेश दिला. मेस्सीच्या अद्भूत ड्रिबलिंग, अचूक पासिंग आणि गोल करण्याच्या शैलीमुळे तो अल्पावधीतच जगभरातील क्रीडारसिकांच्या गळ्यातील ताईत बनला. उसने आपल्या कारकिर्दीत तब्बल आठ वेळा 'बॅलन डी'ओर' हा फुटबॉल क्षेत्रातील सर्वोच्च पुरस्कार पटकावला आहे. २०२२ च्या कतार विश्वचषक स्पर्धेत अर्जेंटिनाला जगज्जेतेपद मिळवून देऊन त्याने देशवासियांचे स्वप्न पूर्ण केले. मेस्सीचे हे यश केवळ त्याच्या निसर्गदत्त प्रतिभेचे फलित नसून, त्याच्या सातत्यपूर्ण कठोर परिश्रम, शिस्त आणि नम्र स्वभावाचे एक आदर्श प्रतीक आहे."
+    },
+    {
+        id: 2,
+        title: "उतारा २: गुणी आणि निसर्गाची मदतनीस – खारुताई",
+        text: "खार हा आपल्या आजूबाजूला सहज दिसणारा एक अत्यंत चपळ आणि आकर्षक छोटा प्राणी आहे. झाडांच्या फांद्यावरून धडपडत पळणारी आणि शेपटी उंचावून फिरणारी खारुताई सर्वांचेच लक्ष वेधून घेते. खारीचे मुख्य अन्न फळे, बिया, कंदमुळे, वनस्पतींची कोवळी पाने आणि कीटक हे असते. अन्न शोधण्यासाठी आणि ते सुरक्षित ठिकाणी लपवून ठेवण्यासाठी खार प्रसिद्ध आहे. हिवाळ्यासाठी किंवा भविष्यातील वापरासाठी ती जमिनीखाली अथवा झाडांच्या ढोलीत बिया पुरून ठेवते; अनेकदा ती जागा विसरून जाते आणि त्या बियांतून नवीन झाडे उगवतात. त्यामुळे जंगल आणि निसर्गाच्या पुनरुज्जीवनात खारीचा मोठा वाटा असतो. भारतात भारतीय शेकरू (मोठी खार) आणि पाठीवर पट्टे असणारी सामान्य खार प्रामुख्याने आढळते. रामायणातील कथेनुसार, श्रीरामचंद्रांनी सेतू बांधणीत खारीच्या छोट्या योगदानाचे कौतुक करून तिच्या पाठीवरून मायेने हात फिरवला होता, म्हणूनच तिच्या पाठीवर तीन पट्टे उमटले अशी लोकधारणा आहे."
+    },
+    {
+        id: 3,
+        title: "उतारा ३: पोषक अन्नाचा स्रोत – हुलगा",
+        text: "हुलगा (ज्याला संस्कृतमध्ये 'कुलिथ' आणि इंग्रजीत 'हॉर्स ग्रॅम' म्हणतात) हे महाराष्ट्रातील कोरडवाहू भागात घेतले जाणारे एक अत्यंत महत्त्वाचे पारंपारिक कडधान्य आहे. कमी पाण्यात आणि निकृष्ट जमिनीतही उत्तम उत्पन्न देण्याची क्षमता हे या पिकाचे मुख्य वैशिष्ट्य आहे. प्राचीन काळापासून आयुर्वेदात हुलग्याला औषधी अन्नाचा दर्जा दिला गेला आहे. यामध्ये प्रथिने (Proteins), फायबर, लोह आणि कॅल्शियमचे प्रमाण विपुल असते. विशेषतः मूतखड्याच्या (Kidney Stones) समस्येवर हुलग्याचे काढा किंवा कढण अत्यंत गुणकारी मानले जाते, कारण ते शरीरातील खडे विरघळवण्यास मदत करते. त्याचप्रमाणे, हुलग्यामध्ये 'ग्लायसेमिक इंडेक्स' खूप कमी असल्याने ते मधुमेही (Diabetic) रुग्णांसाठी आणि वजन नियंत्रणात ठेवू इच्छिणाऱ्यांसाठी अत्यंत उपयुक्त ठरते. पूर्वीच्या काळी ग्रामीण भागात थंडीच्या दिवसांत शरीराला उष्णता आणि ऊर्जा मिळण्यासाठी हुलग्याचे पिठले किंवा माडगा आवर्जून बनवले जाई. दुर्दैवाने, आधुनिक खाद्यसंस्कृतीच्या प्रवाहात या अतिशय आरोग्यदायी कडधान्याकडे काहीसे दुर्लक्ष झाले आहे. परंतु, बदलत्या हवामानात आणि कुपोषणमुक्तीच्या लढ्यात हुलग्यासारखी औषधी पिके पुन्हा एकदा मुख्य प्रवाहात आणणे काळाची गरज बनले आहे."
+    },
+    {
+        id: 4,
+        title: "उतारा ४: चपळ आणि निष्पाप प्राणी – ससा",
+        text: "ससा हा आपल्या सर्वांच्या परिचयाचा एक अत्यंत नम्र, चपळ आणि शाकाहारी प्राणी आहे. मऊ कापसासारखे पांढरे किंवा तपकिरी केस, लांबच लांब कान आणि छोटीशी गुबगुबीत शेपटी हे सशाचे मुख्य वैशिष्ट्य आहे. ससा प्रामुख्याने गवत, कोवळी पाने, गाजर आणि वनस्पतींचीमुळे आवडीने खातो. सशांचे लांब कान केवळ ऐकण्यासाठीच नाही, तर त्यांच्या शरीराचे तापमान नियंत्रित ठेवण्यासाठीही मदत करतात. धोक्याची जाणीव होताच ससा आपले कान उभे करतो आणि अत्यंत वेगाने पळ काढतो. ससे जमिनीखाली ढोली किंवा बिळे (Burrows) बनवून राहतात, ज्याला 'सशाची बोट' किंवा 'बुरुज' असेही म्हटले जाते. सशांची प्रजनन क्षमता खूप जास्त असते आणि ते निसर्गातील अन्नसाखळीचा (Food Chain) एक महत्त्वाचा भाग आहेत. ससा स्वभावाने अत्यंत भित्रा असला, तरी त्याची सतर्कता आणि वेगवान हालचाली त्याला भक्षकांपासून वाचवतात. लहान मुलांच्या गोष्टींपासून ते लोककथांपर्यंत सशाच्या हुशार आणि चपळ स्वभावाचे वर्णन आवडीने केले जाते."
+    }
+];
+
+const questions = [
+    // Passage 1 Questions
+    {
+        passageId: 1,
+        q: "प्र. १) बार्सिलोना क्लबने मेस्सीला कोणती मदत केली?",
+        options: ["(A) त्याच्या वैद्यकीय उपचाराचा खर्च उचलला व अकादमीत प्रवेश दिला.", "(B) त्याला नवीन घर विकत घेऊन दिले.", "(C) त्याला अर्जेंटिनाचा कर्णधार बनवले.", "(D) त्याला थेट विश्वचषक स्पर्धेत खेळवले."],
+        ans: 0,
+        exp: "स्पष्टीकरण: स्पेनमधील बार्सिलोना क्लबने मेस्सीच्या वैद्यकीय उपचाराचा सर्व खर्च उचलला आणि त्याला आपल्या अकादमीत प्रवेश दिला."
+    },
+    {
+        passageId: 1,
+        q: "प्र. २) बालपणीच्या गंभीर शारीरिक समस्येवर मात करताना मेस्सीच्या व्यक्तिमत्त्वाचा कोणता मुख्य गुण दिसून येतो?",
+        options: ["(A) केवळ नशीब आणि मित्रांची मदत", "(B) अफाट जिद्द आणि अद्भूत खेळकौशल्य", "(C) शारीरिक ताकद आणि आक्रमकता", "(D) संपत्ती आणि आर्थिक सामर्थ्य"],
+        ans: 1,
+        exp: "स्पष्टीकरण: मेस्सीने आपल्या अफाट जिद्द आणि अद्भूत खेळकौशल्याच्या जोरावर बालपणीच्या गंभीर शारीरिक समस्येवर मात केली."
+    },
+    {
+        passageId: 1,
+        q: "प्र. ३) \"मेस्सीचे यश हे केवळ निसर्गदत्त प्रतिभेचे फलित नाही\", या विधानाचा उताऱ्याच्या आधारे योग्य अर्थ कोणता?",
+        options: ["(A) त्याला फुटबॉल खेळणे अजिबात आवडत नव्हते.", "(B) त्याला फक्त बार्सिलोना क्लबमुळेच यश मिळाले.", "(C) यशासाठी केवळ जन्मजात कौशल्य पुरेसे नसते, तर शिस्त, नम्रता व कठोर परिश्रम आवश्यक असतात.", "(D) त्याने कोणताही सराव न करता सर्व सामने जिंकले."],
+        ans: 2,
+        exp: "स्पष्टीकरण: मेस्सीचे यश हे निसर्गदत्त प्रतिभेसोबतच त्याचे सातत्यपूर्ण कठोर परिश्रम, शिस्त व नम्र स्वभावाचे प्रतीक आहे."
+    },
+    {
+        passageId: 1,
+        q: "प्र. ४) उताऱ्यात आलेल्या 'गळ्यातील ताईत बनणे' या वाक्प्रचाराचा अचूक अर्थ कोणता?",
+        options: ["(A) गळ्यात महागडे दागिने घालणे", "(B) कोणाशीतरी सतत भांडण करणे", "(C) गळ्यात अडकणे", "(D) अतिशय प्रिय किंवा लाडका होणे"],
+        ans: 3,
+        exp: "स्पष्टीकरण: 'गळ्यातील ताईत बनणे' या वाक्प्रचाराचा अचूक अर्थ 'अतिशय प्रिय किंवा लाडका होणे' असा होतो."
+    },
+    {
+        passageId: 1,
+        q: "प्र. ५) 'निसर्गदत्त' या शब्दाचा योग्य विग्रह व अर्थ कोणता?",
+        options: ["(A) निसर्गाला दिलेला (दिलेले दान)", "(B) निसर्गाकडून मिळालेला (जन्मजात मिळालेला)", "(C) निसर्गात हरवलेला", "(D) निसर्गाविरुद्ध असलेला"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 'निसर्गदत्त' म्हणजे निसर्गाकडून मिळालेला किंवा जन्मजात प्राप्त झालेला गुण."
+    },
+
+    // Passage 2 Questions
+    {
+        passageId: 2,
+        q: "प्र. ६) खारीच्या कोणत्या सवयीमुळे निसर्गाचे पुनरुज्जीवन होण्यास मदत होते?",
+        options: ["(A) बिया सुरक्षित ठिकाणी पुरून ठेवून नंतर विसरल्यामुळे", "(B) झाडांची पाने कुरतडल्यामुळे", "(C) फांद्यांवर वेगाने पळाल्यामुळे", "(D) झाडांवर घरटे बांधल्यामुळे"],
+        ans: 0,
+        exp: "स्पष्टीकरण: खार भविष्यासाठी बिया पुरून ठेवते आणि ती जागा विसरल्यामुळे त्या बियांतून नवीन झाडे उगवतात."
+    },
+    {
+        passageId: 2,
+        q: "प्र. ७) रामायणातील लोकधारण्येनुसार खारीच्या पाठीवर तीन पट्टे कसे उमटले?",
+        options: ["(A) निसर्गाच्या बदलांमुळे", "(B) जन्मतःच सर्व प्राण्यांच्या पाठीवर असे पट्टे असतात", "(C) सेतू बांधणीत मदत केल्यावर श्रीरामांनी पाठीवरून मायेने हात फिरवल्यामुळे", "(D) झाडावरून खाली पडल्यामुळे"],
+        ans: 2,
+        exp: "स्पष्टीकरण: सेतू बांधणीतील खारीचे योगदान पाहून श्रीरामांनी कौतुकाने तिच्या पाठीवरून मायेने हात फिरवला, ज्यामुळे तीन पट्टे उमटले."
+    },
+    {
+        passageId: 2,
+        q: "प्र. ८) उताऱ्यात 'पुनरुज्जीवन' या शब्दाचा आलेला संदर्भ कशाशी संबंधित आहे?",
+        options: ["(A) झाडांची कत्तल करणे", "(B) प्राण्यांचे स्थलांतर होणे", "(C) पाऊस पडणे", "(D) नवीन झाडे उगवून निसर्ग पुन्हा समृद्ध होणे"],
+        ans: 3,
+        exp: "स्पष्टीकरण: निसर्गाचे पुनरुज्जीवन होणे म्हणजे नवीन झाडे उगवून निसर्ग पुन्हा नव्याने समृद्ध होणे."
+    },
+    {
+        passageId: 2,
+        q: "प्र. ९) 'चपळ' या शब्दाचा योग्य विरुद्धार्थी शब्द कोणता?",
+        options: ["(A) मंद / आळशी", "(B) हुशार", "(C) वेगवान", "(D) लहान"],
+        ans: 0,
+        exp: "स्पष्टीकरण: 'चपळ' (जलद हालचाली करणारा) या शब्दाचा विरुद्धार्थी शब्द 'मंद' किंवा 'आळशी' असा होतो."
+    },
+    {
+        passageId: 2,
+        q: "प्र. १०) या उताऱ्याला योग्य शीर्षक काय देता येईल?",
+        options: ["(A) गुणी आणि निसर्गाची मदतनीस - खारुताई", "(B) राम आणि सेतू", "(C) जंगलातील हिंस्त्र प्राणी", "(D) झाडांची लागवड"],
+        ans: 0,
+        exp: "स्पष्टीकरण: उताऱ्यात खारुताईच्या सवयी व निसर्गातील तिच्या योगदानाचे वर्णन असल्याने हे शीर्षक सर्वात योग्य ठरते."
+    },
+
+    // Passage 3 Questions
+    {
+        passageId: 3,
+        q: "प्र. ११) हुलगा या पिकाचे मुख्य वैशिष्ट्य कोणते?",
+        options: ["(A) या पिकाला मुबलक पाणी आणि सुपीक जमीन लागते.", "(B) कमी पाण्यात आणि निकृष्ट जमिनीतही उत्तम उत्पन्न देण्याची यात क्षमता असते.", "(C) हे पीक केवळ थंड हवामानातच उगवते.", "(D) या पिकाची लागवड केवळ औषधांसाठीच केली जाते."],
+        ans: 1,
+        exp: "स्पष्टीकरण: हुलगा हे पीक कमी पाण्यात आणि निकृष्ट जमिनीतही उत्तम उत्पन्न देऊ शकते, हे याचे मुख्य वैशिष्ट्य आहे."
+    },
+    {
+        passageId: 3,
+        q: "प्र. १२) ग्रामीण भागात थंडीच्या दिवसांत शरीराला उष्णता मिळण्यासाठी हुलग्यापासून कोणता पदार्थ बनवला जाई?",
+        options: ["(A) लाडू आणि जिलेबी", "(B) खीर आणि पुरणपोळी", "(C) पिठले किंवा माडगा", "(D) सरबत आणि पोहे"],
+        ans: 2,
+        exp: "स्पष्टीकरण: थंडीच्या दिवसांत शरीराला उष्णता आणि ऊर्जा मिळण्यासाठी ग्रामीण भागात हुलग्याचे पिठले किंवा माडगा बनवले जात असे."
+    },
+    {
+        passageId: 3,
+        q: "प्र. १३) मधुमेही आणि वजन नियंत्रणात ठेवू इच्छिणाऱ्यांसाठी हुलगा उपयुक्त ठरण्याचे शास्त्रीय कारण कोणते?",
+        options: ["(A) त्यात साखरेचे प्रमाण जास्त असते.", "(B) त्यामुळे पचनक्रिया पूर्णपणे मंदावते.", "(C) ते शरीरातील पाण्याचे प्रमाण कमी करते.", "(D) त्याचा 'ग्लायसेमिक इंडेक्स' खूप कमी असतो."],
+        ans: 3,
+        exp: "स्पष्टीकरण: हुलग्यामध्ये 'ग्लायसेमिक इंडेक्स' खूप कमी असल्यामुळे ते रक्तातील साखर आणि वजन नियंत्रित ठेवण्यास उपयुक्त ठरते."
+    },
+    {
+        passageId: 3,
+        q: "प्र. १४) उताऱ्यात आलेल्या 'पारंपारिक' या शब्दाचा योग्य विरुद्धार्थी शब्द कोणता?",
+        options: ["(A) आधुनिक / नवसंस्कृतीतील", "(B) जुनाट", "(C) ऐतिहासिक", "(D) प्रासंगिक"],
+        ans: 0,
+        exp: "स्पष्टीकरण: 'पारंपारिक' (जुन्या रीतीनुसार चालत आलेले) या शब्दाचा विरुद्धार्थी शब्द 'आधुनिक' असा होतो."
+    },
+    {
+        passageId: 3,
+        q: "प्र. १५) \"आधुनिक खाद्यसंस्कृतीच्या प्रवाहात या कडधान्याकडे दुर्लक्ष झाले आहे\", या विधानातून कोणता सामाजिक संदेश दिसून येतो?",
+        options: ["(A) लोक पूर्वीपेक्षा जास्त आरोग्यदायी अन्न खातात.", "(B) नवीन खाद्यसंस्कृतीमुळे आपण आपल्या जुन्या पोषक आणि औषधी अन्नाचा विसर पाडत आहोत.", "(C) हुलग्याची गुणवत्ता आता पूर्णपणे खराब झाली आहे.", "(D) बाजारात आता हुलगा उपलब्धच होत नाही."],
+        ans: 1,
+        exp: "स्पष्टीकरण: बदलत्या आधुनिक आहाराच्या सवयींमुळे आपण जुन्या अत्यंत पोषक व औषधी कडधान्यांकडे दुर्लक्ष करत आहोत, ही वस्तुस्थिती दिसते."
+    },
+
+    // Passage 4 Questions
+    {
+        passageId: 4,
+        q: "प्र. १६) धोक्याची जाणीव झाल्यावर ससा काय करतो?",
+        options: ["(A) जोराने आवाज करतो", "(B) तेथेच झोपून राहतो", "(C) कान उभे करतो आणि वेगाने पळ काढतो", "(D) भक्षकावर हल्ला करतो"],
+        ans: 2,
+        exp: "स्पष्टीकरण: धोक्याची जाणीव होताच ससा सतर्क होऊन आपले कान उभे करतो आणि अत्यंत वेगाने पळून जातो."
+    },
+    {
+        passageId: 4,
+        q: "प्र. १७) सशाच्या लांब कानांचा ऐकण्याव्यतिरिक्त कोणता महत्त्वाचा शारीरिक उपयोग होतो?",
+        options: ["(A) वेगाने पळण्यासाठी मदत करणे", "(B) अन्न शोधण्यास मदत करणे", "(C) शत्रूला घाबरवणे", "(D) शरीराचे तापमान नियंत्रित ठेवणे"],
+        ans: 3,
+        exp: "स्पष्टीकरण: सशाचे लांब कान ऐकण्याव्यतिरिक्त त्याच्या शरीराचे तापमान नियंत्रित ठेवण्यासाठी मदत करतात."
+    },
+    {
+        passageId: 4,
+        q: "प्र. १८) \"ससा भित्रा असला तरी तो निसर्गात टिकून राहतो\", याचे मुख्य कारण उताऱ्याच्या आधारे कोणते?",
+        options: ["(A) उसकी सतर्कता आणि वेगाने पळण्याची क्षमता", "(B) त्याची प्रचंड शारीरिक ताकद", "(C) त्याचे मोठे दात", "(D) त्याचा हिंस्त्र स्वभाव"],
+        ans: 0,
+        exp: "स्पष्टीकरण: सशाची तीव्र सतर्कता आणि वेगाने हालचाल करण्याची क्षमता त्याला भक्षकांपासून वाचवते व निसर्गात टिकवून ठेवते."
+    },
+    {
+        passageId: 4,
+        q: "प्र. १९) 'सतर्कता' या शब्दाचा उताऱ्यातील संदर्भांनुसार अचूक अर्थ कोणता?",
+        options: ["(A) झोपलेली अवस्था", "(B) सावधपणा किंवा हुशारी", "(C) भीतीने पळून जाणे", "(D) शांत बसणे"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 'सतर्कता' या शब्दाचा संदर्भांनुसार अर्थ 'सावधपणा' किंवा जागरूक राहणे असा होतो."
+    },
+    {
+        passageId: 4,
+        q: "प्र. २०) 'शाकाहारी' या सामासिक शब्दाचा योग्य अर्थ स्पष्ट करणारा पर्याय कोणता?",
+        options: ["(A) केवळ मांस खाणारा", "(B) काहीही न खाणारा", "(C) वनस्पती, फळे व वनस्पतीजन्य अन्न खाणारा", "(D) सर्व प्रकारचे अन्न खाणारा"],
+        ans: 2,
+        exp: "स्पष्टीकरण: वनस्पती, फळे, पाने किंवा वनस्पतीजन्य पदार्थ खाणाऱ्या प्राण्याला 'शाकाहारी' म्हणतात."
+    }
+];
+  // --- EXAM STATE VARIABLES ---
+let currentQIndex = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let studentName = "";
+let studentMobile = "";
+
+// --- FUNCTIONS ---
+
+function startExam() {
+    const nameInput = document.getElementById('studentName').value.trim();
+    const mobileInput = document.getElementById('mobileNo').value.trim();
+
+    if (nameInput === "") {
+        alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");
+        return;
+    }
+
+    studentName = nameInput;
+    studentMobile = mobileInput || "दिलेला नाही";
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('exam-screen').style.display = 'block';
+
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const qData = questions[currentQIndex];
+    const currentPassage = passages.find(p => p.id === qData.passageId);
+
+    // Update Progress and Counters
+    document.getElementById('question-count').innerText = `प्रश्न ${currentQIndex + 1} / ${questions.length}`;
+    document.getElementById('passage-indicator').innerText = `उतारा ${qData.passageId}`;
+    
+    const progressPercent = ((currentQIndex + 1) / questions.length) * 100;
+    document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+
+    // Render Passage
+    document.getElementById('passage-title').innerText = currentPassage.title;
+    document.getElementById('passage-text').innerText = currentPassage.text;
+
+    // Render Question
+    document.getElementById('question-text').innerText = qData.q;
+
+    // Render Options
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = "";
+
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'none';
+    expBox.innerText = "";
+
+    const isAnswered = userAnswers[currentQIndex] !== null;
+
+    qData.options.forEach((optText, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = optText;
+
+        if (isAnswered) {
+            btn.disabled = true;
+            if (index === qData.ans) {
+                btn.classList.add('correct');
+            }
+            if (userAnswers[currentQIndex] === index && index !== qData.ans) {
+                btn.classList.add('wrong');
+            }
+        } else {
+            btn.onclick = () => selectAnswer(index);
+        }
+
+        optionsContainer.appendChild(btn);
+    });
+
+    // Show Explanation if already answered
+    if (isAnswered) {
+        expBox.style.display = 'block';
+        expBox.innerText = qData.exp;
+    }
+
+    // Controls display
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (currentQIndex === questions.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = isAnswered ? 'block' : 'none';
+    } else {
+        nextBtn.style.display = isAnswered ? 'block' : 'none';
+        submitBtn.style.display = 'none';
+    }
+}
+
+function selectAnswer(selectedIndex) {
+    userAnswers[currentQIndex] = selectedIndex;
+    const qData = questions[currentQIndex];
+
+    const optionsContainer = document.getElementById('options-container');
+    const buttons = optionsContainer.getElementsByClassName('option-btn');
+
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+        if (i === qData.ans) {
+            buttons[i].classList.add('correct');
+        }
+        if (i === selectedIndex && selectedIndex !== qData.ans) {
+            buttons[i].classList.add('wrong');
+        }
+    }
+
+    // Show Explanation
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'block';
+    expBox.innerText = qData.exp;
+
+    // Show Next/Submit button
+    if (currentQIndex === questions.length - 1) {
+        document.getElementById('submit-btn').style.display = 'block';
+    } else {
+        document.getElementById('next-btn').style.display = 'block';
+    }
+}
+
+function nextQuestion() {
+    if (currentQIndex < questions.length - 1) {
+        currentQIndex++;
+        renderQuestion();
+        window.scrollTo(0, 0);
+    }
+}
+
+function submitExam() {
+    // Calculate Score
+    let score = 0;
+    userAnswers.forEach((ans, index) => {
+        if (ans === questions[index].ans) {
+            score++;
+        }
+    });
+
+    const percentage = Math.round((score / questions.length) * 100);
+
+    // Hide Exam Screen, Show Result Screen
+    document.getElementById('exam-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+
+    // Populate Certificate Data
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-mobile').innerText = studentMobile;
+    document.getElementById('cert-score').innerText = score;
+    document.getElementById('cert-percentage').innerText = percentage;
+
+    // Determine Honor Rank
+    const badgeIcon = document.getElementById('badge-icon');
+    const honorText = document.getElementById('honor-text');
+
+    if (percentage >= 80) {
+        badgeIcon.innerText = "🏆 🥇";
+        honorText.innerText = "अभिनंदन! प्रथम श्रेणी - Gold Medal + Trophy प्राप्त!";
+    } else if (percentage >= 60) {
+        badgeIcon.innerText = "🥈";
+        honorText.innerText = "छान कामगिरी! द्वितीय श्रेणी - Silver Medal + Trophy प्राप्त!";
+    } else if (percentage >= 50) {
+        badgeIcon.innerText = "🥉";
+        honorText.innerText = "उत्तम प्रयत्न! तृतीय श्रेणी - Bronze Medal + Trophy प्राप्त!";
+    } else {
+        badgeIcon.innerText = "💐";
+        honorText.innerText = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी हार्दिक शुभेच्छा!";
+    }
+
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
+
+  
+  
