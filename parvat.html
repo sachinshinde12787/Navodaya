@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>नवोदय परीक्षा सराव टेस्ट - परिसर अभ्यास पर्वत</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; }
+    body { background-color: #f0f4f8; color: #333; padding: 15px; }
+    .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .header { text-align: center; border-bottom: 2px solid #2c3e50; padding-bottom: 15px; margin-bottom: 20px; }
+    .header h1 { color: #2c3e50; font-size: 24px; margin-bottom: 5px; }
+    .header h2 { color: #e67e22; font-size: 18px; }
+    .footer-teachers { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 15px; border-top: 1px dashed #ccc; font-size: 14px; font-weight: bold; color: #34495e; }
+    .input-group { margin: 20px 0; }
+    .input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+    .input-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+    .btn { background: #27ae60; color: #fff; border: none; padding: 12px 25px; font-size: 18px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; transition: 0.3s; }
+    .btn:hover { background: #219150; }
+    .btn-next { background: #2980b9; margin-top: 15px; }
+    .btn-next:hover { background: #1f6391; }
+    .question-box { margin-bottom: 20px; }
+    .question-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; }
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-btn { text-align: left; padding: 12px 15px; border: 2px solid #bdc3c7; border-radius: 6px; background: #fdfdfd; font-size: 16px; cursor: pointer; transition: 0.2s; }
+    .option-btn:hover { background: #ecf0f1; }
+    .option-btn.correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
+    .option-btn.wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+    .explanation { margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 5px solid #ffc107; color: #856404; font-size: 15px; border-radius: 4px; display: none; }
+    
+    /* Certificate Styling */
+    .certificate-box { border: 8px double #2c3e50; padding: 30px; border-radius: 10px; background: #fffdf9; text-align: center; margin-bottom: 30px; position: relative; }
+    .cert-title { font-size: 22px; color: #2c3e50; font-weight: bold; margin-bottom: 15px; text-decoration: underline; }
+    .cert-details { text-align: left; margin: 20px 0; font-size: 16px; line-height: 1.8; }
+    .cert-details p { border-bottom: 1px dotted #ccc; padding: 5px 0; }
+    .performance-badge { font-size: 22px; margin: 15px 0; padding: 10px; background: #e8f4f8; border-radius: 8px; font-weight: bold; color: #27ae60; }
+    .wrong-analysis { margin-top: 30px; text-align: left; }
+    .wrong-item { background: #fff; border: 1px solid #e0e0e0; padding: 12px; margin-bottom: 10px; border-radius: 6px; border-left: 4px solid #e74c3c; }
+    .hide { display: none; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Top Header -->
+  <div class="header">
+    <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+    <h2>नवोदय परीक्षा सराव टेस्ट - परिसर अभ्यास पर्वत</h2>
+  </div>
+
+  <!-- Start Screen -->
+  <div id="start-screen">
+    <div class="input-group">
+      <label for="student-name">विद्यार्थ्याचे नाव :</label>
+      <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+    </div>
+    <div class="input-group">
+      <label for="student-mobile">मोबाईल नंबर :</label>
+      <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल क्रमांक">
+    </div>
+    <button class="btn" onclick="startExam()">Start Exam</button>
+    
+    <div class="footer-teachers">
+      <div>मार्गदर्शक शिक्षक : सचिन शिंदे<br>संपर्क : 8329684470</div>
+      <div style="text-align: right;">मार्गदर्शक शिक्षक : सतीश चिंदे<br>संपर्क : 8208167846</div>
+    </div>
+  </div>
+
+  <!-- Quiz Screen -->
+  <div id="quiz-screen" class="hide">
+    <div style="display: flex; justify-important: space-between; margin-bottom: 10px; font-weight: bold; color: #7f8c8d;">
+      <span id="question-count">प्रश्न १ / ७५</span>
+    </div>
+    
+    <div class="question-box">
+      <div class="question-title" id="question-text"></div>
+      <div class="options" id="options-container"></div>
+      <div class="explanation" id="explanation-box"></div>
+    </div>
+
+    <button class="btn btn-next" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट क्वेश्चन</button>
+  </div>
+
+  <!-- Result Screen / Certificate -->
+  <div id="result-screen" class="hide">
+    <div class="certificate-box">
+      <div class="cert-title">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+      <h3 style="color: #e67e22; margin-bottom: 15px;">गुणपत्रक व प्रमाणपत</h3>
+      
+      <div class="cert-details">
+        <p><strong>परीक्षेचे नाव :</strong> नवोदय परीक्षा सराव टेस्ट - परिसर अभ्यास पर्वत</p>
+        <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="res-name"></span></p>
+        <p><strong>मोबाईल नंबर :</strong> <span id="res-mobile"></span></p>
+        <p><strong>मिळालेले गुण :</strong> <span id="res-score"></span> / 75</p>
+        <p><strong>टक्केवारी :</strong> <span id="res-percent"></span>%</p>
+      </div>
+
+      <div class="performance-badge" id="res-badge"></div>
+
+      <div class="footer-teachers">
+        <div>मार्गदर्शक शिक्षक : सचिन शिंदे<br>संपर्क : 8329684470</div>
+        <div style="text-align: right;">मार्गदर्शक शिक्षक : सतीश चिंदे<br>संपर्क : 8208167846</div>
+      </div>
+    </div>
+
+    <div class="wrong-analysis" id="wrong-analysis-container">
+      <h3 style="color: #c0392b; margin-bottom: 15px;">चुकलेले प्रश्न व त्यांचे स्पष्टीकरण:</h3>
+      <div id="wrong-questions-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { q: "भूगोलाच्या अभ्यासानुसार साधारणपणे समुद्रसपाटीपासून किती मीटरपेक्षा जास्त उंच असणाऱ्या भूभागाला 'पर्वत' मानले जाते?", options: ["३०० मीटर", "६०० मीटर", "९०० मीटर", "१२३० मीटर"], ans: 1, exp: "तीव्र उतार, टोकदार शिखर आणि समुद्रसपाटीपासून ६०० मीटरपेक्षा जास्त उंची असलेल्या उंचवटा भागाला पर्वत म्हटले जाते." },
+  { q: "पर्वताची उंची नेहमी कशाच्या आधारे मोजली जाते?", options: ["सरासरी समुद्रसपाटी (Mean Sea Level)", "नदीची पातळी", "जमिनीचा पायथा", "भूकवचाची जाडी"], ans: 0, exp: "जगातील कोणत्याही पर्वताची किंवा शिखराची उंची ही 'सरासरी समुद्रसपाटी' (MSL) पासून मोजली जाते." },
+  { q: "सपाट माथा असणारे परंतु सभोवतालच्या भूभागापेक्षा उंच असणारे टेबलसारखे भूरूप कोणते?", options: ["पर्वत", "टेकडी", "पठार", "घळई"], ans: 2, exp: "पठाराचा माथा सपाट (Tableland) असतो, तर पर्वताचा माथा निमुळता व टोकदार असतो." },
+  { q: "पर्वताचे सर्वांत उंच आणि निमुळत्या भागाला काय म्हणतात?", options: ["पायथा", "कडा", "घळई", "शिखर"], ans: 3, exp: "पर्वताच्या सर्वोच्च आणि टोकदार भागाला 'शिखर' (Peak) म्हणतात." },
+  { q: "एकाच रेषेत किंवा साखळीत जोडलेल्या पर्वतांच्या समूहाला काय म्हणतात?", options: ["पर्वत गट", "पर्वतरांग (Mountain Range)", "जलविभाजक", "दरी"], ans: 1, exp: "एकापाठोपाठ एक सलग पसरलेल्या पर्वतांच्या साखळीला 'पर्वतरांग' म्हणतात." },
+  { q: "टेकडी (Hill) आणि पर्वत (Mountain) यांतील मुख्य फरक कशावर आधारित असतो?", options: ["रंग", "उंची व उतार", "स्थान", "नद्यांचा प्रवाह"], ans: 1, exp: "टेकडीची उंची ६०० मीटरपेक्षा कमी आणि उतार मंद असतो, तर पर्वताची उंची जास्त आणि उतार तीव्र असतो." },
+  { q: "पर्वतावरून वाहणाऱ्या नद्या तीव्र उतारामुळे कोणत्या आकाराची दरी निर्माण करतात?", options: ["U-आकाराची दरी", "V-आकाराची दरी", "S-आकाराची दरी", "O-आकाराची दरी"], ans: 1, exp: "पर्वतात पाण्याच्या वेगामुळे होणाऱ्या तीव्र घर्षणामुळे 'वी-आकाराची' (V-shaped) दरी तयार होते." },
+  { q: "खालीलपैकी कोणता घटक पर्वताच्या संरचनेत येत नाही?", options: ["शिखर", "उतार", "पायथा", "त्रिभुज प्रदेश"], ans: 3, exp: "त्रिभुज प्रदेश (Delta) हा नदीच्या मुखाशी मैदानी भागात तयार होतो, तो पर्वताचा भाग नाही." },
+  { q: "जगात सर्वाधिक मानवी वस्ती कोणत्या भूरूपावर आढळते?", options: ["पर्वत", "मैदाने", "पठारे", "वाळवंट"], ans: 1, exp: "पर्वतीय भाग दुर्गम असल्यामुळे मानवी वस्ती प्रामुख्याने सुपीक मैदानी भागात आढळते." },
+  { q: "दोन पर्वतरांगांमधील सखल भागाला काय म्हणतात?", options: ["दरी (Valley)", "शिखर", "कडा", "पठार"], ans: 0, exp: "दोन पर्वतांच्या दरम्यान असलेल्या सखल भूभागाला 'दरी' म्हणतात." },
+  { q: "अत्यंत उच्च पर्वतीय भागात पाऊस कोणत्या रूपात पडतो?", options: ["द्रव रूप", "हिमवृष्टी (Snowfall)", "वाफ", "गारा"], ans: 1, exp: "जास्त उंचीवर तापमान अत्यंत कमी (शून्याखाली) असल्यामुळे तेथे हिमवृष्टी होते." },
+  { q: "पर्वताच्या तीव्र उतारावर केली जाणारी विशिष्ट प्रकारची शेती कोणती?", options: ["सघन शेती", "पायऱ्यांची शेती (Terrace Farming)", "विस्तृत शेती", "व्यापारी शेती"], ans: 1, exp: "पर्वतावर मृदा धूप रोखण्यासाठी पायऱ्या पायऱ्यांचे शेत बनवून शेती केली जाते." },
+  { q: "पर्वतरांगेत एका बाजूकडून दुसऱ्या बाजूकडे जाण्यासाठी असलेल्या नैसर्गिक मार्गाला काय म्हणतात?", options: ["घळई", "दरी", "घाटमार्ग / खिंड (Pass)", "मैदान"], ans: 2, exp: "पर्वतामधील सखल नैसर्गिक रस्त्याला 'खिंड' किंवा 'घाट' म्हणतात." },
+  { q: "पर्वतांमुळे स्थानिक हवामानावर कोणता परिणाम होतो?", options: ["पर्जन्यवृष्टी थांबते", "वाऱ्यांना अडवून पाऊस पडण्यास मदत होते", "तापमान कायम उष्ण राहते", "हवामान कोरडे राहते"], ans: 1, exp: "पर्वत मान्सून वाऱ्यांना अडवतात, त्यामुळे प्रतिरोध पाऊस पडतो." },
+  { q: "पृथ्वीच्या अंतर्गत ताण व दाबाच्या बलांमुळे भूकवचाच्या खडकांना वळ्या पडून निर्माण होणाऱ्या पर्वतास काय म्हणतात?", options: ["खंड पर्वत", "वलित पर्वत (Fold Mountain)", "ज्वालामुखी पर्वत", "अवशिष्ट पर्वत"], ans: 1, exp: "भूगर्भीय दाबामुळे खडकांचे थर वळले जातात आणि 'वलित पर्वत' बनतात." },
+  { q: "खालीलपैकी कोणता पर्वत हा जगातील सर्वांत नवीन वलित (Young Fold) पर्वत आहे?", options: ["अरावली", "हिमालय", "युराल", "अपलेशियन"], ans: 1, exp: "हिमालय हा भूगर्भीयदृष्ट्या अतिशय तरुण/नवीन वलित पर्वत आहे." },
+  { q: "दोन समांतर भेगांमधील (Faults) भूभाग वर उचलला गेल्यामुळे कोणत्या पर्वताची निर्मिती होते?", options: ["अवशिष्ट पर्वत", "वलित पर्वत", "अवरोधित / खंड पर्वत (Block Mountain)", "ज्वालामुखी पर्वत"], ans: 2, exp: "विभंग क्रियेमुळे मधला भाग वर उचलला गेल्यास 'खंड पर्वत' तयार होतो." },
+  { q: "भूगर्भातील तप्त लावा, राख आणि वायू बाहेर येऊन साचल्यामुळे कोणता पर्वत तयार होतो?", options: ["अवशिष्ट पर्वत", "वलित पर्वत", "खंड पर्वत", "ज्वालामुखी पर्वत (Volcanic Mountain)"], ans: 3, exp: "ज्वालामुखीच्या उद्रेकातून बाहेर पडलेले पदार्थ साचून ज्वालामुखी पर्वत बनतो." },
+  { q: "वारा, पाऊस आणि नद्यांच्या अपक्षय (Erosion) कार्यामुळे मूळ पर्वताची झीज होकर उरलेल्या पर्वताला काय म्हणतात?", options: ["अवशिष्ट पर्वत (Residual Mountain)", "नवीन पर्वत", "खंड पर्वत", "वलित पर्वत"], ans: 0, exp: "बाह्य कारकांमुळे झीज होऊन अवशिष्ट (शिल्लक राहिलेले) पर्वत तयार होतात." },
+  { q: "भारतातील 'अरावली' पर्वतरांग ही कोणत्या प्रकारच्या पर्वताचे उत्तम उदाहरण आहे?", options: ["ज्वालामुखी पर्वत", "खंड पर्वत", "अवशिष्ट पर्वत", "नवीन वलित पर्वत"], ans: 2, exp: "अरावली हा एकेकाळी वलित पर्वत होता, पण आता तो जगातील प्राचीन 'अवशिष्ट पर्वत' आहे." },
+  { q: "दक्षिण अमेरिकेतील 'अँडीज' (Andes) पर्वतरांग ही कोणत्या प्रकारचा पर्वत आहे?", options: ["खंड पर्वत", "वलित पर्वत", "अवशिष्ट पर्वत", "ज्वालामुखी पर्वत"], ans: 1, exp: "अँडीज ही जगातील सर्वांत लांब 'वलित पर्वतरांग' आहे." },
+  { q: "उत्तर अमेरिकेतील 'रॉकीज' (Rockies) हा कोणत्या प्रकारचा पर्वत आहे?", options: ["खंड पर्वत", "अवशिष्ट पर्वत", "वलित पर्वत", "ज्वालामुखी पर्वत"], ans: 2, exp: "रॉकीज हा उत्तर अमेरिकेतील प्रमुख वलित पर्वत आहे." },
+  { q: "भारतातील 'सातपुडा' पर्वतरांग प्रामुख्याने कोणत्या प्रकारात येते?", options: ["अवशिष्ट पर्वत", "खंड पर्वत (Block Mountain)", "वलित पर्वत", "ज्वालामुखी पर्वत"], ans: 1, exp: "सातपुडा ही नर्मदा व तापी खचदऱ्यांच्या दरम्यान असलेली खंड पर्वतरांग आहे." },
+  { q: "युरोप खंडातील प्रसिद्ध 'आल्प्स' (Alps) पर्वत कोणत्या प्रकारात येतो?", options: ["अवशिष्ट पर्वत", "खंड पर्वत", "वलित पर्वत", "ज्वालामुखी पर्वत"], ans: 2, exp: "आल्प्स हा युरोपमधील नवीन वलित पर्वत आहे." },
+  { q: "उत्तर भारत आणि दक्षिण भारत यांना भौगोलिकदृष्ट्या वेगळी करणारी पर्वतरांग कोणती?", options: ["सातपुडा", "सह्याद्री", "विंध्य पर्वतरांग", "अरावली"], ans: 2, exp: "विंध्य पर्वतरांग मध्य भारतात असून ती उत्तर व दक्षिण भारताची सीमा मानली जाते." },
+  { q: "भारताच्या संपूर्ण पश्चिम किनाऱ्याला समांतर पसरलेल्या सलग पर्वतरांगेशी कोणता पर्वत संबंधित आहे?", options: ["पूर्व घाट", "पश्चिम घाट (सह्याद्री)", "अरावली", "विंध्य"], ans: 1, exp: "गुजरात ते केरळपर्यंत पश्चिमेला समांतर पसरलेल्या रांगेला 'पश्चिम घाट' किंवा 'सह्याद्री' म्हणतात." },
+  { q: "पूर्व घाट आणि पश्चिम घाट हे पर्वत खालीलपैकी कोणत्या टेकड्यांजवळ एकत्र येतात?", options: ["अनामलाई टेकड्या", "निलगिरी टेकड्या (Nilgiri Hills)", "कार्डमम टेकड्या", "पालनी टेकड्या"], ans: 1, exp: "निलगिरी टेकड्या दक्षिण भारतात पूर्व घाट व पश्चिम घाटाचा संगम बिंदू आहेत." },
+  { q: "भारतातील 'पूर्व घाट' पर्वतरांगेचे मुख्य वैशिष्ट्य कोणते?", options: ["ही सलग पर्वतरांग आहे", "ही नद्यांमुळे छेदलेली तुटक पर्वतरांग आहे", "ही जगातील सर्वोच्च रांग आहे", "येथे वर्षभर बर्फ असतो"], ans: 1, exp: "महानदी, गोदावरी, कृष्णा इत्यादी पूर्ववाहिनी नद्यांमुळे पूर्व घाट अनेक ठिकाणी छेदला गेला आहे." },
+  { q: "अरावली पर्वतरांगेचा सर्वाधिक भाग कोणत्या राज्यात येतो?", options: ["गुजरात", "मध्य प्रदेश", "राजस्थान", "हरियाणा"], ans: 2, exp: "अरावलीचा सुमारे ८०% विस्तार राजस्थान राज्यात आहे." },
+  { q: "थारच्या वाळवंटाचा पूर्वेकडे होणारा प्रसार रोखण्याचे काम कोणता पर्वत करतो?", options: ["हिमालय", "अरावली", "विंध्य", "सतपुडा"], ans: 1, exp: "अरावली पर्वत नैसर्गिक भिंतीसारखा उभा राहून वाळवंट पसरण्यापासून रोखतो." },
+  { q: "महाराष्ट्रात पश्चिम घाटाला स्थानिक पातळीवर कोणत्या नावाने ओळखले जाते?", options: ["सह्याद्री", "सातमाळा", "बालाघाट", "निलगिरी"], ans: 0, exp: "महाराष्ट्रात पश्चिम घाटाला 'सह्याद्री पर्वतरांग' म्हणतात." },
+  { q: "नर्मदा आणि तापी या नद्यांच्या दरम्यान पूर्व-पश्चिम पसरलेली पर्वतरांग कोणती?", options: ["विंध्य", "अजिंठा", "सातपुडा", "अरावली"], ans: 2, exp: "सातपुडा रांग उत्तर बाजूने नर्मदा आणि दक्षिण बाजूने तापी नदीने वेढलेली आहे." },
+  { q: "भारतातील 'गारो, खासी आणि जयंतिया' या प्रसिद्ध टेकड्या कोणत्या राज्यात आहेत?", options: ["आसाम", "मेघालय", "अरुणाचल प्रदेश", "नागालँड"], ans: 1, exp: "मेघालय पठारावर गारो, खासी आणि जयंतिया या टेकड्या स्थित आहेत." },
+  { q: "महाराष्ट्रातील गोदावरी आणि भीमा नदीची खोरी वेगळी करणारी सह्याद्रीची उपरांग कोणती?", options: ["सातमाळा-अजिंठा", "हरिश्चंद्र-बालाघाट", "शंभूमहादेव", "महादेव"], ans: 1, exp: "हरिश्चंद्र-बालाघाट रांग गोदावरी व भीमा नद्यांचे जलविभाजन करते." },
+  { q: "भारतातील कोणत्या पर्वतास 'जैवविविधतेचे हॉटस्पॉट' (Biodiversity Hotspot) मानले जाते?", options: ["अरावली", "पश्चिम घाट", "विंध्य", "पूर्व घाट"], ans: 1, exp: "पश्चिम घाटात दुर्मिळ वनस्पती व प्राण्यांची प्रजाती आढळते." },
+  { q: "भारताच्या ईशान्येकडील म्यानमार सीमेवर पसरलेल्या पर्वतीय भागाला एकत्रितपणे काय म्हणतात?", options: ["हिमाद्री", "पूर्वान्चल (Purvanchal)", "ट्रान्स-हिमालय", "शिवालिक"], ans: 1, exp: "ईशान्येकडील पटकाई, नागा, मिझो या टेकड्यांना 'पूर्वान्चल' म्हणतात." },
+  { q: "हिमालयाची पश्चिम ते पूर्व एकूण लांबी साधारणपणे किती किमी आहे?", options: ["१५०० किमी", "२५०० किमी", "३५०० किमी", "४५०० किमी"], ans: 1, exp: "हिमालय पश्चिमेला सिंधू नदीपासून पूर्वेला ब्रह्मपुत्रा नदीपर्यंत सुमारे २५०० किमी पसरलेला आहे." },
+  { q: "हिमालयाची सर्वांत उत्तरेकडील व सर्वांत उंच असणारी रांग कोणती?", options: ["शिवालिक", "हिमाचल", "हिमाद्री (बृहत् हिमालय)", "पूर्वांचल"], ans: 2, exp: "हिमाद्री (Great Himalayas) ही हिमालयातील सर्वाधिक उंच व सतत बर्फाच्छादित रांग आहे." },
+  { q: "हिमाद्री (Greater Himalayas) रांगेची सरासरी उंची किती मीटर मानली जाते?", options: ["३००० मीटर", "४५०० मीटर", "६००० मीटर", "८००० मीटर"], ans: 2, exp: "हिमाद्रीची सरासरी उंची सुमारे ६,००० मीटर आहे." },
+  { q: "मध्य हिमालयाला NCERT नुसार काय नावाने ओळखले जाते?", options: ["हिमाद्री", "हिमाचल (Lesser Himalayas)", "शिवालिक", "काराकोरम"], ans: 1, exp: "हिमाद्रीच्या दक्षिणेकडील मध्य रांगेला 'हिमाचल' म्हणतात." },
+  { q: "हिमालयाची सर्वांत दक्षिणेकडील आणि नवीन तयार झालेली रांग कोणती?", options: ["हिमाद्री", "हिमाचल", "शिवालिक (Outer Himalayas)", "झासकर"], ans: 2, exp: "शिवालिक ही हिमालयाची सर्वांत बाह्य व दक्षिण रांग आहे." },
+  { q: "मध्य हिमालय (हिमाचल) आणि शिवालिक यांच्या दरम्यान असणाऱ्या उभ्या दऱ्यांना काय म्हणतात?", options: ["कड्या", "दून (Duns)", "घळई", "पास"], ans: 1, exp: "या दऱ्यांना 'दून' म्हणतात (उदा. डेहराडून, पतली दून)." },
+  { q: "शिमला, नैनिताल, मसुरी आणि दार्जिलिंग ही प्रसिद्ध थंड हवेची ठिकाणे कोणत्या हिमालयात येतात?", options: ["हिमाद्री", "हिमाचल", "शिवालिक", "ट्रान्स-हिमालय"], ans: 1, exp: "पर्यटनासाठी प्रसिद्ध असलेली थंड हवेची ठिकाणे मध्य हिमालयात (हिमाचल) आहेत." },
+  { q: "शिवालिक रांगेची सरासरी उंची किती मीटर दरम्यान आढळते?", options: ["३०० ते ५०० मी.", "९०० ते ११०० मी.", "२००० ते ३००० मी.", "४००० ते ५००० मी."], ans: 1, exp: "शिवालिक टेकड्यांची उंची तुलनेने कमी म्हणजेच ९०० ते ११०० मीटर असते." },
+  { q: "जगातील सर्वोच्च पर्वत शिखर माऊंट एव्हरेस्ट हे कोणत्या हिमालयात स्थित आहे?", options: ["हिमाद्री", "हिमाचल", "शिवालिक", "पूर्वांचल"], ans: 0, exp: "माऊंट एव्हरेस्ट हिमाद्री रांगेत नेपाळ व तिबेटच्या सीमेवर आहे." },
+  { q: "भारतातील 'कुलू आणि मनाली' दरी कोणत्या पर्वतीय भागात आहे?", options: ["हिमाचल (मध्य हिमालय)", "शिवालिक", "काराकोरम", "पूर्वांचल"], ans: 0, exp: "कुलू-मनाली ही हिमाचल प्रदेशातील मध्य हिमालयातील दरी आहे." },
+  { q: "'पटकाई बूम' (Patkai Bum) टेकड्या हिमालयाचा भाग म्हणून कोणत्या राज्यात पसरलेल्या आहेत?", options: ["सिक्कीम", "अरुणाचल प्रदेश", "त्रिपुरा", "पश्चिम बंगाल"], ans: 1, exp: "पटकाई टेकड्या भारताच्या ईशान्येकडील अरुणाचल प्रदेशात आहेत." },
+  { q: "नेपाळमध्ये माऊंट एव्हरेस्टला स्थानिक भाषेत काय म्हणतात?", options: ["सागरमाथा (Sagarmatha)", "चामोलांगमा", "हिमाद्री", "नागा पर्वत"], ans: 0, exp: "नेपाळमध्ये एव्हरेस्टला 'सागरमाथा' म्हटले जाते." },
+  { q: "हिमालयातील नद्यांमुळे सखल भागात वाहून आणलेल्या गाळापासून काय बनले आहे?", options: ["द्विपकल्पीय पठार", "उत्तर भारतीय मैदानी प्रदेश", "थारचे वाळवंट", "किनारी पट्टी"], ans: 1, exp: "हिमालयीन नद्यांच्या सुपीक गाळापासून उत्तर भारतातील विशाल मैदान तयार झाले आहे." },
+  { q: "भारतातील भौगोलिक क्षेत्रातील सर्वोच्च मानले जाणारे 'के-२' (Godwin Austen) हे शिखर कोणत्या पर्वतरांगेत आहे?", options: ["हिमाद्री", "काराकोरम रांग (Karakoram)", "झासकर", "लडाख"], ans: 1, exp: "K-2 शिखर (८,६११ मी.) ट्रान्स-हिमालयातील काराकोरम रांगेत स्थित आहे." },
+  { q: "दक्षिण भारतातील व पश्चिम घाटातील (सह्याद्री) सर्वोच्च शिखर कोणते?", options: ["डोडाबेट्टा", "अनामुडी (Anamudi)", "कलसुबाई", "मलयगिरी"], ans: 1, exp: "अनामुडी (२,६९५ मी.) हे केरळमध्ये असून दक्षिण भारतातील सर्वांत उंच शिखर आहे." },
+  { q: "महाराष्ट्र राज्यातील सर्वोच्च पर्वत शिखर कोणते आहे?", options: ["साल्हेर", "महाबळेश्वर", "कलसुबाई", "हरिश्चंद्रगड"], ans: 2, exp: "अहमदनगर/नाशिक सीमेवरील कलसुबाई शिखर (१,६४६ मी.) महाराष्ट्रात सर्वोच्च आहे." },
+  { q: "अरावली पर्वतरांगेतील सर्वोच्च शिखर कोणते आहे?", options: ["धूपगड", "गुरुशिखर (Guru Shikhar)", "दिलवाडा", "अमरकंटक"], ans: 1, exp: "माउंट आबू (राजस्थान) येथील गुरुशिखर (१,७२२ मी.) हे अरावलीचे सर्वोच्च शिखर आहे." },
+  { q: "निलगिरी पर्वतरांगेतील सर्वांत उंच शिखर कोणते?", options: ["अनामुडी", "डोडाबेट्टा (Doddabetta)", "मसुरी", "साल्हेर"], ans: 1, exp: "डोडाबेट्टा (२,६३७ मी.) हे निलगिरी टेकड्यांमधील सर्वोच्च शिखर आहे." },
+  { q: "महाराष्ट्रातील सातपुडा पर्वतरांगेतील सर्वोच्च शिखर कोणते मानले जाते?", options: ["तोरणमाळ", "अस्तंभा (Astambha)", "चिखलदरा", "गाविलगड"], ans: 1, exp: "नंदुरबार जिल्ह्यातील 'अस्तंभा' शिखर (१,३२५ मी.) सातपुड्याच्या महाराष्ट्रातील भागात उंच आहे." },
+  { q: "हिमालयातून उगम पावणाऱ्या नद्यांना वर्षभर पाणी का असते?", options: ["केवळ जास्त पावसामुळे", "हिमनद्या (Glaciers) वितळल्यामुळे आणि पावसामुळे", "विहिरींमुळे", "समुद्राच्या पाण्यामुळे"], ans: 1, exp: "बर्फ वितळणे आणि पाऊस या दोन्हीमुळे या नद्या 'बारमाही' वाहतात." },
+  { q: "अत्यंत जास्त उंचीवर बर्फाचे थर साचून हळूहळू सखल भागाकडे सरकणाऱ्या बर्फाच्या नदीला काय म्हणतात?", options: ["घळई", "हिमनदी (Glacier)", "त्रिभुज प्रदेश", "खचदरी"], ans: 1, exp: "साचलेल्या बर्फाच्या संथ प्रवाहाना 'हिमनदी' म्हणतात." },
+  { q: "गंगा नदीचा उगम हिमालयातील कोणत्या हिमनदीतून होतो?", options: ["यमुनोत्री", "गंगोत्री (Gangotri)", "सियाचिन", "पिंडारी"], ans: 1, exp: "गंगा नदी गंगोत्री हिमनदीतून 'भागीरथी' म्हणून उगम पावते." },
+  { q: "सिंधू आणि ब्रह्मपुत्रा या नद्यांचा उगम हिमालयातील कोणत्या सरोवराजवळ होतो?", options: ["दाल सरोवर", "मानसरोवर (Mansarovar)", "वुलर सरोवर", "सांभर सरोवर"], ans: 1, exp: "तिबेटमधील मानसरोवराच्या परिसरात सिंधू, सतलज व ब्रह्मपुत्रा उगम पावतात." },
+  { q: "अरावली पर्वतातून उगम पावून वाळवंटातून वाहून कच्छच्या रणात लुप्त होणारी नदी कोणती?", options: ["साबरमती", "बनास", "लुणी नदी (Luni River)", "चंबळ"], ans: 2, exp: "लुणी नदी अरावलीतून उगम पावून वाळवंटातच शेवट पावते." },
+  { q: "महाराष्ट्रातील गोदावरी नदीचा उगम सह्याद्री पर्वतातील कोणत्या ठिकाणी होतो?", options: ["महाबळेश्वर", "त्र्यंबकेश्वर (Nashik)", "भीमाशंकर", "मुलताई"], ans: 1, exp: "गोदावरी नदी नाशिक जिल्ह्यातील त्र्यंबकेश्वर येथे सह्याद्रीत उगम पावते." },
+  { q: "कृष्णा नदीचा उगम सह्याद्री पर्वतावर कोणत्या ठिकाणी होतो?", options: ["त्र्यंबकेश्वर", "भीमाशंकर", "महाबळेश्वर (Mahabaleshwar)", "अंबरनाथ"], ans: 2, exp: "कृष्णा नदी सातारा जिल्ह्यातील महाबळेश्वर येथे उगम पावते." },
+  { q: "पर्वतावरून उगम पावून अरबी समुद्राला मिळणाऱ्या कोकणातील नद्यांचे मुख्य वैशिष्ट्य कोणते?", options: ["त्या अतिशय लांब व संथ असतात", "त्या तीव्र उतारावरून जलद वाहणाऱ्या व लहान असतात", "त्या प्रचंड डेल्टा बनवतात", "त्या बारमाही असतात"], ans: 1, exp: "सह्याद्रीच्या तीव्र कड्यामुळे कोकणातील नद्या आखूड व तीव्र वेगाने वाहतात." },
+  { q: "यमुना नदीचा उगम हिमालयातील कोणत्या हिमनदीतून होतो?", options: ["गंगोत्री", "यमुनोत्री (Yamunotri)", "सियाचिन", "झेमू"], ans: 1, exp: "यमुना नदी उत्तराखंडातील यमुनोत्री हिमनदीतून उगम पावते." },
+  { q: "पर्वतातून वाहताना नद्यांनी वाहून आणलेला गाळ पर्वत पायथ्याशी साचल्यामुळे तयार होणाऱ्या पंख्यासारख्या भूरूपास काय म्हणतात?", options: ["त्रिभुज प्रदेश", "जलोढ पंख (Alluvial Fans)", "दून", "हिमोढ"], ans: 1, exp: "पर्वताच्या पायथ्याशी वेग कमी झाल्यामुळे गाळ पसरून पंख्याच्या आकाराचे मैदान तयार होते." }
+];
+let currentQ = 0;
+let score = 0;
+let studentName = "";
+let studentMobile = "";
+let userAnswers = [];
+
+function startExam() {
+  studentName = document.getElementById('student-name').value.trim();
+  studentMobile = document.getElementById('student-mobile').value.trim();
+
+  if(!studentName || !studentMobile) {
+    alert("कृपया आपले नाव आणि मोबाईल नंबर पूर्ण भरा!");
+    return;
+  }
+
+  document.getElementById('start-screen').classList.add('hide');
+  document.getElementById('quiz-screen').classList.remove('hide');
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const qData = questions[currentQ];
+  document.getElementById('question-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+  document.getElementById('question-text').innerText = `प्र. ${currentQ + 1}) ${qData.q}`;
+  
+  const optionsContainer = document.getElementById('options-container');
+  optionsContainer.innerHTML = "";
+  
+  const expBox = document.getElementById('explanation-box');
+  expBox.style.display = "none";
+  expBox.innerText = "";
+
+  document.getElementById('next-btn').disabled = true;
+
+  qData.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerText = `(${idx + 1}) ${opt}`;
+    btn.onclick = () => selectOption(idx);
+    optionsContainer.appendChild(btn);
+  });
+
+  if(currentQ === questions.length - 1) {
+    document.getElementById('next-btn').innerText = "Submit Exam";
+  }
+}
+
+function selectOption(selectedIdx) {
+  const qData = questions[currentQ];
+  const optionBtns = document.querySelectorAll('.option-btn');
+  const expBox = document.getElementById('explanation-box');
+
+  // Disable all option buttons
+  optionBtns.forEach(btn => btn.style.pointerEvents = 'none');
+
+  userAnswers[currentQ] = selectedIdx;
+
+  if (selectedIdx === qData.ans) {
+    optionBtns[selectedIdx].classList.add('correct');
+    score++;
+  } else {
+    optionBtns[selectedIdx].classList.add('wrong');
+    optionBtns[qData.ans].classList.add('correct');
+    expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${qData.exp}`;
+    expBox.style.display = "block";
+  }
+
+  document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    loadQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function showResults() {
+  document.getElementById('quiz-screen').classList.add('hide');
+  document.getElementById('result-screen').classList.remove('hide');
+
+  const percentage = Math.round((score / questions.length) * 100);
+
+  document.getElementById('res-name').innerText = studentName;
+  document.getElementById('res-mobile').innerText = studentMobile;
+  document.getElementById('res-score').innerText = score;
+  document.getElementById('res-percent').innerText = percentage;
+
+  let badgeText = "";
+  if (percentage >= 80) {
+    badgeText = "🏆 🥇 Gold Medal + Trophy<br><span style='font-size:16px; color:#555;'>उत्कृष्ट कामगिरी! तुमचे हार्दिक अभिनंदन!</span>";
+  } else if (percentage >= 60) {
+    badgeText = "🏆 🥈 Silver Medal + Trophy<br><span style='font-size:16px; color:#555;'>छान कामगिरी! अभिनंदन!</span>";
+  } else if (percentage >= 50) {
+    badgeText = "🏆 🥉 Bronze Medal + Trophy<br><span style='font-size:16px; color:#555;'>चांगली कामगिरी!</span>";
+  } else {
+    badgeText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+  }
+
+  document.getElementById('res-badge').innerHTML = badgeText;
+
+  // Render Wrong Questions Analysis
+  const wrongList = document.getElementById('wrong-questions-list');
+  wrongList.innerHTML = "";
+
+  let wrongCount = 0;
+  questions.forEach((q, idx) => {
+    if (userAnswers[idx] !== q.ans) {
+      wrongCount++;
+      const item = document.createElement('div');
+      item.className = 'wrong-item';
+      item.innerHTML = `
+        <p><strong>प्र. ${idx + 1}) ${q.q}</strong></p>
+        <p style="color:#c0392b;">तुम्ही दिलेले उत्तर: ${userAnswers[idx] !== undefined ? q.options[userAnswers[idx]] : 'उत्तर दिले नाही'}</p>
+        <p style="color:#27ae60;">बरोबर उत्तर: ${q.options[q.ans]}</p>
+        <p style="color:#7f8c8d; font-size:14px; margin-top:4px;"><strong>स्पष्टीकरण:</strong> ${q.exp}</p>
+      `;
+      wrongList.appendChild(item);
+    }
+  });
+
+  if (wrongCount === 0) {
+    wrongList.innerHTML = "<p style='color:#27ae60; font-weight:bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</p>";
+  }
+}
+</script>
+</body>
+</html>
+
+
