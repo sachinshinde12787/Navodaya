@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय ऑनलाईन परीक्षा - भारतातील सर्वांत उंच</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #d97706;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --correct-color: #15803d;
+            --wrong-color: #b91c1c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        .creator-info-top {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #fffbe3;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #fef08a;
+            margin-bottom: 20px;
+        }
+
+        .creator-info-top img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .creator-details {
+            text-align: right;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1e40af;
+        }
+
+        .btn:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #4b5563;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 10px;
+        }
+
+        /* Quiz Screen Styling */
+        .question-box {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #e0f2fe;
+            border-left: 5px solid #0284c7;
+            border-radius: 4px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background-color: #f9fafb;
+            border: 2px solid #e5e7eb;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .option-btn.correct {
+            background-color: #dcfce7 !important;
+            border-color: var(--correct-color) !important;
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #fee2e2 !important;
+            border-color: var(--wrong-color) !important;
+            color: var(--wrong-color);
+            font-weight: bold;
+        }
+
+        .explanation-box {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #fff7ed;
+            border: 1px solid #fdba74;
+            border-radius: 6px;
+            color: #9a3412;
+            font-size: 15px;
+            display: none;
+        }
+
+        /* Certificate Styling */
+        .certificate-card {
+            border: 8px double var(--secondary-color);
+            padding: 25px;
+            text-align: center;
+            background: #fff;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .cert-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .cert-score {
+            font-size: 32px;
+            font-weight: bold;
+            color: #047857;
+            margin: 15px 0;
+        }
+
+        .badge-icon {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+
+        .review-box {
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+            border-top: 2px dashed #ccc;
+            padding-top: 15px;
+        }
+
+        .review-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #fef2f2;
+            border-left: 4px solid var(--wrong-color);
+            border-radius: 4px;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- PAGE 1: REGISTRATION SCREEN -->
+    <div id="start-screen">
+        <div class="header-title">
+             जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित
+        </div>
+
+        <div class="creator-info-top">
+            <div class="creator-details">
+                <strong>निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मो. 8329684470
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+        </div>
+
+        <h3 style="text-align: center; color: #1e3a8a;">परीक्षेचे नाव: नवोदय परीक्षा परिसर अभ्यास<br><small>(भारतातील सर्वांत उंच घटक)</small></h3>
+
+        <form id="user-form">
+            <div class="form-group">
+                <label for="student-name">विद्यार्थ्याचे नाव :</label>
+                <input type="text" id="student-name" required placeholder="पूर्ण नाव टाका">
+            </div>
+            <div class="form-group">
+                <label for="student-mobile">मोबाईल नंबर :</label>
+                <input type="tel" id="student-mobile" pattern="[0-9]{10}" required placeholder="१० अंकी मोबाईल नंबर">
+            </div>
+            <button type="button" class="btn" onclick="startQuiz()">EXAM START</button>
+        </form>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- PAGE 2: QUIZ SCREEN -->
+    <div id="quiz-screen" class="hidden">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
+            <span id="question-count">प्रश्न १ / २५</span>
+            <span>प्रत्येक प्रश्न: २ गुण</span>
+        </div>
+
+        <div id="question-text" class="question-box"></div>
+        <div id="options-box" class="options-container"></div>
+        <div id="explanation-box" class="explanation-box"></div>
+
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट प्रश्न</button>
+        <button id="submit-btn" class="btn hidden" onclick="submitExam()" style="background-color: #15803d;">SUBMIT EXAM</button>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- PAGE 3: CERTIFICATE & RESULT SCREEN -->
+    <div id="result-screen" class="hidden">
+        <div class="certificate-card">
+            <div class="cert-header">
+                🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित
+            </div>
+            <p style="margin: 5px 0;"><strong>परीक्षेचे नाव:</strong> नवोदय परीक्षा परिसर अभ्यास (भारतातील सर्वांत उंच)</p>
+            <hr>
+            <h3>प्रमाणपत्र</h3>
+            <p>प्रमाणित करण्यात येते की विद्यार्थी/विद्यार्थिनी,</p>
+            <h2 id="cert-student-name" style="color: var(--primary-color); margin: 5px 0;"></h2>
+            <p>यांनी ऑनलाईन परीक्षा यशस्वीरीत्या पूर्ण केली आहे.</p>
+
+            <div class="cert-score" id="cert-score"></div>
+            <div class="badge-icon" id="cert-badge"></div>
+            <h3 id="cert-remark" style="margin: 5px 0;"></h3>
+
+            <div class="creator-info-top" style="margin-top: 25px; background: none; border: none; padding: 0;">
+                <div class="creator-details">
+                    <strong>निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मो. 8329684470
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #b91c1c; margin-top: 15px;" onclick="toggleReview()">चुकलेले प्रश्न पहा व स्पष्टीकरण</button>
+
+        <div id="review-box" class="review-box">
+            <h3 style="color: var(--wrong-color);">चुकलेले प्रश्न आणि स्पष्टीकरण:</h3>
+            <div id="review-list"></div>
+        </div>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+</div>
+<script>
+const quizData = [
+    {
+        q: "१. भारतातील सर्वांत उंच पर्वत शिखर कोणते आहे?",
+        options: ["(अ) कंचनजंगा", "(ब) के-२ (गॉडविन ऑस्टिन)", "(क) अनामुडी", "(ड) नंदा देवी"],
+        correct: 1,
+        exp: "स्पष्टीकरण: K2 (गॉडविन ऑस्टिन) हे ८,६११ मीटर उंचीसह भारतातील सर्वांत उंच शिखर आहे."
+    },
+    {
+        q: "२. पूर्णपणे भारताच्या हद्दीत असलेले सर्वांत उंच पर्वत शिखर कोणते आहे?",
+        options: ["(अ) के-२", "(ब) कंचनजंगा", "(क) नंदा देवी", "(ड) कामेट"],
+        correct: 1,
+        exp: "स्पष्टीकरण: कंचनजंगा (८,५८६ मी) हे सिक्कीम राज्यात असून ते भारताच्या पूर्ण नियंत्रणातील सर्वांत उंच शिखर आहे."
+    },
+    {
+        q: "३. दक्षिण भारतातील सर्वांत उंच पर्वत शिखर कोणते आहे?",
+        options: ["(अ) दोड्डाबेट्टा", "(ब) अनामुडी", "(क) महाबळेश्वर", "(ड) धूपगड"],
+        correct: 1,
+        exp: "स्पष्टीकरण: अनामुडी (२,६९५ मी) हे केरळमधील आनामलाई टेकड्यांमध्ये असून ते दक्षिण भारताचे सर्वांत उंच शिखर आहे."
+    },
+    {
+        q: "४. भारतातील सर्वांत उंच धबधबा कोणता मानला जातो?",
+        options: ["(अ) जोग धबधबा", "(ब) कुंचिकल धबधबा", "(क) दूधसागर", "(ड) शिवसमुद्रम"],
+        correct: 1,
+        exp: "स्पष्टीकरण: कुंचिकल धबधबा (४५५ मीटर) हा कर्नाटकात वराही नदीवर असून तो भारतातील सर्वाधिक उंच धबधबा आहे."
+    },
+    {
+        q: "५. भारतातील सर्वांत उंच धरण कोणते आहे?",
+        options: ["(अ) भाक्रा नानगल धरण", "(ब) हिराकुड धरण", "(क) टिहरी धरण", "(ड) नागार्जुन सागर धरण"],
+        correct: 2,
+        exp: "स्पष्टीकरण: उत्तराखंडमधील भागीरथी नदीवरील 'टिहरी धरण' (२६०.५ मीटर) हे भारतातील सर्वांत उंच धरण आहे."
+    },
+    {
+        q: "६. भारतातील सर्वांत उंच पुतळा (Statue of Unity) कोणाचा आहे?",
+        options: ["(अ) महात्मा गांधी", "(ब) डॉ. बाबासाहेब आंबेडकर", "(क) सरदार वल्लभभाई पटेल", "(ड) पंडित जवाहरलाल नेहरू"],
+        correct: 2,
+        exp: "स्पष्टीकरण: गुजरातमध्ये नर्मदा नदीकाठी उभारलेला स्टॅच्यू ऑफ युनिटी हा सरदार वल्लभभाई पटेल यांचा पुतळा आहे."
+    },
+    {
+        q: "७. 'स्टॅच्यू ऑफ युनिटी'ची एकूण उंची किती आहे?",
+        options: ["(अ) १५२ मीटर", "(ब) १८२ मीटर", "(क) २०० मीटर", "(ड) २१२ मीटर"],
+        correct: 1,
+        exp: "स्पष्टीकरण: स्टॅच्यू ऑफ युनिटीची उंची १८२ मीटर (५९७ फूट) असून तो जगातील सर्वांत उंच पुतळा आहे."
+    },
+    {
+        q: "८. भारतातील सर्वांत उंच ऐतिहासिक दरवाजा कोणता आहे?",
+        options: ["(अ) इंडिया गेट", "(ब) बुलंद दरवाजा", "(क) गेटवे ऑफ इंडिया", "(ड) दिल्ली दरवाजा"],
+        correct: 1,
+        exp: "स्पष्टीकरण: बुलंद दरवाजा हा भारतातील सर्वांत उंच (५४ मीटर) ऐतिहासिक प्रवेशद्वार आहे."
+    },
+    {
+        q: "९. प्रसिद्ध 'बुलंद दरवाजा' कोणत्या ठिकाणी स्थित आहे?",
+        options: ["(अ) दिल्ली", "(ब) आग्रा", "(क) फतेहपूर सिक्री", "(ड) जयपूर"],
+        correct: 2,
+        exp: "स्पष्टीकरण: बुलंद दरवाजा हा उत्तर प्रदेशातील 'फतेहपूर सिक्री' येथे मुघल सम्राट अकबराने बांधला."
+    },
+    {
+        q: "१०. भारतातील सर्वांत उंच विटांनी बांधलेली मीनार (मनोरा) कोणती आहे?",
+        options: ["(अ) चारमिनार", "(ब) कुतुब मीनार", "(क) चांद मीनार", "(ड) झुलते मनोरे"],
+        correct: 1,
+        exp: "स्पष्टीकरण: दिल्ली येथील 'कुतुब मीनार' (७२.५ मीटर) ही विटांनी बांधलेली जगातील व भारतातील सर्वांत उंच मीनार आहे."
+    },
+    {
+        q: "११. भारतातील सर्वांत उंच पठार कोणते आहे?",
+        options: ["(अ) दख्खनचे पठार", "(ब) लडाखचे पठार", "(क) छोटा नागपूर पठार", "(ड) माळवा पठार"],
+        correct: 1,
+        exp: "स्पष्टीकरण: लडाखचे पठार (३,००० मीटरपेक्षा जास्त उंची) हे भारतातील सर्वांत उंच पठार आहे."
+    },
+    {
+        q: "१२. भारतातील सर्वांत उंच नागरी विमानतळ कोणते आहे?",
+        options: ["(अ) लेह विमानतळ (कुशोक बकुला रिम्पोचे)", "(ब) शिमला विमानतळ", "(क) श्रीनगर विमानतळ", "(ड) गांगटोक विमानतळ"],
+        correct: 0,
+        exp: "स्पष्टीकरण: लडाखमधील लेह येथील 'कुशोक बकुला रिम्पोचे विमानतळ' हे समुद्रसपाटीपासून ३,२५६ मीटर उंचीवर आहे."
+    },
+    {
+        q: "१३. महाराष्ट्रातील सह्याद्री पर्वत रांगेतील सर्वांत उंच शिखर कोणते आहे?",
+        options: ["(अ) साल्हेर", "(ब) महाबळेश्वर", "(क) कळसूबाई", "(ड) त्र्यंबकेश्वर"],
+        correct: 2,
+        exp: "स्पष्टीकरण: अहमदनगर जिल्ह्यातील 'कळसूबाई शिखर' (१,६४६ मीटर) हे महाराष्ट्रातील सर्वांत उंच शिखर आहे."
+    },
+    {
+        q: "१४. जगातील व भारतातील सर्वांत उंच युद्धाचे मैदान कोणते आहे?",
+        options: ["(अ) कारगिल", "(ब) सियाचीन ग्लेशियर", "(क) द्रास", "(ड) नथु ला"],
+        correct: 1,
+        exp: "स्पष्टीकरण: सियाचीन ग्लेशियर (सुमारे २०,००० फूट उंची) हे जगातील सर्वांत उंच युद्धक्षेत्र आहे."
+    },
+    {
+        q: "१५. भारतातील सर्वांत उंच रेल्वे स्टेशन कोणते आहे?",
+        options: ["(अ) घूम (पश्चिम बंगाल)", "(ब) शिमला", "(क) सोलन", "(ड) उटी"],
+        correct: 0,
+        exp: "स्पष्टीकरण: दार्जिलिंग हिमालयन रेल्वेचे 'घूम' स्टेशन (२,२५८ मीटर) हे भारतातील सर्वांत उंच रेल्वे स्टेशन आहे."
+    },
+    {
+        q: "१६. मध्य भारतातील सर्वांत उंच पर्वत शिखर कोणते आहे?",
+        options: ["(अ) गुरु शिखर", "(ब) धूपगड", "(क) पारसनाथ", "(ड) अमरकंटक"],
+        correct: 1,
+        exp: "स्पष्टीकरण: मध्य प्रदेशातील सातपुडा रांगेत असणारे 'धूपगड' (१,३५० मीटर) हे मध्य भारताचे सर्वांत उंच शिखर आहे."
+    },
+    {
+        q: "१७. अरवली पर्वत रांगेतील सर्वांत उंच शिखर कोणते आहे?",
+        options: ["(अ) गुरु शिखर", "(ब) माउंट आबू", "(क) अचलगड", "(ड) कळसूबाई"],
+        correct: 0,
+        exp: "स्पष्टीकरण: राजस्थानमधील माउंट आबू येथे असणारे 'गुरु शिखर' (१,७२२ मीटर) हे अरवली पर्वत रांगेतील सर्वांत उंच शिखर आहे."
+    },
+    {
+        q: "१८. भारतातील सर्वांत उंच थेट खाली कोसळणारा (Plunge) धबधबा कोणता आहे?",
+        options: ["(अ) नोहकलिकाई धबधबा", "(ब) जोग धबधबा", "(क) कपिल धारा", "(ड) चित्रकूट"],
+        correct: 0,
+        exp: "स्पष्टीकरण: मेघालयातील 'नोहकलिकाई धबधबा' (३४० मीटर) हा थेट खाली कोसळणारा सर्वांत उंच धबधबा आहे."
+    },
+    {
+        q: "१९. भारतातील सर्वांत उंच रेल्वे पूल कोणत्या नदीवर उभारण्यात आला आहे?",
+        options: ["(अ) झेलम", "(ब) चिनाब", "(क) सिंधू", "(ड) सतलज"],
+        correct: 1,
+        exp: "स्पष्टीकरण: जम्मू-काश्मीरमध्ये 'चिनाब नदीवर' नदीपात्रापासून ३५९ मीटर उंचीवर जगातील/भारतातील सर्वांत उंच रेल्वे पूल उभारला आहे."
+    },
+    {
+        q: "२०. भारतातील सर्वांत उंच गुरुत्वीय (Gravity) धरण कोणते आहे?",
+        options: ["(अ) टिहरी धरण", "(ब) भाक्रा धरण", "(क) सरदार सरोवर", "(ड) कोयना धरण"],
+        correct: 1,
+        exp: "स्पष्टीकरण: हिमाचल प्रदेशातील सतलज नदीवरील 'भाक्रा धरण' (२२६ मीटर) हे भारतातील सर्वांत उंच कंक्रीट गुरुत्वीय धरण आहे."
+    },
+    {
+        q: "२१. भारतातील सर्वांत उंच दरवाजा कोणत्या मुघल सम्राटाने बांधला होता?",
+        options: ["(अ) अकबर", "(ब) शहाजहान", "(क) हुमायून", "(ड) औरंगजेब"],
+        correct: 0,
+        exp: "स्पष्टीकरण: मुघल सम्राट अकबराने गुजरात विजयाचे प्रतीक म्हणून बुलंद दरवाजा उभारला होता."
+    },
+    {
+        q: "२२. भारतातील सर्वांत उंच मानवनिर्मित राष्ट्रीय स्मारक कोणते आहे?",
+        options: ["(अ) अमर जवान ज्योति", "(ब) राष्ट्रीय युद्ध स्मारक (National War Memorial)", "(क) इंडिया गेट", "(ड) कुतुब मीनार"],
+        correct: 1,
+        exp: "स्पष्टीकरण: दिल्लीतील 'नॅशनल वॉर मेमोरिअल' मधील परम योद्धा स्तंभ हे मुख्य स्मारक आहे."
+    },
+    {
+        q: "२३. भारतातील सर्वांत उंच टीव्ही टॉवर कोणता आहे?",
+        options: ["(अ) पीतमपुरा टॉवर (दिल्ली)", "(ब) रज्जीपुरा टॉवर", "(क) फाझिल्का टॉवर (पंजाब)", "(ड) मुंबादेवी टॉवर"],
+        correct: 0,
+        exp: "स्पष्टीकरण: दिल्लीतील 'पीतमपुरा टीव्ही टॉवर' (२३५ मीटर) हा भारतातील सर्वाधिक उंच टीव्ही टॉवर आहे."
+    },
+    {
+        q: "२४. भारतातील सर्वांत उंच धरण (टिहरी धरण) कोणत्या राज्यात आहे?",
+        options: ["(अ) हिमाचल प्रदेश", "(ब) उत्तराखंड", "(क) जम्मू आणि काश्मीर", "(ड) पंजाब"],
+        correct: 1,
+        exp: "स्पष्टीकरण: टिहरी धरण हे 'उत्तराखंड' राज्यातील तेहरी जिल्ह्यात स्थित आहे."
+    },
+    {
+        q: "२५. दक्षिण भारतातील सर्वांत उंच पर्वत शिखर 'अनामुडी' कोणत्या राज्यात आहे?",
+        options: ["(अ) तामिळनाडू", "(ब) केरळ", "(क) कर्नाटक", "(ड) आंध्र प्रदेश"],
+        correct: 1,
+        exp: "स्पष्टीकरण: अनामुडी हे शिखर 'केरळ' राज्यातील इडुक्की जिल्ह्यात स्थित आहे."
+    }
+];
+let currentQuestionIndex = 0;
+let score = 0;
+let userAnswers = [];
+let studentName = "";
+
+function startQuiz() {
+    studentName = document.getElementById('student-name').value;
+    let mobile = document.getElementById('student-mobile').value;
+
+    if (!studentName || mobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी मोबाईल नंबर योग्यरीत्या टाका.");
+        return;
+    }
+
+    document.getElementById('start-screen').classList.add('hidden');
+    document.getElementById('quiz-screen').classList.remove('hidden');
+    showQuestion();
+}
+
+function showQuestion() {
+    let qData = quizData[currentQuestionIndex];
+    document.getElementById('question-count').innerText = `प्रश्न ${currentQuestionIndex + 1} / ${quizData.length}`;
+    document.getElementById('question-text').innerText = qData.q;
+    
+    let optionsBox = document.getElementById('options-box');
+    optionsBox.innerHTML = '';
+    
+    document.getElementById('explanation-box').style.display = 'none';
+    document.getElementById('next-btn').disabled = true;
+
+    qData.options.forEach((opt, index) => {
+        let btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(index, btn);
+        optionsBox.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIndex, selectedBtn) {
+    let qData = quizData[currentQuestionIndex];
+    let allButtons = document.querySelectorAll('.option-btn');
+
+    // Disable all options after selection
+    allButtons.forEach(btn => btn.style.pointerEvents = 'none');
+
+    let isCorrect = (selectedIndex === qData.correct);
+    userAnswers.push({
+        qIndex: currentQuestionIndex,
+        selected: selectedIndex,
+        isCorrect: isCorrect
+    });
+
+    if (isCorrect) {
+        selectedBtn.classList.add('correct');
+        score += 2; // 2 marks for each question
+    } else {
+        selectedBtn.classList.add('wrong');
+        allButtons[qData.correct].classList.add('correct'); // Highlight correct option
+        
+        // Show explanation for wrong answer
+        let expBox = document.getElementById('explanation-box');
+        expBox.innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    if (currentQuestionIndex === quizData.length - 1) {
+        document.getElementById('next-btn').classList.add('hidden');
+        document.getElementById('submit-btn').classList.remove('hidden');
+    } else {
+        document.getElementById('next-btn').disabled = false;
+    }
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    showQuestion();
+}
+
+function submitExam() {
+    document.getElementById('quiz-screen').classList.add('hidden');
+    document.getElementById('result-screen').classList.remove('hidden');
+
+    let totalMarks = quizData.length * 2;
+    let percentage = (score / totalMarks) * 100;
+
+    document.getElementById('cert-student-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = `गुण: ${score} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+
+    let badge = "";
+    let remark = "";
+
+    if (percentage >= 90) {
+        badge = "🥇 🏆";
+        remark = "उत्कृष्ट कामगिरी! (Gold Medal + Trophy)";
+    } else if (percentage >= 80) {
+        badge = "🥈 🏆";
+        remark = "खूप छान कामगिरी! (Silver Medal + Trophy)";
+    } else if (percentage >= 70) {
+        badge = "🥉 🏆";
+        remark = "छान प्रयत्न! (Bronze Medal + Trophy)";
+    } else {
+        badge = "💐";
+        remark = "अभिनंदन! पुढील परीक्षेसाठी हार्दिक शुभेच्छा!";
+    }
+
+    document.getElementById('cert-badge').innerText = badge;
+    document.getElementById('cert-remark').innerText = remark;
+
+    generateReviewList();
+}
+
+function generateReviewList() {
+    let reviewList = document.getElementById('review-list');
+    reviewList.innerHTML = '';
+
+    let wrongAnswers = userAnswers.filter(ans => !ans.isCorrect);
+
+    if (wrongAnswers.length === 0) {
+        reviewList.innerHTML = "<p style='color:green; font-weight:bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+        return;
+    }
+
+    wrongAnswers.forEach(ans => {
+        let qData = quizData[ans.qIndex];
+        let item = document.createElement('div');
+        item.className = 'review-item';
+        item.innerHTML = `
+            <strong>${qData.q}</strong><br>
+            <span style="color:red;">तुमचे उत्तर: ${qData.options[ans.selected]}</span><br>
+            <span style="color:green; font-weight:bold;">योग्य उत्तर: ${qData.options[qData.correct]}</span><br>
+            <small style="color:#666;">${qData.exp}</small>
+        `;
+        reviewList.appendChild(item);
+    });
+}
+
+function toggleReview() {
+    let box = document.getElementById('review-box');
+    if (box.style.display === 'none' || box.style.display === '') {
+        box.style.display = 'block';
+    } else {
+        box.style.display = 'none';
+    }
+}
+</script>
+</body>
+</html>
