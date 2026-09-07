@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परीक्षा परिसर अभ्यास - भारतातील सर्वात मोठे</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 650px;
+            width: 100%;
+            padding: 25px;
+            position: relative;
+        }
+        .header-title {
+            text-align: center;
+            color: #1b5e20;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 8px;
+        }
+        .creator-section {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .creator-info {
+            text-align: right;
+            margin-right: 12px;
+            font-size: 13px;
+            color: #2e7d32;
+            line-height: 1.4;
+        }
+        .creator-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #4caf50;
+            object-fit: cover;
+        }
+        .exam-title-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #0d47a1;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .btn {
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #1b5e20;
+        }
+        .btn:disabled {
+            background: #b0bec5;
+            cursor: not-allowed;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+        .q-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            background: #eeeeee;
+        }
+        .option-btn.correct {
+            background-color: #c8e6c9 !important;
+            border-color: #2e7d32 !important;
+            color: #1b5e20;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #ffcdd2 !important;
+            border-color: #c62828 !important;
+            color: #b71c1c;
+            font-weight: bold;
+        }
+        .explanation-box {
+            background: #fff9c4;
+            border-left: 4px solid #fbc02d;
+            padding: 10px 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #574300;
+        }
+        .certificate-box {
+            border: 6px double #1b5e20;
+            padding: 20px;
+            border-radius: 8px;
+            background: #fafafa;
+            text-align: center;
+            position: relative;
+        }
+        .score-display {
+            font-size: 28px;
+            font-weight: bold;
+            color: #d32f2f;
+            margin: 15px 0;
+        }
+        .honor-display {
+            font-size: 20px;
+            font-weight: bold;
+            color: #f57f17;
+            margin-bottom: 20px;
+        }
+        .review-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            text-align: left;
+        }
+        .hide { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-card">
+    <!-- PAGE 1: LOGIN / START PAGE -->
+    <div id="start-page">
+        <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        
+        <div class="creator-section">
+            <div class="creator-info">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" class="creator-photo" alt="सचिन शिंदे सर">
+        </div>
+
+        <div class="exam-title-box">
+            परीक्षेचे नाव: नवोदय परीक्षा परिसर अभ्यास भारतातील सर्वात मोठे
+        </div>
+
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव :</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर :</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर टाकणे">
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+    <!-- PAGE 2: QUIZ INTERFACE -->
+    <div id="quiz-page" class="hide">
+        <div id="q-progress" style="font-size: 14px; font-weight: bold; color: #666; margin-bottom: 8px;"></div>
+        <div id="q-title" class="q-header"></div>
+        <div id="options-box"></div>
+        <div id="explanation-container" class="explanation-box hide"></div>
+
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- PAGE 3: CERTIFICATE / RESULT -->
+    <div id="result-page" class="hide">
+        <div class="certificate-box">
+            <h2 style="color: #1b5e20; margin-top: 0; font-size: 20px;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <hr style="border: 0; border-top: 2px solid #4caf50; margin: 10px 0;">
+            <p style="margin: 5px 0;"><strong>परीक्षेचे नाव:</strong> नवोदय परीक्षा परिसर अभ्यास भारतातील सर्वात मोठे</p>
+            <p style="margin: 5px 0;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name" style="color: #0d47a1; font-weight: bold;"></span></p>
+
+            <div class="score-display" id="cert-score"></div>
+            <div class="honor-display" id="cert-honor"></div>
+
+            <div class="creator-section" style="background: transparent; padding: 0; margin-top: 20px;">
+                <div class="creator-info">
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल नंबर 83 29 68 44 70
+                </div>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" class="creator-photo" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #d32f2f; margin-top: 15px;" onclick="showReviewPage()">चुकलेले प्रश्न पहा 🔍</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- PAGE 4: WRONG QUESTIONS REVIEW -->
+    <div id="review-page" class="hide">
+        <h3 style="color: #c62828; text-align: center; margin-top: 0;">चुकलेले प्रश्न व मार्गदर्शन</h3>
+        <div id="review-list"></div>
+        <button class="btn" onclick="location.reload()">पुन्हा परीक्षा द्या 🔄</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+</div>
+
+<script>
+// २५ प्रश्नांचा डेटाबेस (1 ते 25 क्रमांकांनुसार)
+const quizData = [
+    { q: "१. क्षेत्रफळाच्या दृष्टीने भारतातील सर्वांत मोठे राज्य कोणते आहे?", opts: ["महाराष्ट्र", "मध्य प्रदेश", "राजस्थान", "उत्तर प्रदेश"], ans: 2, exp: "क्षेत्रफळाच्या दृष्टीने राजस्थान (३,४२,२३९ चौ.किमी) हे भारतातील सर्वात मोठे राज्य आहे." },
+    { q: "२. क्षेत्रफळाच्या दृष्टीने भारतातील सर्वांत मोठा जिल्हा कोणता आहे?", opts: ["लेह", "कच्छ (गुजरात)", "जैसलमेर", "अहमदनगर"], ans: 1, exp: "गुजरात मधील 'कच्छ' हा क्षेत्रफळाच्या दृष्टीने भारतातील सर्वात मोठा जिल्हा आहे." },
+    { q: "३. भारतातील सर्वांत मोठे गोड्या पाण्याचे नैसर्गिक सरोवर कोणते आहे?", opts: ["चिल्का सरोवर", "वुलर सरोवर", "सांबर सरोवर", "लोकताक सरोवर"], ans: 1, exp: "जम्मू आणि काश्मीरमधील वुलर सरोवर हे भारतातील सर्वात मोठे गोड्या पाण्याचे नैसर्गिक सरोवर आहे." },
+    { q: "४. वुलर सरोवर कोणत्या राज्यात किंवा केंद्रशासित प्रदेशात आहे?", opts: ["लडाख", "जम्मू आणि काश्मीर", "हिमाचल प्रदेश", "उत्तराखंड"], ans: 1, exp: "वुलर सरोवर हे केंद्रशासित प्रदेश जम्मू आणि काश्मीर येथे स्थित आहे." },
+    { q: "५. भारतातील सर्वांत मोठे कृत्रिम (मानवनिर्मित) सरोवर कोणते आहे?", opts: ["गोविंद वल्लभ पंत सागर", "जयसमंद सरोवर", "नागार्जुन सागर", "शिवसागर"], ans: 0, exp: "रिहंद धरणावर बनवलेले गोविंद वल्लभ पंत सागर हे भारतातील सर्वात मोठे मानवनिर्मित सरोवर आहे." },
+    { q: "६. क्षेत्रफळाच्या दृष्टीने भारतातील सर्वांत मोठा केंद्रशासित प्रदेश कोणता आहे?", opts: ["अंदमान आणि निकोबार", "लडाख", "दिल्ली", "पुडुचेरी"], ans: 1, exp: "क्षेत्रफळाच्या दृष्टीने लडाख हा भारतातील सर्वात मोठा केंद्रशासित प्रदेश आहे." },
+    { q: "७. भारतातील सर्वांत मोठे संग्रहालय (Museum) कोणते आहे?", opts: ["नॅशनल म्युझियम (दिल्ली)", "भारतीय संग्रहालय (कोलकाता)", "छत्रपती शिवाजी महाराज वस्तू संग्रहालय (मुंबई)", "सालार जंग म्युझियम (हैदराबाद)"], ans: 1, exp: "कोलकाता येथील 'भारतीय संग्रहालय' (Indian Museum) हे भारतातील सर्वात मोठे संग्रहालय आहे." },
+    { q: "८. भारतातील सर्वांत मोठे वाळवंट कोणते आहे?", opts: ["थारचे वाळवंट", "कच्छचे रण", "स्पिती वाळवंट", "लडाख वाळवंट"], ans: 0, exp: "राजस्थानमधील थारचे वाळवंट हे भारतातील सर्वात मोठे वाळवंट आहे." },
+    { q: "९. जगात व भारतात सर्वांत मोठा त्रिभुज प्रदेश (Delta) कोणता आहे?", opts: ["कावेरी त्रिभुज प्रदेश", "सुंदरबन त्रिभुज प्रदेश", "गोदावरी त्रिभुज प्रदेश", "महानदी त्रिभुज प्रदेश"], ans: 1, exp: "गंगा व ब्रह्मपुत्रा नद्यांनी बनवलेला सुंदरबन त्रिभुज प्रदेश हा जगात आणि भारतात सर्वात मोठा आहे." },
+    { q: "१०. सुंदरबनचा त्रिभुज प्रदेश प्रामुख्याने कोणत्या वन्यजीवासाठी प्रसिद्ध आहे?", opts: ["एकशिंगी गेंडा", "रॉयल बंगाल टायगर", "आशियाई सिंह", "भारतीय हत्ती"], ans: 1, exp: "सुंदरबन हा प्रदेश मुख्यत्वे 'रॉयल बंगाल टायगर'साठी प्रसिद्ध आहे." },
+    { q: "११. भारतातील सर्वांत मोठा घुमट (Dome) कोणता आहे?", opts: ["ताजमहाल", "गोल घुमट (विजापूर)", "सांची स्तूप", "राष्ट्रपति भवन"], ans: 1, exp: "कर्नाटकातील विजापूर येथील 'गोल घुमट' हा भारतातील सर्वात मोठा घुमट आहे." },
+    { q: "१२. भारतातील सर्वांत मोठे प्राणीसंग्रहालय (Zoo) कोणते आहे?", opts: ["म्हैसूर प्राणीसंग्रहालय", "अण्णा प्राणीसंग्रहालय (चेन्नई)", "जिजामाता उद्यान (मुंबई)", "दिल्ली प्राणीसंग्रहालय"], ans: 1, exp: "चेन्नई येथील अरिग्नर अण्णा प्राणीसंग्रहालय (Arignar Anna Zoological Park) हे भारतातील सर्वात मोठे प्राणीसंग्रहालय आहे." },
+    { q: "१३. भारतातील सर्वांत मोठे बंदिस्त सभागृह (Auditorium) कोणते आहे?", opts: ["षण्मुखानंद हॉल (मुंबई)", "सायन्स सिटी हॉल (कोलकाता)", "भारत मंडपम (दिल्ली)", "यशोभूमी"], ans: 0, exp: "मुंबईतील श्री षण्मुखानंद हॉल हे भारतातील सर्वात मोठे बंदिस्त सभागृह मानले जाते." },
+    { q: "१४. जगातील व भारतातील सर्वांत मोठे क्रिकेट स्टेडियम कोणते आहे?", opts: ["ईडन गार्डन्स", "नरेंद्र मोदी स्टेडियम (अहमदाबाद)", "एम. ए. चिदंबरम स्टेडियम", "वानखेडे स्टेडियम"], ans: 1, exp: "अहमदाबाद येथील नरेंद्र मोदी स्टेडियम हे जगात आणि भारतात सर्वात मोठे क्रिकेट स्टेडियम आहे." },
+    { q: "१५. भारतातील सर्वांत मोठे मिठाचे पांढरे वाळवंट (Salt Desert) कोठे आहे?", opts: ["कच्छचे रण (गुजरात)", "बाडमेर", "जैसलमेर", "लेह"], ans: 0, exp: "गुजरात मधील कच्छचे रण हे भारतातील सर्वात मोठे मिठाचे पांढरे वाळवंट आहे." },
+    { q: "१६. जगात व भारतात नदीच्या पात्रातील सर्वांत मोठे बेट (River Island) कोणते आहे?", opts: ["दिवे बेट", "माजुली बेट", "श्रीरंगम", "साधू बेट"], ans: 1, exp: "माजुली बेट हे नदीच्या पात्रातील जगात व भारतातील सर्वात मोठे बेट आहे." },
+    { q: "१७. माजुली हे नदीतील बेट कोणत्या नदीच्या पात्रात आहे?", opts: ["गंगा", "ब्रह्मपुत्रा", "गोदावरी", "सिंधू"], ans: 1, exp: "माजुली बेट हे आसाम राज्यातील ब्रह्मपुत्रा नदीच्या पात्रात आहे." },
+    { q: "१८. भारतातील सर्वांत मोठे नैसर्गिक बंदर (Port) कोणते आहे?", opts: ["चेन्नई बंदर", "मुंबई बंदर", "विशाखापट्टणम बंदर", "कांडला बंदर"], ans: 1, exp: "मुंबई बंदर हे भारतातील सर्वात मोठे नैसर्गिक बंदर आहे." },
+    { q: "१९. भारतातील सर्वांत मोठे व्यावसायिक खाजगी बंदर कोणता आहे?", opts: ["मुंद्रा बंदर (गुजरात)", "रत्नागिरी बंदर", "धामरा बंदर", "दिघी बंदर"], ans: 0, exp: "गुजरात मधील 'मुंद्रा बंदर' हे भारतातील सर्वात मोठे खाजगी व्यावसायिक बंदर आहे." },
+    { q: "२०. भारतातील एकाच खडकात कोरलेले सर्वांत मोठे गुहा मंदिर कोणते आहे?", opts: ["अजिंठा गुहा", "कैलास मंदिर (वेरूळ)", "घारापुरी गुहा", "कार्ला गुहा"], ans: 1, exp: "वेरूळ येथील 'कैलास मंदिर' हे एकाच अखंड खडकातून कोरलेले सर्वात मोठे गुहा मंदिर आहे." },
+    { q: "२१. लोकसंख्येच्या दृष्टीने भारतातील सर्वांत मोठे राज्य कोणते आहे?", opts: ["महाराष्ट्र", "बिहार", "उत्तर प्रदेश", "पश्चिम बंगाल"], ans: 2, exp: "उत्तर प्रदेश हे लोकसंख्येच्या दृष्टीने भारतातील सर्वात मोठे राज्य आहे." },
+    { q: "२२. भारतातील जमिनीने वेढलेले सर्वांत मोठे खाऱ्या पाण्याचे (Inland Salt Lake) सरोवर कोणते?", opts: ["चिल्का सरोवर", "सांबर सरोवर (राजस्थान)", "लोणार सरोवर", "पुलिकत सरोवर"], ans: 1, exp: "राजस्थान मधील 'सांबर सरोवर' हे जमिनीने वेढलेले (Inland) सर्वात मोठे खाऱ्या पाण्याचे सरोवर आहे." },
+    { q: "२३. भारतातील सर्वांत मोठे तारांगण (Planetarium) कोणते आहे?", opts: ["नेहरू तारांगण (मुंबई)", "बिर्ला तारांगण (कोलकाता)", "नेहरू तारांगण (दिल्ली)", "तारांगण (बंगळुरू)"], ans: 1, exp: "कोलकाता येथील 'एम. पी. बिर्ला तारांगण' हे भारतातील सर्वात मोठे तारांगण आहे." },
+    { q: "२४. भारतातील सर्वांत मोठे क्षेत्र असणारे राष्ट्रीय उद्यान कोणते आहे?", opts: ["जिम कॉर्बेट", "हेमिस राष्ट्रीय उद्यान (लडाख)", "गिर राष्ट्रीय उद्यान", "काझीरंगा"], ans: 1, exp: "लडाखमधील 'हेमिस राष्ट्रीय उद्यान' हे भारतातील सर्वात मोठे राष्ट्रीय उद्यान आहे." },
+    { q: "२५. भारतातील सर्वांत मोठे सार्वजनिक बँक (Public Sector Bank) कोणती आहे?", opts: ["बँक ऑफ महाराष्ट्र", "स्टेट बँक ऑफ इंडिया (SBI)", "पंजाब नॅशनल बँक", "बँक ऑफ बडोदा"], ans: 1, exp: "स्टेट बँक ऑफ इंडिया (SBI) ही भारतातील सर्वात मोठी सार्वजनिक क्षेत्रातील बँक आहे." }
+];
+let currentIdx = 0;
+let userScore = 0;
+let wrongList = [];
+let nameVal = "";
+let mobileVal = "";
+
+function startExam() {
+    nameVal = document.getElementById('student-name').value.trim();
+    mobileVal = document.getElementById('student-mobile').value.trim();
+
+    if (nameVal === "" || mobileVal === "") {
+        alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर पूर्ण भरा!");
+        return;
+    }
+    if (mobileVal.length < 10) {
+        alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+        return;
+    }
+
+    document.getElementById('start-page').classList.add('hide');
+    document.getElementById('quiz-page').classList.remove('hide');
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const item = quizData[currentIdx];
+    document.getElementById('q-progress').innerText = `प्रश्न ${currentIdx + 1} / २५ (गुण: २)`;
+    document.getElementById('q-title').innerText = item.q;
+
+    const optsBox = document.getElementById('options-box');
+    optsBox.innerHTML = "";
+
+    document.getElementById('explanation-container').classList.add('hide');
+    document.getElementById('next-btn').disabled = true;
+
+    if (currentIdx === quizData.length - 1) {
+        document.getElementById('next-btn').innerText = "SUBMIT EXAM";
+    } else {
+        document.getElementById('next-btn').innerText = "नेक्स्ट";
+    }
+
+    item.opts.forEach((optText, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = optText;
+        btn.onclick = () => handleOptionClick(i);
+        optsBox.appendChild(btn);
+    });
+}
+
+function handleOptionClick(selectedOpt) {
+    const item = quizData[currentIdx];
+    const buttons = document.querySelectorAll('.option-btn');
+
+    // सर्व बटणे अक्षम (Disable) करणे
+    buttons.forEach(b => b.onclick = null);
+
+    if (selectedOpt === item.ans) {
+        buttons[selectedOpt].classList.add('correct');
+        userScore += 2; // प्रत्येक योग्य प्रश्नाला २ गुण
+    } else {
+        buttons[selectedOpt].classList.add('wrong');
+        buttons[item.ans].classList.add('correct');
+
+        // स्पष्टीकरण दाखवणे
+        const expBox = document.getElementById('explanation-container');
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${item.exp}`;
+        expBox.classList.remove('hide');
+
+        // चुकीचा प्रश्न संग्रहित करणे
+        wrongList.push({
+            q: item.q,
+            userAns: item.opts[selectedOpt],
+            correctAns: item.opts[item.ans],
+            exp: item.exp
+        });
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    currentIdx++;
+    if (currentIdx < quizData.length) {
+        renderQuestion();
+    } else {
+        processResults();
+    }
+}
+
+function processResults() {
+    document.getElementById('quiz-page').classList.add('hide');
+    document.getElementById('result-page').classList.remove('hide');
+
+    const totalMarks = quizData.length * 2; // एकूण ५० गुण
+    const percentage = (userScore / totalMarks) * 100;
+
+    document.getElementById('cert-name').innerText = nameVal;
+    document.getElementById('cert-score').innerText = `मिळालेले गुण: ${userScore} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+
+    let honorMsg = "";
+    if (percentage >= 90) {
+        honorMsg = "🥇 Gold Medal + Trophy 🏆<br>उत्कृष्ट कामगिरी!";
+    } else if (percentage >= 80) {
+        honorMsg = "🥈 Silver Medal + Trophy 🏆<br>छान कामगिरी!";
+    } else if (percentage >= 70) {
+        honorMsg = "🥉 Bronze Medal + Trophy 🏆<br>चांगली कामगिरी!";
+    } else {
+        honorMsg = "💐 अभिनंदन! फुलांचा गुच्छ 💐<br>"पुढील परीक्षेसाठी शुभेच्छा"";
+    }
+
+    document.getElementById('cert-honor').innerHTML = honorMsg;
+}
+
+function showReviewPage() {
+    document.getElementById('result-page').classList.add('hide');
+    document.getElementById('review-page').classList.remove('hide');
+
+    const container = document.getElementById('review-list');
+    container.innerHTML = "";
+
+    if (wrongList.length === 0) {
+        container.innerHTML = "<p style='color: green; font-weight: bold; text-align: center;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही.</p>";
+        return;
+    }
+
+    wrongList.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        card.innerHTML = `
+            <p style="margin: 0 0 5px 0;"><strong>${item.q}</strong></p>
+            <p style="color: #c62828; margin: 3px 0;">तुमचे उत्तर: ${item.userAns}</p>
+            <p style="color: #2e7d32; margin: 3px 0;">योग्य उत्तर: ${item.correctAns}</p>
+            <p style="font-size: 13px; color: #555; margin: 5px 0 0 0;"><strong>मार्गदर्शन:</strong> ${item.exp}</p>
+        `;
+        container.appendChild(card);
+    });
+}
+</script>
+
+</body>
+</html>
