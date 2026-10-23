@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - टेस्ट</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f3;
+            margin: 0;
+            padding: 10px;
+            color: #333;
+        }
+        .container {
+            max-width: 700px;
+            background: #ffffff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .header-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #0b5394;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .exam-heading {
+            text-align: center;
+            color: #203764;
+            font-size: 22px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn:hover { background: #218838; }
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .bottom-right-info {
+            text-align: right;
+            font-size: 13px;
+            color: #444;
+            margin-top: 25px;
+            line-height: 1.4;
+        }
+        .bottom-right-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-top: 5px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .option-btn:hover { background: #e2e6ea; }
+        .option-btn.correct { background: #d4edda !important; border-color: #c3e6cb; color: #155724; font-weight: bold; }
+        .option-btn.incorrect { background: #f8d7da !important; border-color: #f5c6cb; color: #721c24; font-weight: bold; }
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 15px;
+            color: #856404;
+            font-size: 15px;
+        }
+        .certificate-box {
+            border: 4px solid #1a73e8;
+            border-radius: 12px;
+            padding: 25px;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        
+        <!-- START SCREEN -->
+        <div id="start-screen">
+            <div class="exam-heading">परिसर अभ्यास संकीर्ण प्रश्न</div>
+            <div class="form-group">
+                <label>विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+            </div>
+            <div class="form-group">
+                <label>मोबाईल नंबर:</label>
+                <input type="text" id="student-mobile" placeholder="मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+            </div>
+            <button class="btn" onclick="startExam()">EXAM START</button>
+            
+            <div class="footer-text">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+            <div class="bottom-right-info">
+                संकल्पना व निर्मिती<br>
+                <strong>श्री सचिन शिंदे सर</strong><br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 8329684470<br>
+                <img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde Sir">
+            </div>
+        </div>
+
+        <!-- QUIZ SCREEN -->
+        <div id="quiz-screen" style="display:none;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px; color: #555;">
+                <span id="question-count">प्रश्न: 1/40</span>
+                <span id="score-display">गुण: 0</span>
+            </div>
+            <div id="question-text" style="font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #222;"></div>
+            <div id="options-container"></div>
+            <div id="explanation-box" style="display:none;" class="explanation"></div>
+            <button id="next-btn" class="btn" style="margin-top: 20px; display:none;" onclick="nextQuestion()">पुढील प्रश्न (Next)</button>
+            <div class="footer-text" style="margin-top: 30px;">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div id="result-screen" style="display:none;"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "२०० सें.मी. पेक्षा जास्त पर्जन्यमान असलेल्या प्रदेशात प्रामुख्याने कोणती जंगले आढळतात?",
+                options: ["पानझडी", "काटेरी", "सदाहरित", "पर्वतीय"],
+                answer: 2,
+                explanation: "२०० सें.मी. पेक्षा जास्त पर्जन्यमान असलेल्या प्रदेशात सदाहरित जंगले प्रामुख्याने आढळतात."
+            },
+            {
+                question: "भारतातील पानझडी जंगलांमध्ये खालीलपैकी कोणता वृक्ष प्रमुख नाही?",
+                options: ["साल", "सागवान", "तेंडू", "रिझोफोरा"],
+                answer: 3,
+                explanation: "रिझोफोरा हा खारफुटी (मँग्रोव्ह) जंगलातील वृक्ष आहे, पानझडीचा नाही."
+            },
+            {
+                question: "एकशिंगी गेंड्यासाठी प्रसिद्ध राष्ट्रीय उद्यान कोणते?",
+                options: ["गिर", "काझीरंगा", "पेरियार", "रणथंबोर"],
+                answer: 1,
+                explanation: "काझीरंगा राष्ट्रीय उद्यान हे एकशिंगी गेंड्यासाठी प्रसिद्ध आहे."
+            },
+            {
+                question: "खालीलपैकी चुकीची जोडी ओळखा.",
+                options: ["गिर - आशियाई सिंह", "काझीरंगा - एकशिंगी गेंडा", "पेरियार - हत्ती", "कान्हा - रॉयल बंगाल वाघ"],
+                answer: 3,
+                explanation: "कान्हा राष्ट्रीय उद्यान प्रामुख्याने बाराशिंगासाठी प्रसिद्ध आहे (रॉयल बंगाल वाघ सुंदरबनसाठी प्रसिद्ध आहे)."
+            },
+            {
+                question: "भारतात सर्वाधिक क्षेत्र कोणत्या प्रकारच्या जंगलांनी व्यापलेले आहे?",
+                options: ["सदाहरित जंगले", "खारफुटी जंगले", "उष्णकटिबंधीय पानझडी जंगले", "काटेरी जंगले"],
+                answer: 2,
+                explanation: "भारतात सर्वाधिक क्षेत्र उष्णकटिबंधीय पानझडी जंगलांनी व्यापलेले आहे."
+            },
+            {
+                question: "बाराशिंगा या प्राण्यासाठी प्रसिद्ध राष्ट्रीय उद्यान कोणते?",
+                options: ["कान्हा", "गिर", "काझीरंगा", "सुंदरबन"],
+                answer: 0,
+                explanation: "कान्हा राष्ट्रीय उद्यान हे बाराशिंगा या प्राण्यासाठी प्रसिद्ध आहे."
+            },
+            {
+                question: "सागवान आणि साल ही झाडे कोणत्या जंगलप्रकारात प्रामुख्याने आढळतात?",
+                options: ["खारफुटी", "पानझडी", "पर्वतीय", "काटेरी"],
+                answer: 1,
+                explanation: "सागवान आणि साल ही झाडे पानझडी जंगलात प्रामुख्याने आढळतात."
+            },
+            {
+                question: "रॉयल बंगाल वाघासाठी प्रसिद्ध राष्ट्रीय उद्यान कोणते?",
+                options: ["पेरियार", "सुंदरबन", "गिर", "रणथंबोर"],
+                answer: 1,
+                explanation: "सुंदरबन राष्ट्रीय उद्यान हे रॉयल बंगाल वाघासाठी प्रसिद्ध आहे."
+            },
+            {
+                question: "भारतात सर्वाधिक जंगलक्षेत्र कोणत्या राज्यात आहे?",
+                options: ["महाराष्ट्र", "मध्य प्रदेश", "छत्तीसगड", "अरुणाचल प्रदेश"],
+                answer: 1,
+                explanation: "क्षेत्रफळाच्या दृष्टीने भारतात सर्वाधिक जंगलक्षेत्र मध्य प्रदेश राज्यात आहे."
+            },
+            {
+                question: "वनक्षेत्राची टक्केवारी सर्वाधिक कोणत्या राज्यात आहे?",
+                options: ["नागालँड", "अरुणाचल प्रदेश", "मिझोरम", "सिक्कीम"],
+                answer: 2,
+                explanation: "मिझोरम राज्यात वनक्षेत्राची टक्केवारी सर्वाधिक आहे."
+            },
+            {
+                question: "खालील विधानांचा विचार करा: 1. सदाहरित जंगलामध्ये वर्षभर हिरवीगार झाडे असतात. 2. काटेरी जंगले जास्त पर्जन्याच्या प्रदेशात आढळतात. योग्य पर्याय निवडा.",
+                options: ["फक्त १ बरोबर", "फक्त २ बरोबर", "१ आणि २ दोन्ही बरोबर", "१ आणि २ दोन्ही चुकीचे"],
+                answer: 0,
+                explanation: "सदाहरित जंगलात वर्षभर हिरवी झाडे असतात (विधान १ बरोबर), तर काटेरी जंगले कमी पर्जन्याच्या प्रदेशात आढळतात (विधान २ चूक)."
+            },
+            {
+                question: "खारफुटी जंगले मुख्यत: कोठे विकसित होतात?",
+                options: ["प पर्वतशिखरांवर", "नदीमुख आणि समुद्रकिनारी", "वाळवंटी प्रदेशात", "पठारी प्रदेशात"],
+                answer: 1,
+                explanation: "खारफुटी जंगले नदीमुख आणि समुद्रकिनारीिखाऱ्या प्रदेशात विकसित होतात."
+            },
+            {
+                question: "उन्हाळ्यात पाने गळणाऱ्या जंगलांना काय म्हणतात?",
+                options: ["सदाहरित", "खारफुटी", "पानझडी", "पर्वतीय"],
+                answer: 2,
+                explanation: "उन्हाळ्यात पाण्याची कमतरता भासल्याने पाने गळणाऱ्या जंगलांना पानझडी जंगले म्हणतात."
+            },
+            {
+                question: "भारतातील सर्वात मोठे मँग्रोव्ह जंगल कोणते?",
+                options: ["पेरियार", "गिर", "सुंदरबन", "कान्हा"],
+                answer: 2,
+                explanation: "सुंदरबन हे भारतातील आणि जगातील सर्वात मोठे मँग्रोव्ह (खारफुटी) जंगल आहे."
+            },
+            {
+                question: "देवदार, फर आणि स्पूस ही झाडे कोणत्या प्रकारच्या जंगलात आढळतात?",
+                options: ["पानझडी", "पर्वतीय", "खारफुटी", "काटेरी"],
+                answer: 1,
+                explanation: "देवदार, फर आणि स्पूस ही झाडे पर्वतीय जंगलांमध्ये आढळतात."
+            },
+            {
+                question: "संयुक्त वन व्यवस्थापन (Joint Forest Management) याचा मुख्य उद्देश कोणता?",
+                options: ["उद्योगांना लाकूड पुरवणे", "वनसंवर्धनात लोकसहभाग वाढवणे", "जंगलतोड वाढवणे", "खाणकाम वाढवणे"],
+                answer: 1,
+                explanation: "वनसंवर्धन आणि व्यवस्थापनात स्थानिकांचा लोकसहभाग वाढवणे हा याचा मुख्य उद्देश आहे."
+            },
+            {
+                question: "खालीलपैकी जंगलांमधील सर्वात गंभीर मानवनिर्मित धोका कोणता?",
+                options: ["दावानल", "वृक्षतोड", "धुके", "गारपीट"],
+                answer: 1,
+                explanation: "मानवनिर्मित धोका प्रामुख्याने वृक्षतोड (अति-वृक्षतोड) आहे."
+            },
+            {
+                question: "रेफ्रिजरेटरमध्ये अन्नपदार्थ जास्त काळ टिकण्याचे मुख्य कारण काय आहे?",
+                options: ["अन्नातील पाणी वाढते.", "कमी तापमानामुळे सूक्ष्मजीवांची वाढ मंदावते.", "अन्न पूर्णपणे निर्जंतुक होते.", "ऑक्सिजनचे प्रमाण वाढते."],
+                answer: 1,
+                explanation: "कमी तापमानामुळे सूक्ष्मजीवांची वाढ आणि रासायनिक प्रक्रिया मंदावते, ज्यामुळे अन्न टिकते."
+            },
+            {
+                question: "प्रेशर कुकरमध्ये अन्न लवकर शिजण्याचे कारण काय आहे?",
+                options: ["उष्णता कमी होते.", "दाब वाढल्यामुळे पाण्याचा उकळबिंदू वाढतो.", "पाण्याचे बाष्पीभवन थांबते.", "ऑक्सिजनचे प्रमाण वाढते."],
+                answer: 1,
+                explanation: "दाब वाढल्यामुळे पाण्याचा उकळबिंदू वाढतो आणि अन्न अधिक तापमानावर लवकर शिजते."
+            },
+            {
+                question: "थर्मास फ्लास्कमध्ये गरम किंवा थंड पदार्थाचे तापमान टिकवण्यासाठी मुख्यत्वे कोणत्या तत्त्वाचा उपयोग होतो?",
+                options: ["प्रकाशाचे परावर्तन", "उष्णतेचे वहन, संवहन व उत्सर्जन कमी करणे", "ध्वनीचे परावर्तन", "चुंबकत्व"],
+                answer: 1,
+                explanation: "थर्मास फ्लास्कमध्ये पोकळी आणि चांदीचा थर देऊन उष्णतेचे वहन, संवहन व उत्सर्जन कमी केले जाते."
+            },
+            {
+                question: "विजेचा धक्का टाळण्यासाठी घरगुती उपकरणांमध्ये कोणती व्यवस्था असते?",
+                options: ["तटस्थ तार", "फ्यूज व अर्थिंग", "बॅटरी", "दिवे"],
+                answer: 1,
+                explanation: "फ्यूज व अर्थिंगमुळे विजेचा धक्का व उपकरणांचे नुकसान टाळता येते."
+            },
+            {
+                question: "LED बल्ब इतर बल्बच्या तुलनेत अधिक कार्यक्षम का असतो?",
+                options: ["तो अधिक उष्णता निर्माण करतो.", "कमी वीज वापरून अधिक प्रकाश देतो.", "त्यात वायू असतो.", "त्याचा आकार मोठा असतो."],
+                answer: 1,
+                explanation: "LED बल्ब खूप कमी वीज वापरून जास्त प्रकाश देतो आणि उष्णता कमी निर्माण करतो."
+            },
+            {
+                question: "कपडे लवकरात लवकर सुकण्याचे मुख्य कारण कोणते?",
+                options: ["संवहन", "बाष्पीभवन", "प्रसरण", "उर्ध्वपातन"],
+                answer: 1,
+                explanation: "पाण्याचे बाष्पीभवन वेगाने झाल्यामुळे कपडे लवकर सुकतात."
+            },
+            {
+                question: "आकाशात इंद्रधनुष्य दिसण्याचे कारण कोणते?",
+                options: ["अपवर्तन", "परावर्तन", "विसर्जन", "विकुलन"],
+                answer: 0,
+                explanation: "प्रकाशकिरणांचे अपवर्तन, अंतर्गत परावर्तन व वर्णिक्षेपण यामुळे इंद्रधनुष्य दिसते."
+            },
+            {
+                question: "इंद्रधनुष्य तयार करण्यासाठी मुख्यत्वे कोणत्या प्रक्रियेचा सहभाग असतो?",
+                options: ["अपवर्तन, अंतर्गत परावर्तन व वर्णिक्षेपण", "परावर्तन व अपवर्तन", "फक्त अपवर्तन", "फक्त परावर्तन"],
+                answer: 0,
+                explanation: "पाण्याच्या थेंबातून जाताना अपवर्तन, अंतर्गत परावर्तन आणि वर्णिक्षेपण या तिन्ही क्रिया होतात."
+            },
+            {
+                question: "पावसाळ्यानंतर विजेचा कडकडाट आधी दिसते आणि आवाज नंतर ऐकू येतो, कारण...",
+                options: ["प्रकाशाचा वेग ध्वनीपेक्षा जास्त असतो.", "ध्वनीचा वेग प्रकाशापेक्षा जास्त असतो.", "दोन्हीचा वेग समान असतो.", "हवा ध्वनीला अडवते."],
+                answer: 0,
+                explanation: "प्रकाशाचा वेग ध्वनीच्या वेगापेक्षा खूप जास्त असल्याने प्रकाश आधी दिसतो."
+            },
+            {
+                question: "वाहात सीट बेल्ट लावण्यामागील वैज्ञानिक कारण कोणते आहे?",
+                options: ["गुरुत्वाकर्षण", "जडत्व (Inertia)", "घर्षण", "चुंबकत्व"],
+                answer: 1,
+                explanation: "वाहन अचानक थांबल्यास शरीराचे गतीचे जडत्व (Inertia of motion) मुळे होणारा धक्का टाळण्यासाठी सीट बेल्ट वापरतात."
+            },
+            {
+                question: "साबण पाण्याची स्वच्छता कशी वाढवतो?",
+                options: ["पाण्याचे तापमान वाढवतो.", "पृष्ठताण कमी करतो.", "पाण्याचा रंग बदलतो.", "पाण्याचे बाष्पीभवन वाढवतो."],
+                answer: 1,
+                explanation: "साबण पाण्याचा पृष्ठताण (Surface Tension) कमी करून मळामध्ये पाणी सहज भिजवू देतो."
+            },
+            {
+                question: "पिण्याचे पाणी उकळल्याने काय होते?",
+                options: ["सर्व क्षार नष्ट होतात.", "बहुतेक रोगकारक सूक्ष्मजीव नष्ट होतात.", "पाण्याचा रंग कायम बदलतो.", "पाणी गोड होते."],
+                answer: 1,
+                explanation: "उकळल्यामुळे पाण्यातील हानीकारक रोगकारक सूक्ष्मजीव व जंतू नष्ट होतात."
+            },
+            {
+                question: "लोखंडाला गंज का लागतो?",
+                options: ["कार्बन डायऑक्साईडमुळे", "ऑक्सिजन व आर्द्रतेमुळे", "सूर्यप्रकाशांमुळे", "नायट्रोजनमुळे"],
+                answer: 1,
+                explanation: "लोखंडाची ऑक्सिजन आणि हवेतील आर्द्रता (पाणी) यांच्याशी रासायनिक प्रक्रिया होऊन गंज लागतो."
+            },
+            {
+                question: "स्टेनलेस स्टीमला सहज गंज का लागत नाही?",
+                options: ["ते प्लास्टिकचे असते.", "त्यात क्रोमियम असल्यामुळे संरक्षणात्मक थर तयार होतो.", "त्यात पाणी नसते.", "त्यात तांबे नसते."],
+                answer: 1,
+                explanation: "स्टेनलेस स्टीलमध्ये क्रोमियम असते, ज्यामुळे त्यावर गंजविरोधी संरक्षणात्मक ऑक्साईडचा थर तयार होतो."
+            },
+            {
+                question: "दही तयार होण्यासाठी कोणते सूक्ष्मजीव उपयुक्त असतात?",
+                options: ["विषाणू", "बुरशी", "लॅक्टोबॅसिलस जिवाणू", "प्रोटोजोआ"],
+                answer: 2,
+                explanation: "लॅक्टोबॅसिलस हे जिवाणू दुधाचे रूपांतर दह्यात करतात."
+            },
+            {
+                question: "अन्न बराच वेळ उघडे ठेवल्याने ते खराब होण्याचे मुख्य कारण काय आहे?",
+                options: ["सूक्ष्मजीव", "धुलीकणांची बाधा", "प्रकाशाचे परावर्तन", "हवा"],
+                answer: 0,
+                explanation: "उघड्या अन्नावर हवेतील सूक्ष्मजीव व जिवाणू वाढल्याने अन्न खराब होते."
+            },
+            {
+                question: "खालीलपैकी कोणता वृक्ष नायट्रोजन स्थिरीकरणास मदत करतो?",
+                options: ["बाभूळ", "आंबा", "नारळ", "वड"],
+                answer: 0,
+                explanation: "बाभूळ सारख्या शेंगा येणाऱ्या (Leguminous) वनस्पतींच्या मुळांमध्ये नायट्रोजन स्थिरीकरण करणारे जिवाणू असतात."
+            },
+            {
+                question: "खालीलपैकी कोणत्या वृक्षाला शेंगा येतात?",
+                options: ["बाभूळ", "वड", "पिंपळ", "गुलमोहोर"],
+                answer: 0,
+                explanation: "बाभूळ या वृक्षाला शेंगा येतात (शेंगा वर्गातील वनस्पती)."
+            },
+            {
+                question: "'ग्रीन गोल्ड' म्हणून कोणत्या वनस्पतीला ओळखले जाते?",
+                options: ["बांबू", "सागवान", "चंदन", "रबर"],
+                answer: 0,
+                explanation: "बाडूला (बांबू) जलद वाढ आणि उपयुक्ततेमुळे 'ग्रीन गोल्ड' (हिरवे सोने) म्हटले जाते."
+            },
+            {
+                question: "बांबू हा वनस्पतिशास्त्रानुसार कोणत्या गटात मोडतो?",
+                options: ["वृक्ष", "झुडूप", "गवत", "वेल"],
+                answer: 2,
+                explanation: "वनस्पतिशास्त्रानुसार बांबू हे जगातील सर्वात उंच गवत (Grass family) या गटात मोडतो."
+            },
+            {
+                question: "समुद्रकिनारी भागात घरांच्या बांधकामात कोणती गोष्ट महत्त्वाची मानली जाते?",
+                options: ["जाड दगडी भिंती", "हवेशीर रचना व गंजरोधक साहित्य", "खिडक्या नसणे", "मातीच्या भिंती"],
+                answer: 1,
+                explanation: "किनारपट्टीवर हवेतील ओलावा व क्षारांमुळे गंजरोधक साहित्य आणि हवेशीर रचना महत्त्वाची असते."
+            },
+            {
+                question: "'ग्रीन बिल्डिंग'चा मुख्य उद्देश काय आहे?",
+                options: ["जास्त वीज वापरणे", "पर्यावरण संरक्षण व ऊर्जा बचत", "उंच इमारती बांधणे", "सजावट वाढवणे"],
+                answer: 1,
+                explanation: "'ग्रीन बिल्डिंग'चा मुख्य उद्देश पर्यावरण संरक्षण, पाणी व ऊर्जा बचत करणे हा आहे."
+            },
+            {
+                question: "वाळवंटी भागातील घरांचा रंग प्रामुख्याने फिकट का असतो?",
+                options: ["अधिक उष्णता शोषण्यासाठी", "सूर्यप्रकाश परावर्तित करण्यासाठी", "पावसाचे पाणी साठवण्यासाठी", "सजावटीसाठी"],
+                answer: 1,
+                explanation: "फिकट रंगांमुळे सूर्यप्रकाश परावर्तित होतो आणि घरे थंड राहतात."
+            }
+        ];
+let currentQuestion = 0;
+        let score = 0;
+        let studentName = "";
+        let studentMobile = "";
+        let userAnswers = [];
+
+        function startExam() {
+            studentName = document.getElementById("student-name").value.trim();
+            studentMobile = document.getElementById("student-mobile").value.trim();
+            if(!studentName || !studentMobile) {
+                alert("कृपया विद्यार्थी नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+                return;
+            }
+            document.getElementById("start-screen").style.display = "none";
+            document.getElementById("quiz-screen").style.display = "block";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById("question-count").innerText = `प्रश्न: ${currentQuestion + 1}/${questions.length}`;
+            document.getElementById("score-display").innerText = `गुण: ${score}`;
+            document.getElementById("question-text").innerText = `${currentQuestion + 1}. ${q.question}`;
+            
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.innerHTML = "";
+            document.getElementById("explanation-box").style.display = "none";
+            document.getElementById("next-btn").style.display = "none";
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = `${String.fromCharCode(65 + index)}. ${opt}`;
+                btn.onclick = () => selectOption(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, selectedBtn) {
+            const q = questions[currentQuestion];
+            const allBtns = document.querySelectorAll(".option-btn");
+            
+            allBtns.forEach(b => b.onclick = null);
+
+            userAnswers[currentQuestion] = {
+                question: q.question,
+                options: q.options,
+                selected: selectedIndex,
+                correct: q.answer,
+                explanation: q.explanation
+            };
+
+            if(selectedIndex === q.answer) {
+                selectedBtn.classList.add("correct");
+                score += 2; // प्रत्येक प्रश्नाला दोन गुण
+            } else {
+                selectedBtn.classList.add("incorrect");
+                allBtns[q.answer].classList.add("correct");
+                const expBox = document.getElementById("explanation-box");
+                expBox.innerHTML = `<strong>चुकीचे उत्तर!</strong> योग्य उत्तर: ${q.options[q.answer]}<br><em>स्पष्टीकरण:</em> ${q.explanation}`;
+                expBox.style.display = "block";
+            }
+
+            document.getElementById("score-display").innerText = `गुण: ${score}`;
+            document.getElementById("next-btn").style.display = "block";
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if(currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById("quiz-screen").style.display = "none";
+            const resultScreen = document.getElementById("result-screen");
+            resultScreen.style.display = "block";
+
+            const totalMarks = questions.length * 2; // 40 * 2 = 80 गुण
+            const percentage = (score / totalMarks) * 100;
+
+            let achievement = "";
+            if(percentage >= 90) {
+                achievement = "🥇 90% किंवा अधिक → Gold Medal + Trophy 🏆";
+            } else if(percentage >= 80) {
+                achievement = "🥈 89% ते 80% → Silver Medal + Trophy 🥈";
+            } else if(percentage >= 70) {
+                achievement = "🥉 79% ते 70% → Bronze Medal + Trophy 🥉";
+            } else {
+                achievement = "💐 70% पेक्षा कमी → अभिनंदन! फुलांचा गुच्छ व \"पुढील परीक्षेसाठी शुभेच्छा\"";
+            }
+
+            resultScreen.innerHTML = `
+                <div class="certificate-box">
+                    <div style="font-size: 18px; font-weight: bold; color: #0b5394; margin-bottom: 10px; text-align: center;">
+                        🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित
+                    </div>
+                    <div style="font-size: 20px; font-weight: bold; color: #333; margin-bottom: 15px; text-align: center;">
+                        परिसर अभ्यास संकीर्ण प्रश्न - निकाल पत्रक
+                    </div>
+                    <div style="font-size: 16px; margin-bottom: 8px;"><strong>विद्यार्थ्याचे नाव:</strong> ${studentName}</div>
+                    <div style="font-size: 16px; margin-bottom: 15px;"><strong>मोबाईल नंबर:</strong> ${studentMobile}</div>
+                    
+                    <div style="font-size: 28px; font-weight: bold; color: #28a745; margin: 15px 0; text-align: center;">
+                        मिळालेले गुण: ${score} / ${totalMarks} (${percentage.toFixed(1)}%)
+                    </div>
+                    
+                    <div style="font-size: 18px; font-weight: bold; color: #d9534f; background: #fff; padding: 12px; border-radius: 8px; border: 1px dashed #ccc; margin: 20px 0; text-align: center;">
+                        कामगिरीनुसार सन्मान:<br>${achievement}
+                    </div>
+
+                    <button class="btn" onclick="showIncorrectReview()" style="background: #17a2b8; margin-top: 10px;">चुकलेले प्रश्न व मार्गदर्शन पाहा</button>
+                </div>
+                <div class="footer-text">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+                <div class="bottom-right-info">
+                    संकल्पना व निर्मिती<br>
+                    <strong>श्री सचिन शिंदे सर</strong><br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल नंबर: 8329684470<br>
+                    <img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde Sir">
+                </div>
+                <div id="review-container" style="margin-top: 20px;"></div>
+            `;
+        }
+
+        function showIncorrectReview() {
+            const reviewContainer = document.getElementById("review-container");
+            reviewContainer.innerHTML = "<h3 style='color: #203764; border-bottom: 2px solid #ddd; padding-bottom: 5px;'>चुकलेले प्रश्न आणि मार्गदर्शन:</h3>";
+            
+            let incorrectCount = 0;
+            userAnswers.forEach((ans, idx) => {
+                if(ans.selected !== ans.correct) {
+                    incorrectCount++;
+                    reviewContainer.innerHTML += `
+                        <div style="background: #fff; border: 1px solid #f5c6cb; border-left: 5px solid #dc3545; padding: 15px; margin-bottom: 15px; border-radius: 6px;">
+                            <strong>प्रश्न ${idx + 1}:</strong> ${ans.question}<br>
+                            <span style="color: #721c24;">तुमचे उत्तर: ${ans.options[ans.selected]}</span><br>
+                            <span style="color: #155724; font-weight: bold;">योग्य उत्तर: ${ans.options[ans.correct]}</span><br>
+                            <div style="margin-top: 8px; background: #fff3cd; padding: 8px; border-radius: 4px; color: #856404;">
+                                <strong>स्पष्टीकरण:</strong> ${ans.explanation}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            if(incorrectCount === 0) {
+                reviewContainer.innerHTML += "<p style='color: #28a745; font-weight: bold; text-align: center;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत, कोणतीही चूक नाही!</p>";
+            }
+        }
+    </script>
+</body>
+</html>
+        
