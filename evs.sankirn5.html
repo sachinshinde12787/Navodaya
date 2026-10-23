@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #ff8b13;
+            --light: #f8f9fa;
+            --dark: #222222;
+            --success: #28a745;
+            --danger: #dc3545;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            margin: 0;
+            padding: 10px;
+            color: var(--dark);
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 25px;
+            position: relative;
+        }
+        .header-top {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #444;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .start-btn, .nav-btn, .submit-btn, .retry-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .start-btn:hover, .nav-btn:hover, .submit-btn:hover, .retry-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 10px;
+        }
+        .footer-right {
+            text-align: right;
+            font-size: 12px;
+            color: #475569;
+            margin-top: 20px;
+        }
+        .footer-right img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-left: 5px;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+        .screen { display: none; }
+        .active { display: block; }
+        
+        /* Quiz Styling */
+        .question-box {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+        .options-list li {
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .options-list li:hover {
+            background: #e2e8f0;
+        }
+        .options-list li.correct {
+            background: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46;
+            font-weight: bold;
+        }
+        .options-list li.wrong {
+            background: #fee2e2 !important;
+            border-color: var(--danger) !important;
+            color: #991b1b;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fef3c7;
+            border-left: 5px solid var(--accent);
+            border-radius: 4px;
+            font-size: 15px;
+            display: none;
+        }
+        .timer-score {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #475569;
+        }
+        /* Certificate */
+        .certificate {
+            border: 8px solid var(--primary);
+            padding: 20px;
+            border-radius: 15px;
+            background: #fffdf9;
+            text-align: center;
+            position: relative;
+        }
+        .cert-title {
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .cert-name {
+            font-size: 26px;
+            color: #0f172a;
+            margin: 15px 0;
+            border-bottom: 2px dashed #cbd5e1;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .marks-big {
+            font-size: 38px;
+            color: var(--secondary);
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .badge-box {
+            font-size: 18px;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #bbf7d0;
+        }
+        .review-box {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- START SCREEN -->
+    <div id="start-screen" class="screen active">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h1>परिसर अभ्यास संकीर्ण प्रश्न</h1>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="तुमचे पूर्ण नाव प्रविष्ट करा">
+        </div>
+        
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="text" id="student-mobile" placeholder="मोबाईल नंबर प्रविष्ट करा">
+        </div>
+
+        <button class="start-btn" onclick="startQuiz()">EXAM START</button>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+        
+        <div class="footer-right">
+            संकल्पना व निर्मिती<br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 8329684470<br>
+            <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank">
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Teacher Photo" title="श्री सचिन शिंदे सर">
+            </a>
+        </div>
+    </div>
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen" class="screen">
+        <div class="timer-score">
+            <span id="q-counter">प्रश्न: 1 / 60</span>
+            <span id="current-score">गुण: 0</span>
+        </div>
+        
+        <div class="question-box" id="question-text">प्रश्न येथे येईल</div>
+        <ul class="options-list" id="options-list"></ul>
+        <div class="explanation" id="explanation-box"></div>
+        
+        <button class="nav-btn" id="next-btn" style="display:none;" onclick="nextQuestion()">पुढील प्रश्न (Next)</button>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="result-screen" class="screen">
+        <div class="certificate">
+            <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <div style="font-size: 18px; margin-top: 5px; color: #555;">परीक्षेचे नाव: परिसर अभ्यास संकीर्ण प्रश्न</div>
+            
+            <div class="cert-name" id="cert-student-name">विद्यार्थ्याचे नाव</div>
+            
+            <div class="marks-big" id="cert-marks">गुण: 0 / 120</div>
+            <div style="font-size: 16px; color: #666;" id="cert-percentage">टक्केवारी: 0%</div>
+            
+            <div class="badge-box" id="cert-badge">कामगिरीनुसार सन्मान</div>
+
+            <button class="retry-btn" onclick="toggleReview()" style="background: #0284c7; margin-bottom: 10px;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+            
+            <div class="review-box" id="review-container">
+                <!-- Wrong questions review list will load here -->
+            </div>
+        </div>
+
+        <div class="footer-right">
+            संकल्पना व निर्मिती<br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 8329684470<br>
+            <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank">
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Teacher Photo" title="श्री सचिन शिंदे सर">
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    { q: "१. खालीलपैकी कोणता वृक्ष काटेरी जंगलांमध्ये आढळतो?", o: ["महोगनी", "बाभूळ", "देवदार", "सागवान"], a: 1, exp: "बाभूळ हा काटेरी जंगलांमध्ये आढळणारा प्रमुख वृक्ष आहे." },
+    { q: "२. खालीलपैकी कोणता प्रदेश काटेरी जंगलांसाठी प्रसिद्ध आहे?", o: ["राजस्थान", "आसाम", "केरळ", "सिक्कीम"], a: 0, exp: "राजस्थानमध्ये पाण्याचे प्रमाण कमी असल्याने काटेरी व झुडपी जंगले आढळतात." },
+    { q: "३. खालीलपैकी कोणती जोडी अयोग्य आहे?", o: ["देवदार - पर्वतीय जंगल", "सुंदरी - खारफुटी जंगल", "बाभूळ - काटेरी जंगल", "रबर - पानझडी जंगल"], a: 3, exp: "रबर हे सदाहरित किंवा निम-सदाहरित जंगलात आढळते, पानझडी नाही." },
+    { q: "४. सदाहरित जंगलांमध्ये झाडे वर्षभर हिरवीगार राहण्याचे मुख्य कारण कोणते?", o: ["पाने लहान असतात.", "पाने एकाच वेळी गळत नाहीत.", "झाडांना काटे असतात.", "माती वालुकामय असते."], a: 1, exp: "सदाहरित वृक्षांची पाने एकाच वेळी न गळता वर्षभर थोडे थोडे करून गळतात, ज्यामुळे झाडे हिरवीगार दिसतात." },
+    { q: "५. सुंदरी वृक्ष कोणत्या जंगलप्रकाराचा प्रमुख वृक्ष आहे?", o: ["सदाहरित", "खारफुटी", "पानझडी", "काटेरी"], a: 1, exp: "सुंदरी वृक्ष हा खारफुटी (मॅग्रोव्ह) जंगलाचा प्रमुख वृक्ष आहे." },
+    { q: "६. जंगलांमुळे खालीलपैकी कोणता पर्यावरणीय लाभ मिळत नाही?", o: ["कार्बन डायऑक्साइड शोषणे जातो.", "मातीची धूप कमी होते.", "वाळवंटीकरण वाढते.", "भूजल पातळी टिकून राहते."], a: 2, exp: "जंगलांमुळे वाळवंटीकरण रोखले जाते, वाढीस लागत नाही." },
+    { q: "७. खालीलपैकी कोणता वृक्ष सदाहरित जंगलात आढळत नाही?", o: ["आबनूस", "महोगनी", "सागवान", "रोजवुड"], a: 2, exp: "सागवान हा पानझडी जंगलातील वृक्ष आहे." },
+    { q: "८. 'गदवाल साडी' कोणत्या राज्याची प्रसिद्ध साडी आहे?", o: ["तेलंगणा", "महाराष्ट्र", "तमिळनाडू", "कर्नाटक"], a: 0, exp: "गदवाल साडी ही तेलंगणा राज्याची प्रसिद्ध पारंपरिक साडी आहे." },
+    { q: "९. 'केडीयू' हा पारंपरिक पुरुषांचा पोशाख कोणत्या राज्याचा आहे?", o: ["राजस्थान", "गुजरात", "पंजाब", "हरियाणा"], a: 1, exp: "केडीयू हा गुजरात राज्यातील पारंपरिक पुरुषांचा पोशाख आहे." },
+    { q: "१०. 'कसावू साडी' हा पारंपरिक महिला पोशाख कोणत्या राज्याचा आहे?", o: ["कर्नाटक", "केरळ", "तमिळनाडू", "गोवा"], a: 1, exp: "कसावू साडी हा केरळ राज्याचा पारंपरिक पोशाख आहे." },
+    { q: "११. 'पोचमपल्ली (इकत) साडी' कोणत्या राज्याची प्रसिद्ध साडी आहे?", o: ["आंध्र प्रदेश", "तेलंगणा", "महाराष्ट्र", "गुजरात"], a: 1, exp: "पोचमपल्ली साडी ही तेलंगणा राज्याशी संबंधित आहे." },
+    { q: "१२. 'कोसा सिल्क साडी' कोणत्या राज्याची पारंपरिक साडी आहे?", o: ["बिहार", "छत्तीसगड", "झारखंड", "ओडिशा"], a: 1, exp: "कोसा सिल्क प्रामुख्याने छत्तीसगड राज्याशी संबंधित आहे." },
+    { q: "१३. 'घाघरा-चोली' आणि 'ओढणी' हे पारंपरिक पोशाख कोणत्या राज्याचे आहेत?", o: ["उत्तर प्रदेश", "राजस्थान", "हरियाणा", "बिहार"], a: 1, exp: "घाघरा-चोली व ओढणी हा राजस्थानचा प्रसिद्ध पारंपरिक पोशाख आहे." },
+    { q: "१४. खालील विधानांचा विचार करा:\n1. पैठणी ही महाराष्ट्राची प्रसिद्ध पारंपरिक साडी आहे.\n2. कांचीपुरम सिल्क साडी ही तमिळनाडूची प्रसिद्ध साडी आहे.\nयोग्य पर्याय निवडा:", o: ["फक्त 1 बरोबर", "फक्त 2 बरोबर", "1 आणि 2 दोन्ही बरोबर", "1 आणि 2 दोन्ही चुकीचे"], a: 2, exp: "पैठणी महाराष्ट्राची आणि कांचीपुरम तमिळनाडूची प्रसिद्ध साडी आहे, दोन्ही विधाने खरी आहेत." },
+    { q: "१५. 'जैनसेम' हा पारंपरिक महिला पोशाख कोणत्या राज्याशी संबंधित आहे?", o: ["नागालँड", "मेघालय", "मिझोरम", "सिक्कीम"], a: 1, exp: "जैनसेम हा मेघालय राज्यातील पारंपरिक महिला पोशाख आहे." },
+    { q: "१६. 'पिछोडा' हा पारंपरिक महिला पोशाख कोणत्या राज्याचा आहे?", o: ["हिमाचल प्रदेश", "उत्तराखंड", "हरियाणा", "पंजाब"], a: 1, exp: "पिछोडा हा उत्तराखंड राज्यातील प्रसिद्ध पोशाख आहे." },
+    { q: "१७. 'संबलपुरी साडी' कोणत्या राज्याची प्रसिद्ध साडी आहे?", o: ["छत्तीसगड", "ओडिशा", "झारखंड", "बिहार"], a: 1, exp: "संबलपुरी साडी ओडिशा राज्याची प्रसिद्ध साडी आहे." },
+    { q: "१८. जास्त पर्जन्यमान असलेल्या भागात घरांचे छप्पर साधारणपणे कसे असते?", o: ["सपाट", "तिरपे", "गोलाकार", "उघडे"], a: 1, exp: "जास्त पावसामुळे पाणी साचू नये म्हणून छप्पर तिरपे (उताराचे) असते." },
+    { q: "१९. राजस्थानमधील वाळवंटी भागात घरांच्या भिंती जाड का बांधल्या जातात?", o: ["सजावटीसाठी", "उष्णता कमी करण्यासाठी", "पावसाचे पाणी साठवण्यासाठी", "वजन वाढवण्यासाठी"], a: 1, exp: "जाड भिंतींमुळे बाहेरील तीव्र उष्णता घरात लवकर पोहोचत नाही." },
+    { q: "२०. खालीलपैकी कायमस्वरूपी घर कोणते?", o: ["तंबू", "झोपडी", "अपार्टमेंट", "युर्ट"], a: 2, exp: "अपार्टमेंट हे पक्के व कायमस्वरूपी घर असते." },
+    { q: "२१. पर्यावरणपूरक घरांसाठी खालीलपैकी कोणते साहित्य अधिक योग्य आहे?", o: ["प्लास्टिक", "बांबू", "असबेस्टॉस", "रासायनिक पत्रे"], a: 1, exp: "बांबू हे पूर्णपणे पर्यावरणपूरक आणि नैसर्गिक बांधकाम साहित्य आहे." },
+    { q: "२२. खालीलपैकी कोणते घर हवामानानुसार बांधले जाते?", o: ["इग्लू", "स्टिल्ट हाऊस", "झोपडी", "वरील सर्व"], a: 3, exp: "बर्फाळ प्रदेशात इग्लू, पूरग्रस्त भागात स्टिल्ट हाऊस हवामानानुसारच बांधले जातात." },
+    { q: "२३. 'युर्ट' (Yurt) हा घराचा प्रकार कोणत्या प्रदेशात प्रसिद्ध आहे?", o: ["मध्य आशिया", "दक्षिण अमेरिका", "आफ्रिका", "ऑस्ट्रेलिया"], a: 0, exp: "युर्ट हे मध्य आशियातील भटक्या जमातींचे तंबू सदृश्य घर असते." },
+    { q: "२४. भूकंपप्रवण भागात कोणत्या प्रकारची घरे अधिक सुरक्षित मानली जातात?", o: ["अतिजड दगडी घरे", "लवचिक रचनेची घरे", "मातीची घरे", "छप्पर नसलेली घरे"], a: 1, exp: "लवचिक रचना भूकंपाचे धक्के सहन करू शकते." },
+    { q: "२५. पारंपरिक कोकणी घरांचे छप्पर प्रामुख्याने कशाचे असते?", o: ["टिन पत्रे", "मंगळूरी कौले", "प्लास्टिक", "कॉंक्रिट स्लॅब"], a: 1, exp: "कोकणात मुसळधार पावसामुळे मंगळूरी कौलांची छपरे असतात." },
+    { q: "२६. झोपडीचे छप्पर प्रामुख्याने कशापासून बनवले जाते?", o: ["गवत किंवा काडीकचरा", "स्टील", "संगमरवर", "कांच"], a: 0, exp: "झोपड्यांचे छप्पर गवत, पालापाचोळा किंवा काड्यांपासून बनवले जाते." },
+    { q: "२७. उष्ण प्रदेशातील घरांमध्ये मोठ्या खिडक्या का ठेवतात?", o: ["वजन वाहण्यासाठी", "हवा व प्रकाश मिळण्यासाठी", "पाऊस साठवण्यासाठी", "सजावटीसाठी"], a: 1, exp: "घरात हवेशीर वातावरण राहण्यासाठी मोठ्या खिडक्या उपयुक्त ठरतात." },
+    { q: "२८. थंड प्रदेशातील घरांमध्ये खिडक्या लहान का असतात?", o: ["प्रकाश कमी करण्यासाठी", "उष्णता टिकवण्यासाठी", "खर्च कमी करण्यासाठी", "जागा वाचवण्यासाठी"], a: 1, exp: "थंड हवा आत येऊ नये आणि घरातील उष्णता टिकून राहावी म्हणून खिडक्या लहान असतात." },
+    { q: "२९. महाराष्ट्रातील पारंपरिक 'वाडा' घरांची वैशिष्ट्यपूर्ण रचना कोणती?", o: ["मध्यभागी अंगण", "गोलाकार छप्पर", "बर्फाचे छप्पर", "खांबांवरील रचना"], a: 0, exp: "वाड्यांमध्ये सुरक्षेसाठी आणि हवेसाठी मध्यभागी मोठे अंगण असते." },
+    { q: "३०. उंच इमारतींमध्ये आपत्कालीन परिस्थितीसाठी कोणती व्यवस्था आवश्यक असते?", o: ["फक्त रंगकाम", "अग्निसुरक्षा जिने व अग्निशामक यंत्रणा", "मोठ्या खिडक्या", "फक्त लिफ्ट"], a: 1, exp: "आग किंवा आपत्कालीन प्रसंगी अग्निसुरक्षा जिने व यंत्रणा अत्यंत महत्त्वाची असते." }
+];
+<script>
+const quizDataPart2 = [
+    { q: "३१. घर बांधताना सर्वप्रथम कोणत्या गोष्टीचा विचार करावा?", o: ["रंग", "हवामान व भौगोलिक परिस्थिती", "फर्निचर", "पडदे"], a: 1, exp: "स्थानिक हवामान आणि भूभाग लक्षात घेऊनच घराची रचना ठरवली जाते." },
+    { q: "३२. चक्रिवादळप्रवण भागात घर बांधताना कोणती बाब महत्त्वाची असते?", o: ["कमकुवत पाया", "मजबूत पाया व मजबूत छप्पर", "फक्त काचेच्या भिंती", "मातीचे छप्पर"], a: 1, exp: "चक्रिवादळाचे वारे उडवून नेऊ शकणार नाहीत यासाठी मजबूत पाया व छप्पर गरजेचे असते." },
+    { q: "३३. पूर, भूकंप आणि चक्रिवादळ यांचा विचार करून बांधलेल्या घरांना काय म्हणतात?", o: ["तात्पुरती घरे", "आपत्तीरोधक (Disaster-resistant) घरे", "झोपड्या", "मातीची घरे"], a: 1, exp: "अशा घरांना आपत्तीरोधक घरे म्हणतात." },
+    { q: "३४. घरांच्या रचनेवर सर्वाधिक प्रभाव कोणत्या घटकांचा असतो?", o: ["हवामान, भूभाग व उपलब्ध बांधकाम साहित्य", "फक्त लोकसंख्या", "फक्त वाहतूक", "फक्त उद्योग"], a: 0, exp: "तेथील हवामान आणि साहित्यावर घरांची रचना अवलंबून असते." },
+    { q: "३५. ज्वालामुखीय उद्रेक हा कोणत्या प्रकारचा नैसर्गिक धोका आहे?", o: ["भूभौतिक", "जैविक", "सामाजिक", "मानवनिर्मित"], a: 0, exp: "ज्वालामुखी हा भूगर्भाशी संबंधित (भूभौतिक) नैसर्गिक धोका आहे." },
+    { q: "३६. दिल्लीला भारताचे कोणते हृदय असेही म्हटले जाते?", o: ["आर्थिक हृदय", "सांस्कृतिक हृदय", "राजकीय हृदय", "औद्योगिक हृदय"], a: 2, exp: "राजधानी असल्याने दिल्लीला भारताचे राजकीय हृदय मानले जाते." },
+    { q: "३७. दिल्लीतील अधिकृत भाषा कोणत्या आहेत?", o: ["हिंदी व मराठी", "हिंदी व इंग्रजी", "इंग्रजी व तमिळ", "हिंदी व गुजराती"], a: 1, exp: "दिल्लीत प्रामुख्याने हिंदी आणि इंग्रजी अधिकृत भाषा आहेत." },
+    { q: "३८. ब्रिटिशांनी भारताची राजधानी कलकत्त्याहून दिल्लीला हलवण्याची घोषणा कोणत्या वर्षी केली?", o: ["1905", "1911", "1920", "1931"], a: 1, exp: "इ.स. १९११ मध्ये दिल्ली दरबारमध्ये राजधानी हलवण्याची घोषणा झाली." },
+    { q: "३९. भारताचे सर्वोच्च न्यायालय कुठे आहे?", o: ["मुंबई", "चेन्नई", "दिल्ली", "हैदराबाद"], a: 2, exp: "भारताचे सर्वोच्च न्यायालय नवी दिल्ली येथे स्थित आहे." },
+    { q: "४०. खालीलपैकी कोणते दिल्लीतील धार्मिक पर्यटनस्थळ आहे?", o: ["लोटस टेंपल", "चारमिनार", "महालक्ष्मी मंदिर (मुंबई)", "मीनाक्षी मंदिर"], a: 0, exp: "लोटस टेंपल (कमळ मंदिर) हे दिल्लीतील प्रसिद्ध धार्मिक स्थळ आहे." },
+    { q: "४१. दिल्लीची कोणती वैशिष्ट्ये योग्य आहेत?", o: ["केवळ औद्योगिक शहर", "प्रशासनिक, ऐतिहासिक व सांस्कृतिक केंद्र", "केवळ बंदर शहर", "केवळ कृषी केंद्र"], a: 1, exp: "दिल्ली हे देशाचे प्रशासनिक, ऐतिहासिक व सांस्कृतिक केंद्र आहे." },
+    { q: "४२. दिल्लीमध्ये विविध धर्म, भाषा आणि संस्कृतींचे लोक का राहतात?", o: ["ती सीमावर्ती राज्य आहे", "ती बहुसांस्कृतिक महानगर आहे", "ती केवळ पर्यटनस्थळ आहे", "ती केवळ औद्योगिक शहर आहे"], a: 1, exp: "देशाची राजधानी असल्याने हे एक बहुसांस्कृतिक महानगर आहे." },
+    { q: "४३. भारताची संसद कुठे आहे?", o: ["कोलकाता", "नवी दिल्ली", "भोपाळ", "लखनौ"], a: 1, exp: "भारताची नवीन संसद नवी दिल्ली येथे आहे." },
+    { q: "४४. दिल्लीला राष्ट्रीय राजधानी क्षेत्र (NCT) असे का म्हटले जाते?", o: ["ती औद्योगिक राजधानी आहे", "ती राष्ट्रीय राजधानी क्षेत्र आहे", "ती आर्थिक राजधानी आहे", "ती सांस्कृतिक राजधानी आहे"], a: 1, exp: "नॅशनल कॅपिटल टेरिटरी म्हणून तिचा विशेष प्रशासकीय दर्जा आहे." },
+    { q: "४५. खालीलपैकी कोणते स्थळ महात्मा गांधींच्या स्मृतीशी संबंधित आहे?", o: ["राजघाट", "कुतुब मिनार", "संसद भवन", "लोटस टेंपल"], a: 0, exp: "राजघाट हे महात्मा गांधींचे समाधी स्थळ आहे." },
+    { q: "४६. दिल्लीतील हुमायूँचा मकबरा कोणत्या प्रकारचे स्थळ आहे?", o: ["धरण", "ऐतिहासिक स्मारक", "विमानतळ", "विद्यापीठ"], a: 1, exp: "हुमायूँचा मकबरा हे युनेस्कोचे जागतिक वारसा असलेले ऐतिहासिक स्मारक आहे." },
+    { q: "४७. भारत सरकारची प्रमुख मंत्रालये कुठे आहेत?", o: ["मुंबई", "दिल्ली", "जयपूर", "अहमदाबाद"], a: 1, exp: "केंद्र सरकारची सर्व प्रमुख मंत्रालये दिल्लीत आहेत." },
+    { q: "४८. त्रिपुराची राजधानी कोणती आहे?", o: ["अगरतळा", "आयझॉल", "शिलाँग", "इंफाळ"], a: 0, exp: "त्रिपुराची राजधानी अगरतळा आहे." },
+    { q: "४९. नागालँडची राजधानी कोणती आहे?", o: ["कोहिमा", "दीमापूर", "इंफाळ", "शिलाँग"], a: 0, exp: "नागालँडची राजधानी कोहिमा आहे." },
+    { q: "५०. सर्वाधिक लोकसंख्या असलेले राज्य कोणते?", o: ["महाराष्ट्र", "बिहार", "उत्तर प्रदेश", "पश्चिम बंगाल"], a: 2, exp: "भारतात उत्तर प्रदेश राज्याची लोकसंख्या सर्वाधिक आहे." },
+    { q: "५१. गोव्याची राजधानी कोणती आहे?", o: ["मडगाव", "पणजी", "वास्को", "मापुसा"], a: 1, exp: "गोव्याची राजधानी पणजी आहे." },
+    { q: "५२. महाराष्ट्राची राजधानी कोणती आहे?", o: ["पुणे", "नागपूर", "मुंबई", "नाशिक"], a: 2, exp: "महाराष्ट्राची राजधानी मुंबई आहे." },
+    { q: "५३. हिमाचल प्रदेशची राजधानी कोणती आहे?", o: ["मंडी", "धर्मशाला", "शिमला", "कुल्लू"], a: 2, exp: "शिमला ही हिमाचल प्रदेशची मुख्य राजधानी आहे." },
+    { q: "५४. भारतात सध्या किती राज्ये आहेत?", o: ["27", "28", "29", "30"], a: 1, exp: "सध्या भारतात २८ राज्ये आणि ८ केंद्रशासित प्रदेश आहेत." },
+    { q: "५५. मिझोरमची राजधानी कोणती आहे?", o: ["आयझॉल", "इंफाळ", "कोहिमा", "गंगटोक"], a: 0, exp: "मिझोरमची राजधानी आयझॉल आहे." },
+    { q: "५६. ओडिशाची राजधानी कोणती आहे?", o: ["कटक", "पुरी", "भुवनेश्वर", "संबलपूर"], a: 2, exp: "ओडिशाची राजधानी भुवनेश्वर आहे." },
+    { q: "५७. टपाल कार्यालयाचे चिन्ह खालीलपैकी कोणते आहे?", o: ["PI", "PO", "PT", "PR"], a: 1, exp: "Post Office चे संक्षिप्त रूप 'PO' म्हणून वापरले जाते." },
+    { q: "५८. मुंबई व नागपूर यांच्या दरम्यानचा समृद्धी महामार्ग किती जिल्ह्यातून जातो?", o: ["24", "15", "10", "20"], a: 2, exp: "समृद्धि महामार्ग महाराष्ट्रातील १० जिल्ह्यांमधून जातो." },
+    { q: "५९. मुलांना सहज खेळता खेळता वाहतुकीचे व रहदारीचे नियम समजावे म्हणून ..... योजना केलेली असते.", o: ["ट्रॅफिक शाळा", "ट्रॅफिक गार्डन", "ट्रॅफिक", "ट्रॅफिक थिएटर"], a: 1, exp: "मुलांसाठी ट्रॅफिक गार्डनची रचना केली जाते." },
+    { q: "६०. शिडाचे गलबत म्हणजे -", o: ["इंधनावर चालणारी वाहने", "इंधनावर चालणारी जहाजे", "वाऱ्याच्या वेगाचा वापर करून चालणारी जहाजे", "CNG चा वापर करून चालणारी जहाजे"], a: 2, exp: "शिडाच्या गलबतांमध्ये वाऱ्याच्या वेगाचा वापर करून नौका चालवली जाते." }
+];
+
+// दोन्ही भाग एकत्र करणे
+const allQuestions = [...quizData, ...quizDataPart2];
+
+let currentIdx = 0;
+let score = 0;
+let studentName = "";
+let studentMobile = "";
+let userAnswers = [];
+
+function startQuiz() {
+    let nameInput = document.getElementById("student-name").value.trim();
+    let mobileInput = document.getElementById("student-mobile").value.trim();
+    
+    if(nameInput === "" || mobileInput === "") {
+        alert("कृपया तुमचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+        return;
+    }
+    
+    studentName = nameInput;
+    studentMobile = mobileInput;
+    
+    document.getElementById("start-screen").classList.remove("active");
+    document.getElementById("quiz-screen").classList.add("active");
+    loadQuestion();
+}
+
+function loadQuestion() {
+    if(currentIdx >= allQuestions.length) {
+        showResult();
+        return;
+    }
+    
+    let qObj = allQuestions[currentIdx];
+    document.getElementById("q-counter").innerText = `प्रश्न: ${currentIdx + 1} / ${allQuestions.length}`;
+    document.getElementById("current-score").innerText = `गुण: ${score}`;
+    document.getElementById("question-text").innerText = qObj.q;
+    
+    let optList = document.getElementById("options-list");
+    optList.innerHTML = "";
+    
+    document.getElementById("explanation-box").style.display = "none";
+    document.getElementById("next-btn").style.display = "none";
+    
+    qObj.o.forEach((opt, idx) => {
+        let li = document.createElement("li");
+        li.innerText = opt;
+        li.onclick = () => selectOption(idx, li, qObj);
+        optList.appendChild(li);
+    });
+}
+
+function selectOption(selectedIdx, liElement, qObj) {
+    let options = document.querySelectorAll(".options-list li");
+    options.forEach(li => li.onclick = null);
+    
+    let isCorrect = (selectedIdx === qObj.a);
+    if(isCorrect) {
+        liElement.classList.add("correct");
+        score += 2; // प्रत्येक प्रश्नाला 2 गुण
+    } else {
+        liElement.classList.add("wrong");
+        options[qObj.a].classList.add("correct");
+    }
+    
+    userAnswers.push({
+        question: qObj.q,
+        selected: qObj.o[selectedIdx],
+        correct: qObj.o[qObj.a],
+        isCorrect: isCorrect,
+        explanation: qObj.exp
+    });
+    
+    document.getElementById("current-score").innerText = `गुण: ${score}`;
+    
+    let expBox = document.getElementById("explanation-box");
+    expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${qObj.exp}`;
+    expBox.style.display = "block";
+    
+    document.getElementById("next-btn").style.display = "block";
+}
+
+function nextQuestion() {
+    currentIdx++;
+    loadQuestion();
+}
+
+function showResult() {
+    document.getElementById("quiz-screen").classList.remove("active");
+    document.getElementById("result-screen").classList.add("active");
+    
+    let totalMarks = allQuestions.length * 2; // ६० प्रश्न * २ = १२० गुण
+    let percentage = (score / totalMarks) * 100;
+    
+    document.getElementById("cert-student-name").innerText = studentName;
+    document.getElementById("cert-marks").innerText = `गुण: ${score} / ${totalMarks}`;
+    document.getElementById("cert-percentage").innerText = `टक्केवारी: ${percentage.toFixed(1)}%`;
+    
+    let badgeText = "";
+    if(percentage >= 90) {
+        badgeText = "🥇 90% किंवा अधिक → Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+    } else if(percentage >= 80) {
+        badgeText = "🥈 89% ते 80% → Silver Medal + Trophy (अतिութम कामगिरी!)";
+    } else if(percentage >= 70) {
+        badgeText = "🥉 79% ते 70% → Bronze Medal + Trophy (छान कामगिरी!)";
+    } else {
+        badgeText = "💐 70% पेक्षा कमी → अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+    }
+    
+    document.getElementById("cert-badge").innerText = badgeText;
+    
+    let reviewContainer = document.getElementById("review-container");
+    reviewContainer.innerHTML = "<h3 style='margin-top:0; color:#1a5f7a;'>चुकीच्या प्रश्नांचे मार्गदर्शन:</h3>";
+    
+    let wrongCount = 0;
+    userAnswers.forEach((ans, idx) => {
+        if(!ans.isCorrect) {
+            wrongCount++;
+            reviewContainer.innerHTML += `
+                <div style="margin-bottom:12px; padding:8px; background:#fff; border-left:4px solid #dc3545; border-radius:4px;">
+                    <strong>प्र. ${idx+1}: ${ans.question}</strong><br>
+                    <span style="color:red;">तुमचे उत्तर: ${ans.selected}</span><br>
+                    <span style="color:green;">योग्य उत्तर: ${ans.correct}</span><br>
+                    <small style="color:#555;">स्पष्टीकरण: ${ans.explanation}</small>
+                </div>
+            `;
+        }
+    });
+    
+    if(wrongCount === 0) {
+        reviewContainer.innerHTML += "<p style='color:green; font-weight:bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+    }
+}
+
+function toggleReview() {
+    let box = document.getElementById("review-container");
+    box.style.display = (box.style.display === "block") ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
+
