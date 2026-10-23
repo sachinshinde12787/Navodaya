@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - परीक्षा</title>
+    <style>
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            min-height: 550px;
+            padding-bottom: 90px;
+        }
+        .school-header {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a73e8;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.3s;
+            text-align: center;
+        }
+        .btn:hover {
+            background: #218838;
+        }
+        .footer-credits {
+            position: absolute;
+            bottom: 25px;
+            right: 30px;
+            text-align: right;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+        .footer-credits img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: 5px;
+            border: 2px solid #1a73e8;
+        }
+        .global-footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .screen {
+            display: none;
+        }
+        .screen.active {
+            display: block;
+        }
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+        .option-btn.correct {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 6px;
+            color: #856404;
+            display: none;
+            font-size: 15px;
+        }
+        .certificate {
+            border: 6px double #1a73e8;
+            padding: 25px;
+            text-align: center;
+            background: #fffdf9;
+            border-radius: 10px;
+        }
+        .score-display {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin: 15px 0;
+        }
+        .medal-badge {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 6px;
+            background: #e8f5e9;
+            display: inline-block;
+        }
+        .review-section {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Screen 1: Login / Welcome Page -->
+        <div id="screen-1" class="screen active">
+            <div class="school-header">
+                जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित
+            </div>
+            <div class="form-group">
+                <label>परीक्षेचे नाव:</label>
+                <input type="text" id="exam-name" value="परिसर अभ्यास संकीर्ण प्रश्न" readonly style="background:#e9ecef; font-weight:bold;">
+            </div>
+            <div class="form-group">
+                <label>विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="student-name" placeholder="तुमचे पूर्ण नाव टाка">
+            </div>
+            <div class="form-group">
+                <label>मोबाईल नंबर:</label>
+                <input type="text" id="student-mobile" placeholder="मोबाईल नंबर टाका" maxlength="10">
+            </div>
+            <button class="btn" onclick="startExam()">EXAM START</button>
+
+            <div class="footer-credits">
+                संकल्पना व निर्मिती<br>
+                <strong>श्री सचिन शिंदे सर</strong><br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 8329684470<br>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde">
+            </div>
+        </div>
+
+        <!-- Screen 2: Quiz Page -->
+        <div id="screen-2" class="screen">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px; color: #555;">
+                <span id="q-number">प्रश्न: 1 / 50</span>
+                <span>प्रत्येक प्रश्नाला २ गुण (एकूण १०० गुण)</span>
+            </div>
+            <div class="question-title" id="question-text">प्रश्नाचा मजकूर येथे येईल...</div>
+            <div id="options-container"></div>
+            <div class="explanation" id="explanation-box"></div>
+            <button class="btn" id="next-btn" onclick="nextQuestion()" style="display:none; margin-top: 20px;">पुढील प्रश्न (Next)</button>
+        </div>
+
+        <!-- Screen 3: Result / Certificate Page -->
+        <div id="screen-3" class="screen">
+            <div class="certificate">
+                <h2 style="color: #b8860b; margin-top: 0; font-size: 20px;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h2>
+                <h3 id="res-exam-name" style="margin: 5px 0;">परिसर अभ्यास संकीर्ण प्रश्न</h3>
+                <p style="margin: 5px 0;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-student-name"></span></p>
+                <p style="margin: 5px 0;"><strong>मोबाईल नंबर:</strong> <span id="res-student-mobile"></span></p>
+                
+                <div class="score-display" id="res-score"></div>
+                <div class="medal-badge" id="res-medal"></div>
+
+                <div style="margin-top: 15px;">
+                    <button class="btn" onclick="toggleReview()" style="background: #ffc107; color: #000; font-weight: bold; width: auto; margin: 0 auto; display: inline-block; padding: 10px 20px; font-size: 15px;">चुकलेल्या प्रश्नांचे मार्गदर्शन (Review)</button>
+                </div>
+                <div id="review-container" class="review-section" style="display:none;"></div>
+            </div>
+
+            <div class="footer-credits" style="position: relative; margin-top: 25px; float: right;">
+                संकल्पना व निर्मिती<br>
+                <strong>श्री सचिन शिंदे सर</strong><br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 8329684470<br>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde">
+            </div>
+        </div>
+
+        <div class="global-footer" style="clear: both;">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "'ग्रीन बिल्डिंग'चा मुख्य उद्देश काय आहे?", options: ["(A) जास्त वीज वापरणे", "(B) पर्यावरण संरक्षण व ऊर्जा बचत", "(C) उंच इमारती बांधणे", "(D) सजावट वाढवणे"], answer: 1, explanation: "'ग्रीन बिल्डिंग'चा मुख्य उद्देश पर्यावरण संरक्षण व ऊर्जा बचत हा आहे." },
+            { q: "वाळवंटी भागातील घरांचा रंग प्रामुख्याने फिकट का असतो?", options: ["(A) अधिक उष्णता शोषण्यासाठी", "(B) सूर्यप्रकाश परावर्तित करण्यासाठी", "(C) पावसाचे पाणी साठवण्यासाठी", "(D) सजावटीसाठी"], answer: 1, explanation: "फिकट रंग सूर्यप्रकाश परावर्तित करतो ज्यामुळे घर थंड राहते." },
+            { q: "इग्लू प्रामुख्याने कशापासून बनवले जाते?", options: ["(A) दगड", "(B) बर्फाचे ठोके", "(C) विटा", "(D) लाकूड"], answer: 1, explanation: "इग्लू हे ध्रुवीय प्रदेशात बर्फाच्या ठोक्यांपासून बनवले जाते." },
+            { q: "हिमालियन प्रदेशातील घरांच्या छपरांवर अधिक उतार का दिला जातो?", options: ["(A) वारा रोखण्यासाठी", "(B) बर्फ सहज घसरून खाली पडण्यासाठी", "(C) सूर्यप्रकाश कमी करण्यासाठी", "(D) घर उंच दिसावे यासाठी"], answer: 1, explanation: "छपरावर पडणारा बर्फ सहज घसरून खाली पडावा म्हणून उतार दिला जातो." },
+            { q: "बांबू व लाकूड वापरून घरे प्रामुख्याने कोणत्या भागात बांधली जातात?", options: ["(A) राजस्थान", "(B) ईशान्य भारत", "(C) पंजाब", "(D) गुजरात"], answer: 1, explanation: "जास्त पाऊस पडणाऱ्या ईशान्य भारतात बांबू व लाकडाची घरे बांधली जातात." },
+            { q: "'इग्लू' हे घर कोणत्या प्रदेशात आढळते?", options: ["(A) वाळवंट", "(B) ध्रुवीय (हिमाच्छादित) प्रदेश", "(C) उष्णकटिबंधीय प्रदेश", "(D) पठारी प्रदेश"], answer: 1, explanation: "इग्लू हे ध्रुवीय किंवा हिमाच्छादित प्रदेशात आढळते." },
+            { q: "'तंबू' हे कोणत्या प्रकारचे घर आहे?", options: ["(A) कायमस्वरूपी", "(B) तात्पुरते", "(C) बहुमजली", "(D) भूमिगत"], answer: 1, explanation: "तंबू हे तात्पुरते (Temporary) घर असते." },
+            { q: "भटक्या जमाती प्रामुख्याने कोणत्या प्रकारच्या घरात राहतात?", options: ["(A) बंगला", "(B) तंबू", "(C) अपार्टमेंट", "(D) वाडा"], answer: 1, explanation: "भटक्या जमाती फिरती जीवन जगत असल्यामुळे तंबूमध्ये राहतात." },
+            { q: "पूरग्रस्त भागात घरे उंच खांबांवर (स्टिल्ट हाउस) का बांधली जातात?", options: ["(A) सजावटीसाठी", "(B) पुराच्या पाण्यापासून संरक्षणासाठी", "(C) उष्णता वाढवण्यासाठी", "(D) जागा कमी असल्यामुळे"], answer: 1, explanation: "पुराचे पाणी घरात शिरू नये म्हणून घरे उंच खांबांवर बांधली जातात." },
+            { q: "खांबांवरील (स्टिल्ट) घरे भारतात प्रामुख्याने कुठे आढळतात?", options: ["(A) राजस्थान", "(B) ईशान्य भारत", "(C) पंजाब", "(D) महाराष्ट्र"], answer: 1, explanation: "ईशान्य भारतात पूर व जास्त पावसाच्या क्षेत्रात अशी घरे आढळतात." },
+            { q: "कच्च्या घरांचे मुख्य बांधकाम साहित्य कोणते असते?", options: ["(A) सिमेंट व लोखंड", "(B) माती, गवत व बांबू", "(C) संगमरवर", "(D) स्टील"], answer: 1, explanation: "कच्च्या घरात माती, गवत व बांबू वापरला जातो." },
+            { q: "पक्क्या घरांमध्ये मुख्यत: कोणते साहित्य वापरले जाते?", options: ["(A) गवत व पाने", "(B) माती व काडीकचरा", "(C) विटा, सिमेंट, लोखंड व काँक्रीट", "(D) फक्त लाकूड"], answer: 2, explanation: "पक्क्या घरात विटा, सिमेंट, लोखंड व काँक्रीट वापरले जाते." },
+            { q: "नवी दिल्लीची रचना कोणी केली?", options: ["(A) चार्ल्स कोरिया व बी. व्ही. दोषी", "(B) एडविन लुटियन्स व हर्बर्ट बेकर", "(C) ले कॉर्बुजिए व पियरे जेनेरेट", "(D) जॉन मार्शल व अलेक्जेंडर कनिंगहॅम"], answer: 1, explanation: "नवी दिल्लीची रचना एडविन लुटियन्स व हर्बर्ट बेकर यांनी केली." },
+            { q: "लाल किल्ला कोणत्या शहरात आहे?", options: ["(A) आगरा", "(B) जयपूर", "(C) दिल्ली", "(D) लखनौ"], answer: 2, explanation: "लाल किल्ला दिल्ली येथे आहे." },
+            { q: "दिल्ली हे कोणत्या वाहतुकीचे प्रमुख केंद्र आहे?", options: ["(A) फक्त रेल्वे", "(B) फक्त हवाई", "(C) रस्ते, रेल्वे आणि हवाई", "(D) फक्त जलवाहतूक"], answer: 2, explanation: "दिल्ली हे रस्ते, रेल्वे आणि हवाई वाहतुकीचे प्रमुख केंद्र आहे." },
+            { q: "प्रजासत्ताक दिनाची परेड कोणत्या दिवशी होते?", options: ["(A) १५ ऑगस्ट", "(B) २६ जानेवारी", "(C) २ ऑक्टोबर", "(D) १४ नोव्हेंबर"], answer: 1, explanation: "प्रजासत्ताक दिन २६ जानेवारीला साजरा केला जातो." },
+            { q: "दिल्लीतील चलन कोणते आहे?", options: ["(A) डॉलर", "(B) युरो", "(C) भारतीय रुपया", "(D) पौंड"], answer: 2, explanation: "भारताची राजधानी दिल्लीत भारतीय रुपया चालतो." },
+            { q: "भारताच्या राष्ट्रपतींचे अधिकृत निवासस्थान कोणते आहे?", options: ["(A) संसद भवन", "(B) राजघाट", "(C) राष्ट्रपती भवन", "(D) सर्वोच्च न्यायालय"], answer: 2, explanation: "राष्ट्रपती भवन हे भारताच्या राष्ट्रपतींचे अधिकृत निवासस्थान आहे." },
+            { q: "दिल्लीला भारतात विशेष स्थान का प्राप्त झाले आहे?", options: ["(A) केवळ उद्योगामुळे", "(B) केवळ व्यापारामुळे", "(C) राजकीय, प्रशासकीय, ऐतिहासिक, सांस्कृतिक व आधुनिक विकासामुळे", "(D) केवळ शेतीमुळे"], answer: 2, explanation: "राजकीय, प्रशासकीय, ऐतिहासिक, सांस्कृतिक व आधुनिक विकासामुळे दिल्लीला विशेष स्थान आहे." },
+            { q: "दिल्लीला भारताचे कोणते केंद्र मानले जाते?", options: ["(A) कृषी केंद्र", "(B) राजकीय व प्रशासकीय केंद्र", "(C) औद्योगिक केंद्र", "(D) बंदर केंद्र"], answer: 1, explanation: "दिल्ली हे भारताचे राजकीय व प्रशासकीय केंद्र आहे." },
+            { q: "प्रजासत्ताक दिनाची भव्य परेड दरवर्षी कोठे आयोजित केली जाते?", options: ["(A) इंडिया गेट", "(B) कर्तव्य पथ", "(C) लाल किल्ला", "(D) राजघाट"], answer: 1, explanation: "कर्तव्य पथ (पूर्वीचे राजपथ) येथे परेड आयोजित केली जाते." },
+            { q: "प्राचीनकाळी दिल्लीला कोणत्या नावाने ओळखले जात असे?", options: ["(A) पाटलीपुत्र", "(B) इंद्रप्रस्थ", "(C) हस्तिनापूर", "(D) उज्जैन"], answer: 1, explanation: "प्राचीनकाळी दिल्लीला इंद्रप्रस्थ म्हटले जात असे." },
+            { q: "नवी दिल्लीचे अधिकृत उद्घाटन कोणत्या वर्षी झाले?", options: ["(A) १९११", "(B) १९२५", "(C) १९३१", "(D) १९४७"], answer: 2, explanation: "नवी दिल्लीचे अधिकृत उद्घाटन १९३१ मध्ये झाले." },
+            { q: "भारताची राष्ट्रीय राजधानी कोणती आहे?", options: ["(A) मुंबई", "(B) चेन्नई", "(C) नवी दिल्ली", "(D) कोलकाता"], answer: 2, explanation: "नवी दिल्ली ही भारताची राष्ट्रीय राजधानी आहे." },
+            { q: "खालीलपैकी कोणते स्थळ दिल्लीतील प्रसिद्ध पर्यटनस्थळ आहे?", options: ["(A) चारमिनार", "(B) इंडिया गेट", "(C) गेटवे ऑफ इंडिया", "(D) विक्टोरिया मेमोरियल"], answer: 1, explanation: "इंडिया गेट हे दिल्लीतील प्रसिद्ध पर्यटनस्थळ आहे." },
+            { q: "दिल्ली कोणत्या प्रकारचा प्रशासकीय प्रदेश आहे?", options: ["(A) राज्य", "(B) केंद्रशासित प्रदेश", "(C) जिल्हा", "(D) विभाग"], answer: 1, explanation: "दिल्ली हा एक केंद्रशासित प्रदेश (Union Territory) आहे." },
+            { q: "खालीलपैकी कोणते स्मारक युनेस्कोच्या जागतिक वारसा स्थळांमध्ये समाविष्ट आहे?", options: ["(A) इंडिया गेट", "(B) लाल किल्ला", "(C) राजघाट", "(D) संसद भवन"], answer: 1, explanation: "लाल किल्ला हे युनेस्कोचे जागतिक वारसा स्थळ आहे." },
+            { q: "कुतुब मीनारचे वैशिष्ट्य काय आहे?", options: ["(A) राष्ट्रपतींचे निवासस्थान", "(B) युनेस्को वारसा स्थळ", "(C) संसद भवन", "(D) सर्वोच्च न्यायालय"], answer: 1, explanation: "कुतुब मीनार हे युनेस्कोचे जागतिक वारसा स्थळ आहे." },
+            { q: "अक्षरधाम मंदिर कोणत्या शहरात आहे?", options: ["(A) मुंबई", "(B) दिल्ली", "(C) वाराणसी", "(D) जयपूर"], answer: 1, explanation: "अक्षरधाम मंदिर दिल्लीत आहे." },
+            { q: "दिल्लीतून कोणती नदी वाहते?", options: ["(A) गंगा", "(B) गोदावरी", "(C) यमुना", "(D) नर्मदा"], answer: 2, explanation: "दिल्लीतून यमुना नदी वाहते." },
+            { q: "मानवी मेंदूचे संरक्षण कोणते हाड करते?", options: ["(A) बटी", "(B) कवटी", "(C) मणक्याचा कणा", "(D) श्रोणी"], answer: 1, explanation: "कवटी मानवी मेंदूचे संरक्षण करते." },
+            { q: "मेरुरज्जूचे संरक्षण कोण करते?", options: ["(A) करकटी", "(B) मणक्याचा कणा (कसेरुकदंड)", "(C) वक्षगुहा", "(D) नाकाची हाडे"], answer: 1, explanation: "मणक्याचा कणा मेरुरज्जूचे संरक्षण करतो." },
+            { q: "मेंदूचा सर्वात मोठा भाग कोणता आहे?", options: ["(A) अनुमस्तिष्क", "(B) मेंड्यूला ऑब्लिंगेटा", "(C) प्रमस्तिष्क (Cerebrum)", "(D) थॅलॅमस"], answer: 2, explanation: "प्रमस्तिष्क (Cerebrum) हा मेंदूचा सर्वात मोठा भाग आहे." },
+            { q: "खालीलपैकी चेतासंस्थेचे मुख्य कार्य कोणते आहे?", options: ["(A) अन्नाचे पचन करणे", "(B) रक्त शुद्ध करणे", "(C) शरीराच्या सर्व क्रियांचे नियंत्रण, समन्वय आणि बाह्य उत्तेजनांना प्रतिसाद देणे", "(D) हार्मोन्स तयार करणे"], answer: 2, explanation: "शरीराच्या सर्व क्रियांचे नियंत्रण, समन्वय आणि बाह्य उत्तेजनांना प्रतिसाद देणे हे चेतासंस्थेचे कार्य आहे." },
+            { q: "हृदयाचे ठोके, श्वसन व रक्तदाब यांसारख्या अनैच्छिक क्रियेचे नियंत्रण कोणता भाग करतो?", options: ["(A) प्रमस्तिष्क", "(B) अनुमस्तिष्क", "(C) मेंड्यूला ऑब्लिंगेटा", "(D) पियुषिका"], answer: 2, explanation: "मेंड्यूला ऑब्लिंगेटा अनैच्छिक क्रियांचे नियंत्रण करतो." },
+            { q: "मज्जासंस्थेचे कार्यकारी एकक (Functional Unit) कोणते आहे?", options: ["(A) रक्तपेशी", "(B) न्यूरॉन (मज्जापेशी)", "(C) स्नायुपेशी", "(D) अस्थिपेशी"], answer: 1, explanation: "न्यूरॉन हे मज्जासंस्थेचे मूलभूत व कार्यकारी एकक आहे." },
+            { q: "मानवी शरीरातील सर्वात लांब पेशी कोणती आहे?", options: ["(A) रक्तपेशी", "(B) त्वचापेशी", "(C) मज्जापेशी (न्यूरॉन)", "(D) स्नायुपेशी"], answer: 2, explanation: "मज्जापेशी (न्यूरॉन) ही शरीरातील सर्वात लांब पेशी आहे." },
+            { q: "न्यूरॉनचा संदेश ग्रहण करणारा भाग कोणता आहे?", options: ["(A) ॲक्सॉन (Axon)", "(B) द्रुमांक (Dendrites)", "(C) केंद्रक", "(D) मार्झिन आवरण"], answer: 1, explanation: "द्रुमांक (Dendrites) हे संदेश ग्रहण करतात." },
+            { q: "न्यूरॉनमधून संदेश वाहून नेणारा भाग कोणता आहे?", options: ["(A) द्रुमांक", "(B) केंद्रक", "(C) ॲक्सॉन (Axon)", "(D) पेरीफेरल"], answer: 2, explanation: "ॲक्सॉन संदेश पुढे वाहून नेतो." },
+            { q: "मेंदूच्या बाह्य भागाला काय म्हणतात?", options: ["(A) मेंदूपाता", "(B) सेरेब्रल कॉर्टेक्स (Cerebral Cortex)", "(C) थॅलॅमस", "(D) पियुषिका"], answer: 1, explanation: "मेंदूच्या बाह्य भागाला सेरेब्रल कॉर्टेक्स म्हणतात." },
+            { q: "मज्जासंस्थेमध्ये एका न्यूरॉनकडून दुसऱ्याकडे संदेश कशाद्वारे पोहोचतो?", options: ["(A) हार्मोन्स", "(B) सिनॅप्स (Synapse)", "(C) एन्झाईम्स", "(D) प्रथिने"], answer: 1, explanation: "दोन न्यूरॉनमधील जोडणीला सिनॅप्स म्हणतात, याद्वारे संदेश पोहोचतो." },
+            { q: "सेन्सरिक क्रियेचे नियंत्रण कोणता भाग करतो?", options: ["(A) प्रमस्तिष्क", "(B) मेंड्यूला", "(C) अनुमस्तिष्क", "(D) मेंदूवृंत"], answer: 0, explanation: "प्रमस्तिष्क सेन्सरिक व बौद्धिक क्रिया नियंत्रित करते." },
+            { q: "प्रतिक्षिप्त क्रिया (Reflex Action) मुख्यतः कोणाद्वारे नियंत्रित केली जाते?", options: ["(A) प्रमस्तिष्क", "(B) अनुमस्तिष्क", "(C) मेरुरज्जू (Spinal Cord)", "(D) सेरेब्रम"], answer: 2, explanation: "प्रतिक्षिप्त क्रिया मुख्यतः मेरुरज्जूद्वारे नियंत्रित होतात." },
+            { q: "गरम वस्तूला हात लागल्यावर लगेच हात मागे घेणे हे कोणत्या प्रकारचे उदाहरण आहे?", options: ["(A) ऐच्छिक क्रिया", "(B) प्रतिक्षिप्त क्रिया (Reflex action)", "(C) पचनक्रिया", "(D) श्वसनक्रिया"], answer: 1, explanation: "हे प्रतिक्षिप्त क्रियेचे उत्तम उदाहरण आहे." },
+            { q: "चेतासंस्थेचे दोन प्रमुख भाग कोणते?", options: ["(A) मध्यवर्ती व परिघीय चेतासंस्था", "(B) रक्ताभिसरण व श्वसनसंस्था", "(C) पचनसंस्था व उत्सर्जनसंस्था", "(D) अंतःस्रावी व प्रजननसंस्था"], answer: 0, explanation: "मध्यवर्ती व परिघीय चेतासंस्था हे दोन प्रमुख भाग आहेत." },
+            { q: "मध्यवर्ती चेतासंस्थेमध्ये कोणते अवयव समाविष्ट असतात?", options: ["(A) मेंदू व मेरुरज्जू", "(B) मेंदू व हृदय", "(C) मेरुदंड व स्नायू", "(D) मज्जातंतू व स्नायू"], answer: 0, explanation: "मेंदू व मेरुरज्जू मिळून मध्यवर्ती चेतासंस्था बनते." },
+          { q: "परिघीय चेतासंस्थेचा मुख्य घटक कोणता?", options: ["(A) हृदय", "(B) मज्जातंतू", "(C) रक्तवाहिन्या", "(D) ताल्लयंत्र"], answer: 1, explanation: "मज्जातंतू हे परिघीय चेतासंस्थेचे मुख्य घटक आहेत." },
+            { q: "स्वायत्त (Autonomic) चेतासंस्था कोणाच्या क्रियेचे नियंत्रण करते?", options: ["(A) धावणे", "(B) लिहिणे", "(C) हृदयाचे ठोके व पचन", "(D) बोलणे"], answer: 2, explanation: "स्वायत्त चेतासंस्था अनैच्छिक क्रिया जसे की हृदयाचे ठोके व पचन नियंत्रित करते." },
+            { q: "डोळ्यांची बाहुली (Pupil) आकुंचन-विकसन ही कोणत्या चेतासंस्थेची क्रिया आहे?", options: ["(A) ऐच्छिक चेतासंस्था", "(B) स्वायत्त चेतासंस्था", "(C) परिघीय चेतासंस्था", "(D) सोमाटिक चेतासंस्था"], answer: 1, explanation: "ही स्वायत्त चेतासंस्थेची अनैच्छिक क्रिया आहे." },
+            { q: "मेंदूला ऑक्सिजनचा पुरवठा काही मिनिटे बंद झाल्यास काय होऊ शकते?", options: ["(A) काहीही परिणाम होत नाही", "(B) हाडे कमकुवत होतात", "(C) मेंदूच्या पेशींचे नुकसान होऊ शकते", "(D) रक्तादाब कमी होतो"], answer: 2, explanation: "ऑक्सिजन तुटवड्यामुळे मेंदूच्या पेशींचे गंभीर नुकसान होऊ शकते." }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let studentData = { name: '', mobile: '' };
+        let userAnswers = [];
+
+        function startExam() {
+            const name = document.getElementById('student-name').value.trim();
+            const mobile = document.getElementById('student-mobile').value.trim();
+            if(!name || !mobile) {
+                alert('कृपया विद्यार्थी नाव आणि मोबाईल नंबर दोन्ही भरा!');
+                return;
+            }
+            studentData.name = name;
+            studentData.mobile = mobile;
+            document.getElementById('screen-1').classList.remove('active');
+            document.getElementById('screen-2').classList.add('active');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('q-number').innerText = `प्रश्न: ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('question-text').innerText = q.q;
+            
+            const optsContainer = document.getElementById('options-container');
+            optsContainer.innerHTML = '';
+            document.getElementById('explanation-box').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => selectOption(index, btn);
+                optsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            const q = questions[currentQuestion];
+            const allOpts = document.querySelectorAll('.option-btn');
+            
+            allOpts.forEach(btn => btn.disabled = true);
+
+            userAnswers[currentQuestion] = {
+                question: q.q,
+                selected: selectedIndex,
+                correct: q.answer,
+                options: q.options,
+                explanation: q.explanation
+            };
+
+            if(selectedIndex === q.answer) {
+                btnElement.classList.add('correct');
+                score += 2; // प्रत्येक प्रश्नाला २ गुण
+            } else {
+                btnElement.classList.add('wrong');
+                allOpts[q.answer].classList.add('correct');
+            }
+
+            const expBox = document.getElementById('explanation-box');
+            expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.explanation}`;
+            expBox.style.display = 'block';
+
+            const nextBtn = document.getElementById('next-btn');
+            if(currentQuestion < questions.length - 1) {
+                nextBtn.innerText = 'पुढील प्रश्न (Next)';
+                nextBtn.onclick = nextQuestion;
+            } else {
+                nextBtn.innerText = 'परीक्षा जमा करा (Submit Exam)';
+                nextBtn.onclick = showResult;
+            }
+            nextBtn.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            document.getElementById('screen-2').classList.remove('active');
+            document.getElementById('screen-3').classList.add('active');
+
+            document.getElementById('res-student-name').innerText = studentData.name;
+            document.getElementById('res-student-mobile').innerText = studentData.mobile;
+            
+            const maxScore = questions.length * 2; // ५० प्रश्न * २ = १०० गुण
+            const percentage = (score / maxScore) * 100;
+
+            document.getElementById('res-score').innerText = `प्राप्त गुण: ${score} / ${maxScore} (${percentage.toFixed(1)}%)`;
+
+            let medalText = '';
+            if(percentage >= 90) {
+                medalText = '🥇 90% किंवा अधिक → Gold Medal + Trophy';
+            } else if(percentage >= 80) {
+                medalText = '🥈 89% ते 80% → Silver Medal + Trophy';
+            } else if(percentage >= 70) {
+                medalText = '🥉 79% ते 70% → Bronze Medal + Trophy';
+            } else {
+                medalText = '💐 70% पेक्षा कमी → अभिनंदन! फुलांचा गुच्छ व "पुढील परीक्षेसाठी शुभेच्छा"';
+            }
+            document.getElementById('res-medal').innerText = medalText;
+
+            buildReview();
+        }
+
+        function buildReview() {
+            const container = document.getElementById('review-container');
+            container.innerHTML = '<h3 style="margin-top:0;">चुकीच्या प्रश्नांचे मार्गदर्शन:</h3>';
+            
+            let wrongCount = 0;
+            userAnswers.forEach((ans, idx) => {
+                if(ans && ans.selected !== ans.correct) {
+                    wrongCount++;
+                    const div = document.createElement('div');
+                    div.style.marginBottom = '12px';
+                    div.style.padding = '10px';
+                    div.style.background = '#fff';
+                    div.style.border = '1px solid #ddd';
+                    div.style.borderRadius = '5px';
+                    div.innerHTML = `
+                        <p style="margin:2px 0;"><strong>प्रश्न ${idx + 1}:</strong> ${ans.question}</p>
+                        <p style="color: red; margin:2px 0;">तुमचे उत्तर: ${ans.options[ans.selected]}</p>
+                        <p style="color: green; margin:2px 0;">योग्य उत्तर: ${ans.options[ans.correct]}</p>
+                        <p style="color: #856404; background: #fff3cd; padding: 5px; margin-top:5px; border-radius:4px;"><strong>मार्गदर्शन:</strong> ${ans.explanation}</p>
+                    `;
+                    container.appendChild(div);
+                }
+            });
+
+            if(wrongCount === 0) {
+                container.innerHTML += '<p style="color: green; font-weight: bold;">अभिनंदन! तुमचे सर्व ५० प्रश्न अचूक आले आहेत!</p>';
+            }
+        }
+
+        function toggleReview() {
+            const container = document.getElementById('review-container');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
