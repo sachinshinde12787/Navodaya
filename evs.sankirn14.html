@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - परीक्षा</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #80deea);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            flex: 1;
+            position: relative;
+        }
+        .school-header {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #00796b;
+            margin-bottom: 10px;
+        }
+        .exam-title {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #00796b;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #004d40;
+        }
+        .btn:disabled {
+            background-color: #b0bec5;
+            cursor: not-allowed;
+        }
+        .creator-footer-right {
+            text-align: right;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .creator-footer-right img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-top: 5px;
+            border: 2px solid #00796b;
+        }
+        .page-footer-center {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        .hidden { display: none; }
+        
+        .question-box {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 20px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            background: #f1f8f6;
+            border: 1px solid #b2dfdb;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            background: #e0f2f1;
+        }
+        .option-btn.correct {
+            background-color: #c8e6c9 !important;
+            border-color: #4caf50 !important;
+            color: #1b5e20;
+            font-weight: bold;
+        }
+        .option-btn.incorrect {
+            background-color: #ffcdd2 !important;
+            border-color: #f44336 !important;
+            color: #b71c1c;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff9c4;
+            border-left: 4px solid #fbc02d;
+            font-size: 15px;
+            color: #5d4037;
+            border-radius: 4px;
+        }
+        .certificate {
+            border: 8px double #00796b;
+            padding: 30px;
+            background: #fff;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .certificate h2 {
+            color: #00796b;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        .score-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #d32f2f;
+            margin: 15px 0;
+        }
+        .badge-box {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e65100;
+            margin: 15px 0;
+            padding: 10px;
+            background: #fff3e0;
+            border-radius: 5px;
+        }
+        .review-box {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <div class="school-header">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="exam-title">परिसर अभ्यास संकीर्ण प्रश्न</div>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="तुमचे पूर्ण नाव टाका">
+        </div>
+        
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="text" id="student-mobile" placeholder="मोबाईल नंबर टाका">
+        </div>
+        
+        <button class="btn" id="start-btn" onclick="startExam()">EXAM START</button>
+        
+        <div class="creator-footer-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470<br>
+            <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank">
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde Sir">
+            </a>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="hidden">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #00796b; margin-bottom: 15px;">
+            <span id="q-number">प्रश्न: १/४०</span>
+            <span id="score-live">गुण: ०</span>
+        </div>
+        
+        <div class="question-box" id="question-text">प्रश्न येथे येईल</div>
+        
+        <div id="options-container"></div>
+        
+        <div id="explanation-box" class="explanation hidden"></div>
+        
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled style="margin-top: 20px;">पुढील प्रश्न (Next)</button>
+        
+        <div class="page-footer-center">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+
+    <!-- Result / Certificate Screen -->
+    <div id="result-screen" class="hidden">
+        <div class="certificate">
+            <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h2>
+            <p style="font-size: 16px; font-weight: bold; color: #555; margin: 5px 0;">परीक्षेचे नाव - परिसर अभ्यास संकीर्ण प्रश्न</p>
+            <p style="font-size: 16px; margin: 5px 0;">विद्यार्थ्याचे नाव: <span id="res-name" style="font-weight: bold; color: #00796b;"></span></p>
+            
+            <div class="score-display" id="res-score"></div>
+            <div class="badge-box" id="res-badge"></div>
+            
+            <button class="btn" id="review-toggle-btn" onclick="toggleReview()" style="background-color: #d32f2f; margin-bottom: 15px; font-size: 15px; padding: 10px;">चुकलेले प्रश्न पहा व मार्गदर्शन मिळवा</button>
+            
+            <div id="review-container" class="review-box hidden"></div>
+            
+            <div class="creator-footer-right" style="margin-top: 15px;">
+                संकल्पना व निर्मिती<br>
+                <strong>श्री सचिन शिंदे सर</strong><br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 8329684470<br>
+                <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank">
+                    <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde Sir">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const questions = [
+    { q: "पाण्याच्या वाफेचे थेट बर्फात रूपांतर होण्याच्या प्रक्रियेला काय म्हणतात?", options: ["(A) संघनन", "(B) निक्षेपण (Deposition)", "(C) बाष्पीभवन", "(D) वितळणे"], correct: 1, exp: "योग्य उत्तर: (B) निक्षेपण (Deposition). वाफेचे थेट स्थायू रूपात (बर्फात) होणाऱ्या बदलाला निक्षेपण म्हणतात." },
+    { q: "पावसाचे पाणी जमिनीत साठवण्यासाठी सर्वात उपयुक्त उपाय कोणता?", options: ["(A) वृक्षतोड", "(B) पर्जन्यजल संधारण", "(C) नदी प्रदूषण", "(D) जमिनीवर डांबर टाकणे"], correct: 1, exp: "योग्य उत्तर: (B) पर्जन्यजल संधारण. पावसाचे पाणी जमिनीत मुरवून भूजल पातळी वाढवण्यासाठी हा सर्वोत्तम उपाय आहे." },
+    { q: "पर्जन्यजल संधारणाचा मुख्य उद्देश काय आहे?", options: ["(A) पाणी वाया घालवणे", "(B) भूजलपातळी वाढवणे", "(C) नद्यांचे पाणी कमी करणे", "(D) समुद्राचे पाणी वाढवणे"], correct: 1, exp: "योग्य उत्तर: (B) भूजलपातळी वाढवणे." },
+    { q: "'हार्ड वॉटर' (कठीण पाणी) मध्ये कोणते क्षार जास्त असतात?", options: ["(A) सोडियमचे", "(B) कॅल्शियम व मॅग्नेशियमचे", "(C) पोटॅशियमचे", "(D) लोखंडाचे"], correct: 1, exp: "योग्य उत्तर: (B) कॅल्शियम व मॅग्नेशियमचे क्षार कठीण पाण्यात जास्त असतात." },
+    { q: "खालीलपैकी कोणता घटक जलचक्राचा वेग वाढवतो?", options: ["(A) वाढते तापमान", "(B) कमी सूर्यप्रकाश", "(C) कायम धुके", "(D) अत्यल्प आर्द्रता"], correct: 0, exp: "योग्य उत्तर: (A) वाढते तापमान. तापमानामुळे बाष्पीभवनाचा वेग वाढतो." },
+    { q: "भारताच्या पहिल्या महिला आय.पी.एस. अधिकारी कोण?", options: ["(A) किरण बेदी", "(B) अण्णा राजम मल्होत्रा", "(C) अरुणा रॉय", "(D) दुर्गा शक्ती नागपाल"], correct: 0, exp: "योग्य उत्तर: (A) किरण बेदी या भारताच्या पहिल्या महिला आय.पी.एस. अधिकारी आहेत." },
+    { q: "भारतीय वंशाची पहिली महिला अंतराळवीर कोण?", options: ["(A) सुनिता विल्यम्स", "(B) कल्पना चावला", "(C) टेसी थॉमस", "(D) रितू करिधाल"], correct: 1, exp: "योग्य उत्तर: (B) कल्पना चावला." },
+    { q: "भारताचे पहिले पंतप्रधान कोण होते?", options: ["(A) लालबहादूर शास्त्री", "(B) सरदार पटेल", "(C) पंडित जवाहरलाल नेहरू", "(D) मोरारजी देसाई"], correct: 2, exp: "योग्य उत्तर: (C) पंडित जवाहरलाल नेहरू." },
+    { q: "भारताचे पहिले भारतीय मुख्य न्यायाधीश कोण होते?", options: ["(A) एम. पतंजली शास्त्री", "(B) हरिलाल जे. कानिया", "(C) वाय. व्ही. चंद्रचूड", "(D) पी. एन. भगवती"], correct: 1, exp: "योग्य उत्तर: (B) हरिलाल जे. कानिया." },
+    { q: "भारताच्या पहिल्या महिला राज्यपाल कोण?", options: ["(A) विजयलक्ष्मी पंडित", "(B) सरोजिनी नायडू", "(C) सुचेता कृपलानी", "(D) फातिमा बीवी"], correct: 1, exp: "योग्य उत्तर: (B) सरोजिनी नायडू (उत्तर प्रदेशच्या राज्यपाल होत्या)." },
+    { q: "भारतातील सर्वात मोठे नदीचे बेट कोणते?", options: ["(A) दिवर", "(B) माजुली", "(C) भैरव", "(D) एलिफंटा"], correct: 1, exp: "योग्य उत्तर: (B) माजुली (ब्रह्मपुत्रा नदी, आसाम)." },
+    { q: "भारतातील पहिले नोबेल पारितोषिक विजेते कोण?", options: ["(A) सी. व्ही. रमण", "(B) अमर्त्य सेन", "(C) रवींद्रनाथ टागोर", "(D) हरगोविंद खुराना"], correct: 2, exp: "योग्य उत्तर: (C) रवींद्रनाथ टागोर (१९१३ मध्ये साहित्यासाठी)." },
+    { q: "1954 मध्ये प्रथम भारतरत्न पुरस्कार मिळालेल्यांमध्ये खालीलपैकी कोणाचा समावेश नव्हता?", options: ["(A) सी. राजगोपालाचारी", "(B) डॉ. सी. व्ही. रमण", "(C) डॉ. सर्वपल्ली राधाकृष्णन", "(D) डॉ. राजेंद्र प्रसाद"], correct: 3, exp: "योग्य उत्तर: (D) डॉ. राजेंद्र प्रसाद यांना नंतर भारतरत्न मिळाला." },
+    { q: "भारताचे पहिले भारतीय गव्हर्नर जनरल कोण होते?", options: ["(A) लॉर्ड माऊंटबॅटन", "(B) सी. राजगोपालाचारी", "(C) डॉ. राजेंद्र प्रसाद", "(D) जवाहरलाल नेहरू"], correct: 1, exp: "योग्य उत्तर: (B) चक्रवर्ती राजगोपालाचारी." },
+    { q: "भारतातील सर्वात लांब धरण कोणते?", options: ["(A) टिहरी", "(B) हिराकुड", "(C) भाखरा", "(D) इंदिरा सागर"], correct: 1, exp: "योग्य उत्तर: (B) हिराकुड धरण (महानदी, ओरिसा)." },
+    { q: "भारताची पहिली महिला मुख्यमंत्री कोण होत्या?", options: ["(A) जयललिता", "(B) मायावती", "(C) सुचेता कृपलानी", "(D) शीला दीक्षित"], correct: 2, exp: "योग्य उत्तर: (C) सुचेता कृपलानी (उत्तर प्रदेश)." },
+    { q: "भारताचे पहिले उपराष्ट्रपती कोण होते?", options: ["(A) डॉ. झाकिर हुसेन", "(B) डॉ. सर्वपल्ली राधाकृष्णन", "(C) व्ही. व्ही. गिरी", "(D) बी. डी. जत्ती"], correct: 1, exp: "योग्य उत्तर: (B) डॉ. सर्वपल्ली राधाकृष्णन." },
+    { q: "भारताच्या पहिल्या महिला राष्ट्रपती कोण?", options: ["(A) इंदिरा गांधी", "(B) प्रतिभा पाटील", "(C) द्रौपदी मुर्मू", "(D) सरोजिनी नायडू"], correct: 1, exp: "योग्य उत्तर: (B) प्रतिभा पाटील." },
+    { q: "खालीलपैकी योग्य जोडी ओळखा.", options: ["(A) बुलर - खाऱ्या पाण्याचे सरोवर", "(B) चिलिका - गोडव्या पाण्याचे सरोवर", "(C) माजुली - नदीचे बेट", "(D) थार - पर्वतारांग"], correct: 2, exp: "योग्य उत्तर: (C) माजुली - नदीचे बेट ही योग्य जोडी आहे." },
+    { q: "खालीलपैकी चुकीची जोडी ओळखा.", options: ["(A) NH-44 सर्वात लांब राष्ट्रीय महामार्ग", "(B) हिराकुड सर्वात लांब धरण", "(C) कुतुबमीनार सर्वात उंच पुतळा", "(D) मरीना बीच सर्वात लांब समुद्रकिनारा"], correct: 2, exp: "योग्य उत्तर: (C) कुतुबमीनार सर्वात उंच पुतळा (कुतुबमीनार मिनार/इमारत आहे, पुतळा नाही)." },
+    { q: "भारताचे पहिले राष्ट्रपती कोण होते?", options: ["(A) डॉ. एस. राधाकृष्णन", "(B) डॉ. राजेंद्र प्रसाद", "(C) डॉ. झाकिर हुसेन", "(D) व्ही. व्ही. गिरी"], correct: 1, exp: "योग्य उत्तर: (B) डॉ. राजेंद्र प्रसाद." },
+    { q: "लक्ष्दीपूजन कोणत्या सणाचा महत्त्वाचा भाग आहे?", options: ["(A) गणेशोत्सव", "(B) दिवाळी", "(C) गुढीपाडवा", "(D) मकर संक्रांत"], correct: 1, exp: "योग्य उत्तर: (B) दिवाळी." },
+    { q: "खालीलपैकी कोणता राष्ट्रीय सण आहे?", options: ["(A) गणेश चतुर्थी", "(B) ओणम", "(C) गांधी जयंती", "(D) ईद-उल-फितर"], correct: 2, exp: "योग्य उत्तर: (C) गांधी जयंती." },
+    { q: "मकर संक्रांतीला सूर्य कोणत्या राशीत प्रवेश करतो?", options: ["(A) मेष", "(B) सिंह", "(C) मकर", "(D) तुला"], correct: 2, exp: "योग्य उत्तर: (C) मकर रास." },
+    { q: "खालीलपैकी कोणता सण मुस्लिम धर्माशी संबंधित नाही?", options: ["(A) ईद-उल-फितर", "(B) बकरी ईद", "(C) मुहर्रम", "(D) बुद्ध पौर्णिमा"], correct: 3, exp: "योग्य उत्तर: (D) बुद्ध पौर्णिमा." },
+    { q: "शुद्ध पाण्याचे pH मूल्य किती असते?", options: ["(A) 5", "(B) 6", "(C) 7", "(D) 8"], correct: 2, exp: "योग्य उत्तर: (C) 7 (शुद्ध पाणी तटस्थ असते)." },
+    { q: "पिण्याचे पाणी जंतुकमुक्त करण्यासाठी सर्वाधिक वापरले जाणारे रसायन कोणते?", options: ["(A) सोडियम क्लोराइड", "(B) क्लोरीन", "(C) कॅल्शियम कार्बोनेट", "(D) पोटॅशियम नायट्रेट"], correct: 1, exp: "योग्य उत्तर: (B) क्लोरीन." },
+    { q: "जलप्रदूधनामुळे खालीलपैकी कोणता रोग होऊ शकतो?", options: ["(A) कॉलरा", "(B) मधुमेह", "(C) दमा", "(D) संधिवात"], correct: 0, exp: "योग्य उत्तर: (A) कॉलरा (दूषित पाण्यामुळे होणारा रोग)." },
+    { q: "'यूट्रोफिकेशन' (Eutrophication) म्हणजे काय?", options: ["(A) पाण्यातील ऑक्सिजन वाढणे", "(B) पानात पोषकद्रव्ये वाढल्याने शैवालाची अतिवाढ होणे", "(C) पाण्याचे बाष्पीभवन", "(D) पाणी गोठणे"], correct: 1, exp: "योग्य उत्तर: (B) पानात पोषकद्रव्ये वाढल्याने शैवालाची अतिवाढ होणे." },
+    { q: "शेवाळाच्या अतिवाढीमुळे जलचरांना कोणता त्रास होतो?", options: ["(A) ऑक्सिजनची कमतरता", "(B) पाण्याचे तापमान कमी होते", "(C) पाणी गोड होते", "(D) पाणी स्वच्छ होते"], correct: 0, exp: "योग्य उत्तर: (A) ऑक्सिजनची कमतरता निर्माण होते." },
+    { q: "जैवरासायनिक ऑक्सिजन मागणी (BOD) जास्त असल्यास काय सुचित होते?", options: ["(A) पाणी अतिशय स्वच्छ आहे", "(B) पाण्याचे प्रदूषण जास्त आहे", "(C) पानात ऑक्सिजन जास्त आहे", "(D) पाण्यात क्षार जास्त आहेत"], correct: 1, exp: "योग्य उत्तर: (B) पाण्याचे प्रदूषण जास्त आहे." },
+    { q: "खालीलपैकी कोणती कृती वायुप्रदूषण कमी करण्यास मदत करते?", options: ["(A) झाडे लावणे", "(B) प्लास्टिक जाळणे", "(C) उद्योगांवर कचरा जाळणे", "(D) वाहनांचा अधिक वापर करणे"], correct: 0, exp: "योग्य उत्तर: (A) झाडे लावणे." },
+    { q: "नदीमध्ये सांडपाणी सोडल्यास सर्वप्रथम कोणता परिणाम होतो?", options: ["(A) पाणी अधिक स्वच्छ होते", "(B) जलप्रदूषण वाढते", "(C) पाण्याचा रंग कायम नीला राहतो", "(D) ऑक्सिजनचे प्रमाण वाढते"], correct: 1, exp: "योग्य उत्तर: (B) जलप्रदूषण वाढते." },
+    { q: "खालीलपैकी कोणता जलप्रदूषणाचा नैसर्गिक स्रोत आहे?", options: ["(A) धुके व गाळ वाहून येणे", "(B) कारखान्यांचे सांडपाणी", "(C) पशुपक्षी सांडपाणी", "(D) प्लास्टिक कचरा"], correct: 0, exp: "योग्य उत्तर: (A) धुके व गाळ वाहून येणे." },
+    { q: "ह हवा प्रदूषण मोजण्यासाठी कोणता निर्देशांक वापरला जातो?", options: ["(A) BOD", "(B) AQI (Air Quality Index)", "(C) pH", "(D) BMI"], correct: 1, exp: "योग्य उत्तर: (B) AQI (Air Quality Index)." },
+    { q: "AQI मध्ये कमी मूल्य काय दर्शवते?", options: ["(A) हवा अधिक प्रदूषित आहे", "(B) हवेची गुणवत्ता चांगली आहे", "(C) पाऊस पडणार आहे", "(D) तापमान जास्त आहे"], correct: 1, exp: "योग्य उत्तर: (B) हवेची गुणवत्ता चांगली आहे." },
+    { q: "खालीलपैकी कोणता हरितगृह वायू आहे?", options: ["(A) मिथेन", "(B) ऑक्सिजन", "(C) नायट्रोजन", "(D) हेलियम"], correct: 0, exp: "योग्य उत्तर: (A) मिथेन (इतर: कार्बन डायऑक्साइड इ.)." },
+    { q: "पाण्यात विरघळलेल्या ऑक्सिजनचे (DO) प्रमाण कमी झाल्यास कोणता परिणाम होतो?", options: ["(A) मासे मरू शकतात", "(B) पाणी अधिक स्वच्छ होते", "(C) पाणी गोड होते", "(D) जलवनस्पतींची वाढ थांबते"], correct: 0, exp: "योग्य उत्तर: (A) मासे मरू शकतात." },
+    { q: "जलशुद्धीकरण केंद्रात पाणी जंतुक करण्याची अंतिम प्रक्रिया कोणती असते?", options: ["(A) गाळणीकरण", "(B) अवसादन", "(C) क्लोरीनीकरण", "(D) उत्कळण"], correct: 2, exp: "योग्य उत्तर: (C) क्लोरीनीकरण." },
+    { q: "'ब्लू बेबी सिंड्रोम' हा रोग पाण्यातील कोणत्या घटकाच्या अति प्रमाणाशी संबंधित आहे?", options: ["(A) नायट्रेट", "(B) क्लोरीन", "(C) कॅल्शियम", "(D) फ्लोराईड"], correct: 0, exp: "योग्य उत्तर: (A) नायट्रेट." }
+];
+let currentIdx = 0;
+let score = 0;
+let studentName = "";
+let studentMobile = "";
+let userAnswers = [];
+
+function startExam() {
+    let nameInput = document.getElementById("student-name");
+    let mobileInput = document.getElementById("student-mobile");
+    
+    studentName = nameInput.value.trim();
+    studentMobile = mobileInput.value.trim();
+    
+    if(!studentName || !studentMobile) {
+        alert("कृपया तुमचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+        return;
+    }
+    
+    document.getElementById("start-screen").classList.add("hidden");
+    document.getElementById("quiz-screen").classList.remove("hidden");
+    loadQuestion();
+}
+
+function loadQuestion() {
+    document.getElementById("next-btn").disabled = true;
+    let expBox = document.getElementById("explanation-box");
+    expBox.classList.add("hidden");
+    expBox.innerHTML = "";
+    
+    let qObj = questions[currentIdx];
+    document.getElementById("q-number").innerText = `प्रश्न: ${currentIdx + 1}/40`;
+    document.getElementById("score-live").innerText = `गुण: ${score}`;
+    document.getElementById("question-text").innerText = `${currentIdx + 1}. ${qObj.q}`;
+    
+    let optContainer = document.getElementById("options-container");
+    optContainer.innerHTML = "";
+    
+    qObj.options.forEach((opt, idx) => {
+        let btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(idx, btn);
+        optContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIdx, selectedBtn) {
+    let qObj = questions[currentIdx];
+    let allBtns = document.querySelectorAll(".option-btn");
+    
+    allBtns.forEach(b => b.disabled = true);
+    
+    let isCorrect = (selectedIdx === qObj.correct);
+    if(isCorrect) {
+        score += 2;
+        selectedBtn.classList.add("correct");
+    } else {
+        selectedBtn.classList.add("incorrect");
+        allBtns[qObj.correct].classList.add("correct");
+    }
+    
+    userAnswers.push({
+        question: qObj.q,
+        selected: qObj.options[selectedIdx],
+        correctAnswer: qObj.options[qObj.correct],
+        isCorrect: isCorrect,
+        explanation: qObj.exp
+    });
+    
+    let expBox = document.getElementById("explanation-box");
+    expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${qObj.exp}`;
+    expBox.classList.remove("hidden");
+    
+    let nextBtn = document.getElementById("next-btn");
+    if(currentIdx === questions.length - 1) {
+        nextBtn.innerText = "Submit Exam";
+    }
+    nextBtn.disabled = false;
+}
+
+function nextQuestion() {
+    currentIdx++;
+    if(currentIdx < questions.length) {
+        loadQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    document.getElementById("quiz-screen").classList.add("hidden");
+    document.getElementById("result-screen").classList.remove("hidden");
+    
+    document.getElementById("res-name").innerText = studentName;
+    
+    let totalMarks = 80;
+    let percentage = (score / totalMarks) * 100;
+    
+    document.getElementById("res-score").innerText = `मिळालेले गुण: ${score} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+    
+    let badgeText = "";
+    if(percentage >= 90) {
+        badgeText = "🥇 कामगिरी: 90% किंवा अधिक → Gold Medal + Trophy 🏆";
+    } else if(percentage >= 80) {
+        badgeText = "🥈 कामगिरी: 89% ते 80% → Silver Medal + Trophy 🥈";
+    } else if(percentage >= 70) {
+        badgeText = "🥉 कामगिरी: 79% ते 70% → Bronze Medal + Trophy 🥉";
+    } else {
+        badgeText = '💐 कामगिरी: 70% पेक्षा कमी → अभिनंदन! फुलांचा गुच्छ व "पुढील परीक्षेसाठी शुभेच्छा" 💐';
+    }
+    
+    document.getElementById("res-badge").innerText = badgeText;
+    
+    let reviewContainer = document.getElementById("review-container");
+    reviewContainer.innerHTML = "<h3 style='margin-top:0;'>चुकलेले प्रश्न व मार्गदर्शन:</h3>";
+    
+    let incorrects = userAnswers.filter(a => !a.isCorrect);
+    if(incorrects.length === 0) {
+        reviewContainer.innerHTML += "<p style='color: green; font-weight: bold;'>अतिउत्तम! तुमचे सर्व प्रश्न बरोबर आले आहेत.</p>";
+    } else {
+        incorrects.forEach((item, index) => {
+            reviewContainer.innerHTML += `
+                <div style="margin-bottom: 12px; border-bottom: 1px dashed #ccc; padding-bottom: 8px; text-align: left;">
+                    <p style="font-weight: bold; color: #333; margin: 0 0 4px 0;">${index + 1}. ${item.question}</p>
+                    <p style="color: #d32f2f; margin: 2px 0; font-size: 14px;">तुमचे उत्तर: ${item.selected}</p>
+                    <p style="color: #388e3c; margin: 2px 0; font-size: 14px;">योग्य उत्तर: ${item.correctAnswer}</p>
+                    <p style="color: #555; background: #fffde7; padding: 5px; font-size: 13px; margin: 4px 0 0 0;">${item.explanation}</p>
+                </div>
+            `;
+        });
+    }
+}
+
+function toggleReview() {
+    let revBox = document.getElementById("review-container");
+    if(revBox.classList.contains("hidden")) {
+        revBox.classList.remove("hidden");
+        document.getElementById("review-toggle-btn").innerText = "चुकलेले प्रश्न लपवा";
+    } else {
+        revBox.classList.add("hidden");
+        document.getElementById("review-toggle-btn").innerText = "चुकलेले प्रश्न पहा व मार्गदर्शन मिळवा";
+    }
+}
+</script>
+
+</body>
+</html>
