@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवोदय परिसर अभ्यास संकीर्ण - जि.प.प्रा.शाळा नरसोबावाडी</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --accent-color: #27ae60;
+            --danger-color: #c0392b;
+            --bg-color: #f4f6f7;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eaecee;
+            padding-bottom: 10px;
+        }
+
+        .creator-footer {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            text-align: right;
+            color: #555;
+            line-height: 1.4;
+            border-top: 1px dashed #d5dbdb;
+            padding-top: 10px;
+        }
+
+        .creator-footer img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 8px;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .global-footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 15px 0 5px 0;
+            font-weight: 500;
+        }
+
+        /* Home Screen */
+        .home-screen {
+            text-align: center;
+        }
+
+        .home-screen h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .start-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .start-btn:hover {
+            background-color: #219653;
+        }
+
+        /* Quiz Screen */
+        .quiz-screen {
+            display: none;
+        }
+
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .option-item {
+            background: #f8f9f9;
+            border: 1px solid #d5dbdb;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .option-item:hover {
+            background: #ebedef;
+        }
+
+        .option-item.correct {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-item.wrong {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+
+        .explanation-box {
+            display: none;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .next-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+            display: none;
+        }
+
+        .next-btn:hover {
+            background-color: #1b4f72;
+        }
+
+        /* Result Screen */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .certificate-box {
+            border: 4px double var(--primary-color);
+            padding: 20px;
+            border-radius: 10px;
+            background: #fffdf9;
+            position: relative;
+        }
+
+        .certificate-box h2 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-top: 5px;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 15px 0;
+        }
+
+        .achievement-badge {
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: #e8f8f5;
+            padding: 10px;
+            border-radius: 6px;
+            color: #117a65;
+            margin: 15px 0;
+            border: 1px solid #a3e4d7;
+        }
+
+        .action-btns {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .review-btn {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .review-btn:hover {
+            background-color: #d35400;
+        }
+
+        .review-section {
+            display: none;
+            text-align: left;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border-top: 2px solid #ddd;
+            padding-top: 15px;
+        }
+
+        .review-item {
+            background: #fdfefe;
+            border: 1px solid #eaeded;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .review-item.user-wrong {
+            border-left: 5px solid var(--danger-color);
+        }
+
+        .review-item.user-correct {
+            border-left: 5px solid var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- पहिल्या पानावर माहिती व फॉर्म -->
+        <div id="homeScreen" class="home-screen">
+            <div class="header-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <h1>नवोदय परिसर अभ्यास संकीर्ण</h1>
+            
+            <div class="form-group">
+                <label for="studentName">विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="studentName" placeholder="पूर्ण नाव प्रविष्ट करा">
+            </div>
+
+            <div class="form-group">
+                <label for="studentMobile">मोबाईल नंबर:</label>
+                <input type="tel" id="studentMobile" placeholder="१० अंकी मोबाईल नंबर">
+            </div>
+
+            <button class="start-btn" onclick="startQuiz()">EXAM START</button>
+
+            <div class="creator-footer">
+                संकल्पना व निर्मिती<br>
+                <strong>श्री सचिन शिंदे सर</strong><br>
+                जि.प.प्रा.शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 8329684470<br>
+                <img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde">
+            </div>
+        </div>
+
+        <!-- टेस्ट स्क्रीन -->
+        <div id="quizScreen" class="quiz-screen">
+            <div class="header-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <div class="question-meta">
+                <span id="questionNumber">प्रश्न १/५०</span>
+                <span>गुण: २</span>
+            </div>
+            <div id="questionText" class="question-text">प्रश्नाचा मजकूर येथे येईल</div>
+            
+            <ul id="optionsList" class="options-list"></ul>
+
+            <div id="explanationBox" class="explanation-box">
+                <strong>स्पष्टीकरण:</strong> <span id="explanationText">येथे स्पष्टीकरण दिसेल.</span>
+            </div>
+
+            <button id="nextBtn" class="next-btn" onclick="nextQuestion()">पुढील प्रश्न ➡</button>
+            
+            <div style="clear: both;"></div>
+            <div class="global-footer">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+        </div>
+
+        <!-- निकाल (Certificate Style) स्क्रीन -->
+        <div id="resultScreen" class="result-screen">
+            <div class="certificate-box">
+                <div style="font-size: 0.9rem; font-weight: bold; color: #555;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+                <h2>गुणवत्ता प्रमाणपत्र / निकाल</h2>
+                <hr style="border: 0; border-top: 1px solid #d5dbdb; margin: 10px 0;">
+                <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="resName">--</span></p>
+                
+                <div class="score-display" id="resMarks">० / १००</div>
+                <div id="resPercentage" style="font-weight: bold; color: #333;">टक्केवारी: ०%</div>
+
+                <div class="achievement-badge" id="resBadge">अभिनंदन!</div>
+
+                <div class="action-btns">
+                    <button class="review-btn" onclick="toggleReview()">चुकलेले प्रश्न पहा</button>
+                </div>
+
+                <div id="reviewSection" class="review-section"></div>
+
+                <div class="creator-footer" style="margin-top: 20px;">
+                    संकल्पना व निर्मिती<br>
+                    <strong>श्री सचिन शिंदे सर</strong><br>
+                    जि.प.प्रा.शाळा नरसोबावाडी<br>
+                    मोबाईल नंबर: 8329684470<br>
+                    <img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde">
+                </div>
+            </div>
+            <div class="global-footer">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                q: "राजस्थानमधील खेजडी वृक्षाबाबत खालील विधानांचा विचार करा: अ) या झाडाला जास्त पाण्याची गरज नसते आणि ते वाळवंटी भागात जगू शकते. ब) या झाडाच्या सालीपासून औषधी बनवली जातात. क) फळे स्थानिक लोक भाजीसाठी वापरतात.",
+                options: ["फक्त विधान (अ) व (ब) योग्य", "फक्त विधान (ब) व (क) योग्य", "फक्त विधान (अ) व (क) योग्य", "सर्व विधाने योग्य"],
+                answer: 3,
+                exp: "खेजडी वृक्षाबाबत दिलेली सर्व विधाने योग्य आहेत."
+            },
+            {
+                q: "पृथ्वीच्या वातावरणामध्ये सर्वाधिक प्रमाणात आढळणारा वायू कोणता?",
+                options: ["कार्बनडाय ऑक्साईड", "नायट्रोजन", "हायड्रोजन", "ऑक्सिजन"],
+                answer: 1,
+                exp: "वातावरणात नायट्रोजनचे प्रमाण सुमारे ७८ टक्के आहे."
+            },
+            {
+                q: "पर्यावरणचे संतुलन राखण्यासाठी सर्वात महत्त्वाचे कार्य कोणते?",
+                options: ["अधिकधिक प्लास्टिकचा वापर", "पाण्याचा अपव्यय करणे", "जंगलतोड वाढवणे", "अधिक झाडे लावणे आणि त्यांचे संरक्षण करणे"],
+                answer: 3,
+                exp: "पर्यावरण संतुलन राखण्यासाठी वृक्षारोपण व त्यांचे संरक्षण अत्यंत महत्त्वाचे आहे."
+            },
+            {
+                q: "पशूंच्या अशा गटाची ओळख करा की जो त्यांच्या खाण्याच्या सवयींनुसार साम्य दर्शवितात?",
+                options: ["मोर, पोपट, कबूतर", "पोपट, कावळा, घुबड", "घुबड, घार, ससाणा", "सुतारपक्षी, गिधाड, कोकिळा"],
+                answer: 2,
+                exp: "घुबड, घार आणि ससाणा हे मांसभक्षी व शिकारी पक्षी आहेत."
+            },
+            {
+                q: "पेट्रोलियम हे जमिनीच्या खाली कसे तयार होते?",
+                options: ["जमिनीतील दगड वितळल्यामुळे", "कारखान्यातील कचऱ्यामुळे", "लाखो वर्षांपूर्वी गाडल्या गेलेल्या सजीवांच्या अवशेषापासून", "पावसाचे पाणी साचल्यामुळे"],
+                answer: 2,
+                exp: "लाखो वर्षांपूर्वी गाडल्या गेलेल्या सजीवांच्या अवशेषांपासून पेट्रोलियम तयार होते."
+            },
+            {
+                q: "ताजमहालाचा रंग पिवळसर पडण्यामागे खालीलपैकी कोणते मुख्य कारण आहे?",
+                options: ["अम्ल पर्जन्य", "पानी प्रदूषण", "जागतिक तापमान वाढ", "धुळीची वादळे"],
+                answer: 0,
+                exp: "औद्योगिक प्रदूषणामुळे होणाऱ्या अम्ल पर्जन्यामुळे (Acid Rain) ताजमहालाचा रंग पिवळसर होत आहे."
+            },
+            {
+                q: "लोसार हा उत्सव भारतातील सिक्कीम, लडाख आणि अरुणाचल प्रदेश या भागात साजरा होतो. हा सण कोणत्या धर्मियांचा नववर्ष उत्सव आहे?",
+                options: ["जैन धर्म", "ब बौद्ध धर्म", "पारसी धर्म", "सिंधी धर्म"],
+                answer: 1,
+                exp: "लोसार हा बौद्ध धर्मातील प्रमुख नववर्ष उत्सव आहे."
+            },
+            {
+                q: "पुरानंतर साथीचे रोग पसरण्याचे प्रमुख कारण काय?",
+                options: ["दूषित पाणी व अस्वच्छता", "थंडी", "धूळ", "सूर्यप्रकाश"],
+                answer: 0,
+                exp: "पूरानंतर पिण्याच्या पाण्याची शुद्धता बिघडल्यामुळे आणि अस्वच्छतेमुळे साथीचे रोग पसरतात."
+            },
+            {
+                q: "हत्तीच्या कळपाचे नेतृत्व कोण करते?",
+                options: ["कळपातील सर्वात वयस्कर मादी", "कळपातील सर्वात तरुण नर", "कळपातील सर्वात अनुभवी आणि वयस्कर नर", "कळपातील सर्वात बलवान नर"],
+                answer: 0,
+                exp: "हत्तीच्या कळपाचे नेतृत्व सर्वात वयस्कर मादी हत्ती करते."
+            },
+            {
+                q: "जलचक्रात सूर्याची भूमिका काय?",
+                options: ["पाणी थंड करणे", "ढग तयार करणे", "बाष्पीभवनासाठी उष्णता देणे", "नदीचा प्रवाह वाढवणे"],
+                answer: 2,
+                exp: "सूर्य पाण्याच्या बाष्पीभवनासाठी उष्णता पुरवतो ज्यामुळे जलचक्र चालते."
+            },
+            {
+                q: "जमिनीच्या आत होणाऱ्या हालचालीमुळे भूकंपाचे उद्गमस्थान जमिनीखाली असते परंतु या भूकंपाचे हद्रे जमिनीच्या पृष्ठभागावर सर्वात आधी ज्या ठिकाणी पोहचतात त्या बिंदूला काय म्हणतात?",
+                options: ["नाभीकेंद्र", "अधिकेंद्र", "रिस्टर स्केल", "ज्ववालामुखी केंद्र"],
+                answer: 1,
+                exp: "भूकंपाचे लहरी जमिनीवर सर्वात प्रथम पोहोचणाऱ्या बिंदूला अधिकेंद्र (Epicenter) म्हणतात."
+            },
+            {
+                q: "मुंग्याच्या वर्तनाबाबत खालीलपैकी कोणते विधान बरोबर आहे?",
+                options: ["विधान (अ) व (ब) योग्य", "विधान (अ) व (क) योग्य", "विधान (अ), (ब) व (क) योग्य", "विधान (अ), (ब) व (ड) योग्य"],
+                answer: 3,
+                exp: "मुंग्या विशिष्ट गंध सोडतात, राणी मुंगी अंडी घालते आणि सैनिक मुंग्या राखण करतात."
+            },
+            {
+                q: "आसाममध्ये घरे आणि वाहतुकीची साधने याबाबत अचूक विधान कोणते?",
+                options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) योग्य", "विधान (अ) व (ब) अयोग्य"],
+                answer: 2,
+                exp: "आसाममध्ये मुसळधार पावसामुळे बांबूच्या खांबावर घरे असतात व दोरीचे पूल वापरले जातात."
+            },
+            {
+                q: "मिझोरममध्ये भात कापणीनंतर कोणते प्रसिद्ध नृत्य केले जाते?",
+                options: ["भांगडा", "गरबा", "चेराव", "बिहू"],
+                answer: 2,
+                exp: "मिझोरममध्ये भात कापणीनंतर 'चेराव' (बांबू) नृत्य केले जाते."
+            },
+            {
+                q: "फुफ्फुसाविषयी काय बरोबर आहे?",
+                options: ["विधान (अ) आणि (ब) योग्य", "फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) अयोग्य"],
+                answer: 0,
+                exp: "फुफ्फुसे श्वसनासाठी मदत करतात आणि नाकावाटे हवा फुफ्फुसात जाते."
+            },
+            {
+                q: "पृथ्वीवरील पाण्याच्या एकूण साठ्यापैकी पिण्यायोग्य गोड्या पाण्याचे प्रमाण अंदाजे किती टक्के आहे?",
+                options: ["97 टक्के", "71 टक्के", "2.5 ते 3 टक्के", "50 टक्के"],
+                answer: 2,
+                exp: "पृथ्वीवर पिण्यायोग्य गोड्या पाण्याचे प्रमाण फक्त अडीच ते तीन टक्के आहे."
+            },
+            {
+                q: "नदीपात्रात वाळू उपसा केल्यामुळे पर्यावरणावर काय परिणाम होतो?",
+                options: ["पाणी स्वच्छ होते", "नदीची खोली वाढते", "माशांचे प्रजनन वाढते", "पाणी साठवण्याची क्षमता कमी होते व जीवसृष्टी धोक्यात येते"],
+                answer: 3,
+                exp: "अतिVवापरामुळे आणि वाळू उपशाने नदीची क्षमता व जलचर धोक्यात येतात."
+            },
+            {
+                q: "पाण्याचे तापमान शून्य अंश सेल्सियस किंवा त्यापेक्षा कमी झाल्यावर त्याचे बर्फात रूपांतर होते. या प्रक्रियेला विज्ञान भाषेत काय म्हणतात?",
+                options: ["गोठणे", "प्रसरण", "बाष्पीभवन", "विलियन"],
+                answer: 0,
+                exp: "पाण्याचे बर्फात रूपांतर होण्याच्या प्रक्रियेला गोठणे म्हणतात."
+            },
+            {
+                q: "पाण्याच्या अवस्थेबाबत काय खरे आहे?",
+                options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) दोन्ही योग्य", "विधान (अ) व (ब) दोन्ही अयोग्य"],
+                answer: 2,
+                exp: "पाणी तापवल्यास बर्फ/वाफ आणि वाफ थंड केल्यावर पाणी बनते."
+            },
+            {
+                q: "ग्रेगर मेंडल यांनी वाटाण्याच्या झाडावर केलेल्या प्रयोगातून काय सिद्ध होते?",
+                options: ["झाडांना पाणी किती द्यावे", "वाटाणा खाल्ल्याने बुद्धी वाढते", "झाडे लवकर कशी वाढतात", "लक्षणे आणि गुण एका पिढीकडून दुसऱ्या पिढीकडे जातात"],
+                answer: 3,
+                exp: "मेंडलच्या प्रयोगातून अनुवंशिकता (गुण एका पिढीकडून दुसऱ्या पिढीकडे जाणे) सिद्ध झाले."
+            },
+            {
+                q: "माती संवर्धनासाठी काय करावे?",
+                options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) योग्य", "विधान (अ) व (ब) अयोग्य"],
+                answer: 0,
+                exp: "माती संवर्धनासाठी जास्तीत जास्त झाडे लावली पाहिजेत."
+            },
+            {
+                q: "ओडिशामधील पुरी येथील प्रसिद्ध रथयात्रा कोणत्या देवाच्या सन्मानार्थ काढली जाते?",
+                options: ["भगवान शिव आणि पार्वती", "भगवान विष्णू, लक्ष्मी", "भगवान जगन्नाथ, बलभद्र आणि सुभद्रा", "भगवान राम आणि सीता"],
+                answer: 2,
+                exp: "पुरीची रथयात्रा भगवान जगन्नाथ, बलभद्र आणि सुभद्रा यांच्या सन्मानार्थ काढली जाते."
+            },
+            {
+                q: "अति कमी वेळेत, एका छोट्या भौगोलिक क्षेत्रात अचानक होणाऱ्या प्रचंड मुसळधार पावसाला काय म्हणतात?",
+                options: ["चक्रीवादळ", "ढगफुटी", "मान्सून", "अवकाळी पाऊस"],
+                answer: 1,
+                exp: "अचानक होणाऱ्या मुसळधार वर्षावाला ढगफुटी (Cloudburst) म्हणतात."
+            },
+            {
+                q: "पाण्यातील मासे श्वसन कोणत्या अवयवाने करतात?",
+                options: ["फुफ्फुसे", "त्वचा", "कल्ले", "श्वसननलिका"],
+                answer: 2,
+                exp: "मासे पाण्यातील विरघळलेला ऑक्सिजन कल्ल्यांच्या (Gills) सहाय्याने शोषून घेतात."
+            },
+ {
+                q: "कथ्थक हा शास्त्रीय नृत्यप्रकार कोणत्या राज्याशी संबंधित आहे?",
+                options: ["मध्य प्रदेश", "उत्तर प्रदेश", "केरळ", "आंध्र प्रदेश"],
+                answer: 1,
+                exp: "कथ्थक हा उत्तर भारताचा व प्रामुख्याने उत्तर प्रदेशचा शास्त्रीय नृत्यप्रकार आहे."
+            },
+            {
+                q: "जमिनीची धूप आणि सुपीकता यांबाबत खालील विधाने वाचा: अ) झाडांची मुळे माती धरून ठेवून धूप थांबवतात. ब) झाडे तोडल्याने सुपीकता कमी होते.",
+                options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) आणि (ब) दोन्ही योग्य", "विधान (अ) आणि (ब) दोन्ही अयोग्य"],
+                answer: 2,
+                exp: "मुळे माती धरून ठेवतात आणि वृक्षतोडीने सुपीकता घटते, दोन्ही विधाने खरी आहेत."
+            },
+            {
+                q: "अन्न शिजवल्यामुळे काय फायदा होतो?",
+                options: ["त्यातील सर्व जीवनसत्त्वे वाढतात.", "अन्न कडक होते.", "अन्न पचायला सोपे होते व रुचकर लागते", "अन्न खाण्यास वेळ लागतो"],
+                answer: 2,
+                exp: "अन्न शिजवल्याने ते मऊ, पचायला सोपे आणि चवदार बनते."
+            },
+            {
+                q: "खालीलपैकी कोणती जोडी अचूक जुळलेली आहे?",
+                options: ["दुष्काळ - अतिवृष्टी", "त्सुनामी - समुद्रतळाशी भूकंप", "पूर - पाण्याची टंचाई", "भूकंप - उष्णतेची लाट"],
+                answer: 1,
+                exp: "समुद्रतळाशी होणाऱ्या भूकंपांमुळे त्सुनामी लाटा येतात."
+            },
+            {
+                q: "सहकारी संस्थांपैकी अमूल हे कोणत्या राज्यात दूध उत्पादनात क्रांती घडवून आणणारे यशस्वी उदाहरण आहे?",
+                options: ["राजस्थान", "पंजाब", "गुजरात", "महाराष्ट्र"],
+                answer: 2,
+                exp: "अमूल संस्था गुजरात राज्यातील आणंद येथे दुग्धक्रांतीचे प्रतीक आहे."
+            },
+            {
+                q: "वातावरामधील कोणत्या थरामुळे सूर्याची घातक अतिनील किरणे पृथ्वीपर्यंत पोहोचत नाहीत?",
+                options: ["धुळीचा थर", "ओझोन थर", "नायट्रोजन थर", "बाष्प थर"],
+                answer: 1,
+                exp: "ओझोन थरांमुळे सूर्याची अतिनील किरणे गाळली जातात."
+            },
+            {
+                q: "भारताच्या राष्ट्रध्वजातील मधल्या पांढऱ्या रंगाचा अर्थ काय आहे?",
+                options: ["समृद्धी आणि विकास", "शांती आणि सत्य", "शौर्य आणि बलिदान", "शक्ती आणि आरोग्य"],
+                answer: 1,
+                exp: "पांढरा रंग शांती आणि सत्याचे प्रतीक आहे."
+            },
+            {
+                q: "नैसर्गिक आपत्तीपूर्व तयारीसाठी कोणती गोष्ट आवश्यक आहे?",
+                options: ["अफवा पसरवणे", "सूचना न पाळणे", "मदत नाकारणे", "आपत्कालीन संपर्क क्रमांक माहीत असणे"],
+                answer: 3,
+                exp: "आपत्ती व्यवस्थापनासाठी संपर्क क्रमांक व पूर्वतयारी माहिती असणे आवश्यक आहे."
+            },
+            {
+                q: "पावसाच्या पाण्याबाबत विचार करा: अ) झाडे लावल्यामुळे पाऊस पडण्यास मदत होते. ब) वनस्पती बाष्पोत्सर्जनाद्वारे ओलावा सोडतात.",
+                options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) आणि (ब) दोन्ही योग्य", "विधान (अ) आणि (ब) दोन्ही अयोग्य"],
+                answer: 2,
+                exp: "झाडे आणि बाष्पोत्सर्जन यामुळे पाऊस पडण्यास मदत होते."
+            },
+            {
+                q: "पावसाळ्यातील जास्तीचे पाणी साठवण्यासाठी आणि वीज निर्मितीसाठी नदीवर काय बांधतात?",
+                options: ["घाट", "धबधबा", "पूल", "धरण"],
+                answer: 3,
+                exp: "पाणीसाठा व जलविद्युत निर्मितीसाठी नदीवर धरण (Dam) बांधले जाते."
+            },
+            {
+                q: "कर्लीगडच्या वेली कोणत्या प्रकारच्या वनस्पतीमध्ये मोडतात?",
+                options: ["सरपटणाऱ्या वनस्पती", "वेल/आरोही वनस्पती", "झुडूप", "मोठे झाड"],
+                answer: 1,
+                exp: "वेली या आरोही किंवा सरपटणाऱ्या प्रकारात येतात."
+            },
+            {
+                q: "महाराष्ट्रामध्ये बैलपोळ्याच्या दिवशी बैलाची पूजा केली जाते. दक्षिण भारतात गुरांचा सन्मान करणारा सण कोणता?",
+                options: ["मट्टू पोंगल", "भोगी", "कणूम् पोंगल", "थाई पोंगल"],
+                answer: 0,
+                exp: "मट्टू पोंगल हा गुरांचा सन्मान करणारा सण आहे."
+            },
+            {
+                q: "राजस्थानमधील पुष्कर उंट जत्रा कोणत्या हिंदू महिन्यात भरते?",
+                options: ["भाद्रपद", "मार्गशीर्ष", "कार्तिक", "फाल्गुन"],
+                answer: 2,
+                exp: "पुष्कर उंट जत्रा कार्तिक पौर्णिमेच्या सुमारास भरते."
+            },
+            {
+                q: "दूध टिकविण्याची सर्वात योग्य पद्धत कोणती?",
+                options: ["उन्हात ठेवावे", "भरपूर पाणी टाकावे", "उकळून ठेवावे", "उघड्या भांड्यात ठेवावे"],
+                answer: 2,
+                exp: "दूध उकळून ठेवल्याने त्यातील जिवाणू नष्ट होतात व ते लवकर नासत नाही."
+            },
+            {
+                q: "जलवनस्पती आणि जलजीव यांच्यातील योग्य संबंध कोणता?",
+                options: ["जलवनस्पती प्राणवायू तयार करून जलजीवांना मदत करतात.", "जलवनस्पती पाणी पिण्यास योग्य करतात.", "सर्व जलवनस्पती पाण्यात पोहचत नाहीत.", "जलवनस्पतीमुळे पाण्यात प्रकाश पोहचत नाही."],
+                answer: 0,
+                exp: "जलवनस्पती प्रकाशसंश्लेषणाद्वारे प्राणवायू तयार करून जलजीवांना जगण्यास मदत करतात."
+            },
+            {
+                q: "गंगेचा उगम भागीरथी म्हणून गंगोत्री हिमनदीतून होतो, परंतु कोणत्या ठिकाणी अलकनंदा व भागीरथीचा संगम झाल्यावर गंगा नाव मिळते?",
+                options: ["रुद्रप्रयाग", "देवप्रयाग", "ऋषिकेश", "कर्णप्रयाग"],
+                answer: 1,
+                exp: "देवप्रयाग येथे अलकनंदा आणि भागीरथी नद्यांच्या संगमानंतर अधिकृतपणे 'गंगा' नाव मिळते."
+            },
+            {
+                q: "हृदयाच्या कार्याबाबत खालील विधाने वाचा: अ) हृदय रक्ताभिसरणाचे कार्य करते. ब) हृदय पचनसंस्थेचा भाग आहे.",
+                options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) योग्य", "विधान (अ) व (ब) अयोग्य"],
+                answer: 0,
+                exp: "हृदय रक्ताभिसरणाचे मुख्य कार्य करते, पचनसंस्थेचा भाग नाही."
+            },
+            {
+                q: "अंत्योदय अन्न योजना कोणत्या वर्षी सुरू करण्यात आली होती?",
+                options: ["1913", "2013", "2000", "1995"],
+                answer: 2,
+                exp: "अतिगरिबांसाठी अंत्योदय अन्न योजना डिसेंबर २००० मध्ये सुरू झाली."
+            },
+            {
+                q: "खालीलपैकी कोणती वनस्पती पाण्यातील वनस्पती नाही?",
+                options: ["टेपग्रास", "वड", "पाणीवेल", "कमळ"],
+                answer: 1,
+                exp: "वड ही जमिनीवर उगवणारी मोठी वनस्पती आहे."
+            },
+            {
+                q: "छठपूजा हा सण प्रामुख्याने बिहार आणि उत्तर प्रदेशात साजरा केला जातो. या पूजेमध्ये कोणत्या देवतेची पूजा केली जाते?",
+                options: ["भगवान शिव", "सूर्यदेव", "भगवान विष्णू", "इंद्रदेव"],
+                answer: 1,
+                exp: "छठपूजेमध्ये सूर्यदेवांची उपासना केली जाते."
+            },
+            {
+                q: "अन्न असुरक्षिततेच्या बाबतीत कोणता गट सर्वाधिक प्रभावित होतो?",
+                options: ["मोठ्या उद्योगाचे मालक", "भटके मजूर आणि भिकारी", "जमीनदार शेतकरी", "शहरातील आयटी व्यावसायिक"],
+                answer: 1,
+                exp: "भटके मजूर व गरिबांना अन्न सुरक्षिततेचा प्रश्न सर्वाधिक जाणवतो."
+            },
+            {
+                q: "लडाखमधील चांगपा जमातीद्वारे पाळल्या जाणाऱ्या शेळ्यापासून मिळणाऱ्या व जगा famous लोकरीचे नाव काय?",
+                options: ["अंगोरा लोकर", "पश्मिना लोकर", "तुष लोकर", "मेरिना लोकर"],
+                answer: 1,
+                exp: "चांगपा जमातीच्या विशिष्ट शेळ्यांपासून 'पश्मिना' लोकर मिळते."
+            },
+            {
+                q: "खालीलपैकी कोणती मानवी कृती नदीला प्रदूषित करण्यास कारणीभूत ठरते?",
+                options: ["नदी स्वच्छ करणे", "नदीत देवाच्या मूर्तीचे विसर्जन करणे", "नदीच्या काठावर वृक्षारोपण करणे", "नदीच्या पाण्याचा वापर शेतीसाठी करणे"],
+                answer: 1,
+                exp: "नदीत निर्माल्य व मूर्ती विसर्जन केल्यामुळे पाणी प्रदूषित होते."
+            },
+            {
+                q: "रेशीम कीटक आपल्या मादीला अनेक किलोमीटर अंतरावरून कशाच्या साहाय्याने ओळखू शकतो?",
+                options: ["तिच्या आवाजावरून", "तिच्या विशिष्ट वासावरून", "तिच्या हालचालीवरून", "तिच्या शरीराच्या रंगावरून"],
+                answer: 1,
+                exp: "रेशीम कीटक आपल्या मादीला तिच्या विशिष्ट वासावरून (गंधावरून) ओळखतो."
+            },
+            {
+                q: "नदीच्या प्रवाहात डोंगर उतारावरून खाली येताना पाण्याचा वेग सर्वाधिक कुठे असतो?",
+                options: ["नदीच्या उपनद्यांमध्ये", "नदीच्या मुखाजवळ", "सपाटी मैदानी प्रदेशात", "नदीच्या उगमापाशी"],
+                answer: 3,
+                exp: "डोंगराळ भागातून उगम पावताना नदीचा वेग सर्वात जास्त असतो."
+            },
+            {
+                q: "जागतिक पर्यावरण दिन कधी साजरा केला जातो?",
+                options: ["15 ऑगस्ट", "26 जानेवारी", "5 जून", "22 एप्रिल"],
+                answer: 2,
+                exp: "दरवर्षी ५ जून रोजी जागतिक पर्यावरण दिन पाळला जातो."
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+        let userAnswers = [];
+        let sName = "";
+        let sMobile = "";
+
+        function startQuiz() {
+            sName = document.getElementById("studentName").value.trim();
+            sMobile = document.getElementById("studentMobile").value.trim();
+
+            if (!sName || !sMobile) {
+                alert("कृपया आपले नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+                return;
+            }
+
+            if (sMobile.length < 10) {
+                alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा.");
+                return;
+            }
+
+            document.getElementById("homeScreen").style.display = "none";
+            document.getElementById("quizScreen").style.display = "block";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            let q = quizData[currentIdx];
+            document.getElementById("questionNumber").innerText = `प्रश्न ${currentIdx + 1}/${quizData.length}`;
+            document.getElementById("questionText").innerText = q.q;
+            document.getElementById("explanationBox").style.display = "none";
+            document.getElementById("nextBtn").style.display = "none";
+
+            let optionsHTML = "";
+            q.options.forEach((opt, idx) => {
+                optionsHTML += `<li class="option-item" onclick="selectOption(this, ${idx})">${String.fromCharCode(65 + idx)}) ${opt}</li>`;
+            });
+            document.getElementById("optionsList").innerHTML = optionsHTML;
+        }
+
+        function selectOption(element, selectedIdx) {
+            let q = quizData[currentIdx];
+            let options = document.querySelectorAll(".option-item");
+
+            options.forEach(opt => opt.style.pointerEvents = "none");
+
+            userAnswers[currentIdx] = selectedIdx;
+
+            if (selectedIdx === q.answer) {
+                element.classList.add("correct");
+                score += 2; // प्रत्येक प्रश्नाला २ गुण
+            } else {
+                element.classList.add("wrong");
+                options[q.answer].classList.add("correct");
+            }
+
+            document.getElementById("explanationText").innerText = q.exp;
+            document.getElementById("explanationBox").style.display = "block";
+            document.getElementById("nextBtn").style.display = "block";
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById("quizScreen").style.display = "none";
+            document.getElementById("resultScreen").style.display = "block";
+
+            let totalMarks = quizData.length * 2;
+            let percentage = (score / totalMarks) * 100;
+
+            document.getElementById("resName").innerText = sName;
+            document.getElementById("resMarks").innerText = `${score} / ${totalMarks} गुण`;
+            document.getElementById("resPercentage").innerText = `टक्केवारी: ${percentage.toFixed(1)}%`;
+
+            let badgeText = "";
+            if (percentage >= 90) {
+                badgeText = "🥇 90% किंवा अधिक → Gold Medal + Trophy 🏆";
+            } else if (percentage >= 80) {
+                badgeText = "🥈 89% ते 80% → Silver Medal + Trophy 🥈";
+            } else if (percentage >= 70) {
+                badgeText = "🥉 79% ते 70% → Bronze Medal + Trophy 🥉";
+            } else {
+                badgeText = "💐 70% पेक्षा कमी → अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+            }
+            document.getElementById("resBadge").innerText = badgeText;
+
+            let reviewHTML = "<h3>तपशीलवार उत्तरे व स्पष्टीकरण:</h3>";
+            quizData.forEach((q, idx) => {
+                let uAns = userAnswers[idx];
+                let isCorrect = (uAns === q.answer);
+                let itemClass = isCorrect ? "user-correct" : "user-wrong";
+                
+                reviewHTML += `
+                    <div class="review-item ${itemClass}">
+                        <strong>प्र. ${idx + 1}: ${q.q}</strong><br>
+                        <span style="color: ${isCorrect ? 'green' : 'red'};">
+                            तुमचे उत्तर: ${uAns !== undefined ? q.options[uAns] : 'उत्तर दिले नाही'} ${isCorrect ? '✔' : '✘'}
+                        </span><br>
+                        ${!isCorrect ? `योग्य उत्तर: <b style="color: green;">${q.options[q.answer]}</b><br>` : ''}
+                        <em>स्पष्टीकरण: ${q.exp}</em>
+                    </div>
+                `;
+            });
+            document.getElementById("reviewSection").innerHTML = reviewHTML;
+        }
+
+        function toggleReview() {
+            let revSec = document.getElementById("reviewSection");
+            revSec.style.display = revSec.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</body>
+</html>
