@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - ऑनलाइन टेस्ट</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f0f4f8; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 30px; position: relative; min-height: 90vh; display: flex; flex-direction: column; justify-content: space-between; }
+        .header-title { text-align: center; font-size: 20px; font-weight: bold; color: #1e3a8a; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #475569; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; outline: none; transition: border-color 0.3s; }
+        .form-group input:focus { border-color: #3b82f6; }
+        .btn { background: #2563eb; color: white; border: none; padding: 12px 24px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.3s; margin-top: 10px; }
+        .btn:hover { background: #1d4ed8; }
+        .btn:disabled { background: #94a3b8; cursor: not-allowed; }
+        .footer-mid { text-align: center; font-size: 14px; color: #64748b; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+        .creator-box { position: absolute; bottom: 15px; right: 20px; text-align: right; font-size: 12px; color: #475569; background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
+        .creator-box .avatar { width: 40px; height: 40px; border-radius: 50%; background: #2563eb; color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <h2 style="text-align: center; color: #0f172a; margin-bottom: 25px;">परिसर अभ्यास संकीर्ण प्रश्न - ऑनलाईन परीक्षा</h2>
+            
+            <div class="form-group">
+                <label for="student-name">विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="student-name" placeholder="तुमचे पूर्ण नाव प्रविष्ट करा">
+            </div>
+            
+            <div class="form-group">
+                <label for="student-mobile">मोबाईल नंबर:</label>
+                <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+            </div>
+
+            <div class="form-group">
+                <label for="exam-name">परीक्षेचे नाव:</label>
+                <input type="text" id="exam-name" value="परिसर अभ्यास संकीर्ण प्रश्न" readonly style="background: #f1f5f9;">
+            </div>
+
+            <button class="btn" id="start-btn">EXAM START</button>
+
+            <div class="footer-mid">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+            
+            <div class="creator-box">
+                <div style="text-align: right;">
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल: 8329684470<br>
+                    <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold;">📸 फोटो पहा</a>
+                </div>
+                <div class="avatar">👨‍🏫</div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: #475569;">
+                <span id="question-counter">प्रश्न 1 / 48</span>
+                <span>गुण: <span id="current-score">0</span> / 96</span>
+            </div>
+
+            <div id="question-container" style="margin-bottom: 20px;">
+                <h3 id="question-text" style="font-size: 18px; color: #0f172a; margin-bottom: 15px;"></h3>
+                <div id="options-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+
+            <div id="explanation-box" style="display: none; background: #eff6ff; border-left: 4px solid #3b82f6; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; color: #1e40af;">
+                <strong>स्पष्टीकरण / मार्गदर्शन:</strong> <span id="explanation-text"></span>
+            </div>
+
+            <button class="btn" id="next-btn" disabled>पुढील प्रश्न (Next)</button>
+
+            <div class="footer-mid">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+            
+            <div class="creator-box">
+                <div style="text-align: right;">
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल: 8329684470<br>
+                    <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold;">📸 फोटो पहा</a>
+                </div>
+                <div class="avatar">👨‍🏫</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const questions = [
+        { q: "५१. गुरुशिखर कोणत्या राज्यात आहे?", options: ["गुजरात", "राजस्थान", "मध्य प्रदेश", "हरियाणा"], correct: 1, explanation: "गुरुशिखर हे राजस्थानमधील माऊंट अबू येथील सर्वोच्च शिखर आहे." },
+        { q: "५२. सह्याद्री पर्वतरांगेला दुसरे कोणते नाव आहे?", options: ["पूर्व घाट", "पश्चिम घाट", "अरवली", "विंध्य"], correct: 1, explanation: "सह्याद्री पर्वतरांगेला पश्चिम घाट असेही म्हणतात." },
+        { q: "५३. हिमालयाची निर्मिती कोणत्या भूगर्भीय प्रक्रियेमुळे झाली?", options: ["ज्वालामुखी उद्रेक", "प्लेट विवर्तनिकीमुळे झालेल्या वलनामुळे", "नदी अपरदनामुळे", "वाऱ्याच्या क्रियेमुळे"], correct: 1, explanation: "प्लेट विवर्तनिकीमुळे (Plate Tectonics) झालेल्या वलनामुळे हिमालयाची निर्मिती झाली." },
+        { q: "५४. वडाच्या झाडाची वैशिष्ट्ये कोणती?", options: ["काटे असतात", "पारंब्या (हवाई मुळे) असतात", "फक्त डोंगरात उगवते", "पानगळ होत नाही"], correct: 1, explanation: "वडाच्या झाडाला आधार देण्यासाठी पारंब्या (हवाई मुळे) असतात." },
+        { q: "५५. पिंपळ वृक्षाचे शास्त्रीय नाव कोणते?", options: ["Ficus benghalensis", "Azadirachta indica", "Ficus religiosa", "Tectona grandis"], correct: 2, explanation: "पिंपळ वृक्षाचे शास्त्रीय नाव Ficus religiosa आहे." },
+        { q: "५६. चंदन वृक्षाचे प्रमुख उत्पादन कोणते आहे?", options: ["रबर", "सुगंधी तेल", "लाख", "गोंद"], correct: 1, explanation: "चंदनाच्या लाकडापासून सुगंधी तेल प्रमुख उत्पादन म्हणून मिळते." },
+        { q: "५७. खालीलपैकी कोणता वृक्ष परोपजीवी (अर्धपरोपजीवी) स्वभावाचा आहे?", options: ["आंबा", "चंदन", "वड", "कडुनिंब"], correct: 1, explanation: "चंदन हा अर्धपरोपजीवी वृक्ष आहे जो इतर झाडांच्या मुळांवर अवलंबून असतो." },
+        { q: "५८. भारतातील सर्वाधिक सागवानाची जंगले कोणत्या राज्यात आढळतात?", options: ["केरळ", "मध्य प्रदेश", "पंजाब", "हरियाणा"], correct: 1, explanation: "भारतात सर्वाधिक सागवानाची जंगले मध्य प्रदेश राज्यात आढळतात." },
+        { q: "५९. भारताचा राष्ट्रीय वृक्ष कोणता आहे?", options: ["कडुनिंब", "आंबा", "वड", "पिंपळ"], correct: 2, explanation: "वड हे भारताचे राष्ट्रीय वृक्ष आहे." },
+        { q: "६०. रक्तातील हिमोग्लोबिनसाठी ...... आवश्यक आहे.", options: ["कॅल्शियम", "लोह", "आयोडीन", "सोडियम"], correct: 1, explanation: "हिमोग्लोबिनच्या निर्मितीसाठी लोह (Iron) आवश्यक असते." },
+        { q: "६१. पोलीस चोर पकडण्यासाठी वापरत असलेला श्वान प्रामुख्याने कोणते ज्ञानेंद्रिय वापरतो?", options: ["कान", "डोळा", "जीभ", "नाक"], correct: 3, explanation: "श्वानाची घ्राणेंद्रिय (नाक) अत्यंत तीक्ष्ण असते." },
+        { q: "६२. ज्ञानेंद्रियांपैकी कोणते ज्ञानेंद्रिय बाह्य वातावरणातील तापमान, दाब व वेदना जाणवण्यास मदत करते?", options: ["जीभ", "त्वचा", "कान", "डोळे"], correct: 1, explanation: "त्वचा हे तापमान, दाब व वेदना जाणवणारे ज्ञानेंद्रिय आहे." },
+        { q: "६३. डोळे प्रकाश ग्रहण करतात, परंतु प्रतिमा ओळखण्याचे मुख्य कार्य कोण करते?", options: ["मेंदू", "रक्तवाहिनी", "उद्दीपक", "अस्थी"], correct: 0, explanation: "डोळ्यांनी टिपलेल्या प्रतिमेचे विश्लेषण व ओळखण्याचे कार्य मेंदू करतो." },
+        { q: "६४. मज्जासंस्थेचा वेग वाढवण्यासाठी कोणती रचना महत्त्वाची असते?", options: ["डेन्ड्राइट", "मायेलिन आवरण", "मज्जारज्जू", "सायनेप्स"], correct: 1, explanation: "मायेलिन आवरण मज्जासंस्थेचा वेग वाढवण्यास मदत करते." },
+        { q: "६५. मानवी शरीरातील सर्वात मोठा अवयव कोणता आहे?", options: ["यकृत", "मेंदू", "त्वचा", "फुफ्फुस"], correct: 2, explanation: "त्वचा हा शरीराचा बाह्य व सर्वात मोठा अवयव आहे." },
+        { q: "६६. मानवी शरीरातील सर्वांत मजबूत स्नायू कोणता मानला जातो?", options: ["बायसेप्स", "जिभेचा स्नायू", "चावण्याचा स्नायू (Masseter)", "मांडीचा स्नायू"], correct: 2, explanation: "जबड्याचा चावण्याचा स्नायू (Masseter) सर्वात मजबूत मानला जातो." },
+        { q: "६७. मानवी शरीरातील सर्वांत लहान ग्रंथी कोणती?", options: ["पिनियल ग्रंथी", "थायरॉईड", "स्वादुपिंड", "अधिवृक्क ग्रंथी"], correct: 0, explanation: "दिलेल्या पर्यायांपैकी पिनियल ग्रंथी ही सर्वात लहान endocrine ग्रंथी आहे." },
+        { q: "६८. मीठ, मासे, सीफूड हे समुद्रातून मिळणारे खनिज खालीलपैकी कोणत्या प्रकारात येतात?", options: ["लोह", "कॅल्शियम व फॉस्फरस", "आयोडीन", "सोडियम व पोटॅशियम"], correct: 2, explanation: "समुद्री अन्नात आयोडीन भरपूर प्रमाणात असते." },
+        { q: "६९. मानवी शरीरातील सर्वांत मोठे अंतर्गत अवयव कोणते आहे?", options: ["स्वादुपिंड", "यकृत", "थायरॉईड", "पिट्युटरी"], correct: 1, explanation: "यकृत (Liver) हा मानवी शरीरातील सर्वात मोठा अंतर्गत अवयव आहे." },
+        { q: "७०. शरीरातील सर्वांत लहान हाड कोणते आहे?", options: ["स्टॅपिस", "मेलिअस", "तिबिया", "रेडियस"], correct: 0, explanation: "कानातील स्टॅपिस (Stapes) हे शरीरातील सर्वात लहान हाड आहे." },
+        { q: "७१. मानवी शरीरातील सर्वांत लांब हाड कोणते आहे?", options: ["तिबिया", "फीमर", "ह्युमरस", "अल्ना"], correct: 1, explanation: "मांडीचे फीमर (Femur) हे शरीरातील सर्वात लांब हाड आहे." },
+        { q: "७२. प्रौढ व्यक्तीच्या शरीरात साधारण किती हाडे असतात?", options: ["196", "206", "216", "226"], correct: 1, explanation: "प्रौढ मानवी शरीरात साधारण २०६ हाडे असतात." },
+        { q: "७३. मानवी शरीरातील रक्ताचा लाल रंग कशामुळे असतो?", options: ["प्लेटलेट्स", "हिमोग्लोबिन", "प्लाझ्मा", "पांढऱ्या पेशी"], correct: 1, explanation: "हिमोग्लोबिनमुळे रक्ताचा रंग लाल असतो." },
+        { q: "७४. रक्तातील ऑक्सिजन वाहून नेण्याचे कार्य कोण करते?", options: ["पांढऱ्या रक्तपेशी", "लाल रक्तपेशी", "प्लेटलेट्स", "प्लाझ्मा"], correct: 1, explanation: "लाल रक्तपेशी ऑक्सिजन सर्व शरीरात वाहून नेतात." },
+        { q: "७५. रक्त गोठवण्याचे कार्य कोण करते?", options: ["लाल रक्तपेशी", "पांढऱ्या रक्तपेशी", "प्लेटलेट्स", "प्लाझ्मा"], correct: 2, explanation: "प्लेटलेट्समुळे रक्त गोठण्याची प्रक्रिया घडते." },
+        { q: "७६. रोगप्रतिकारक शक्ती वाढवण्यात महत्त्वाची भूमिका कोण बजावते?", options: ["लाल रक्तपेशी", "पांढऱ्या रक्तपेशी", "प्लेटलेट्स", "हिमोग्लोबिन"], correct: 1, explanation: "पांढऱ्या रक्तपेशी रोगप्रतिकारशक्ती वाढवतात." },
+        { q: "७७. मानवी हृदयाला किती कप्पे असतात?", options: ["2", "3", "4", "5"], correct: 2, explanation: "मानवी हृदयात ४ कप्पे असतात." },
+        { q: "७८. मानवी शरीरातील रक्ताभिसरणाचा शोध कोणी लावला?", options: ["एडवर्ड जेन्नर", "विल्यम हार्वे", "लुई पाश्चर", "अलेक्झांडर फ्लेमिंग"], correct: 1, explanation: "विल्यम हार्वे यांनी रक्ताभिसरणाचा शोध लावला." },
+        { q: "७९. जमिनीचा सर्वांत वरचा सुपीक थर कोणता म्हणून ओळखला जातो?", options: ["उपमृदा (Subsoil)", "मूळखडक (Bedrock)", "वरची मृदा (Topsoil)", "खडकाचा थर"], correct: 2, explanation: "वरची मृदा (Topsoil) ही वनस्पतींसाठी सर्वांत सुपीक असते." },
+        { q: "८०. जमिनीतील सेंद्रिय पदार्थांना काय म्हणतात?", options: ["सिलिका", "ह्युमस (Humus)", "चुनखडी", "ग्रॅनाइट"], correct: 1, explanation: "कुजलेल्या सेंद्रिय पदार्थांना 'ह्युमस' म्हणतात." },
+        { q: "८१. वनस्पतीच्या वाढीसाठी जमिनीतील सर्वांत महत्त्वाचा घटक कोणता आहे?", options: ["हवा", "पोषकद्रव्ये", "काच", "खनिज तेल"], correct: 1, explanation: "पोषकद्रव्ये वनस्पतींच्या वाढीसाठी आवश्यक असतात." },
+        { q: "८२. खालीलपैकी कोणता जमिनीचा प्रमुख घटक नाही?", options: ["हवा", "पाणी", "खनिजे", "पेट्रोल"], correct: 3, explanation: "पेट्रोल हा जमिनीचा नैसर्गिक घटक नाही." },
+        { q: "८३. जमिनीची सुपीकता मुख्यतः कशावर अवलंबून असते?", options: ["रंगावर", "ह्युमस व पोषकद्रव्यांवर", "आकारावर", "तापमानावर"], correct: 1, explanation: "ह्युमस व पोषकद्रव्यांवर जमिनीची सुपीकता अवलंबून असते." },
+        { q: "८४. जमिनीची धूप (Soil Erosion) मुख्यतः कशामुळे होते?", options: ["योग्य शेतीपद्धती", "वृक्षतोड व पाणी/वारा", "सेंद्रिय खतांचा वापर", "ठिबक सिंचन"], correct: 1, explanation: "वृक्षतोड व पाण्याचा प्रवाह यामुळे जमिनीची धूप होते." },
+        { q: "८५. खालीलपैकी कोणता मृदासंवर्धनाचा उपाय आहे?", options: ["उतारावर आडवी नांगरणी", "अतिचराई", "वृक्षतोड", "जास्त रासायनिक खतांचा वापर"], correct: 0, explanation: "उतारावर आडवी नांगरणी केल्याने माती वाहून जात नाही." },
+        { q: "८६. जमिनीची धूप रोखण्यासाठी सर्वांत प्रभावी उपाय कोणता?", options: ["वृक्षारोपण", "जंगलतोड", "अति सिंचन", "खाणकाम"], correct: 0, explanation: "वृक्षारोपण केल्यामुळे माती धरून ठेवली जाते." },
+        { q: "८७. मृदासंवर्धनासाठी 'समोच्च नांगरणी' (Contour Ploughing) कोणत्या भागात उपयुक्त ठरते?", options: ["सपाट प्रदेश", "डोंगराळ व उताऱ्याचा प्रदेश", "वाळवंट", "समुद्रकिनारा"], correct: 1, explanation: "डोंगराळ व उताऱ्याच्या प्रदेशात समोच्च नांगरणी उपयुक्त ठरते." },
+        { q: "८८. खालीलपैकी कोणती मृदेची भौतिक वैशिष्ट्ये आहेत?", options: ["र रंग, पोत आणि रचना", "डोंगर व उताऱ्याचा प्रदेश", "चव, वास आणि रंग", "घनता, तापमान आणि आवाज"], correct: 0, explanation: "रंग, पोत आणि रचना ही मृदेची भौतिक वैशिष्ट्ये आहेत." },
+        { q: "८९. काळी माती कोणत्या पिकासाठी विशेष प्रसिद्ध आहे?", options: ["गहू", "कापूस", "चहा", "कॉफी"], correct: 1, explanation: "काळी माती कापसासाठी विशेष प्रसिद्ध आहे." },
+        { q: "९०. गाळाची माती (Alluvial Soil) मुख्यतः कुठे आढळते?", options: ["नदीखोऱ्यात", "डोंगराशिखरावर", "वाळवंटात", "समुдраच्या तळाशी"], correct: 0, explanation: "नदीखोऱ्यात गाळाची माती प्रामुख्याने आढळते." },
+        { q: "९१. लाल मातीचा रंग कोणत्या घटकामुळे येतो?", options: ["तांबे", "लोह ऑक्साइड", "कॅल्शियम", "मॅग्नेशियम"], correct: 1, explanation: "लोह ऑक्साइडमुळे लाल मातीला रंग प्राप्त होतो." },
+        { q: "९२. जमिनीतील गांडूळ शेतकऱ्याचा मित्र का मानला जातो?", options: ["ते पिके खातात", "ते माती भुसभुशीत व सुपीक बनवतात", "ते पाणी शोषतात", "ते कीटक वाढवतात"], correct: 1, explanation: "गांडूळ माती भुसभुशीत व सुपीक बनवतात." },
+        { q: "९३. खालीलपैकी कोणते सेंद्रिय खत आहे?", options: ["युरिया", "शेणखत", "डीएपी", "अमोनियम सल्फेट"], correct: 1, explanation: "शेणखत हे नैसर्गिक सेंद्रिय खत आहे." },
+        { q: "९४. जमिनीतील नायट्रोजन वाढवण्यासाठी कोणते पीक उपयुक्त ठरते?", options: ["ऊस", "कडधान्ये", "गहू", "मका"], correct: 1, explanation: "कडधान्यांच्या मुळांमधील गाठी जमिनीत नायट्रोजन वाढवतात." },
+        { q: "९५. पीक फेरपालट (Crop Rotation) करण्याचा मुख्य उद्देश काय आहे?", options: ["मातीची सुपीकता टिकवणे", "पाणी वाया घालवणे", "कीड वाढवणे", "उत्पादन कमी करणे"], correct: 0, explanation: "मातीची सुपीकता टिकवून ठेवणे हा मुख्य उद्देश आहे." },
+        { q: "९६. खालीलपैकी कोणता घटक मृदाप्रदूषणास कारणीभूत ठरतो?", options: ["सेंद्रिय खत", "प्लास्टिक कचरा व रासायनिक प्रदूषके", "शेणखत", "हिरवळीचे खत"], correct: 1, explanation: "प्लास्टिक व रासायनिक प्रदूषकांमुळे मृदा प्रदूषण होते." },
+        { q: "९७. मातीचे pH मूल्य पिकांच्या वाढीवर कसा परिणाम करते?", options: ["कोणताही परिणाम होत नाही", "पोषकद्रव्यांच्या उपलब्धतेवर परिणाम होतो", "फक्त रंग बदलतो", "पाणी नष्ट होते"], correct: 1, explanation: "pH मूल्यामुळे पोषकद्रव्यांच्या उपलब्धतेवर परिणाम होतो." },
+        { q: "९८. जमिनीतील पाणी धरून ठेवण्याची क्षमता कोणत्या मातीत जास्त असते?", options: ["वाळूकामय माती", "चिखलमय माती (चिकणमाती)", "खडकमाती", "लाल माती"], correct: 1, explanation: "चिकणमातीत पाणी धरून ठेवण्याची क्षमता सर्वाधिक असते." }
+    ];
+let currentQuestionIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let userAnswers = [];
+
+    const startScreen = document.getElementById("start-screen");
+    const quizScreen = document.getElementById("quiz-screen");
+    const startBtn = document.getElementById("start-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const studentNameInput = document.getElementById("student-name");
+    const studentMobileInput = document.getElementById("student-mobile");
+    
+    const questionCounter = document.getElementById("question-counter");
+    const currentScoreSpan = document.getElementById("current-score");
+    const questionText = document.getElementById("question-text");
+    const optionsContainer = document.getElementById("options-container");
+    const explanationBox = document.getElementById("explanation-box");
+    const explanationText = document.getElementById("explanation-text");
+
+    startBtn.addEventListener("click", () => {
+        studentName = studentNameInput.value.trim();
+        studentMobile = studentMobileInput.value.trim();
+
+        if (!studentName) {
+            alert("कृपया तुमचे नाव प्रविष्ट करा!");
+            studentNameInput.focus();
+            return;
+        }
+        if (!studentMobile || studentMobile.length < 10) {
+            alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+            studentMobileInput.focus();
+            return;
+        }
+
+        startScreen.classList.remove("active");
+        quizScreen.classList.add("active");
+        loadQuestion();
+    });
+
+    function loadQuestion() {
+        resetState();
+        let q = questions[currentQuestionIndex];
+        questionCounter.innerText = `प्रश्न ${currentQuestionIndex + 1} / ${questions.length}`;
+        questionText.innerText = q.q;
+
+        q.options.forEach((opt, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = opt;
+            btn.style.padding = "12px 15px";
+            btn.style.textAlign = "left";
+            btn.style.border = "1px solid #cbd5e1";
+            btn.style.borderRadius = "8px";
+            btn.style.background = "#fff";
+            btn.style.cursor = "pointer";
+            btn.style.fontSize = "16px";
+            btn.style.transition = "all 0.3s";
+            
+            btn.addEventListener("click", () => selectOption(index, btn));
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function resetState() {
+        optionsContainer.innerHTML = "";
+        explanationBox.style.display = "none";
+        nextBtn.disabled = true;
+    }
+
+    function selectOption(selectedIndex, selectedBtn) {
+        const q = questions[currentQuestionIndex];
+        const allOptionBtns = optionsContainer.querySelectorAll("button");
+        
+        allOptionBtns.forEach(btn => btn.style.pointerEvents = "none");
+
+        userAnswers.push({
+            question: q.q,
+            selected: q.options[selectedIndex],
+            correct: q.options[q.correct],
+            isCorrect: selectedIndex === q.correct,
+            explanation: q.explanation
+        });
+
+        if (selectedIndex === q.correct) {
+            selectedBtn.style.background = "#dcfce7";
+            selectedBtn.style.borderColor = "#22c55e";
+            selectedBtn.style.color = "#15803d";
+            score += 2;
+        } else {
+            selectedBtn.style.background = "#fee2e2";
+            selectedBtn.style.borderColor = "#ef4444";
+            selectedBtn.style.color = "#b91c1c";
+            
+            allOptionBtns[q.correct].style.background = "#dcfce7";
+            allOptionBtns[q.correct].style.borderColor = "#22c55e";
+            allOptionBtns[q.correct].style.color = "#15803d";
+        }
+
+        currentScoreSpan.innerText = score;
+        explanationText.innerText = q.explanation;
+        explanationBox.style.display = "block";
+        nextBtn.disabled = false;
+    }
+
+    nextBtn.addEventListener("click", () => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showCertificate();
+        }
+    });
+
+    function showCertificate() {
+        quizScreen.classList.remove("active");
+        
+        let maxTotalMarks = questions.length * 2;
+        let percentage = Math.round((score / maxTotalMarks) * 100);
+
+        let honorMessage = "";
+        let medalBadge = "";
+
+        if (percentage >= 90) {
+            medalBadge = "🥇 Gold Medal + Trophy";
+            honorMessage = "उत्कृष्ट कामगिरी! सुवर्ण पदक आणि करंडक प्राप्त!";
+        } else if (percentage >= 80) {
+            medalBadge = "🥈 Silver Medal + Trophy";
+            honorMessage = "अतिउत्कृष्ट कामगिरी! रौप्य पदक आणि करंडक प्राप्त!";
+        } else if (percentage >= 70) {
+            medalBadge = "🥉 Bronze Medal + Trophy";
+            honorMessage = "छान कामगिरी! कांस्य पदक आणि करंडक प्राप्त!";
+        } else {
+            medalBadge = "💐 अभिनंदन! फुलांचा गुच्छ";
+            honorMessage = "पुढील परीक्षेसाठी हार्दिक शुभेच्छा!";
+        }
+
+        const container = document.querySelector(".container");
+        container.innerHTML = `
+            <div style="border: 4px double #1e3a8a; padding: 25px; border-radius: 15px; background: #fff; position: relative; min-height: 85vh; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="text-align: center; font-size: 19px; font-weight: bold; color: #1e3a8a; margin-bottom: 10px;">
+                        🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित
+                    </div>
+                    <h2 style="text-align: center; color: #0f172a; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">गुणपत्रिका / प्रमाणपत्र (Certificate)</h2>
+                    
+                    <div style="font-size: 16px; margin-bottom: 15px; background: #f8fafc; padding: 12px; border-radius: 8px;">
+                        <p><strong>परीक्षेचे नाव:</strong> परिसर अभ्यास संकीर्ण प्रश्न</p>
+                        <p><strong>विद्यार्थ्याचे नाव:</strong> ${studentName}</p>
+                        <p><strong>मोबाईल नंबर:</strong> ${studentMobile}</p>
+                    </div>
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <div style="font-size: 16px; color: #475569;">मिळालेले गुण: <strong>${score} / ${maxTotalMarks}</strong></div>
+                        <div style="font-size: 32px; font-weight: bold; color: #2563eb; margin: 10px 0;">टक्केवारी (Percentage): ${percentage}%</div>
+                        <div style="font-size: 18px; font-weight: bold; color: #d97706; background: #fef3c7; padding: 10px; border-radius: 8px; display: inline-block;">${medalBadge}</div>
+                        <p style="margin-top: 10px; font-size: 16px; font-weight: 600; color: #334155;">${honorMessage}</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn" id="review-btn" style="background: #0d9488; width: auto; padding: 10px 20px; font-size: 15px;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+                    </div>
+
+                    <div id="review-section" style="display: none; margin-top: 20px; max-height: 250px; overflow-y: auto; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                        <h4 style="margin-bottom: 10px; color: #0f172a;">चुकीचे प्रश्न आणि स्पष्टीकरण:</h4>
+                        <div id="review-list"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="footer-mid">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+                    <div class="creator-box" style="position: relative; bottom: auto; right: auto; margin-top: 15px; display: flex; justify-content: flex-end; align-items: center; gap: 10px;">
+                        <div style="text-align: right;">
+                            <strong>संकल्पना व निर्मिती</strong><br>
+                            श्री सचिन शिंदे सर<br>
+                            जि प प्रा शाळा नरसोबावाडी<br>
+                            मोबाईल: 8329684470<br>
+                            <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold;">📸 फोटो पहा</a>
+                        </div>
+                        <div class="avatar">👨‍🏫</div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById("review-btn").addEventListener("click", () => {
+            const reviewSec = document.getElementById("review-section");
+            const reviewList = document.getElementById("review-list");
+            
+            if (reviewSec.style.display === "none") {
+                reviewSec.style.display = "block";
+                reviewList.innerHTML = "";
+                
+                const incorrectAnswers = userAnswers.filter(ans => !ans.isCorrect);
+                if (incorrectAnswers.length === 0) {
+                    reviewList.innerHTML = "<p style='color: #15803d; font-weight: bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत, कोणतेही चुकीचे उत्तर नाही!</p>";
+                } else {
+                    incorrectAnswers.forEach((item, idx) => {
+                        const div = document.createElement("div");
+                        div.style.marginBottom = "12px";
+                        div.style.padding = "10px";
+                        div.style.background = "#fff";
+                        div.style.borderRadius = "6px";
+                        div.style.border = "1px solid #fca5a5";
+                        div.innerHTML = `
+                            <p><strong>प्रश्न:</strong> ${item.question}</p>
+                            <p style="color: #dc2626;">तुमचे उत्तर: ${item.selected}</p>
+                            <p style="color: #16a34a;">योग्य उत्तर: ${item.correct}</p>
+                            <p style="color: #2563eb; font-size: 13px; margin-top: 4px;"><strong>मार्गदर्शन:</strong> ${item.explanation}</p>
+                        `;
+                        reviewList.appendChild(div);
+                    });
+                }
+            } else {
+                reviewSec.style.display = "none";
+            }
+        });
+    }
+</script>
+</body>
+</html>
