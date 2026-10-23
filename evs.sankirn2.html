@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - परीक्षा</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .header-top {
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .exam-title {
+            text-align: center;
+            color: #2980b9;
+            font-size: 26px;
+            margin: 15px 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .creator-info-bottom-right {
+            text-align: right;
+            font-size: 14px;
+            color: #555;
+            margin-top: 30px;
+            line-height: 1.5;
+        }
+        .creator-info-bottom-right img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 10px;
+            border: 2px solid #3498db;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            color: #7f8c8d;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #219653;
+        }
+        .question-card {
+            display: none;
+        }
+        .question-card.active {
+            display: block;
+        }
+        .q-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+        .options-list li {
+            background: #f8f9fa;
+            border: 1px solid #dcdde1;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .options-list li:hover {
+            background: #e1f5fe;
+        }
+        .options-list li.correct {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .options-list li.wrong {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            color: #856404;
+            display: none;
+            border-radius: 4px;
+        }
+        .certificate-box {
+            display: none;
+            border: 5px double #f39c12;
+            padding: 30px;
+            text-align: center;
+            background: #fffdf9;
+            border-radius: 10px;
+        }
+        .certificate-box h2 {
+            color: #d35400;
+            margin-bottom: 5px;
+            font-size: 22px;
+        }
+        .score-display {
+            font-size: 32px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .review-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- प्रथम पेज / लॉगिन फॉर्म -->
+    <div id="login-page">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="exam-title">परिसर अभ्यास संकीर्ण प्रश्न</div>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        
+        <div class="form-group">
+            <label for="student-phone">मोबाईल नंबर:</label>
+            <input type="tel" id="student-phone" placeholder="१० अंकी मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+        
+        <div class="creator-info-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="शिक्षक फोटो">
+        </div>
+    </div>
+
+    <!-- प्रश्नमंच (Quiz Section) -->
+    <div id="quiz-page" style="display: none;">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित - परिसर अभ्यास संकीर्ण प्रश्न</div>
+        
+        <div id="question-container"></div>
+
+        <button id="next-btn" class="btn" style="display: none;" onclick="nextQuestion()">पुढील प्रश्न (Next)</button>
+        
+        <div class="footer-note" style="margin-top: 40px;">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+    </div>
+
+    <!-- निकाल / सर्टिफिकेट पेज -->
+    <div id="result-page" class="certificate-box">
+        <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित 🏆</h2>
+        <p><strong>परीक्षेचे नाव:</strong> परिसर अभ्यास संकीर्ण प्रश्न</p>
+        <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
+        
+        <div class="score-display" id="res-score"></div>
+        <div id="res-badge" style="font-size: 18px; font-weight: bold; margin: 15px 0; color: #27ae60;"></div>
+        
+        <button class="btn" id="review-btn" onclick="toggleReview()" style="background-color: #e67e22; display:none;">चुकीचे प्रश्न व मार्गदर्शन पहा</button>
+        
+        <div id="review-container" class="review-section"></div>
+
+        <div class="creator-info-bottom-right" style="margin-top: 40px;">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="शिक्षक फोटो">
+        </div>
+    </div>
+</div>
+
+<script>
+    const allQuestions = [
+        {
+            q: "१) हत्तीच्या कळपाबाबत कोणते विधान सत्य आहे?<br>अ) हत्तीच्या कळपात फक्त नर हत्ती असतात आणि सर्वात मोठा नर हत्ती कळपाचा नेता असतो.<br>ब) कळपात फक्त मादी हत्ती आणि त्यांची लहान मुले असतात, सर्वात वयस्कर मादी हत्ती कळपाची प्रमुख असते.",
+            options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) योग्य", "विधान (अ) व (ब) अयोग्य"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: हत्तीच्या कळपात फक्त मादी हत्ती आणि त्यांची लहान पिले असतात, आणि सर्वात वयस्कर मादी कळपाची प्रमुख असते."
+        },
+        {
+            q: "२) स्लॉथ प्राण्याबद्दल खालीलपैकी योग्य विधान कोणते?",
+            options: ["तो मांसभक्षी प्राणी आहे.", "तो वेगाने धावू शकतो.", "तो दररोज आपले झाड बदलतो", "तो दिवसाला सतरा तास झोपतो."],
+            answer: 3,
+            exp: "योग्य स्पष्टीकरण: स्लॉथ हा अस्वलसारखा दिसणारा प्राणी दिवसातून जवळपास १७ तास झाडाला उलटे लटका येऊन झोपतो."
+        },
+        {
+            q: "३) तलाबात जलकुंभी मोठ्या प्रमाणात वाढल्यास प्रथम कोणता परिणाम होतो?",
+            options: ["पाण्याचे तापमान कमी होते", "पाण्याची खोली वाढते", "पाण्यातील विरघळलेल्या प्राणवायूचे प्रमाण कमी होते", "मासे अधिक वेगाने वाढतात."],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: जलकुंभी पाण्यातील विरघळलेला प्राणवायू शोषून घेते, ज्यामुळे प्राणवायूचे प्रमाण कमी होते."
+        },
+        {
+            q: "४) कुंभमेळा दर बारा वर्षांनंतर चार वेगवेगळ्या शहरामध्ये भरतो. खालीलपैकी कोणत्या शहरात कुंभमेळा भरत नाही?",
+            options: ["प्रयागराज", "हरिद्वार", "उज्जैन", "वाराणसी"],
+            answer: 3,
+            exp: "योग्य स्पष्टीकरण: कुंभमेळा प्रयागराज, हरिद्वार, उज्जैन आणि नाशिक या चार ठिकाणी भरतो, वाराणसी येथे नाही."
+        },
+        {
+            q: "५) नदीप्रणालीचा मुख्य उपयोग कोणता?",
+            options: ["केवळ जलवाहतूक", "केवळ मासेमारी", "पाणीपुरवठा, सिंचन, वीजनिर्मिती", "केवळ पर्यटन"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: नदीप्रणालीचा मुख्य उपयोग पिण्याचे पाणी, शेतीसाठी सिंचन आणि जलविद्युत निर्मितीसाठी होतो."
+        },
+        {
+            q: "६) वीज कडकडत असताना सर्वाधिक सुरक्षित ठिकाण कोणते?",
+            options: ["मोकळे मैदान", "उंच झाडाखाली", "घराच्या आत", "नदीच्या परिसरात"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: वीज चमकत असताना पक्के छत असलेल्या घराच्या आत किंवा बंद वाहनात थांबणे सर्वात सुरक्षित असते."
+        },
+        {
+            q: "७) खालीलपैकी कोणते इंधन सर्वात कमी वायू प्रदूषण करते?",
+            options: ["केरोसीन", "डिझेल", "सीएनजी", "कोळसा"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: सीएनजी (CNG) हे पर्यावरणपूरक इंधन असून त्यामुळे सर्वात कमी प्रदूषण होते."
+        },
+        {
+            q: "८) खेजडी गावातील लोकांनी झाडे वाचवण्यासाठी स्वतःला प्राणांतिक संकटात टाकले होते. हे प्रसिद्ध गाव कोणत्या राज्याशी संबंधित आहे?",
+            options: ["पंजाब", "हरियाणा", "राजस्थान", "मध्य प्रदेश"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: खेजडी गाव राजस्थानमधील जोधपूरजवळ आहे, जिथे बिश्नोई समाजाने झाडे वाचवली."
+        },
+        {
+            q: "९) हवेतील धूर आणि धुके यांच्या मिश्रणातून काय तयार होते?",
+            options: ["दव", "मेघ", "धुके (स्मॉग)", "गारा"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: धूर (Smoke) आणि धुके (Fog) मिळून 'स्मॉग' (धुके) तयार होतो."
+        },
+        {
+            q: "१०) ऑक्टोपस हा प्राणी शत्रूपासून वाचण्यासाठी स्वतःच्या शरीरातून कोणता पदार्थ बाहेर सोडतो?",
+            options: ["चिकट द्रव", "विषारी वायू", "काळ्या रंगाची शाई", "विजेचा धक्का"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: ऑक्टोपस स्वतःभोवती अंधार किंवा गोंधळ निर्माण करण्यासाठी काळ्या रंगाची शाई सोडतो."
+        },
+        {
+            q: "११) पक्षी हिवाळ्यात दक्षिणेकडचे का स्थलांतर करतात?",
+            options: ["फक्त फिरण्यासाठी", "फक्त पंख मजबूत करण्यासाठी", "अन्न आणि उबदार हवामानाचा शोधार्थ", "उन्हाळा आवडतो म्हणून"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: अतिथंडीपासून बचाव आणि अन्नाच्या शोधासाठी पक्षी स्थलांतर करतात."
+        },
+        {
+            q: "१२) पाण्याचे स्रोत आणि शुद्धतेबाबत विधाने वाचा.<br>अ) नदी, तलाव आणि विहीर हे गोड्या पाण्याचे मुख्य नैसर्गिक स्रोत आहेत.<br>ब) पाणी उकळून प्यायल्याने त्यातील सूक्ष्मजीव नष्ट होतात.",
+            options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) दोन्ही योग्य", "विधान (अ) व (ब) दोन्ही अयोग्य"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: दोन्ही विधाने योग्य आहेत; गोड्या पाण्याचे स्रोत व उकळल्याने होणारी शुद्धता सत्य आहे."
+        },
+        {
+            q: "१३) बेटाबाबत खालीलपैकी खरे काय?<br>अ) बेटाच्या चारही बाजूला पाणी असते.<br>ब) भारताच्या दक्षिणेला हिंदी महासागर आहे.",
+            options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) दोन्ही योग्य", "विधान (अ) व (ब) दोन्ही अयोग्य"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: चारही बाजूने पाण्याने वेढलेल्या भूमीला बेट म्हणतात आणि भारताच्या दक्षिणेला महासागर आहे."
+        },
+        {
+            q: "१४) डोळ्यांच्या काळजीबाबत काय खरे आहे?<br>अ) खूप जवळून टी.व्ही. पाहिल्यामुळे डोळ्यांना त्रास होतो.<br>ब) डोळ्यांमुळे आपल्याला सभोवतालचे ज्ञान मिळते.",
+            options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) योग्य", "विधान (अ) व (ब) अयोग्य"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: दोन्ही विधाने डोळ्यांच्या आरोग्याबाबत व महत्त्वाबद्दल अचूक आहेत."
+        },
+        {
+            q: "१५) पावसाळ्यात किंवा भूकंपदरम्यान डोंगराळ भागातील माती, खडक, झाडे अचानक खाली घसरून येण्याच्या घटनाला काय म्हणतात?",
+            options: ["दरड कोसळणे", "मृदा धूप", "ज्ववालामुखी", "बाळूबंदीकरण"],
+            answer: 0,
+            exp: "योग्य स्पष्टीकरण: डोंगरावरून माती-खडक घसरण्याच्या घटनेला दरड कोसळणे (Landslide) म्हणतात."
+        },
+        {
+            q: "१६) मुख्य नदी व तिच्या सर्व उपनद्यांनी मिळून तयार होणाऱ्या जाळ्याला काय म्हणतात?",
+            options: ["नदीप्रणाली", "जलाशय", "सिंचन", "जलविभाजक"],
+            answer: 0,
+            exp: "योग्य स्पष्टीकरण: मुख्य नदी व उपनद्या मिळून नदीप्रणाली तयार होते."
+        },
+        {
+            q: "१७) शिंकण्याबाबत योग्य सवय कोणती?<br>अ) शिंकताना नाकावर रुमाल धरावा.<br>ब) रुमाल नसेल तर कोपर तोंडाजवळ आणावे.",
+            options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) दोन्ही योग्य", "विधान (अ) व (ब) दोन्ही अयोग्य"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: जंतू पसरू नये म्हणून शिंकताना रुमाल किंवा कोपराचा वापर करणे योग्य आहे."
+        },
+        {
+            q: "१८) एका भागात सलग अनेक वर्षे कमी पाऊस पडत आहे. खालीलपैकी कोणता परिणाम थेट दिसून येईल?",
+            options: ["पिकांचे उत्पादन घटेल", "समुдраची भरती वाढेल", "ज्ववालामुखीचा उद्रेक होईल", "भूकंपाची तीव्रता वाढेल"],
+            answer: 0,
+            exp: "योग्य स्पष्टीकरण: कमी पावसामुळे दुष्काळ पडतो व पिकांचे उत्पादन घटते."
+        },
+        {
+            q: "१९) मानवी शरीरात अन्नाचे पचन प्रामुख्याने कोणत्या अवयवात पूर्ण होते?",
+            options: ["जठर", "लहान आतडे", "मोठे आतडे", "अन्ननलिका"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: अन्नातील पोषक घटकांचे शोषण लहान आतड्यात पूर्ण होते."
+        },
+        {
+            q: "२०) जलचक्राबाबत खालील विधाने वाचा.<br>अ) सूर्याच्या उष्णतेमुळे पाण्याचे बाष्पीभवन होते.<br>ब) बाष्प थंड झाल्यानंतर ढग तयार होतात.",
+            options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) आणि (ब) योग्य", "विधान (अ) आणि (ब) अयोग्य"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: बाष्पीभवन आणि संघर्नीभवन या दोन्ही प्रक्रियांमुळे जलचक्र चालते."
+        },
+        {
+            q: "२१) वाळवंटात प्रवास करताना उंटाला वाळवंटाचे जहाज का म्हणतात?",
+            options: ["ते खूप वेगाने धावते", "तो फक्त वाळू खातो", "त्याला खूप पाणी लागते", "त्याच्या पायाचे तळवे गादीसारखे रुंद असतात आणि ते वाळूत घुसूत नाहीत"],
+            answer: 3,
+            exp: "योग्य स्पष्टीकरण: उंटाचे रुंद व गादीसारखे तळवे त्याला वाळूत चालण्यास सुलभ करतात."
+        },
+        {
+            q: "२२) भूस्खलनाचा धोका सर्वात जास्त कुठे असतो?",
+            options: ["सपाट मैदानावर", "वाळवंटात", "डोंगराळ भागात", "समुद्रकिनाऱ्यापासून दूर"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: अतिउंच व ढसाळ डोंगराळ भागात भूस्खलनाचा धोका सर्वाधिक असतो."
+        },
+        {
+            q: "२३) कमळाचे देठ कसे असते जे त्याला पाण्यावर तरंगण्यास मदत करते?",
+            options: ["पोकळ आणि हलके", "काटेरी", "खूप लहान", "मख्कम आणि जाड"],
+            answer: 0,
+            exp: "योग्य स्पष्टीकरण: कमळाचे देठ पोकळ व हलके असते त्यामुळे पाने व फुले पाण्यावर तरंगतात."
+        },
+        {
+            q: "२४) कचरा व्यवस्थापनाबाबत खालील विधाने वाचा.<br>अ) भाजीच्या साली आणि सुकी पाने ओला कचरा आहेत.<br>ब) प्लास्टिक व काच मातीत मिसळत नाहीत.",
+            options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) आणि (ब) योग्य", "विधान (अ) आणि (ब) अयोग्य"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: ओला कचरा विघटनशील असतो आणि प्लास्टिक-काच अजैविक असतात."
+        },
+        {
+            q: "२५) उन्हाळ्यात सुती कपडे का वापरले जातात?",
+            options: ["ते घाम शोषून घेतात आणि शरीर थंड ठेवतात.", "ते उष्णता शोषून घेतात.", "ते वजनाला जड असतात.", "ते मऊ असतात."],
+            answer: 0,
+            exp: "योग्य स्पष्टीकरण: सुती कपडे घाम शोषून हवेचा संपर्क ठेवतात ज्यामुळे थंड वाटते."
+        },
+        {
+            q: "२६) चक्रीवादळात सर्वाधिक नुकसान कोणत्या गोष्टीमुळे होते?",
+            options: ["हिमवर्षाव", "ज्वालामुखी", "जोरदार वारे व मुसळधार पाऊस", "दाट धुके"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: चक्रीवादळातील वेगवान वारे आणि मुसळधार पावसामुळे दांडगे नुकसान होते."
+        },
+        {
+            q: "२७) अन्न खराब होऊ नये म्हणून दूध टिकविण्यासाठी कोणती पद्धत वापरली जाते?",
+            options: ["कापडात गुंडाळून ठेवणे", "खुल्या हवेत ठेवणे", "पाण्यात भिजवून ठेवणे", "उकळणे (पॉश्चरायझेशन)"],
+            answer: 3,
+            exp: "योग्य स्पष्टीकरण: दूध दीर्घकाळ टिकवण्यासाठी ते उकळून सूक्ष्मजीव नष्ट केले जातात."
+        },
+        {
+            q: "२८) जंगलातील वाघ रात्रीच्या वेळी मानवापेक्षा किती पटीने जास्त पाहू शकतो?",
+            options: ["सहा पटीने", "चार पटीने", "तीन पटीने", "दुप्पटीने"],
+            answer: 0,
+            exp: "योग्य स्पष्टीकरण: वाघाची दृष्टी अंधारात मानवापेक्षा ६ पटीने तीक्ष्ण असते."
+        },
+        {
+            q: "२९) समुद्र घोडा (Sea horse) हा खालीलपैकी कोणत्या गटात येतो?",
+            options: ["कीटक", "मासे", "उभयचर प्राणी", "सस्तन प्राणी"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: समुद्र घोडा हा एक जलचर मासा आहे."
+        },
+        {
+            q: "३०) भूकंपानंतर गॅसगळती झाल्याचा संशय आल्यास काय करावे?",
+            options: ["माचीस लावावी", "विद्युत स्विच चालू करावा", "गॅस बंद करून सुरक्षित बाहेर पडावे", "मेणबत्ती लावावी"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: आग लागण्याचा धोका टाळण्यासाठी गॅस बंद करून लगेच बाहेर मोकळ्या जागेवर जावे."
+        },
+        {
+            q: "३१) नर्मदा आणि तापी या नद्या कोणत्या दिशेला वाहतात?",
+            options: ["उत्तर", "दक्षिण", "पूर्व", "पश्चिम"],
+            answer: 3,
+            exp: "योग्य स्पष्टीकरण: नर्मदा व तापी नद्या खचदरीतून पश्चिम वाहिनी होऊन अरबी समुद्रास मिळतात."
+        },
+        {
+            q: "३२) खालीलपैकी कोणती कृती पुराचा परिणाम कमी करण्यास मदत करते?",
+            options: ["नदीपात्रात बांधकाम करणे", "जंगलातोड करणे", "पावसाचे पाणी साठवणे व वृक्षलावड करणे", "पाण्याच्या प्रवाहात अडथळा आणणे"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: वृक्षारोपण आणि जलसंधारणामुळे पाण्याचा वेग व पुराचा धोका नियंत्रणात राहतो."
+        },
+        {
+            q: "३३) कचऱ्याचे वर्गीकरण करताना निळ्या रंगाची कचरा कुंडी कशासाठी वापरली जाते?",
+            options: ["फक्त कागद", "सुका कचरा (अजैविक कचरा)", "ओला कचरा", "कांच व औषधे"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: निळी कुंडी सुक्या व पुनर्वापरयोग्य (Dry waste) कचऱ्यासाठी असते."
+        },
+        {
+            q: "३४) अन्न दीर्घकाळ टिकविण्यासाठी मामींदी तांडा (आंब्याचं पापड) पद्धत कोणत्या फळासाठी वापरली जाते?",
+            options: ["केळी", "आंबा", "सफरचंद", "पेरू"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: आंबा या फळापासून मामींदी तांडा (आंबा पापड) बनवला जातो."
+        },
+        {
+            q: "३५) हायड्रिलासारख्या वनस्पतींच्या पानावर छिद्रे नसतात, तर त्या श्वसन कसे करतात?",
+            options: ["त्या श्वसन करत नाहीत", "फुलांच्या माध्यमातून", "केवळ मूळाद्वारे", "शरीराच्या पृष्ठाभागाद्वारे"],
+            answer: 3,
+            exp: "योग्य स्पष्टीकरण: पाण्याखालील वनस्पती शरीराच्या बाह्य पृष्ठाभागाद्वारे वायूची देवाणघेवाण करतात."
+        },
+        {
+            q: "३६) भूजलपातळी कमी होण्याचे प्रमुख कारण कोणते?",
+            options: ["पावसाचे प्रमाण वाढणे", "अतिप्रमाणात पाणी उपसा (नलिका व विहिरी)", "झाडे लावणे", "तलाव वाढवणे"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: अमर्याद पाणी उपशामुळे भूजल पातळी झपाट्याने खाली जात आहे."
+        },
+        {
+            q: "३७) शेतातील कचरा किंवा पालापाचोळा जाळण्याऐवजी काय करणे अधिक पर्यावरणअभिमुख आहे?",
+            options: ["रस्त्यावर टाकणे", "खत (कंपोस्ट) तयार करणे", "नदीत टाकणे", "साठवून ठेवणे"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: पालापाचोळ्यापासून सेंद्रिय कंपोस्ट खत तयार करणे पर्यावरणासाठी उत्तम आहे."
+        },
+        {
+            q: "३८) खालीलपैकी कोणता कचरा जैवविघटनशील (ओला कचरा) आहे?",
+            options: ["प्लास्टिकची पिशवी", "काचेची बाटली", "फळांच्या साली", "अल्युमिनियम फॉइल"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: फळांच्या साली नैसर्गिकरित्या कुजतात त्यामुळे त्या जैवविघटनशील आहेत."
+        },
+        {
+            q: "३९) जॉर्ज डी मेस्ट्रल (George de Mestral) यांनी कशाचा शोध लावला?",
+            options: ["बटन", "झिप", "वेल्क्रो (Velcro)", "प्लास्टिक"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: रानटी फळांच्या हुक्सवरून जॉर्ज डी मेस्ट्रल यांनी 'वेल्क्रो'चा शोध लावला."
+        },
+        {
+            q: "४०) पावसाचे पाणी साठवून नंतर वापरण्याच्या पद्धतीला काय म्हणतात?",
+            options: ["जलप्रदूषण", "जलसंधारण / पाऊस पाणी संकलन", "सिंचन", "बाष्पीभवन"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: या पद्धतीला पाऊस पाणी संकलन (Rainwater Harvesting) म्हणतात."
+        },
+        {
+            q: "४१) जमिनीत मुरलेले पाणी कोणत्या स्वरूपात साठते?",
+            options: ["समुद्र", "भूजल", "हिमनदी", "धबधबा"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: जमिनीत मुरलेले पाणी भूजल (Groundwater) म्हणून साठते."
+        },
+        {
+            q: "४२) खालीलपैकी कोणत्या कलाप्रकारात कापडाचे रंगकाम नैसर्गिक रंगांच्या माध्यमातून नक्षीकाम करणे समाविष्ट आहे?",
+            options: ["मधुबनी", "वारली", "कलमकारी", "फुलाकारी"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: कलमकारी कलेमध्ये नैसर्गिक रंगांनी कापडावर नक्षीकाम केले जाते."
+        },
+        {
+            q: "४३) सापांना शेतकऱ्यांचा मित्र म्हणतात कारण -",
+            options: ["ते उंदरांना खाऊन पिकांचे संरक्षण करतात.", "ते जमिनीचा कस वाढवतात.", "ते पावसाचा अंदाज घेतात.", "जमीन भुसभुशीत करतात."],
+            answer: 0,
+            exp: "योग्य स्पष्टीकरण: साप शेतातील पिकांचे नुकसान करणारे उंदीर फस्त करतात, म्हणून त्यांनामित्र मानतात."
+        },
+        {
+            q: "४४) वनस्पतींना अन्न तयार करण्यासाठी कोणत्या वायूची गरज असते?",
+            options: ["नायट्रोजन", "ऑक्सिजन", "कार्बन डायऑक्साईड", "हायड्रोजन"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: प्रकाशसंश्लेषणक्रियेसाठी वनस्पती कार्बन डायऑक्साईडचा वापर करतात."
+        },
+        {
+            q: "४५) वारली चित्रशैलीबद्दल योग्य विधान कोणते?<br>अ) ही महाराष्ट्रतातील पालघर, ठाणे परिसरातील आहे.<br>ब) भौमितिक आकृत्या वापरतात.<br>क) तांदळाच्या पिठाचा वापर होतो.<br>ड) दैनंदिन जीवनाशी संबंधित आहे.",
+            options: ["फक्त (अ, ब, क)", "फक्त (क, ड)", "सर्व विधाने बरोबर", "फक्त (अ, क)"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: वारली चित्रकलेबाबत ही सर्व विधाने पूर्णपणे सत्य आहेत."
+        },
+        {
+            q: "४६) खालीलपैकी वनस्पतीचा कोणता गट शाकीय पुनरुत्पादनाद्वारे (वनस्पतीच्या भागापासून) उगवतो?",
+            options: ["भात, गहू, ओट", "ऊस, बटाटे, पत्ताकोबी", "बटाटे, गुलाब, ऊस", "गहू, ऊस, भात"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: बटाटा, गुलाब आणि ऊस हे डोळे किंवा कांडीद्वारे (शाकीय पद्धतीने) उगवतात."
+        },
+        {
+            q: "४७) वनतोड वाढल्यास जलचक्रावर कोणता परिणाम होतो?",
+            options: ["पर्जन्यमान वाढते", "भूजल वाढते", "पर्जन्यमान कमी होण्याची शक्यता वाढते", "तापमान कमी होते"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: वृक्ष कमी झाल्यामुळे बाष्पोत्सर्जन घटून पर्जन्यमान कमी होण्याची शक्यता वाढते."
+        },
+        {
+            q: "४८) मधमाश्यांच्या पोळ्यातील सर्वात महत्त्वाचे अंडे देण्याचे काम कोण करते?",
+            options: ["कामकरी माशा", "राणी माशी", "सर्व माशा", "नर माशा"],
+            answer: 1,
+            exp: "योग्य स्पष्टीकरण: पोळ्यामध्ये फक्त एकच 'राणी माशी' अंडी घालण्याचे मुख्य कार्य करते."
+        },
+        {
+            q: "४९) आपल्या ज्ञानेंद्रियांविषयी विधाने विचारात घ्या.<br>अ) कान ऐकण्यास मदत करतात.<br>ब) त्वचा स्पर्श, उष्णता आणि थंडीची जाणीव करून देते.",
+            options: ["फक्त विधान (अ) योग्य", "फक्त विधान (ब) योग्य", "विधान (अ) व (ब) दोन्ही योग्य", "विधान (अ) व (ब) दोन्ही अयोग्य"],
+            answer: 2,
+            exp: "योग्य स्पष्टीकरण: कान आणि त्वचा ही दोन्ही मानवी महत्त्वाची ज्ञानेंद्रिये आहेत."
+        },
+        {
+            q: "५०) घरातील वायू प्रदूषणाचे प्रमुख कारण खालीलपैकी कोणते आहे?",
+            options: ["चुलीचा धूर / धूर निर्माण करणारे इन्धन", "घरातील झाडांची कुंडी", "सौर ऊर्जेचा वापर", "घरातील शोभेची झाडे"],
+            answer: 0,
+            exp: "योग्य स्पष्टीकरण: घरात लाकूड किंवा गोवऱ्यांच्या चुलीचा धूर झाल्यास घरगुती वायू प्रदूषण होते."
+        }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let studentName = "";
+    let studentPhone = "";
+    let userAnswers = [];
+
+    function startExam() {
+        studentName = document.getElementById('student-name').value.trim();
+        studentPhone = document.getElementById('student-phone').value.trim();
+
+        if(!studentName || !studentPhone) {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर अचूक प्रविष्ट करा!");
+            return;
+        }
+
+        document.getElementById('login-page').style.display = 'none';
+        document.getElementById('quiz-page').style.display = 'block';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        if(currentIdx >= allQuestions.length) {
+            showResult();
+            return;
+        }
+
+        let qData = allQuestions[currentIdx];
+        let container = document.getElementById('question-container');
+        
+        let html = `<div class="question-card active">
+            <div class="q-text">प्रश्न ${currentIdx + 1} पैकी ५०: <br>${qData.q}</div>
+            <ul class="options-list">`;
+        
+        qData.options.forEach((opt, i) => {
+            html += `<li onclick="selectOption(this, ${i}, ${qData.answer})">${opt}</li>`;
+        });
+
+        html += `</ul>
+            <div class="explanation" id="exp-${currentIdx}"><strong>स्पष्टीकरण:</strong> ${qData.exp}</div>
+        </div>`;
+
+        container.innerHTML = html;
+        document.getElementById('next-btn').style.display = 'none';
+    }
+
+    function selectOption(element, selectedIdx, correctIdx) {
+        let options = element.parentNode.children;
+        
+        for(let li of options) {
+            li.style.pointerEvents = 'none';
+        }
+
+        userAnswers[currentIdx] = {
+            question: allQuestions[currentIdx].q,
+            selected: allQuestions[currentIdx].options[selectedIdx],
+            correct: allQuestions[currentIdx].options[correctIdx],
+            isCorrect: selectedIdx === correctIdx,
+            exp: allQuestions[currentIdx].exp
+        };
+
+        if(selectedIdx === correctIdx) {
+            element.classList.add('correct');
+            score += 2;
+        } else {
+            element.classList.add('wrong');
+            options[correctIdx].classList.add('correct');
+        }
+
+        document.getElementById(`exp-${currentIdx}`).style.display = 'block';
+        
+        let nextBtn = document.getElementById('next-btn');
+        if(currentIdx === allQuestions.length - 1) {
+            nextBtn.innerText = "SUBMIT EXAM";
+        } else {
+            nextBtn.innerText = "पुढील प्रश्न (Next)";
+        }
+        nextBtn.style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        loadQuestion();
+    }
+
+    function showResult() {
+        document.getElementById('quiz-page').style.display = 'none';
+        let resPage = document.getElementById('result-page');
+        resPage.style.display = 'block';
+
+        document.getElementById('res-name').innerText = studentName;
+        document.getElementById('res-score').innerText = `प्राप्त गुण: ${score} / 100`;
+
+        let percentage = (score / 100) * 100;
+        let badgeText = "";
+
+        if(percentage >= 90) {
+            badgeText = "🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        } else if(percentage >= 80) {
+            badgeText = "🥈 Silver Medal + Trophy (वेधक कामगिरी!)";
+        } else if(percentage >= 70) {
+            badgeText = "🥉 Bronze Medal + Trophy (छान कामगिरी!)";
+        } else {
+            badgeText = `💐 अभिनंदन! फुलांचा गुच्छ व "पुढील परीक्षेसाठी शुभेच्छा"`;
+        }
+
+        document.getElementById('res-badge').innerText = badgeText;
+        document.getElementById('review-btn').style.display = 'block';
+    }
+
+    function toggleReview() {
+        let reviewDiv = document.getElementById('review-container');
+        if(reviewDiv.style.display === 'block') {
+            reviewDiv.style.display = 'none';
+            document.getElementById('review-btn').innerText = "चुकीचे प्रश्न व मार्गदर्शन पहा";
+        } else {
+            let reviewHtml = "<h3>चुकीचे प्रश्न आणि मार्गदर्शन तपशील:</h3>";
+            let wrongCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if(!ans.isCorrect) {
+                    wrongCount++;
+                    reviewHtml += `<div style="margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+                        <strong>प्र. ${idx + 1}: ${ans.question}</strong><br>
+                        <span style="color: red;">तुमचे उत्तर: ${ans.selected}</span><br>
+                        <span style="color: green;">योग्य उत्तर: ${ans.correct}</span><br>
+                        <em style="color: #b7950b;">मार्गदर्शन: ${ans.exp}</em>
+                    </div>`;
+                }
+            });
+
+            if(wrongCount === 0) {
+                reviewHtml += "<p style='color: green; font-weight: bold;'>अभिनंदन! तुमचे सर्व प्रश्न अचूक आले आहेत, एकही प्रश्न चुकला नाही!</p>";
+            }
+
+            reviewDiv.innerHTML = reviewHtml;
+            reviewDiv.style.display = 'block';
+            document.getElementById('review-btn').innerText = "मार्गदर्शन लपवा";
+        }
+    }
+</script>
+</body>
+</html>
