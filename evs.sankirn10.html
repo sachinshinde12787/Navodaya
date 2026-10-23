@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - परीक्षा</title>
+    <style>
+        body { font-family: 'Noto Sans Devanagari', Arial, sans-serif; background: #eef2f7; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 750px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; }
+        .school-header { text-align: center; font-size: 1.25rem; font-weight: bold; color: #1a365d; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        .creator-bottom-right { text-align: right; font-size: 0.9rem; color: #4a5568; margin-top: 25px; line-height: 1.5; }
+        .creator-bottom-right a { color: #3182ce; text-decoration: underline; font-weight: bold; }
+        .page-footer { text-align: center; font-size: 1rem; font-weight: 500; color: #2d3748; margin-top: 20px; padding: 10px; background: #f7fafc; border-radius: 6px; }
+        .btn { background: #3182ce; color: white; border: none; padding: 12px 25px; font-size: 1.1rem; border-radius: 6px; cursor: pointer; width: 100%; transition: background 0.3s; font-weight: bold; margin-top: 15px; }
+        .btn:hover { background: #2b6cb0; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #2d3748; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
+        .option-btn { display: block; width: 100%; text-align: left; padding: 12px 15px; margin: 8px 0; border: 1px solid #cbd5e0; background: #fff; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+        .option-btn:hover:not(:disabled) { background: #ebf8ff; border-color: #3182ce; }
+        .option-btn.correct { background: #c6f6d5 !important; border-color: #38a169 !important; color: #22543d; font-weight: bold; }
+        .option-btn.incorrect { background: #fed7d7 !important; border-color: #e53e3e !important; color: #742a2a; font-weight: bold; }
+        .explanation { margin-top: 15px; padding: 12px; background: #fffaf0; border-left: 4px solid #dd6b20; border-radius: 4px; font-size: 0.95rem; color: #7b341e; display: none; }
+        .certificate-box { border: 4px double #d69e2e; padding: 25px; border-radius: 12px; background: #fffdf5; text-align: center; position: relative; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="school-header">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        
+        <!-- विद्यार्थ्याची माहिती व सुरवात स्क्रीन -->
+        <div id="intro-screen">
+            <h2 style="text-align: center; color: #2b6cb0; margin-bottom: 20px;">परीक्षेचे नाव: परिसर अभ्यास संकीर्ण प्रश्न</h2>
+            <div class="form-group">
+                <label for="student-name">विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+            </div>
+            <div class="form-group">
+                <label for="student-mobile">मोबाईल नंबर:</label>
+                <input type="tel" id="student-mobile" placeholder="मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+            </div>
+            <button class="btn" onclick="startExam()">EXAM START</button>
+            
+            <div class="page-footer">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+            <div class="creator-bottom-right">
+                संकल्पना व निर्मिती<br>
+                <strong>श्री सचिन शिंदे सर</strong><br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 8329684470<br>
+                फोटो लिंक: <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">येथे पहा (Photo Link)</a>
+            </div>
+  </div>
+          <!-- क्विझ स्क्रीन (सर्व ६० प्रश्न व लॉजिक) -->
+        <div id="quiz-screen" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: bold; color: #4a5568;">
+                <span id="question-counter">प्रश्न: १ / ६०</span>
+                <span id="score-display">गुण: ० / १२०</span>
+            </div>
+            <div id="question-container" style="font-size: 1.15rem; font-weight: bold; margin-bottom: 20px; color: #1a202c;"></div>
+            <div id="options-container"></div>
+            <div id="explanation-box" class="explanation"></div>
+            
+            <button id="next-btn" class="btn" style="display: none;" onclick="nextQuestion()">पुढील प्रश्न (Next)</button>
+            
+            <div class="page-footer">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            { q: "भारताच्या राष्ट्रीय प्रतीकांपैकी खालीलपैकी कोणते अधिकृत राष्ट्रीय प्रतीक नाही?", options: ["कमळ", "वाघ", "मोर", "गाय"], correct: 3, exp: "भारताचे राष्ट्रीय फूल कमळ, राष्ट्रीय प्राणी वाघ, राष्ट्रीय पक्षी मोर आहेत; गाय अधिकृत राष्ट्रीय प्रतीक नाही." },
+            { q: "भारताच्या राष्ट्रीय चिन्हाखाली कोणते वाक्य अंकित आहे?", options: ["जय हिंद", "सत्यमेव जयते", "वंदे मातरम्", "भारत माता की जय"], correct: 1, exp: "भारताच्या राष्ट्रीय चिन्हाखाली मुंडकोपनिषदातील 'सत्यमेव जयते' हे वाक्य अंकित आहे." },
+            { q: "राष्ट्रीय चिन्हातील धर्मचक्राच्या दोन्ही बाजूंना कोणते प्राणी आहेत?", options: ["हत्ती व सिंह", "बैल व घोडा", "सिंह व वाघ", "घोडा व हत्ती"], correct: 1, exp: "राष्ट्रीय चिन्हातील अशोक चक्राच्या (धर्मचक्र) एका बाजूस बैल व दुसऱ्या बाजूस घोडा आहे." },
+            { q: "भारतातील ऋतूंच्या बदलाचा सर्वाधिक परिणाम कोणत्या क्षेत्रावर होतो?", options: ["बँकिंग", "शेती", "व्यापार", "उद्योग"], correct: 1, exp: "भारतातील ऋतू व मान्सूनच्या बदलाचा सर्वाधिक आणि थेट परिणाम कृषी (शेती) क्षेत्रावर होतो." },
+            { q: "खालीलपैकी कोणती जोडी चुकीची आहे?", options: ["वसंत - Spring", "शरद - Autumn", "हेमंत - Rainy Season", "ग्रीष्म - Summer"], correct: 2, exp: "हेमंत हा शिशिरपूर्व ऋतू आहे, 'Rainy Season' हा वर्षा ऋतूसाठी वापरला जातो." },
+            { q: "नागपंचमी आणि श्रीकृष्ण जन्माष्टमी हे सण कोणत्या ऋतूत येतात?", options: ["शिशिर", "वसंत", "वर्षा", "शरद"], correct: 2, exp: "नागपंचमी आणि श्रीकृष्ण जन्माष्टमी हे सण वर्षा ऋतूत (पावसाळ्यात) येतात." },
+            { q: "खालीलपैकी कोणता सण वसंत ऋतूत संबंधित आहे?", options: ["नागपंचमी", "गुढीपाडवा", "दशहरा", "दिवाळी"], correct: 1, exp: "गुढीपाडवा हा सण मराठी नवीन वर्षाची सुरुवात व वसंत ऋतूत येतो." },
+            { q: "कोजागरी पौर्णिमा कोणत्या ऋतूत येते?", options: ["ग्रीष्म", "वर्षा", "शरद", "हेमंत"], correct: 2, exp: "कोजागरी पौर्णिमा शरद ऋतूत साजरी केली जाते." },
+            { q: "हिमालयीन प्रदेशात हिमवर्षाव प्रामुख्याने कोणत्या ऋतूत होतो?", options: ["वसंत", "ग्रीष्म", "शिशिर", "वर्षा"], correct: 2, exp: "हिमालयीन प्रदेशात तीव्र थंडीच्या शिशिर ऋतूत प्रामुख्याने हिमवर्षाव होतो." },
+            { q: "खालीलपैकी योग्य जुळणी कोणती?", options: ["वसंत - ज्येष्ठ व आषाढ", "वर्षा - चैत्र व वैशाख", "शरद - आश्विन व कार्तिक", "शिशिर - श्रावण व भाद्रपद"], correct: 2, exp: "शरद ऋतूचे महिने आश्विन व कार्तिक हे आहेत." },
+            { q: "खालील पर्यायांचा विचार करा: 1. भारतीय पंचांगानुसार ऋतू समान दोन महिन्यांचा असतो. 2. प्रत्येक ऋतू साधारण दोन महिन्यांचा असतो.", options: ["फक्त 1 बरोबर", "फक्त 2 बरोबर", "1 आणि 2 दोन्ही बरोबर", "1 आणि 2 दोन्ही चुकीचे"], correct: 2, exp: "भारतीय पंचांगानुसार वर्षभरात ६ ऋतू असून प्रत्येक ऋतू दोन महिन्यांचा असतो, त्यामुळे दोन्ही विधाने बरोबर आहेत." },
+            { q: "खालीलपैकी योग्य विधान कोणते?", options: ["रबी पिकांची पेरणी वर्षा ऋतूत होते.", "खरीप पिकांची पेरणी ग्रीष्म ऋतूत होते.", "रबी पिकांची पेरणी हेमंत ऋतूत होते.", "खरीप पिकांची काढणी वसंत ऋतूत होते."], correct: 2, exp: "रबी पिकांची पेरणी साधारणपणे हेमंत ऋतूत (हिवाळ्याच्या सुरुवातीला) केली जाते." },
+            { q: "रबी पिकांच्या पेरणीसाठी सर्वाधिक अनुकूल ऋतू कोणता?", options: ["वसंत", "हेमंत", "वर्षा", "शरद"], correct: 1, exp: "हेमंत ऋतू हा रबी पिकांच्या पेरणीसाठी अत्यंत अनुकूल मानला जातो." },
+            { q: "मार्गशीर्ष आणि पौष हे महिने कोणत्या इंग्रजी ऋतूसंबंधित आहेत?", options: ["Spring", "Summer", "Pre-Winter", "Rainy Season"], correct: 2, exp: "मार्गशीर्ष आणि पौष हे महिने प्री-विंटर (Pre-Winter / हेमंत) या ऋतूसंबंधित आहेत." },
+            { q: "बुद्ध पौर्णिमा कोणत्या ऋतूत येते?", options: ["ग्रीष्म", "शरद", "हेमंत", "वर्षा"], correct: 0, exp: "बुद्ध पौर्णिमा ही वैशाख पौर्णिमेला येते, जो ग्रीष्म ऋतूचा काळ आहे." },
+            { q: "खालीलपैकी कोणती जुळणी अपयोग्य आहे?", options: ["Autumn - शरद", "Spring - वसंत", "Winter - शिशिर", "Summer - वर्षा"], correct: 3, exp: "Summer चा अर्थ उन्हाळा (ग्रीष्म) होतो, वर्षा नाही; त्यामुळे Summer - वर्षा ही जुळणी चुकीची आहे." },
+            { q: "भारतीय पंचांगानुसार माघ आणि फाल्गुन हे कोणत्या ऋतूचे महिने आहेत?", options: ["वसंत", "शरद", "शिशिर", "हेमंत"], correct: 2, exp: "माघ आणि फाल्गुन हे महिने शिशिर (हिवाळा) ऋतूचे आहेत." },
+            { q: "'ऋतूंचा राजा' म्हणून कोणता ऋतू ओळखला जातो?", options: ["ग्रीष्म", "वर्षा", "वसंत", "शिशिर"], correct: 2, exp: "निसर्गाचे सौंदर्य फुलवणारा 'वसंत' ऋतू हा 'ऋतूंचा राजा' म्हणून ओळखला जातो." },
+            { q: "नवीन पालवी फुटणे हे कोणत्या ऋतूचे प्रमुख वैशिष्ट्य आहे?", options: ["ग्रीष्म", "वर्षा", "वसंत", "शिशिर"], correct: 2, exp: "वसंत ऋतूत झाडांना नवीन पालवी फुटते." },
+            { q: "ग्रीष्म ऋतूत खालीलपैकी कोणते वैशिष्ट्य आढळते?", options: ["तापमानात मोठी वाढ", "फुगे", "शिशिर", "दव पडणे"], correct: 0, exp: "ग्रीष्म ऋतूत (उन्हाळ्यात) तापमानात मोठी वाढ होते." },
+            { q: "मकर संक्रांत कोणत्या ऋतूत साजरी केली जाते?", options: ["वसंत", "हेमंत", "शिशिर", "वर्षा"], correct: 2, exp: "मकर संक्रांत जानेवारी महिन्यात म्हणजेच शिशिर ऋतूत साजरी केली जाते." },
+            { q: "'भूस्खलन' प्रामुख्याने कशामुळे होते?", options: ["अतिवृष्टी व मातीची पकड कमी होणे", "कमी तापमान", "समुद्राची भरती", "दव पडणे"], correct: 0, exp: "मुसळधार पाऊस (अतिवृष्टी) आणि मातीची पकड सैल झाल्यामुळे भूस्खलन होते." },
+            { q: "खालीलपैकी कोणती नैसर्गिक आपत्ती सर्वाधिक अचानक उद्भवते?", options: ["दुष्काळ", "भूकंप", "मृदा अपक्षदन", "वाळवंटीकरण"], correct: 1, exp: "भूकंप ही आपत्ती अत्यंत अल्पवेळेत आणि अत्यंत अचानक उद्भवते." },
+            { q: "भूकंपप्रवण क्षेत्रे ओळखण्यासाठी भारताचे किती भूकंप विभाग (Seismic Zones) केले आहेत?", options: ["3", "4", "5", "6"], correct: 1, exp: "भारतात भूकंपीय क्षेत्रे दर्शवण्यासाठी ४ प्रमुख भूकंप विभाग करण्यात आले आहेत." },
+            { q: "खालीलपैकी कोणता प्रदेश भूकंपाच्या दृष्टीने अतिसंवेदनशील आहे?", options: ["दख्खनचे पठार", "हिमालयीन प्रदेश", "थार वाळवंट", "मालवा पठार"], correct: 1, exp: "विवर्तनिक हालचालींमुळे हिमालयीन प्रदेश भूकंपाच्या दृष्टीने अतिसंवेदनशील आहे." },
+            { q: "समुद्राच्या पाण्याची असामान्य मोठी लाट किनाऱ्यावर आढळण्यास काय म्हणतात?", options: ["भरती", "ओहोटी", "सुनामी", "भोवरा"], correct: 2, exp: "समुद्रातील भूकंपासारख्या कारणामुळे निर्माण होणाऱ्या प्रचंड मोठ्या लाटांना सुनामी म्हणतात." },
+            { q: "खालीलपैकी कोणती आपत्ती दीर्घकाळ टिकू शकते?", options: ["भूकंप", "दुष्काळ", "विजेचा कडकडाट", "भूस्खलन"], correct: 1, exp: "दुष्काळ ही नैसर्गिक आपत्ती अनेक महिने किंवा वर्षे दीर्घकाळ टिकू शकते." },
+            { q: "हवामान बदलामुळे कोणती नैसर्गिक आपत्ती वाढण्याची शक्यता आहे?", options: ["अतिवृष्टी व दुष्काळ", "ग्रहणे", "भरती-ओहोटी", "दिवस-रात्र"], correct: 0, exp: "जागतिक तापमानवाढ व हवामान बदलामुळे अतिवृष्टी आणि दुष्काळ यांसारख्या आपत्ती वाढतात." },
+            { q: "भारतातील आपत्ती व्यवस्थापनासाठी प्रमुख राष्ट्रीय संस्था कोणती आहे?", options: ["ISRO", "NDMA", "RBI", "NITI Aayog"], correct: 1, exp: "राष्ट्रीय आपत्ती व्यवस्थापन प्राधिकरण (NDMA) ही भारतातील आपत्ती व्यवस्थापनाची प्रमुख संस्था आहे." },
+            { q: "'पूररेषा' (Flood Line) कशाशी संबंधित आहे?", options: ["भूकंप", "पुराचा संभाव्य स्तर", "वाऱ्याचा वेग", "तापमान"], correct: 1, exp: "पूररेषा ही नदीला येणाऱ्या पुराच्या संभाव्य पाण्याची पातळी दर्शवते." },
+            { q: "पृथ्वीच्या पृष्ठापैकी अंदाजे किती टक्के भाग पाण्याने व्यापलेला आहे?", options: ["51%", "61%", "71%", "81%"], correct: 2, exp: "पृथ्वीच्या पृष्ठभागापैकी अंदाजे ७१% भाग पाण्याने व्यापलेला आहे." },
+            { q: "पृथ्वीवरील एकूण पाण्यापैकी गोडे पाणी (Fresh Water) अंदाजे किती टक्के आहे?", options: ["2.5%", "10%", "25%", "50%"], correct: 0, exp: "पृथ्वीवरील एकूण पाण्यापैकी केवळ अडीच टक्के (२.५%) पाणी पिण्यायोग्य गोडे पाणी आहे." },
+            { q: "पृथ्वीवरील सर्वाधिक गोडे पाणी कोठे साठलेले आहे?", options: ["नद्या", "तलाव", "हिमनद्या व हिमच्छद", "भूजल"], correct: 2, exp: "पृथ्वीवरील सर्वाधिक गोडे पाणी ध्रुवीय प्रदेशातील हिमनद्या व बर्फाच्छादित प्रदेशात साठलेले आहे." },
+            { q: "पाण्याचे रासायनिक सूत्र कोणते आहे?", options: ["CO", "H₂O", "O", "HSO"], correct: 1, exp: "पाण्याचे रासायनिक सूत्र H₂O (हायड्रोजन आणि ऑक्सिजन) आहे." },
+            { q: "पानी कोणत्या तापमानाला (सामान्य वातावरणीय दाबावर) गोठते?", options: ["0°C", "10°C", "50°C", "100°C"], correct: 0, exp: "सामान्य वातावरणीय दाबावर पाणी ०°C तापमानाला गोठते (बर्फ बनते)." },
+            { q: "पानी कोणत्या तापमानाला उकळते?", options: ["50°C", "80°C", "100°C", "120°C"], correct: 2, exp: "सामान्य वातावरणीय दाबावर पाणी १००°C तापमानाला उकळते." },
+            { q: "पाण्याचा रंग, वास आणि चव कशी असते?", options: ["पिवळा, सुगंधी, गोड", "निळा, वासुयुक्त, क्षारट", "रंगहीन, गंधहीन, चवहीन", "हिरवा, वासुयुक्त, तुरट"], correct: 2, exp: "शुद्ध पाणी हे रंगहीन (रंग नसलेले), गंधहीन (वास नसलेले) आणि चवहीन असते." },
+            { q: "पाण्याला 'सार्वत्रिक विद्रावक' (Universal Solvent) का म्हणतात?", options: ["ते फक्त मीठ विरघळवते", "ते अनेक पदार्थ विरघळवू शकते", "ते स्वतः विरघळते", "ते फक्त साखर विरघळवते"], correct: 1, exp: "पाण्यामध्ये अनेक प्रकारचे घन, द्रव आणि वायू पदार्थ विरघळण्याची क्षमता असल्याने त्याला सार्वत्रिक विद्रावक म्हणतात." },
+            { q: "पाण्याची कोणती अवस्था ढगांमध्ये आढळते?", options: ["फक्त घन", "फक्त द्रव", "सूक्ष्म द्रव थेंब व बर्फकण", "फक्त वायू"], correct: 2, exp: "ढगांमध्ये पाण्याचे सूक्ष्म द्रव थेंब आणि बर्फकण तरंगत असतात." },
+            { q: "पाण्याचे बाष्पात रूपांतर होण्याच्या प्रक्रियेला काय म्हणतात?", options: ["संघनन", "बाष्पीभवन", "गोठणे", "वितळणे"], correct: 1, exp: "पाण्याचे वाफेत (बाष्पात) रूपांतर होण्याच्या प्रक्रियेला बाष्पीभवन म्हणतात." },
+            { q: "जठरात प्रथिनांचे पचन सुरू करणारे एन्झाइम कोणते?", options: ["टायलिन", "पेप्सिन", "लिपेज", "माल्टेंज"], correct: 1, exp: "जठरामध्ये पेप्सिन हे एन्झाइम प्रथिनांच्या पचनास सुरुवात करते." },
+            { q: "पचनसंस्थेतील सर्वात मोठी ग्रंथी कोणती?", options: ["स्वादिपिंड", "यकृत", "लाळग्रंथी", "थायरॉइड"], correct: 1, exp: "मानवी शरीरातील यकृत (Liver) ही पचनसंस्थेतील सर्वात मोठी ग्रंथी आहे." },
+            { q: "यकृतामधून स्रवणारा पाचक रस कोणता?", options: ["जठरस", "पित्त", "स्वादिपिंड रस", "आंतड्याचा रस"], correct: 1, exp: "यकृतामधून पित्त (Bile) हा पाचक रस तयार होऊन स्रवतो." },
+            { q: "पित्ताची साठवणूक कोणत्या अवयват होते?", options: ["यकृत", "पित्ताशय", "जठर", "स्वादिपिंड"], correct: 1, exp: "यकृतात तयार झालेले पित्त पित्ताशयात (Gallbladder) साठवले जाते." },
+            { q: "पित्तासाचे मुख्य कार्य काय आहे?", options: ["प्रथिनांचे पचन करणे", "स्निग्ध पदार्थांचे इमल्सीकरण करणे", "कार्बोहायड्रेटचे पचन करणे", "जीवनसत्त्वे तयार करणे"], correct: 1, exp: "पित्ताचे मुख्य कार्य स्निग्ध पदार्थांचे (Fats) इमल्सीकरण (सूक्ष्म थेंबांमध्ये रूपांतर) करणे हे आहे." },
+            { q: "स्वादिपिंडमधून स्रवणाऱ्या रसात खालीलपैकी कोणते एन्झाइम असते?", options: ["ट्रिप्सिन", "पेप्सिन", "टायलिन", "रेनिन"], correct: 0, exp: "स्वादिपिंड रसात ट्रिप्सिन, अमायलेज आणि लिपेज ही एन्झाइम्स असतात." },
+            { q: "पचन पूर्णत्वास मुख्यतः कोणत्या अवयват होते?", options: ["जठर", "लहान आतडे", "मोठे आतडे", "अन्ननलिका"], correct: 1, exp: "अन्नाचे संपूर्ण पचन लहान आतड्यात पूर्णत्वास जाते." },
+            { q: "अन्नातील पोषक घटकांचे शोषण मुख्यतः कुठे होते?", options: ["जठर", "लहान आतडे", "मोठे आतडे", "गुदाशय"], correct: 1, exp: "पचलेल्या अन्नातील पोषक घटकांचे शोषण लहान आतड्याच्या आतील बाजूस होते." },
+            { q: "लहान आतड्याच्या आतील बाजूस असलेल्या सूक्ष्म बोटांसारख्या रचनांना काय म्हणतात?", options: ["अॅनियोलाई", "विल्ली (Villi)", "नेफ्रॉन", "केशवाहिन्या"], correct: 1, exp: "लहान आतड्यात विल्ली (Villi) नावाच्या सूक्ष्म बोटांसारख्या रचना असतात ज्या शोषणक्षेत्र वाढवतात." },
+            { q: "मोठ्या आतड्याचे मुख्य कार्य कोणते?", options: ["प्रथिनांचे पचन", "पाण्याचे शोषण करणे", "स्निग्ध पदार्थांचे पचन", "पित्त तयार करणे"], correct: 1, exp: "न पचलेल्या अन्नातील पाण्याचे शोषण करण्याचे कार्य मोठ्या आतड्यात होते." },
+            { q: "शरीरातून न पचलेले अन्न कोणत्या मार्गाने बाहेर टाकले जाते?", options: ["मूत्रमार्ग", "गुदद्वार", "श्वासनलिका", "अन्ननलिका"], correct: 1, exp: "न पचलेला भाग गुदद्वारावाटे शरीराबाहेर टाकला जातो." },
+            { q: "पचनक्रिया सुरक्षित व सुरळीत होण्यासाठी खालीलपैकी कोणता घटक आवश्यक आहे?", options: ["तंतुमय पदार्थ (रफेज)", "फक्त साखर", "फक्त स्निग्ध पदार्थ", "फक्त मीठ"], correct: 0, exp: "पचनमार्ग निरोगी राहण्यासाठी आहारातील तंतुमय पदार्थ (Roughage) अत्यंत आवश्यक असतात." },
+            { q: "खालीलपैकी पचनसंस्थेचा योग्य क्रम कोणता?", options: ["तोंड -> अन्ननलिका -> जठर -> लहान आतडे -> मोठे आतडे -> गुदद्वार", "तोंड -> जठर -> अन्ननलिका -> लहान आतडे -> मोठे आतडे -> गुदद्वार", "तोंड -> जठर -> मोठे आतडे -> लहान आतडे -> गुदद्वार", "तोंड -> जठर -> लहान आतडे -> मोठे आतडे -> गुदद्वार"], correct: 0, exp: "पचनसंस्थेचा योग्य मार्ग: तोंड -> अन्ननलिका -> जठर -> लहान आतडे -> मोठे आतडे -> गुदद्वार असा आहे." },
+            { q: "जठरातील HCl चे मुख्य कार्य कोणते?", options: ["स्टार्चचे पचन करणे", "जंत नष्ट करणे व पेप्सिन सक्रिय करणे", "पाणी शोषणे", "स्निग्ध पदार्थांचे इमल्सीकरण करणे"], correct: 1, exp: "जठरातील हायड्रोक्लोरिक आम्ल (HCl) अन्नातील जिवाणू/जंत नष्ट करते आणि पेप्सिन एन्झाइमला सक्रिय करते." },
+            { q: "कार्बोहायड्रेटचे अंतिम पचन होऊन कोणता पदार्थ तयार होतो?", options: ["अॅमिनो आम्ले", "ग्लुकोज", "फॅटी आम्ले", "ग्लिसरॉल"], correct: 1, exp: "कर्बोदकांच्या अंतिम पचनातून ग्लुकोज तयार होते." },
+            { q: "प्रथिनांचे अंतिम पचन होऊन काय तयार होते?", options: ["ग्लुकोज", "फॅटी आम्ले", "अॅमिनो आम्ले", "जीवनसत्त्वे"], correct: 2, exp: "प्रथिनांचे विघटन होऊन शेवटी अॅमिनो आम्ले तयार होतात." },
+            { q: "लाळेमध्ये कोणते पाचक एन्झाइम असते?", options: ["पेप्सिन", "ट्रिप्सिन", "टायलिन (सलिव्हरी अमायलेज)", "लिपेज"], correct: 2, exp: "तोंडात असणाऱ्या लाळेमध्ये टायलिन असते जे स्टार्चचे पचन करते." },
+            { q: "खालीलपैकी कोणता अवयव पाचक रस तयार करत नाही?", options: ["यकृत", "स्वादिपिंड", "लाळग्रंथी", "अन्ननलिका"], correct: 3, exp: "अन्ननलिका ही केवळ अन्न वाहून नेण्याचे काम करते, ती पाचक रस तयार करत नाही." },
+            { q: "मानवी पचनसंस्थेची एकूण लांबी अंदाजे किती असते?", options: ["3 मीटर", "5 मीटर", "9 मीटर", "15 मीटर"], correct: 2, exp: "मानवी पचननलिका तोंडापासून गुदद्वारापर्यंत सुमारे ९ मीटर लांब असते." },
+            { q: "पित्तरसामध्ये कोणते एन्झाइम असते?", options: ["लिपेज", "अमायलेज", "पेप्सिन", "कोणतेही एन्झाइम नसते"], correct: 3, exp: "पित्तरसामध्ये कोणतेही पाचक एन्झाइम नसते, ते केवळ चरबीच्या विरघळण्यासाठी कार्य करते." }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+        let userAnswers = [];
+
+        function startExam() {
+            const name = document.getElementById('student-name').value.trim();
+            const mobile = document.getElementById('student-mobile').value.trim();
+            if(!name || !mobile) {
+                alert('कृपया तुमचे नाव आणि मोबाईल नंबर प्रविष्ट करा!');
+                return;
+            }
+            if(mobile.length !== 10 || isNaN(mobile)) {
+                alert('कृपया १० अंकी वैध मोबाईल नंबर प्रविष्ट करा!');
+                return;
+            }
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+            loadQuestion();
+        }
+                       <!-- निकाल व प्रमाणपत्र स्क्रीन -->
+        <div id="result-screen" style="display: none;">
+            <div class="certificate-box">
+                <div style="font-size: 1.3rem; font-weight: bold; color: #b7791f; margin-bottom: 10px;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+                <h3 style="color: #2d3748; margin: 5px 0;">परीक्षेचे नाव: परिसर अभ्यास संकीर्ण प्रश्न</h3>
+                <p style="font-size: 1.1rem; margin: 10px 0;">विद्यार्थ्याचे नाव: <strong id="res-name"></strong></p>
+                <p style="font-size: 1.1rem; margin: 5px 0;">मोबाईल नंबर: <strong id="res-mobile"></strong></p>
+                <div style="font-size: 2.2rem; font-weight: bold; color: #2b6cb0; margin: 15px 0;" id="res-score"></div>
+                <div id="res-badge" style="font-size: 1.2rem; font-weight: bold; padding: 12px; border-radius: 6px; margin: 15px 0;"></div>
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn" style="background: #dd6b20;" onclick="toggleReview()">चुकीचे प्रश्न तपासा (Review Mistakes)</button>
+            </div>
+
+            <div id="review-container" style="display: none; margin-top: 20px; max-height: 400px; overflow-y: auto; text-align: left; padding: 10px; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px;"></div>
+
+            <div class="page-footer">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+            <div class="creator-bottom-right">
+                संकल्पना व निर्मिती<br>
+                <strong>श्री सचिन शिंदे सर</strong><br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 8329684470<br>
+                फोटो लिंक: <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">येथे पहा (Photo Link)</a>
+            </div>
+        </div>
+
+        <script>
+            function loadQuestion() {
+                const q = questions[currentIdx];
+                document.getElementById('question-counter').innerText = `प्रश्न: ${currentIdx + 1} / ${questions.length}`;
+                document.getElementById('score-display').innerText = `गुण: ${score} / ${questions.length * 2}`;
+                document.getElementById('question-container').innerText = `${currentIdx + 1}. ${q.q}`;
+                
+                const optContainer = document.getElementById('options-container');
+                optContainer.innerHTML = '';
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerText = String.fromCharCode(65 + idx) + '. ' + opt;
+                    btn.onclick = () => selectOption(idx);
+                    optContainer.appendChild(btn);
+                });
+                
+                document.getElementById('explanation-box').style.display = 'none';
+                document.getElementById('next-btn').style.display = 'none';
+            }
+
+            function selectOption(selectedIdx) {
+                const q = questions[currentIdx];
+                const optButtons = document.querySelectorAll('.option-btn');
+                
+                optButtons.forEach(btn => btn.disabled = true);
+                
+                let isCorrect = (selectedIdx === q.correct);
+                if(isCorrect) {
+                    score += 2;
+                    optButtons[selectedIdx].classList.add('correct');
+                } else {
+                    optButtons[selectedIdx].classList.add('incorrect');
+                    optButtons[q.correct].classList.add('correct');
+                }
+
+                userAnswers.push({
+                    question: q.q,
+                    options: q.options,
+                    selected: selectedIdx,
+                    correct: q.correct,
+                    exp: q.exp,
+                    isCorrect: isCorrect
+                });
+
+                const expBox = document.getElementById('explanation-box');
+                expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.exp}`;
+                expBox.style.display = 'block';
+                
+                document.getElementById('score-display').innerText = `गुण: ${score} / ${questions.length * 2}`;
+                document.getElementById('next-btn').style.display = 'block';
+            }
+
+            function nextQuestion() {
+                currentIdx++;
+                if(currentIdx < questions.length) {
+                    loadQuestion();
+                } else {
+                    showResult();
+                }
+            }
+
+            function showResult() {
+                document.getElementById('quiz-screen').style.display = 'none';
+                document.getElementById('result-screen').style.display = 'block';
+
+                const name = document.getElementById('student-name').value;
+                const mobile = document.getElementById('student-mobile').value;
+                
+                document.getElementById('res-name').innerText = name;
+                document.getElementById('res-mobile').innerText = mobile;
+                
+                const totalMarks = questions.length * 2;
+                const percentage = (score / totalMarks) * 100;
+                
+                document.getElementById('res-score').innerText = `मिळालेले गुण: ${score} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+
+                let badgeText = '';
+                let badgeBg = '';
+                if(percentage >= 90) {
+                    badgeText = '🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)';
+                    badgeBg = '#feebc8';
+                } else if(percentage >= 80) {
+                    badgeText = '🥈 Silver Medal + Trophy (छान कामगिरी!)';
+                    badgeBg = '#edf2f7';
+                } else if(percentage >= 70) {
+                    badgeText = '🥉 Bronze Medal + Trophy (अशीच प्रगती करत राहा!)';
+                    badgeBg = '#feebc8';
+                } else {
+                    badgeText = '💐 अभिनंदन! फुलांचा गुच्छ व "पुढील परीक्षेसाठी शुभेच्छा"';
+                    badgeBg = '#e6fffa';
+                }
+
+                const badgeElem = document.getElementById('res-badge');
+                badgeElem.innerText = badgeText;
+                badgeElem.style.background = badgeBg;
+
+                const reviewDiv = document.getElementById('review-container');
+                reviewDiv.innerHTML = '<h4 style="color: #2d3748; margin-top:0;">चुकीचे प्रश्न व मार्गदर्शन:</h4>';
+                
+                let wrongCount = 0;
+                userAnswers.forEach((ans, idx) => {
+                    if(!ans.isCorrect) {
+                        wrongCount++;
+                        const div = document.createElement('div');
+                        div.style.cssText = 'margin-bottom: 15px; padding: 10px; background: #fff5f5; border-left: 4px solid #e53e3e; border-radius: 4px;';
+                        div.innerHTML = `<strong>प्र. ${idx+1}: ${ans.question}</strong><br>` +
+                                        `<span style="color: #e53e3e;">तुमचे उत्तर: ${String.fromCharCode(65 + ans.selected)}. ${ans.options[ans.selected]}</span><br>` +
+                                        `<span style="color: #38a169;">योग्य उत्तर: ${String.fromCharCode(65 + ans.correct)}. ${ans.options[ans.correct]}</span><br>` +
+                                        `<small style="color: #4a5568;">स्पष्टीकरण: ${ans.exp}</small>`;
+                        reviewDiv.appendChild(div);
+                    }
+                });
+
+                if(wrongCount === 0) {
+                    reviewDiv.innerHTML += '<p style="color: #38a169; font-weight: bold;">अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>';
+                }
+            }
+
+            function toggleReview() {
+                const rev = document.getElementById('review-container');
+                rev.style.display = rev.style.display === 'none' ? 'block' : 'none';
+            }
+        </script>
+    </div>
+</body>
+</html>
