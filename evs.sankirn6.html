@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - जि.प.प्रा.शाळा नरसोबावाडी</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --success-color: #16a34a;
+            --danger-color: #dc2626;
+            --bg-color: #f8fafc;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 10px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 700px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 25px;
+            position: relative;
+        }
+        .school-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #475569;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .footer-credit {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+        .footer-credit img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 8px;
+            border: 2px solid var(--primary-color);
+        }
+        .start-btn, .next-btn, .submit-btn, .retry-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .start-btn:hover, .next-btn:hover, .submit-btn:hover, .retry-btn:hover {
+            background-color: #1d4ed8;
+        }
+        .question-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+        .option-btn.correct {
+            background-color: #dcfce7 !important;
+            border-color: var(--success-color) !important;
+            color: #166534;
+        }
+        .option-btn.wrong {
+            background-color: #fee2e2 !important;
+            border-color: var(--danger-color) !important;
+            color: #991b1b;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fef9c3;
+            border-left: 4px solid #ca8a04;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95rem;
+        }
+        .page-footer-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 10px;
+        }
+        .certificate {
+            display: none;
+            border: 6px double #ca8a04;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            background: #fffdf0;
+        }
+        .certificate h2 {
+            color: #854d0e;
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+        .score-display {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 15px 0;
+        }
+        .review-box {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main-container">
+    <!-- नोंदणी पेज -->
+    <div id="intro-screen">
+        <div class="school-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h1>परिसर अभ्यास संकीर्ण प्रश्न</h1>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        
+        <div class="form-group">
+            <label for="student-phone">मोबाईल नंबर:</label>
+            <input type="text" id="student-phone" placeholder="१० अंकी मोबाईल नंबर">
+        </div>
+
+        <button class="start-btn" id="start-btn">EXAM START</button>
+
+        <div class="footer-credit">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री. सचिन शिंदे सर</strong><br>
+            जि.प.प्रा. शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde">
+        </div>
+    </div>
+    <!-- प्रश्नमंच कंटेनर -->
+    <div id="quiz-screen" style="display: none;">
+        <div class="school-header">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी - परीक्षा</div>
+        <div id="question-container"></div>
+        <button class="next-btn" id="next-btn" style="display: none;">पुढील प्रश्न</button>
+        <div class="page-footer-note">टेस्ट निर्मिती व संकल्पना: श्री. सचिन शिंदे | मोबाईल नंबर: 8329684470</div>
+    </div>
+
+    <!-- निकाल / सर्टिफिकेट पेज -->
+    <div id="result-screen" class="certificate">
+        <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h2>
+        <p><strong>परीक्षेचे नाव:</strong> परिसर अभ्यास संकीर्ण परीक्षा</p>
+        <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
+        
+        <div class="score-display" id="res-score"></div>
+        <p id="res-performance" style="font-size: 1.1rem; font-weight: bold; color: #166534;"></p>
+
+        <button class="retry-btn" id="review-toggle-btn" style="background-color: #ca8a04;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+        <div class="review-box" id="review-box"></div>
+
+        <button class="retry-btn" id="restart-btn" style="background-color: #475569;">पुन्हा परीक्षा द्या</button>
+
+        <div class="footer-credit" style="margin-top: 20px;">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री. सचिन शिंदे सर</strong><br>
+            जि.प.प्रा. शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde">
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            q: "61. 'प्राणहिता' असे कोणत्या नद्यांना संबोधतात?",
+            options: ["(A) वर्धा-वैनगंगा", "(B) गोदावरी-भीमा", "(C) सूर्य-वैतरणा", "(D) मांजेरा, सीना"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: वर्धा आणि वैनगंगा नद्यांच्या संगमातून निर्माण होणाऱ्या प्रवाहाची संयुक्त नदी 'प्राणहिता' म्हणून ओळखली जाते."
+        },
+        {
+            q: "62. पठारावरील पूर्ववाहिनी नद्या कुठे जाऊन मिळतात?",
+            options: ["(A) अरबी समुद्र", "(B) बंगालचा उपसागर", "(C) गोदावरी नदी", "(D) तापी"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: महाराष्ट्राच्या पठारावरील बहुतांश पूर्ववाहिनी नद्या पूर्व दिशेला वाहून बंगालच्या उपसागराला जाऊन मिळतात."
+        },
+        {
+            q: "63. महाराष्ट्र राज्याला ..... कि.मी. समुद्रकिनारा लाभला आहे.",
+            options: ["(A) 520 किमी", "(B) 580 किमी", "(C) 720 किमी", "(D) यापैकी नाही"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: महाराष्ट्र राज्याला पश्चिमेकडे अरबी समुद्राचा सुमारे ७२० किलोमीटर लांबीचा समुद्रकिनारा लाभला आहे."
+        },
+        {
+            q: "64. महाराष्ट्रातील सातपुडा पर्वतरांगेत खालीलपैकी कोणते सर्वात उंच शिखर आहे?",
+            options: ["(A) धूपगढ", "(B) अस्तंबा", "(C) गावीलगड", "(D) कळसूबाई"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: महाराष्ट्रातील सातपुडा पर्वतरांगेत 'अस्तंबा' हे सर्वात उंच शिखर आहे."
+        },
+        {
+            q: "65. भारतातील सातपुडा पर्वतरांगेतील सर्वात उंच शिखर कोणते?",
+            options: ["(A) अस्तंबा", "(B) कळसूबाई", "(C) धूपगढ", "(D) चौरागड"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: संपूर्ण सातपुडा पर्वतरांगेतील सर्वात उंच शिखर मध्य प्रदेशातील 'धूपगढ' हे आहे."
+        },
+        {
+            q: "66. महाराष्ट्रातील सर्वात उंच शिखर कोणते?",
+            options: ["(A) कळसूबाई", "(B) हरिश्चंद्र गड", "(C) साल्हेर", "(D) तारामती"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: अहमदनगर जिल्ह्यातील अकोले तालुक्यातील 'कळसूबाई' हे महाराष्ट्रातील सर्वात उंच शिखर आहे (उंची १६४६ मीटर)."
+        },
+        {
+            q: "67. महाराष्ट्रातील सर्वात जास्त लांबी असलेली नदी -",
+            options: ["(A) मांजेरा", "(B) कृष्णा", "(C) गोदावरी", "(D) कोयना"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: 'गोदावरी' ही महाराष्ट्र राज्यातील सर्वात लांब नदी असून तिला महाराष्ट्राची गंगा असेही म्हणतात."
+        },
+        {
+            q: "68. 'ब्ल्यूमॉरमन' काय आहे?",
+            options: ["(A) मोठी खार", "(B) हिरवे कबूतर", "(C) राज्य मासा", "(D) राज्य फुलपाखरू"],
+            answer: 3,
+            explanation: "स्पष्टीकरण: महाराष्ट्र सरकारने 'ब्ल्यूमॉरमन' (Blue Mormon) या सुंदर फुलपाखराला 'राज्य फुलपाखरू' म्हणून घोषित केले आहे."
+        },
+        {
+            q: "69. पाठीचा कणा नसलेले खालीलपैकी कोण? अ) मुंगी ब) जळू क) गोगलगाय ड) मासे",
+            options: ["(A) 'अ' आणि 'ब'", "(B) 'क' आणि 'ड'", "(C) 'अ' आणि 'क'", "(D) 'अ' आणि 'ड'"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: मुंगी (कीटक) आणि गोगलगाय (मृदुकान) यांसारख्या प्राण्यांना पाठीचा कणा नसतो."
+        },
+        {
+            q: "70. ..... भाग जमिनीने व्यापला आहे.",
+            options: ["(A) 71%", "(B) 29%", "(C) 1%", "(D) 79%"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: पृथ्वीच्या पृष्ठभागावर सुमारे २९% भाग जमिनीने आणि ७१% भाग पाण्याने व्यापलेला आहे."
+        },
+        {
+            q: "71. निळा ग्रह म्हणून कोणत्या ग्रहाला ओळखले जाते?",
+            options: ["(A) नेपच्यून", "(B) शनी", "(C) पृथ्वी", "(D) गुरू"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: अंतराळातून पाहिल्यास पाण्यामुळे पृथ्वी निळसर दिसते, म्हणूनच पृथ्वीला 'निळा ग्रह' म्हणतात."
+        },
+        {
+            q: "72. पृथ्वीवर एकूण किती महासागर आहेत?",
+            options: ["(A) 8", "(B) 5", "(C) 10", "(D) 7"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: पृथ्वीवर पॅसिफिक, अटलांटिक, हिंदी, आग्नेय आणि आर्क्टिक असे एकूण ५ महासागर आहेत."
+        },
+        {
+            q: "73. भूकंप केव्हा होतो?",
+            options: ["(A) पृथ्वीच्या आतला लाव्हा बाहेर पडल्याने", "(B) ढगातील विद्युत भारांमुळे", "(C) पृथ्वीच्या कवचातील हालचालींमुळे", "(D) डोंगराचा भाग अचानक कोसळल्याने"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: पृथ्वीच्या अंतर्गत भागातील शिलावरणातील टेक्टोनिक प्लेट्सच्या हालचालींमुळे भूकंप होतो."
+        },
+        {
+            q: "74. जलचक्राचा मुख्य ऊर्जा स्त्रोत कोण आहे?",
+            options: ["(A) पृथ्वी", "(B) वारा", "(C) चंद्र", "(D) सूर्य"],
+            answer: 3,
+            explanation: "स्पष्टीकरण: सूर्याच्या उष्णतेमुळे पाण्याची वाफ होते, ज्यामुळे जलचक्र चालते."
+        },
+        {
+            q: "75. खालीलपैकी संयुक्त पानाचे उदाहरण कोणते?",
+            options: ["(A) शेवगा", "(B) वड", "(C) आंबा", "(D) लिंबू"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: शेवगा, चिंच यांसारख्या वनस्पतींची पाने संयुक्त पानांची उदाहरणे आहेत."
+        },
+        {
+            q: "76. कोणत्या ग्रहाला कडी आहेत?",
+            options: ["(A) पृथ्वी", "(B) युरेनस", "(C) शनी", "(D) मंगळ"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: शनी (Saturn) या ग्रहाभोवती बर्फ आणि धुळीच्या कणांची आकर्षक कडी आढळतात."
+        },
+        {
+            q: "77. हॅलेचा धूमकेतू दर ..... वर्षांनी दिसतो.",
+            options: ["(A) 12", "(B) 76", "(C) 67", "(D) 70"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: हॅलेचा धूमकेतू पृथ्वीवरून दर ७६ वर्षांनी एकदा स्पष्ट दिसतो."
+        },
+        {
+            q: "78. स्वतःचे अन्न स्वतः तयार करणाऱ्या वनस्पतींच्या प्रक्रियेला काय म्हणतात?",
+            options: ["(A) पुनरुत्पादन", "(B) श्वसन", "(C) प्रकाश संश्लेषण", "(D) उत्सर्जन"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: हरितपेशी व सूर्यप्रकाशाच्या मदतीने वनस्पती स्वतःचे अन्न तयार करतात, ज्याला 'प्रकाश संश्लेषण' म्हणतात."
+        },
+        {
+            q: "79. मानवी मेंदूचे सरासरी वजन किती असते?",
+            options: ["(A) 500 ग्रॅम", "(B) 900 ग्रॅम", "(C) 1300-1400 ग्रॅम", "(D) 2000 ग्रॅम"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: एका निरोगी प्रौढ मानवी मेंदूचे सरासरी वजन अंदाजे १३०० ते १४०० ग्रॅम असते."
+        },
+        {
+            q: "80. मज्जातंतूच्या संरक्षणासाठी कोणते आवरण असते?",
+            options: ["(A) प्लाज्मा", "(B) मायेलीन आवरण", "(C) प्लीहा", "(D) प्ल्युरा"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: मज्जातंतू तंतूंच्या भोवती 'मायेलीन आवरण' असते जे संरक्षणाचे काम करते."
+        },
+        {
+            q: "81. शारीरिक कोणती संवेदना प्रथम मेंदूपर्यंत पोहोचते?",
+            options: ["(A) मज्जासंदेश", "(B) रक्त", "(C) हार्मोन", "(D) लसिका"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: शरीरातील संवेदना चेतापेशींमार्फत 'मज्जासंदेश' द्वारे मेंदूपर्यंत पोहोचतात."
+        },
+        {
+            q: "82. चेतासंस्था आणि अंत:स्रावी संस्था एकत्रितपणे कोणते कार्य करतात?",
+            options: ["(A) शरीराच्या सर्व क्रियांचे नियंत्रण व समन्वय", "(B) रक्त शुद्ध करणे", "(C) मूत्र तयार करणे", "(D) अन्नाचे पचन"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: चेतासंस्था आणि अंतःस्रावी संस्था मिळून शरीराच्या सर्व हालचालींवर नियंत्रण व समन्वय ठेवतात."
+        },
+        {
+            q: "83. स्मरणशक्ती, विचारशक्ती आणि बुद्धिमत्ता यांचे मुख्य केंद्र कोणते?",
+            options: ["(A) प्रमस्तिष्क", "(B) मध्‍यमस्तिष्क", "(C) अनुमस्तिष्क", "(D) मेडुला"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: मेंदूचा सर्वात मोठा भाग असलेला 'प्रमस्तिष्क' (Cerebrum) हा बुद्धिमत्ता व स्मरणशक्तीचे केंद्र आहे."
+        },
+        {
+            q: "84. शरीराचे संतुलन राखण्याचे कार्य मेंदूचा कोणता भाग करतो?",
+            options: ["(A) प्रमस्तिष्क", "(B) मेदवृद्धी (मेडुला)", "(C) मध्‍यमस्तिष्क", "(D) अनुमस्तिष्क (Cerebellum)"],
+            answer: 3,
+            explanation: "स्पष्टीकरण: शरीराचा तोल सांभाळणे आणि स्नायूंच्या हालचालींवर समन्वय ठेवण्याचे काम 'अनुमस्तिष्क' करतो."
+        },
+        {
+            q: "85. दोन न्युर्ॉन्समधील सूक्ष्म अंतराला काय म्हणतात?",
+            options: ["(A) सायनॅप्स (Synapse)", "(B) निट्री", "(C) अन्लिव्होन्ट्राई", "(D) नेफ्रॉन"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: एका चेतापेशीचे टोक आणि दुसऱ्या चेतापेशीमधील सूक्ष्मातिसूक्ष्म पोकळीला 'सायनॅप्स' म्हणतात."
+        },
+        {
+            q: "86. शरीरात सर्वाधिक प्रमाणात असणारा अन्नघटक कोणता?",
+            options: ["(A) पाणी", "(B) प्रथिने", "(C) कर्बोदके", "(D) स्निग्ध पदार्थ"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: मानवी शरीर आणि जीवसृष्टीत वजनाच्या दृष्टीने 'पाणी' हा सर्वाधिक प्रमाणात असणारा घटक आहे."
+        },
+        {
+            q: "87. खालीलपैकी ऊर्जा देणारा अन्नघटक कोणता नाही?",
+            options: ["(A) कर्बोदक", "(B) खनिज", "(C) कलोदक", "(D) स्निग्ध पदार्थ"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: खनिजे आणि जीवनसत्वे ऊर्जा देत नाहीत, पण ते शरीराचे रोगांपासून रक्षण करतात."
+        },
+        {
+            q: "88. रक्तामध्ये सर्वाधिक ऊर्जा कोणता अन्नघटक पुरवतो?",
+            options: ["(A) प्रथिने", "(B) स्निग्ध पदार्थ", "(C) कर्बोदके", "(D) खनिजे"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: मानवी शरीराला तत्काळ ऊर्जा मिळवून देण्यासाठी 'कर्बोदके' मुख्य अन्नघटक आहेत."
+        },
+        {
+            q: "89. 1 ग्रॅम स्निग्ध पदार्थापासून (चरबी) किती किलोकॅलरी ऊर्जा मिळते?",
+            options: ["(A) 4 किलोकॅलरी", "(B) 7 किलोकॅलरी", "(C) 9 किलोकॅलरी", "(D) 12 किलोकॅलरी"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: १ ग्रॅम स्निग्ध पदार्थापासून ९ किलोकॅलरी ऊर्जा मिळते."
+        },
+        {
+            q: "90. 1 ग्रॅम प्रथिनंपासुन किती किलोकॅलरी ऊर्जा मिळते?",
+            options: ["(A) 2 किलोकॅलरी", "(B) 4 किलोकॅलरी", "(C) 7 किलोकॅलरी", "(D) 9 किलोकॅलरी"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: १ ग्रॅम प्रथिने किंवा कर्बोदकांपासून शरीराला ४ किलोकॅलरी ऊर्जा मिळते."
+        },
+        {
+            q: "91. खालीलपैकी 'शरीरबांधणी करणारा' अन्नघटक कोणता आहे?",
+            options: ["(A) कर्बोदके", "(B) स्निग्ध पदार्थ", "(C) प्रथिने", "(D) जीवनसत्वे"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: शरीराची वाढ होण्यासाठी आणि झीज भरून काढण्यासाठी 'प्रथिने' अत्यंत महत्त्वाची असतात."
+        },
+        {
+            q: "92. शरीराचे तापमान नियंत्रित ठेवण्यास आणि अंतर्गत अवयवांचे संरक्षण करण्यास कोणता अन्नघटक मदत करतो?",
+            options: ["(A) कर्बोदके", "(B) स्निग्ध पदार्थ", "(C) प्रथिने", "(D) जीवनसत्वे"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: स्निग्ध पदार्थ शरीराचे तापमान नियंत्रित राखण्यास व अंतर्गत अवयवांचे संरक्षण करण्यास मदत करतात."
+        },
+        {
+            q: "93. खालीलपैकी पूर्ण प्रथिनांचा (Complete Protein) उत्तम स्रोत कोणता आहे?",
+            options: ["(A) दूध व अंडी", "(B) स्निग्ध पदार्थ", "(C) कर्बोदके", "(D) जीवनसत्वे"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: दूध, अंडी, मांस यांसारख्या पदार्थांमध्ये सर्व आवश्यक अमिनो आम्ले असतात."
+        },
+        {
+            q: "94. जीवनसत्व C च्या कमतरतेमुळे कोणता रोग होतो?",
+            options: ["(A) रिकेट्स", "(B) स्कर्वी", "(C) बेरीबेरी", "(D) रक्तक्षय"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: जीवनसत्व 'क' च्या अभावामुळे हिरड्या सुजणे व रक्त येणारा 'स्कर्वी' आजार होतो."
+        },
+        {
+            q: "95. जीवनसत्व D च्या कमतरतेमुळे मुलांमध्ये कोणता रोग होतो?",
+            options: ["(A) स्कर्वी", "(B) रातंधळेपणा", "(C) रिकेट्स", "(D) पेलाग्रा"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: जीवनसत्व 'ड' च्या कमतरतेमुळे हाडांचे विकार व 'रिकेट्स' (मुडदूस) होतो."
+        },
+        {
+            q: "96. जीवनसत्व B (थायमिन) च्या कमतरतेमुळे कोणता रोग होतो?",
+            options: ["(A) पेलाग्रा", "(B) स्कर्वी", "(C) बेरीबेरी", "(D) रिकेट्स"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: व्हिटॅमिन बी-१ च्या अभावामुळे 'बेरीबेरी' हा चेतासंस्थेचा विकार होतो."
+        },
+        {
+            q: "97. शरीरातील पाण्याची कमतरता झाल्यास कोणती अवस्था निर्माण होते?",
+            options: ["(A) रक्तक्षय", "(B) निर्जलीकरण (Dehydration)", "(C) स्थूलता", "(D) मधुमेह"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: शरीरात पाण्याचे प्रमाण घटल्यास त्याला 'निर्जलीकरण' (Dehydration) म्हणतात."
+        },
+        {
+            q: "98. खालीलपैकी संतुलित आहाराचे योग्य उदाहरण कोणते?",
+            options: ["(A) फक्त भात", "(B) फक्त दूध", "(C) पालेभाज्या, डाळी, मासे, फळे, दूध, तेल व पुरेसे पाणी यांचा समावेश असलेला आहार", "(D) फक्त फळांचा आहार"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: ज्या आहारामध्ये सर्व अन्नघटक योग्य प्रमाणात उपलब्ध असतात, त्याला संतुलित आहार म्हणतात."
+        },
+        {
+            q: "99. चुंबक खालीलपैकी कोणत्या धातूला आकर्षित करतो?",
+            options: ["(A) एल्युमिनियम", "(B) तांबे", "(C) लोखंड", "(D) सोने"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: चुंबक हा लोखंड, निकेल, कोबाल्ट यांसारख्या चुंबकीय पदार्थांना आकर्षित करतो."
+        },
+        {
+            q: "100. सौर कुकरमध्ये अन्न शिजवण्यासाठी मुख्य ऊर्जा कोणती?",
+            options: ["(A) वारा", "(B) सूर्यऊर्जा", "(C) विद्युत ऊर्जा", "(D) रासायनिक ऊर्जा"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: सौर कुकर सूर्यप्रकाशातील उष्णतेचा वापर करून अन्न शिजवण्याचे काम करतो."
+        },
+        {
+            q: "101. वनस्पती अन्न तयार करण्यासाठी कोणता वायू वापरतात?",
+            options: ["(A) ऑक्सिजन", "(B) नायट्रोजन", "(C) कार्बन डायऑक्साइड", "(D) हायड्रोजन"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: प्रकाश संश्लेषण प्रक्रियेत वनस्पती हवेतील 'कार्बन डायऑक्साइड' वायू शोषून घेतात."
+        },
+        {
+            q: "102. मानव श्वसनात कोणता वायू घेतो?",
+            options: ["(A) कार्बन डायऑक्साइड", "(B) ऑक्सिजन", "(C) नायट्रोजन", "(D) हायड्रोजन"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: मानवी श्वसनक्रियेत शरीराच्या गरजेसाठी मुख्यत्वे 'ऑक्सिजन' वायू घेतला जातो."
+        },
+        {
+            q: "103. विद्युत फ्यूजचे मुख्य कार्य काय आहे?",
+            options: ["(A) वीज निर्माण करणे", "(B) जास्त प्रवाह झाल्यास परिपथ खंडित करणे", "(C) प्रकाश वाढवणे", "(D) बॅटरी चार्ज करणे"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: अतिभार किंवा शॉर्ट सर्किट झाल्यास विद्युत उपकरणे वाचवण्यासाठी फ्यूज तार तुटून परिपथ खंडित होते."
+        },
+        {
+            q: "104. ध्वनीचा प्रसार कोणत्या माध्यमातून होत नाही?",
+            options: ["(A) घन", "(B) द्रव", "(C) वायू", "(D) निर्वात"],
+            answer: 3,
+            explanation: "स्पष्टीकरण: ध्वनीच्या प्रसारासाठी माध्यमाची गरज असते; त्यामुळे हवा नसलेल्या 'निर्वात' (Vacuum) जागेत ध्वनी पसरत नाही."
+        },
+        {
+            q: "105. खालीलपैकी कोणता ऊर्जा स्रोत अक्षय आहे?",
+            options: ["(A) कोयसा", "(B) पेट्रोलियम", "(C) सौर ऊर्जा", "(D) नैसर्गिक वायू"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: सूर्य ऊर्जा कधीही संपणारी नसून ती अमर्याद (अक्षय) ऊर्जा स्रोत आहे."
+        },
+        {
+            q: "106. काचेच्या ग्लासमध्ये गरम पाणी अचानक भरल्यास तो फुटण्याची शक्यता का असते?",
+            options: ["(A) घनता कमी होते.", "(B) असमान प्रसरण होते.", "(C) वजन वाढते.", "(D) पाणी उकळते."],
+            answer: 1,
+            explanation: "स्पष्टीकरण: गरम पाण्यामुळे काचेचा आतील भाग एकदम पसरतो तर बाहेरील भाग थंड राहिल्याने असमान प्रसरणाने ग्लास फुटतो."
+        },
+        {
+            q: "107. पाण्याची बचत करण्यासाठी सर्वात प्रभावी उपाय कोणता?",
+            options: ["(A) नळ सतत चालू ठेवणे", "(B) पावसाचे पाणी साठवणे", "(C) जास्त पाणी वापरणे", "(D) नद्या अडवणे"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: पर्जन्य जल संचयन (Rainwater Harvesting) करून पावसाचे पाणी साठवणे हा प्रभावी उपाय आहे."
+        },
+        {
+            q: "108. खालीलपैकी कोणते जैवविघटनशील आहे?",
+            options: ["(A) प्लास्टिक", "(B) काच", "(C) फळांच्या साली", "(D) अल्युमिनियम"],
+            answer: 2,
+            explanation: "स्पष्टीकरण: फळांच्या साली नैसर्गिकरित्या कुजतात, त्यामुळे त्या जैवविघटनशील असतात."
+        },
+        {
+            q: "109. मानवी शरीरात सर्वाधिक प्रमाणात कोणता घटक असतो?",
+            options: ["(A) पाणी", "(B) प्रथिने", "(C) खनिजे", "(D) चरबी"],
+            answer: 0,
+            explanation: "स्पष्टीकरण: मानवी शरीराच्या एकूण वजनाच्या सुमारे ६०-६५% भाग पाण्याचा असतो."
+        },
+        {
+            q: "110. रक्तातील हिमोग्लोबिनचे मुख्य कार्य काय आहे?",
+            options: ["(A) पचन करणे", "(B) ऑक्सिजनचे वहन करणे", "(C) पाणी", "(D) रोगप्रतिकार करणे"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: रक्तातील हिमोग्लोबिन फुफ्फुसातून ऑक्सिजन शोषून तो पेशींपर्यंत पोहोचवण्याचे काम करतो."
+        },
+        {
+            q: "111. खालीलपैकी कोणते उपकरण विद्युत ऊर्जेचे उष्णतेत रूपांतर करते?",
+            options: ["(A) पंखा", "(B) इस्त्री", "(C) मिक्सर", "(D) बल्ब"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: कपड्यांची इस्त्री (Electric Iron) ही विद्युत ऊर्जेचे उष्णता ऊर्जेत रूपांतर करते."
+        },
+        {
+            q: "112. दैनंदिन जीवनात विज्ञानाचा मुख्य उपयोग कोणता?",
+            options: ["(A) फक्त प्रयोगशाळेतील प्रयोग", "(B) जीवन अधिक सुरक्षित, सोयीस्कर व कार्यक्षम बनवणे", "(C) फक्त उद्योगांमध्ये वापर", "(D) फक्त शालेय अभ्यासासाठी"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: मानवी जीवन अधिक सुलभ, आरामदायक आणि सुरक्षित बनवणे हा विज्ञानाचा मूळ उद्देश आहे."
+        },
+        {
+            q: "113. अन्नसुरक्षेचा मुख्य उद्देश कोणता?",
+            options: ["(A) अन्नाचा रंग बदलणे", "(B) सुरक्षित, स्वच्छ व पोषक अन्न उपलब्ध करणे", "(C) अन्नाची किंमत वाढवणे", "(D) अन्नाचा आकार बदलणे"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: सर्वांना स्वच्छ, सुरक्षित आणि पौष्टिक अन्न योग्य दर्जासह उपलब्ध करून देणे हा अन्नसुरक्षेचा उद्देश आहे."
+        },
+        {
+            q: "114. अन्न विषबाधेचे (Food Poisoning) प्रमुख कारण काय आहे?",
+            options: ["(A) जीवनसत्वे", "(B) सूक्ष्मजीवांचे दूषितीकरण", "(C) पाणी उकळणे", "(D) सूर्यप्रकाश"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: अन्नामध्ये जिवाणू व हानिकारक सूक्ष्मजीवांची वाढ झाल्याने अन्न दूषित होते व विषबाधा होते."
+        },
+        {
+            q: "115. खालीलपैकी कोणता जिवाणू अन्न विषबाधेशी संबंधित आहे?",
+            options: ["(A) लॅक्टोबॅसिलस", "(B) साल्मोनेला (Salmonella)", "(C) रायझोबियम", "(D) नॉटिक"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: साल्मोनेला (Salmonella) हा जिवाणू अन्न विषबाधेसाठी कारणीभूत ठरतो."
+        },
+        {
+            q: "116. अन्नपदार्थ सुरक्षित ठेवण्यासाठी सर्वात योग्य तापमान कोणते?",
+            options: ["(A) खोलीचे तापमान", "(B) 5 °C पेक्षा कमी किंवा 60 °C पेक्षा जास्त", "(C) 30 °C ते 40 °C", "(D) 25 °C"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: जिवाणूंच्या वाढीस प्रतिबंध करण्यासाठी अन्न ५ अंश सेल्सिअसपेक्षा कमी किंवा ६० अंशपेक्षा जास्त तापमानात सुरक्षित राहते."
+        },
+        {
+            q: "117. खालीलपैकी कोणता पदार्थ अन्न संरक्षक (Preservative) म्हणून वापरला जातो?",
+            options: ["(A) खाण्याचा सोडा", "(B) सोडियम बेन्झोएट", "(C) चुना", "(D) माती"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: लोणची व सॉस टिकवून ठेवण्यासाठी 'सोडियम बेन्झोएट' वापरतात."
+        },
+        {
+            q: "118. दूध पाश्चरायझेशन (Pasteurization) करण्याचा मुख्य उद्देश काय आहे?",
+            options: ["(A) दुधाचा रंग बदलणे", "(B) हानिकारक सूक्ष्मजीव नष्ट करणे", "(C) दूध घट्ट करणे", "(D) दुधाची चव बदलणे"],
+            answer: 1,
+            explanation: "स्पष्टीकरण: दुधातील सर्व हानिकारक सूक्ष्मजीव उच्च तापमानाला उष्णता देऊन नष्ट करण्याच्या प्रक्रियेला पाश्चरायझेशन म्हणतात."
+        }
+    ];
+
+```
+### **भाग ३ (Part 3): JavaScript Logic & Execution Handlers**
+```html
+<script>
+    let currentQuestion = 0;
+    let score = 0;
+    let incorrectList = [];
+    let studentName = "";
+
+    document.getElementById("start-btn").addEventListener("click", function() {
+        studentName = document.getElementById("student-name").value.trim();
+        let studentPhone = document.getElementById("student-phone").value.trim();
+        
+        if (studentName === "" || studentPhone === "") {
+            alert("कृपया विद्यार्थी नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        document.getElementById("intro-screen").style.display = "none";
+        document.getElementById("quiz-screen").style.display = "block";
+        loadQuestion();
+    });
+
+    document.getElementById("next-btn").addEventListener("click", function() {
+        currentQuestion++;
+        loadQuestion();
+    });
+
+    document.getElementById("review-toggle-btn").addEventListener("click", function() {
+        let reviewBox = document.getElementById("review-box");
+        if (reviewBox.style.display === "block") {
+            reviewBox.style.display = "none";
+            this.innerText = "चुकलेले प्रश्न व मार्गदर्शन पहा";
+        } else {
+            reviewBox.style.display = "block";
+            this.innerText = "चुकलेले प्रश्न लपवा";
+        }
+    });
+
+    document.getElementById("restart-btn").addEventListener("click", function() {
+        location.reload();
+    });
+
+    function loadQuestion() {
+        if (currentQuestion >= questions.length) {
+            showResult();
+            return;
+        }
+
+        let qData = questions[currentQuestion];
+        let container = document.getElementById("question-container");
+        
+        let optionsHtml = "";
+        qData.options.forEach((opt, index) => {
+            optionsHtml += `<button class="option-btn" onclick="checkAnswer(${index}, this)">${opt}</button>`;
+        });
+
+        container.innerHTML = `
+            <div class="question-title">${qData.q}</div>
+            <div id="options-list">${optionsHtml}</div>
+            <div class="explanation" id="explanation-box">${qData.explanation}</div>
+        `;
+        
+        document.getElementById("next-btn").style.display = "none";
+    }
+
+    function checkAnswer(selectedIndex, btnElement) {
+        let qData = questions[currentQuestion];
+        let optionsList = document.getElementById("options-list").children;
+        
+        for (let btn of optionsList) {
+            btn.disabled = true;
+        }
+
+        if (selectedIndex === qData.answer) {
+            btnElement.classList.add("correct");
+            score += 2;
+        } else {
+            btnElement.classList.add("wrong");
+            optionsList[qData.answer].classList.add("correct");
+            incorrectList.push({
+                q: qData.q,
+                userAnswer: qData.options[selectedIndex],
+                correctAnswer: qData.options[qData.answer],
+                explanation: qData.explanation
+            });
+        }
+
+        document.getElementById("explanation-box").style.display = "block";
+        document.getElementById("next-btn").style.display = "block";
+    }
+
+    function showResult() {
+        document.getElementById("quiz-screen").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+
+        let totalMarks = questions.length * 2;
+        let percentage = (score / totalMarks) * 100;
+
+        document.getElementById("res-name").innerText = studentName;
+        document.getElementById("res-score").innerText = `${score} / ${totalMarks} गुण (${percentage.toFixed(1)}%)`;
+
+        let perfText = "";
+        if (percentage >= 90) {
+            perfText = "🥇 90% किंवा अधिक → Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        } else if (percentage >= 80) {
+            perfText = "🥈 89% ते 80% → Silver Medal + Trophy (छान कामगिरी!)";
+        } else if (percentage >= 70) {
+            perfText = "🥉 79% ते 70% → Bronze Medal + Trophy (चांगली कामगिरी!)";
+        } else {
+            perfText = "💐 70% पेक्षा कमी → अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        document.getElementById("res-performance").innerText = perfText;
+
+        if (incorrectList.length === 0) {
+            document.getElementById("review-toggle-btn").style.display = "none";
+        } else {
+            let reviewBox = document.getElementById("review-box");
+            let html = "<h3>चुकलेले प्रश्न व मार्गदर्शन:</h3>";
+            incorrectList.forEach((item, index) => {
+                html += `
+                    <div style="margin-bottom: 15px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px;">
+                        <strong>प्र. ${index + 1}: ${item.q}</strong><br>
+                        <span style="color: red;">तुमचे उत्तर: ${item.userAnswer}</span><br>
+                        <span style="color: green;">योग्य उत्तर: ${item.correctAnswer}</span><br>
+                        <div style="background: #fef9c3; padding: 6px; margin-top: 5px; font-size: 0.9rem;">${item.explanation}</div>
+                    </div>
+                `;
+            });
+            reviewBox.innerHTML = html;
+        }
+    }
+</script>
+
+</body>
+</html>
