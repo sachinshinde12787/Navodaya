@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 10px;
+            color: #333;
+        }
+        .container {
+            max-width: 750px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 25px;
+            position: relative;
+        }
+        .header-top {
+            font-weight: bold;
+            color: #1a5276;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .creator-bottom-right {
+            text-align: right;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .creator-bottom-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 10px;
+            border: 2px solid #1a5276;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 0.95em;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.3em;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #219653;
+        }
+        .screen {
+            display: none;
+        }
+        .active-screen {
+            display: block;
+        }
+        .question-box {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            background: #e2e8f0;
+        }
+        .option-btn.correct {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .option-btn.wrong {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 10px;
+            background: #eef2f7;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+            display: none;
+        }
+        .nav-btns {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .certificate {
+            border: 5px solid #d4af37;
+            padding: 20px;
+            border-radius: 10px;
+            background: #fffdf0;
+            text-align: center;
+        }
+        .score-display {
+            font-size: 2em;
+            color: #c0392b;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .review-box {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 15px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active-screen">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h2>परीक्षेचे नाव: परिसर अभ्यास संकीर्ण प्रश्न</h2>
+        <hr>
+        <div class="form-group" style="margin-top: 20px;">
+            <label>विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+        </div>
+        <div class="form-group">
+            <label>मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="मोबाईल नंबर टाका">
+        </div>
+        
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+        
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="creator-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=w500" alt="Teacher Photo">
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="screen">
+        <div class="header-top" id="progress-indicator">प्रश्न १ / ५०</div>
+        <div class="question-box" id="question-text">प्रश्नाचा मजकूर येथे येईल</div>
+        <div id="options-container"></div>
+        <div class="explanation" id="explanation-box"></div>
+
+        <div class="nav-btns">
+            <button class="btn" id="next-btn" style="display:none; width: 100%;" onclick="nextQuestion()">पुढील प्रश्न (Next)</button>
+        </div>
+
+        <div class="footer-note" style="margin-top: 30px;">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+    </div>
+
+    <!-- Result / Certificate Screen -->
+    <div id="result-screen" class="screen">
+        <div class="certificate">
+            <div style="font-weight: bold; color: #1a5276;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <h3>परीक्षेचे नाव: परिसर अभ्यास संकीर्ण प्रश्न</h3>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
+            <p><strong>मोबाईल नंबर:</strong> <span id="res-mobile"></span></p>
+            
+            <div class="score-display" id="res-score">गुण: ० / १००</div>
+            <div id="medal-achievement" style="font-size: 1.2em; font-weight: bold; margin: 10px 0; color: #d35400;"></div>
+            
+            <div id="review-section" style="display: none;">
+                <h4>चुकीच्या प्रश्नांचे मार्गदर्शन:</h4>
+                <div class="review-box" id="review-content"></div>
+            </div>
+
+            <button class="btn" style="margin-top: 15px; background-color: #e67e22;" onclick="toggleReview()" id="review-toggle-btn">चुकीचे प्रश्न तपासा (Review Mistakes)</button>
+        </div>
+
+        <div class="creator-bottom-right" style="margin-top: 20px;">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=w500" alt="Teacher Photo">
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "खालीलपैकी कोणता पाचक रस सर्वाधिक एन्झाईमयुक्त असतो?", options: ["पित्तरस", "जठररस", "स्वादुपिंड रस", "लाळ"], correct: 2, exp: "स्वादुपिंडाच्या रसामध्ये कर्बोदके, प्रथिने आणि स्निग्ध पदार्थ पचवणारे विविध एन्झाईम्स असतात." },
+        { q: "अन्न गिळताना श्वसननलिका बंद करणारे झाकण कोणते?", options: ["झिल्ली", "एपिग्लॉटिस", "अल्विओलाई", "ग्लॉटिस"], correct: 1, exp: "एपिग्लॉटिसमुळे अन्न श्वसननलिकेत जाण्यापासून रोकले जाते." },
+        { q: "मानवी पचनसंस्थेत अन्नाचे पचन सुरू होणारा पहिला अवयव कोणता?", options: ["जठर", "तोंड", "अन्ननलिका", "लहान आतडे"], correct: 1, exp: "तोंडातील लाळेमुळे अन्नातील स्टार्चचे पचन सुरू होते." },
+        { q: "स्निग्ध पदार्थांचे अंतिम पचन होऊन काय तयार होते?", options: ["ग्लुकोज", "अमिंनो आम्ले", "फॅटी आम्ले व ग्लिसरॉल", "स्टार्च"], correct: 2, exp: "स्निग्ध पदार्थांचे रूपांतर फॅटी आम्ले व ग्लिसरॉलमध्ये होते." },
+        { q: "स्वच्छतेसाठी हात किमान किती वेळ धुवावेत?", options: ["5 सेकंद", "10 सेकंद", "20 सेकंद", "1 मिनिट"], correct: 2, exp: "किमान २० सेकंद साबणाने हात चांगले धुवावेत." },
+        { q: "'ओला कचरा' (Wet Waste) मध्ये खालीलपैकी कोणता कचरा येतो?", options: ["प्लास्टिक बाटल्या", "काचेच्या बाटल्या", "भाजीपाल्याचे अवशेष", "धातूचे डबे"], correct: 2, exp: "भाजीपाल्याचे अवशेष ओल्या कचऱ्यात येतात." },
+        { q: "खालीलपैकी 'सुका कचरा' (Dry Waste) कोणता आहे?", options: ["उरलेले अन्न", "फळांच्या साली", "कागद व प्लास्टिक", "चहापत्ती"], correct: 2, exp: "कागद व प्लास्टिक हे सुक्या कचऱ्यात मोडतात." },
+        { q: "जैवविघटनशील (Biodegradable) कचरा कोणता?", options: ["प्लास्टिक", "काच", "अन्नाचा कचरा", "अल्युमिनियम"], correct: 2, exp: "अन्नाचा कचरा हा सहज विघटन होणारा असतो." },
+        { q: "अजैवविघटनशील (Non-biodegradable) कचरा कोणता?", options: ["पालापाचोळा", "कागद", "प्लास्टिक", "भाजीपाल्याचा कचरा"], correct: 2, exp: "प्लास्टिक निसर्गात सहजासहजी कुजत नाही." },
+        { q: "'3R' तत्त्वामध्ये खालीलपैकी कोणता पर्याय समाविष्ट नाही?", options: ["Reduce (कमी वापरा)", "Reuse (पुन्हा वापरा)", "Recycle (पुनर्वापर करा)", "Replace (बदल करा)"], correct: 3, exp: "Reduce, Reuse, Recycle हे ३R चे मुख्य नियम आहेत, तर Replace यात येत नाही." },
+        { q: "कंपोस्ट खत कशापासून तयार केले जाते?", options: ["प्लास्टिक कचरा", "धातूचा कचरा", "सेंद्रिय (ओला) कचरा", "काच"], correct: 2, exp: "सेंद्रिय ओल्या कचऱ्यापासून कंपोस्ट खत बनवले जाते." },
+        { q: "उघड्यावर शौच केल्यामुळे सर्वाधिक कोणता धोका निर्माण होतो?", options: ["जलप्रदूषण व संसर्गजन्य रोग", "ध्वनीप्रदूषण", "वायुप्रदूषण", "मृदाप्रदूषण कमी होते"], correct: 0, exp: "उघड्यावर शौचास बसल्याने पाणी दूषित होऊन संसर्गजन्य रोग पसरतात." },
+        { q: "स्वच्छ पिण्याचे पाणी मिळवण्याची सर्वात सोपी घरगुती पद्धत कोणती?", options: ["गोठवणे", "उकळणे", "हलवणे", "रंग मिसळणे"], correct: 1, exp: "पाणी उकळून थंड केल्याने त्यातील जंतू मरतात." },
+        { q: "वैयक्तिक स्वच्छतेचा महत्त्वाचा भाग कोणता?", options: ["नियमित हात धुणे", "कचरा टाकणे", "दूषित पाणी पिणे", "नखे न कापणे"], correct: 0, exp: "नियमित हात धुणे हे वैयक्तिक आरोग्यासाठी अत्यंत महत्त्वाचे आहे." },
+        { q: "खालीलपैकी कोणता रोग डासांमुळे होत नाही?", options: ["डेंग्यू", "मलेरिया", "चिकुनगुनिया", "कॉलरॉ"], correct: 3, exp: "कॉलरॉ हा दूषित पाणी व अन्नामुळे होतो, डासांमुळे नाही." },
+        { q: "सार्वजनिक ठिकाणी कचरा टाकल्यास कोणती समस्या वाढते?", options: ["पर्यावरण प्रदूषण", "शेती उत्पादन", "पाण्याची उपलब्धता", "जंगलांचे क्षेत्रफल"], correct: 0, exp: "यामुळे पर्यावरणाचे प्रदूषण वाढते." },
+        { q: "जागतिक हात धुण्याचा दिवस (Global Handwashing Day) कधी साजरा केला जातो?", options: ["2 ऑक्टोबर", "15 ऑक्टोबर", "5 जून", "22 मार्च"], correct: 1, exp: "दरवर्षी १५ ऑक्टोबर रोजी हा दिवस पाळला जातो." },
+        { q: "भारतात 'स्वच्छ भारत अभियान' कधी सुरू करण्यात आले?", options: ["15 ऑगस्ट 2014", "2 ऑक्टोबर 2014", "26 जानेवारी 2015", "5 जुलै 2014"], correct: 1, exp: "२ ऑक्टोबर २०१४ रोजी स्वच्छ भारत अभियानाची सुरुवात झाली." },
+        { q: "मलेरिया कोणत्या कीटकामुळे पसरतो?", options: ["मादी अनॉफिलीज डास", "अनॉफिलीज डास", "सुळ", "मधमाशी"], correct: 0, exp: "मादी अनॉफिलीज डासामुळे मलेरिया पसरतो." },
+        { q: "डेंग्यूचा प्रसार कोणत्या डासांमुळे होतो?", options: ["एडिस (Aedes)", "अनॉफिलीज", "क्युलेक्स", "सेंडफ्लाय"], correct: 0, exp: "एडिस (Aedes aegypti) डासामुळे डेंग्यू होतो." },
+        { q: "खालीलपैकी कोणता रोग दूषित पाण्यामुळे होऊ शकतो?", options: ["एडिस", "सेंडफ्लाय", "कॉलरॉ (कलरा)", "हेपॅटायटिस"], correct: 2, exp: "कलरा हा दूषित पाण्यामुळे होणारा जलजन्य आजार आहे." },
+        { q: "शेणखताचा पुनर्वापर कशासाठी करता येतो?", options: ["पिण्यासाठी", "बागेला पाणी देण्यासाठी व स्वच्छतेसाठी", "औषध निर्मितीसाठी", "अन्न शिजवण्यासाठी"], correct: 1, exp: "शेणखताचा वापर बागेसाठी व शेतीसाठी पोषक ठरतो." },
+        { q: "पाण्याचे सर्वात मोठे नैसर्गिक साठे कोणते?", options: ["तलाव", "महासागर", "नद्या", "विहिरी"], correct: 1, exp: "पृथ्वीवरील पाण्याचा सर्वात मोठा साठा महासागरांमध्ये आहे." },
+        { q: "पृथ्वीवरील गोड्या पाण्याचे प्रमाण अंदाजे किती आहे?", options: ["3%", "10%", "25%", "50%"], correct: 0, exp: "पृथ्वीवर पिण्यायोग्य गोड्या पाण्याचे प्रमाण अंदाजे ३% आहे." },
+        { q: "खालीलपैकी कोणते जलप्रदूषण रोखण्याचे प्रभावी साधन आहे?", options: ["सांडपाणी प्रक्रिया केंद्र (STP)", "नदीत कचरा टाकणे", "रासायनिक कचरा सोडणे", "प्लास्टिक जाळणे"], correct: 0, exp: "सांडपाण्यावर प्रक्रिया करून ते शुद्ध करणे." },
+        { q: "पाण्याचे पुनर्चक्रण (Water Recycling) करण्याचा मुख्य उद्देश काय आहे?", options: ["पाण्याचा अपव्यय वाढवणे", "पाण्याचा पुनर्वापर करून बचत करणे", "पाणी गरम करणे", "पाण्याचा रंग बदलणे"], correct: 1, exp: "पाण्याची बचत करणे हा मुख्य उद्देश आहे." },
+        { q: "जलसंधारणासाठी 'शेततळे' (Farm Pond) का तयार केले जाते?", options: ["मासेमारीसाठी", "पावसाचे पाणी साठवण्यासाठी", "धरण बांधण्यासाठी", "सिंचनासाठी"], correct: 1, exp: "पावसाचे पाणी साठवून सिंचनासाठी वापरणे." },
+        { q: "खालीलपैकी कोणता जलसंवर्धनाचा पारंपरिक उपाय नव्हे?", options: ["बोरवेल", "विहीर", "नदी, वस्ती व बंधारे", "वृक्षारोपण"], correct: 0, exp: "बोरवेलमुळे भूजल पातळी झपाट्याने खाली जाते, हा पारंपरिक उपाय नव्हे." },
+        { q: "भूगर्भातील पाणी कमी होण्याचे प्रमुख कारण कोणते?", options: ["पावसाचे पाणी साठवणे", "भूगर्भाचा अति उपसा", "पाऊस अधिक पडणे", "ठिबक सिंचन"], correct: 1, exp: "मोटारपंपद्वारे भूजलाचा अति उपसा झाल्याने पाणी पातळी घटते." },
+        { q: "'जलसाक्षरता' म्हणजे काय?", options: ["पाण्याची चव ओळखणे", "पाण्याचे महत्त्व, संवर्धन व योग्य वापर याविषयी जागरूकता", "पाण्याचे वजन मोजणे", "पाण्याचा रंग बदलणे"], correct: 1, exp: "पाण्याच्या योग्य वापराविषयी जनजागृती करणे." },
+        { q: "खालीलपैकी कोणती कृती पाण्याची बचत करते?", options: ["दात घासताना नळ चालू ठेवणे", "बादलीने आंघोळ करणे", "वाहन पाईपने धुणे", "गळणारा नळ दुरुस्त न करणे"], correct: 1, exp: "बादलीने आंघोळ केल्याने पाण्याचा अपव्यय टाळता येतो." },
+        { q: "जलसंवर्धनामुळे कोणता फायदा होतो?", options: ["दुष्काळामध्ये परिणाम कमी होतो", "प्रदूषण वाढते", "मृदाक्षरण वाढते", "भूजल कमी होते"], correct: 0, exp: "दुष्काळाचा प्रादुर्भाव व तीव्रता कमी होते." },
+        { q: "नदी-नाल्यावर लहान बंधारे बांधण्याचा मुख्य उद्देश काय आहे?", options: ["जलवाहतूक वाढवणे", "पाणी अडवून भूजल पुनर्भरण वाढवणे", "मासेमारी थांबवणे", "नदीचा प्रवाह पूर्णपणे बंद करणे"], correct: 1, exp: "पाणी अडवून भूजलाची पातळी वाढवणे." },
+        { q: "पाण्याचे जतन करण्यासाठी कोणती शेतीपद्धती अधिक उपयुक्त आहे?", options: ["पूर सिंचन", "ठिबक व तुषार सिंचन", "सतत पाणी सोडणे", "पाण्याचा अति वापर"], correct: 1, exp: "ठिबक व तुषार सिंचनामुळे मुबलक पाणी बचत होते." },
+        { q: "जलचक्रामुळे कोणता नैसर्गिक लाभ होतो?", options: ["पाण्याचे नैसर्गिक पुनर्भरण होते", "पाणी कायम कमी होते", "नद्या आटतात", "महासागर नष्ट होतात"], correct: 0, exp: "जगातील पाण्याचे संतुलन व पुनर्भरण होते." },
+        { q: "पाणीटंचाई टाळण्यासाठी सर्वात प्रभावी उपाय कोणता?", options: ["पाण्याचा अपव्यय", "वर्षाजल संधारण व योग्य वापर", "भूगर्भाचा अधिक उपसा", "वृक्षतोड"], correct: 1, exp: "पावसाचे पाणी साठवणे (Rainwater Harvesting)." },
+        { q: "खालीलपैकी कोणता जलप्रदूषणाचा स्रोत नाही?", options: ["औद्योगिक सांडपाणी", "पशूंचे सांडपाणी", "शुद्ध पिण्याचे पाणी", "शेतीतील रासायनिक वाहून जाणारे पाणी"], correct: 2, exp: "शुद्ध पिण्याचे पाणी जलप्रदूषण निर्माण करत नाही." },
+        { q: "बाष्पाचे पाण्यात रूपांतर होणाऱ्या प्रक्रियेला काय म्हणतात?", options: ["बाष्पीभवन", "संघनन", "उर्ध्वपातन", "गोठणे"], correct: 1, exp: "बाष्पाचे पुन्हा थेंबात रूपांतर होणे म्हणजेच संघनन (Condensation)." },
+        { q: "खालीलपैकी कोणते पाण्याचे नैसर्गिक स्रोत नाही?", options: ["नदी", "तलाव", "विहीर", "समुद्र"], correct: 2, exp: "विहीर ही मानवनिर्मित जलस्रोत आहे." },
+        { q: "पिण्याच्या पाण्यात रोगजंतू नष्ट करण्यासाठी कोणते रसायन वापरले जाते?", options: ["ऑक्सिजन", "क्लोरीन", "नायट्रोजन", "कार्बन डायऑक्साइड"], correct: 1, exp: "क्लोरीनीकरण केल्यामुळे पाण्यातील जंतू नष्ट होतात." },
+        { q: "'जलचक्र' (Water Cycle) मध्ये खालीलपैकी कोणती प्रक्रिया समाविष्ट नाही?", options: ["बाष्पीभवन", "संघनन", "वर्षाव", "प्रकाशसंश्लेषण"], correct: 3, exp: "प्रकाशसंश्लेषण ही वनस्पतींची अन्न तयार करण्याची प्रक्रिया आहे." },
+        { q: "भारतातील नदीजोड प्रकल्पाचा मुख्य उद्देश कोणता आहे?", options: ["पर्यटन वाढवणे", "पाण्याचे संतुलित वितरण व सिंचन वाढवणे", "मासेमारी वाढवणे", "जहाजबांधणी करणे"], correct: 1, exp: "दुष्काळग्रस्त भागात पाण्याचे संतुलन साधणे." },
+        { q: "'जल हेच जीवन' या वाक्याचा मुख्य अर्थ काय आहे?", options: ["पाणी फक्त शेतीसाठी आवश्यक आहे", "पाण्याशिवाय सजीवांचे अस्तित्व शक्य नाही", "पाणी फक्त पिण्यासाठी वापरले जाते", "पाण्याचा उपयोग फक्त उद्योगामध्ये होतो"], correct: 1, exp: "सर्व सजीवांच्या जगण्यासाठी पाणी अनिवार्य आहे." },
+        { q: "भूजलाचा प्रमुख स्रोत कोणता आहे?", options: ["समुद्र", "पावसाचे पाणी जमिनीत मुरणे", "हिमवर्षाव", "धुके"], correct: 1, exp: "पावसाचे पाणी झिरपून जमिनीखाली भूजल तयार होते." },
+        { q: "भारतातील सर्वात मोठा गोड्या पाण्याचा तलाव कोणता आहे?", options: ["वुलर तलाव", "चिल्का तलाव", "सांभर तलाव", "लोणार तलाव"], correct: 0, exp: "वुलर तलाव हा भारतातील सर्वात मोठा गोड्या पाण्याचा तलाव आहे." },
+        { q: "खालीलपैकी खाऱ्या पाण्याचा तलाव कोणता आहे?", options: ["वुलर", "लोकटक", "सांभर", "डल"], correct: 2, exp: "राजस्थानमधील सांभर तलाव हा खाऱ्या पाण्याचा तलाव आहे." },
+        { q: "चिल्का तलाव कोणत्या राज्यात आहे?", options: ["पश्चिम बंगाल", "ओडिशा", "गुजरात", "आंध्र प्रदेश"], correct: 1, exp: "चिल्का तलाव ओडिशा राज्यात स्थित आहे." },
+        { q: "पाण्याची सर्वाधिक घनता कोणत्या तापमानाला असते?", options: ["0°C", "4°C", "25°C", "100°C"], correct: 1, exp: "पाण्याची घनता ४ अंश सेल्सिअस तापमानाला सर्वाधिक असते." },
+        { q: "पाण्याचा pH (शुद्ध पाणी) किती असतो?", options: ["5", "6", "7", "8"], correct: 2, exp: "शुद्ध पाण्याचा pH मूल्य ७ (उदासीन) असते." },
+        { q: "समुद्राच्या पाण्यात सर्वाधिक प्रमाणात कोणते मीठ असते?", options: ["कॅल्शियम सल्फेट", "सोडियम क्लोराइड", "पोटॅशियम नायट्रेट", "मॅग्नेशियम कार्बोनेट"], correct: 1, exp: "समुद्राच्या पाण्यात सोडियम क्लोराइड (मीठ) सर्वाधिक असते." }
+    ];
+
+    
+    let currentQuestion = 0;
+    let score = 0;
+    let userAnswers = [];
+    let studentName = "";
+    let studentMobile = "";
+
+    function startExam() {
+        let nameInput = document.getElementById('student-name');
+        let mobileInput = document.getElementById('student-mobile');
+        
+        studentName = nameInput ? nameInput.value.trim() : "";
+        studentMobile = mobileInput ? mobileInput.value.trim() : "";
+
+        if(!studentName || !studentMobile) {
+            alert("कृपया विद्यार्थी नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        let welcomeScreen = document.getElementById('welcome-screen');
+        let quizScreen = document.getElementById('quiz-screen');
+
+        if(welcomeScreen && quizScreen) {
+            welcomeScreen.classList.remove('active-screen');
+            quizScreen.classList.add('active-screen');
+            loadQuestion();
+        }
+    }
+
+    function loadQuestion() {
+        if(currentQuestion >= questions.length) {
+            showResult();
+            return;
+        }
+
+        let q = questions[currentQuestion];
+        document.getElementById('progress-indicator').innerText = `प्रश्न ${currentQuestion + 1} / ${questions.length}`;
+        document.getElementById('question-text').innerText = `${currentQuestion + 1}. ${q.q}`;
+        
+        let optContainer = document.getElementById('options-container');
+        optContainer.innerHTML = "";
+        document.getElementById('explanation-box').style.display = "none";
+        document.getElementById('next-btn').style.display = "none";
+
+        q.options.forEach((opt, idx) => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
+            btn.onclick = () => selectOption(idx, btn);
+            optContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(selectedIdx, btnElement) {
+        let q = questions[currentQuestion];
+        let buttons = document.querySelectorAll('.option-btn');
+        
+        buttons.forEach(b => b.disabled = true);
+
+        let isCorrect = (selectedIdx === q.correct);
+        if(isCorrect) {
+            btnElement.classList.add('correct');
+            score += 2; // प्रत्येक प्रश्नाला दोन गुण
+        } else {
+            btnElement.classList.add('wrong');
+            buttons[q.correct].classList.add('correct');
+        }
+
+        userAnswers.push({
+            question: q.q,
+            selected: q.options[selectedIdx],
+            correct: q.options[q.correct],
+            isCorrect: isCorrect,
+            exp: q.exp
+        });
+
+        let expBox = document.getElementById('explanation-box');
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.exp}`;
+        expBox.style.display = "block";
+
+        document.getElementById('next-btn').style.display = "block";
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        loadQuestion();
+    }
+
+    function showResult() {
+        document.getElementById('quiz-screen').classList.remove('active-screen');
+        document.getElementById('result-screen').classList.add('active-screen');
+
+        document.getElementById('res-name').innerText = studentName;
+        document.getElementById('res-mobile').innerText = studentMobile;
+        
+        let totalMaxMarks = questions.length * 2;
+        document.getElementById('res-score').innerText = `गुण: ${score} / ${totalMaxMarks}`;
+
+        let percentage = (score / totalMaxMarks) * 100;
+        let achievementText = "";
+
+        if(percentage >= 90) {
+            achievementText = "🥇 90% किंवा अधिक → Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        } else if(percentage >= 80) {
+            achievementText = "🥈 89% ते 80% → Silver Medal + Trophy (अतिउत्कृष्ट कामगिरी!)";
+        } else if(percentage >= 70) {
+            achievementText = "🥉 79% ते 70% → Bronze Medal + Trophy (छान कामगिरी!)";
+        } else {
+            achievementText = '💐 70% पेक्षा कमी → अभिनंदन! फुलांचा गुच्छ व "पुढील परीक्षेसाठी शुभेच्छा"';
+        }
+
+        document.getElementById('medal-achievement').innerText = achievementText;
+
+        let reviewHtml = "";
+        let wrongCount = 0;
+        userAnswers.forEach((ans, idx) => {
+            if(!ans.isCorrect) {
+                wrongCount++;
+                reviewHtml += `<div style="margin-bottom: 10px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">
+                    <strong>प्र.${idx+1}: ${ans.question}</strong><br>
+                    <span style="color:red;">तुमचे उत्तर: ${ans.selected}</span><br>
+                    <span style="color:green;">खरी उत्तर: ${ans.correct}</span><br>
+                    <small>मार्गदर्शन: ${ans.exp}</small>
+                </div>`;
+            }
+        });
+
+        if(wrongCount === 0) {
+            reviewHtml = "<p style='color:green; text-align:center;'>अभिनंदन! तुमचे सर्व प्रश्न अचूक आले आहेत!</p>";
+        }
+        document.getElementById('review-content').innerHTML = reviewHtml;
+    }
+
+    function toggleReview() {
+        let reviewSec = document.getElementById('review-section');
+        let btn = document.getElementById('review-toggle-btn');
+        if(reviewSec.style.display === "none") {
+            reviewSec.style.display = "block";
+            btn.innerText = "चुकीचे प्रश्न लपवा";
+        } else {
+            reviewSec.style.display = "none";
+            btn.innerText = "चुकीचे प्रश्न तपासा (Review Mistakes)";
+        }
+    }
+</script>
+
+</body>
+</html>
