@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिसर अभ्यास संकीर्ण प्रश्न - जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 10px;
+            color: #333;
+        }
+        .container {
+            max-width: 750px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .header-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .creator-info-right {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .creator-info-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 5px;
+            border: 2px solid #3498db;
+        }
+        h2.exam-heading {
+            text-align: center;
+            color: #2980b9;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #219653;
+        }
+        .footer-credit {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 25px;
+            font-weight: 500;
+        }
+        .screen {
+            display: none;
+        }
+        .active-screen {
+            display: block;
+        }
+        .question-box {
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #eef2f7;
+            border-color: #b0c4de;
+        }
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .explanation {
+            background: #e2e8f0;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            color: #2d3748;
+            border-left: 4px solid #3182ce;
+            display: none;
+        }
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .timer-score {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .certificate-box {
+            border: 6px double #d4af37;
+            padding: 25px;
+            border-radius: 12px;
+            background: #fffdf9;
+            text-align: center;
+        }
+        .cert-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #b8860b;
+            margin-bottom: 10px;
+        }
+        .cert-score-big {
+            font-size: 2.5rem;
+            color: #27ae60;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .performance-badge {
+            font-size: 1.1rem;
+            padding: 10px;
+            background: #fef9e7;
+            border-radius: 8px;
+            border: 1px dashed #f39c12;
+            margin: 15px 0;
+            display: inline-block;
+        }
+        .wrong-review-container {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 6px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- सुरूवातीचे पेज (Start Screen) -->
+    <div id="start-screen" class="screen active-screen">
+        <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="creator-info-right">
+            संकल्पना व निर्मिती:<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470
+            <br><a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank"><img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="फोटो" onerror="this.src='https://via.placeholder.com/50?text=Photo'"></a>
+        </div>
+
+        <h2 class="exam-heading">परिसर अभ्यास संकीर्ण प्रश्न</h2>
+
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+        </div>
+
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर टाका" maxlength="10">
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-credit">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+
+    <!-- परीक्षा स्क्रीन (Quiz Screen) -->
+    <div id="quiz-screen" class="screen">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: #555;">
+            <span id="question-tracker">प्रश्न: १ / ५०</span>
+            <span class="timer-score">गुण: <span id="current-score">०</span></span>
+        </div>
+
+        <div class="question-box" id="question-text">प्रश्न येथे येईल...</div>
+        
+        <div id="options-container">
+            <!-- पर्याय येथे लोड होतील -->
+        </div>
+
+        <div class="explanation" id="explanation-box">
+            <strong>स्पष्टीकरण:</strong> <span id="explanation-text">माहिती...</span>
+        </div>
+
+        <div class="quiz-footer">
+            <span style="font-size: 0.85rem; color: #777;">प्रत्येक प्रश्नाला २ गुण आहेत</span>
+            <button class="btn" id="next-btn" style="width: auto; padding: 10px 30px; display: none;" onclick="nextQuestion()">पुढील प्रश्न</button>
+        </div>
+
+        <div class="footer-credit" style="margin-top: 30px;">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+
+    <!-- निकाल आणि सर्टिफिकेट स्क्रीन (Result Screen) -->
+    <div id="result-screen" class="screen">
+        <div class="certificate-box">
+            <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <h3 style="margin: 5px 0; color: #333;">परिसर अभ्यास संकीर्ण प्रश्न - निकाल</h3>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
+            
+            <div class="cert-score-big"><span id="res-marks">०</span> / १००</div>
+            <div id="res-percentage" style="font-weight: bold; color: #555; margin-bottom: 10px;"></div>
+
+            <div class="performance-badge" id="res-badge">
+                <!-- कामगिरीनुसार सन्मान -->
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button class="btn" style="background-color: #e74c3c;" onclick="showWrongAnswers()">चुकलेले प्रश्न तपासा</button>
+            </div>
+
+            <div id="wrong-review-section" style="display: none; margin-top: 15px;">
+                <h4 style="color: #c0392b; margin-bottom: 5px;">चुकीची उत्तरे व मार्गदर्शन:</h4>
+                <div class="wrong-review-container" id="wrong-review-list">
+                    <!-- चुकलेले प्रश्न इथे दिसतील -->
+                </div>
+            </div>
+        </div>
+
+        <div class="creator-info-right" style="margin-top: 20px; text-align: right;">
+            संकल्पना व निर्मिती:<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 8329684470
+            <br><a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank"><img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="फोटो" onerror="this.src='https://via.placeholder.com/50?text=Photo'"></a>
+        </div>
+
+        <div class="footer-credit">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+</div>
+
+<script>
+    const allQuestions = [
+        { q: "अरवली पर्वतारांगेत सर्वोच्च शिखर कोणते आहे?", o: ["गुरुशिखर", "कळसुबाई", "सह्याद्री", "निलगिरी"], a: 0, exp: "अरवली पर्वतारांगेचे सर्वोच्च शिखर गुरुशिखर आहे." },
+        { q: "बाजारात उपलब्ध असणारे पेप्सि / चिप्स पाकीटबंद करताना त्यातील हवा काढून कोणता वायू भरला जातो?", o: ["कार्बन डायऑक्साइड", "ऑक्सिजन", "नायट्रोजन", "हेलियम"], a: 2, exp: "चिप्सचे पॅकेट ताजे राहण्यासाठी त्यात नायट्रोजन वायू भरला जातो." },
+        { q: "शरीराच्या विविध भागांकडून अशुद्ध रक्त हृदयाकडे आणण्याचे काम कोणती वाहिनी करते?", o: ["धमण्या", "शिरा", "केशिका", "अलिंद"], a: 1, exp: "शिरा अशुद्ध रक्त हृदयाकडे वाहून नेतात." },
+        { q: "बाष्पाचे रूपांतर द्रवात (पाण्यात) होण्याच्या प्रक्रियेला काय म्हणतात?", o: ["उत्कलन", "बाष्पीभवन", "संघनन", "विलियन"], a: 2, exp: "बाष्पाचे थंड होऊन द्रवात रूपांतर होण्याच्या प्रक्रियेला संघनन म्हणतात." },
+        { q: "घरातील उरलेले अन्न, सांडलेला कचरा आणि उघड्यावर ठेवलेल्या अन्नपदार्थावर माशा बसतात. या माशा अन्नावर जंतू पसरून कोणता गंभीर आजार होऊ शकतो?", o: ["कावीळ", "हॅगू", "टायफॉइड", "दमा"], a: 2, exp: "माशांमार्फत जंतू पसरून टायफॉइड किंवा गॅस्ट्रोसारखे आजार होतात." },
+        { q: "रस्त्याच्या कडेला किंवा मध्ये असणारे पिवळे किंवा पांढरे पट्टे काय काम करतात?", o: ["ड्राइव्हिंग जागा", "झाडांचे क्षेत्र", "खेळण्यासाठीचे क्षेत्र", "वाहनाची दिशा दर्शविणे व रस्ता सुरक्षित ठेवणे."], a: 3, exp: "रस्त्यावरील पट्टे वाहतुकीची दिशा आणि रस्ता सुरक्षित ठेवण्यास मदत करतात." },
+        { q: "एका सहलीदरम्यान भारतातील सर्वात मोठ्या हिमदीपनधून उगम पावणारी आणि उत्तर भारतातून वाहणारी एक नदी दाखवली, जिच्या काठावर हरिद्वार आणि वाराणसी ही शहरे आहेत, तर ती नदी कोणती?", o: ["नर्मदा", "गंगा", "कावेरी", "ब्रह्मपुत्रा"], a: 1, exp: "गंगा नदीच्या काठावर हरिद्वार आणि वाराणसी शहरे वसलेली आहेत." },
+        { q: "मानवास गंधाचे ज्ञान कोणत्या इंद्रियाच्या मदतीने होते?", o: ["नाक", "जीभ", "त्वचा", "कान"], a: 0, exp: "गंध किंवा वासाचे ज्ञान नाकाद्वारे होते." },
+        { q: "प्रकाशाचा सर्वात मोठा नैसर्गिक स्रोत कोणता?", o: ["चंद्र", "शुक्र", "सूर्य", "गुरु"], a: 2, exp: "सूर्य हा प्रकाशाचा सर्वात मोठा नैसर्गिक स्रोत आहे." },
+        { q: "'अमरवेल' (दाऊफूल) ही वनस्पती कोणत्या प्रकारातील आहे?", o: ["मृतोपजीवी", "सहजीवी", "कीटकभक्षी", "परजीवी"], a: 3, exp: "अमरवेल ही दुसऱ्या वनस्पतीवर जगणारी परजीवी वनस्पती आहे." },
+        { q: "अशा प्रकारचे चिन्ह रस्त्यावर लावले असेल तर त्याचा अर्थ काय आहे? [चित्र: धूम्रपान करू नका / नो स्मोकिंग]", o: ["धूम्रपान करू नका.", "ओव्हरटेक बंदी", "पुढे जाण्यास मनाई", "रुग्णालय"], a: 0, exp: "हे चिन्ह धूम्रपान करण्यास मनाई दर्शवते." },
+        { q: "पाण्याचा उत्कलन बिंदू किती असतो?", o: ["0°C", "4°C", "-4°C", "100°C"], a: 3, exp: "पाणी १०० अंश सेल्सिअस तापमानावर उकळते." },
+        { q: "शरीराच्या सर्व हालचाली, स्नायूंची कार्ये आणि अंतर्गत अवयवांचे नियंत्रण कोण करतो?", o: ["मेंदू", "हृदय", "फुफ्फुसे", "अन्ननलिका"], a: 0, exp: "मेंदू शरीराच्या सर्व हालचालींचे नियंत्रण करतो." },
+        { q: "पर्यायातील कोणते जीवनसत्व पाण्यात विरघळणारे म्हणजेच जल-विद्राव्य आहे?", o: ["A", "K", "C", "E"], a: 2, exp: "जीवनसत्व 'क' (C) हे पाण्यात विरघळणारे जीवनसत्व आहे." },
+        { q: "जगातील सर्वात लांब नदी कोणती?", o: ["अमेझॉन", "नाईल", "गंगा", "मिसिसिपी"], a: 1, exp: "नाईल नदी ही जगातील सर्वात लांब नदी आहे." },
+        { q: "पोट बिघडणे, भूक मंदावणे हे कोणत्या रोगाचे लक्षण आहे?", o: ["अतिसार", "टायफॉइड", "डेंग्यू", "कावीळ"], a: 0, exp: "अतिसारामध्ये पोट बिघडणे व भूक मंदावणे अशी लक्षणे दिसतात." },
+        { q: "पृथ्वीच्या पृष्ठभागाचा किती टक्के भाग पाण्याने व्यापलेला आहे?", o: ["60%", "70%", "71%", "80%"], a: 2, exp: "पृथ्वीचा सुमारे ७१% भाग पाण्याने व्यापलेला आहे." },
+        { q: "राजने एका सरोवरामध्ये अशी वनस्पती पाहिली, जिची पाने पाण्याच्याखाली पूर्णपणे बुडलेली होती आणि ती खूप मऊ व अरुंद होती, ती वनस्पती कोणती?", o: ["कमळ", "जलकुम्भी", "एरंड", "हायड्रिला"], a: 3, exp: "हायड्रिला ही पूर्णपणे पाण्यात बुडून वाढणारी वनस्पती आहे." },
+        { q: "जलचक्रामध्ये समुद्राचे पाण्याचे बाष्पीभवन होऊन वर जाणाऱ्या वाफेचे ढगात रूपांतर होण्याच्या क्रियेला काय म्हणतात?", o: ["बाष्पीभवन", "विलियन", "सांद्रीभवन", "उत्कलन"], a: 2, exp: "बाफेचे ढगात रूपांतर होण्याच्या क्रियेला सांद्रीभवन म्हणतात." },
+        { q: "सुरज महाराष्ट्रात प्रवास करत असताना गोदावरी आणि कृष्णा नद्या पाहिल्या. या नद्यांबद्दल चुकीचे विधान कोणते?", o: ["गोदावरी ही दक्षिण भारतातील सर्वात लांब नदी आहे.", "कृष्णा नदीचा उगम महाबळेश्वर येथे होतो.", "गोदावरीचा उगम त्र्यंबकेश्वर येथे होतो.", "गोदावरीला उत्तर भारतची गंगा म्हणतात."], a: 3, exp: "गोदावरीला दक्षिण गंगा म्हटले जाते, उत्तर भारताची गंगा नाही." },
+        { q: "सूर्यापासून सर्वात जवळचा ग्रह कोणता?", o: ["पृथ्वी", "शुक्र", "बुध", "मंगळ"], a: 2, exp: "बुध हा सूर्याच्या सर्वात जवळचा ग्रह आहे." },
+        { q: "खालीलपैकी कोणता सण हा रंगाचा सण आहे?", o: ["गुढीपाडवा", "दसरा", "होळी", "गणेश चतुर्थी"], a: 2, exp: "होळी हा रंगांचा सण म्हणून साजरा केला जातो." },
+        { q: "भारतातील सर्वात जास्त रबर उत्पादन करणारे राज्य कोणते?", o: ["केरळ", "आंध्र प्रदेश", "पं. बंगाल", "कर्नाटक"], a: 0, exp: "केरळ हे भारतात सर्वाधिक रबर उत्पादन करणारे राज्य आहे." },
+        { q: "नाशिक हे प्रसिद्ध तीर्थक्षेत्र कोणत्या नदीच्या काठावर वसलेले आहे?", o: ["कृष्णा", "मुळा", "गोदावरी", "तापी"], a: 2, exp: "नाशिक हे गोदावरी नदीच्या काठावर वसलेले आहे." },
+        { q: "२४ तास ऑक्सिजन देणारी वनस्पती कोणती?", o: ["आंबा", "ब्राम्ही", "शतावरी", "पिंपळ"], a: 3, exp: "पिंपळ ही वनस्पती २४ तास ऑक्सिजन देणारी मानली जाते." },
+        { q: "खालीलपैकी कोणती आपत्ती ही निसर्गनिर्मित नाही?", o: ["भूकंप", "त्सुनामी", "अपघात", "वादळ"], a: 2, exp: "अपघात ही मानवनिर्मित किंवा तांत्रिक कारणांमुळे घडणारी घटना आहे." },
+        { q: "इग्लू घर कशापासून तयार केलेले असते?", o: ["दगड", "विटा", "बर्फाच्या लाद्यांपासून", "काटेरी झुडपांपासून"], a: 2, exp: "अतिथंड प्रदेशात इग्लू घरे बर्फाच्या लाद्यांपासून बनवली जातात." },
+        { q: "डासांची पैदास रोखण्यासाठी साचलेल्या पाण्यात तेल टाकण्याचा सल्ला दिला जातो, याचे मुख्य कारण कोणते?", o: ["डास तेलामुळे आकर्षित होतात.", "डास तेलामुळे मरतात.", "डास तेलाच्या थरात अडकतात.", "तेल ऑक्सिजन पुरवठा बंद करते, त्यामुळे डासांची पैदास थांबते."], a: 3, exp: "तेलाच्या थरामुळे पाण्याचा ऑक्सिजन पुरवठा खंडित होतो व डासांच्या अळ्या श्वास न घेता मरतात." },
+        { q: "दरवर्षी 'जागतिक जलदिन' कोणत्या तारखेला साजरा करतात?", o: ["22 एप्रिल", "22 मार्च", "22 मे", "22 सप्टेंबर"], a: 1, exp: "दरवर्षी २२ मार्च रोजी जागतिक जलदिन साजरा केला जातो." },
+        { q: "हिवाळ्यात मिळणारी ओली मटार ही पावसाळ्यापर्यंत साठवून राहिली पाहिजे, यासाठी अन्न टिकवण्याच्या कोणत्या पद्धतीचा वापर कराल?", o: ["भिजवणे", "हवेच्या संपर्कात ठेवणे", "उकळणे", "गोठवणे"], a: 3, exp: "दीर्घकाळ टिकवण्यासाठी मटार गोठवून (Freezing) साठवली जाते." },
+        { q: "डोंगरउतारावर शेती करताना माती वाहून जाण्यापासून रोखण्यासाठी शेतकऱ्याने कोणती पद्धत वापरली पाहिजे?", o: ["नांगरणी करणे", "पायऱ्यांच्या शेतीची रचना करणे", "शेतात खड्डे पाडणे", "शेतीसाठी ट्रॅक्टर वापरणे"], a: 1, exp: "डोंगरउतारावर मातीची धूप रोखण्यासाठी पायऱ्यांची शेती केली जाते." },
+        { q: "जंगलातील शाकाहारी प्राण्यांची संख्या अचानक कमी झाली, तर त्याचा मांसाहारी प्राण्यावर काय परिणाम होईल?", o: ["मांसाहारी प्राण्यांची संख्या वाढेल.", "मांसाहारी प्राणी शाकाहार करतील.", "मांसाहारी प्राण्यांची संख्या कमी होईल.", "काहीही फरक पडणार नाही."], a: 2, exp: "अन्न न मिळाल्यामुळे मांसाहारी प्राण्यांची संख्या कमी होईल." },
+        { q: "खालीलपैकी कोणत्या भूप्रदेशाचा वरचा भाग सपाट आणि टेबलसारखा पसरलेला असतो?", o: ["पर्वत", "दरी", "शिखर", "पठार"], a: 3, exp: "पठार या भूभागाचा वरचा भाग सपाट असतो." },
+        { q: "भारतीय संस्कृतीनुसार नवीन वर्षाची सुरुवात (गुढीपाडवा सण) साधारणपणे कोणत्या ऋतूच्या आगमानाने होते?", o: ["हेमंत ऋतू", "वसंत ऋतू", "शरद ऋतू", "शिशिर ऋतू"], a: 1, exp: "गुढीपाडवा हा सण वसंत ऋतूच्या आगमनावर येतो." },
+        { q: "एका गावातील सांडपाणी रस्त्यावर उघड्यावर वाहते आणि कचऱ्याचे ढीग साचले आहेत, ज्यामुळे ग्रामस्थांमध्ये डेंग्यू व हिवताप पसरला आहे. या समस्येचे मूळ कारण खालीलपैकी कशाचा अभाव असणे हे आहे?", o: ["वैयक्तिक स्वच्छता", "संतुलित आहार", "सार्वजनिक स्वच्छता", "औषधोपचाराचा अभाव"], a: 2, exp: "परिसरातील अस्वच्छतेमुळे सार्वजनिक स्वच्छतेचा अभाव हे याचे मुख्य कारण आहे." },
+        { q: "सुती कापड घालायचे आहे, तर सुती धागा कशापासून मिळतो?", o: ["प्राण्यांची कातडी", "रेशीम", "वनस्पतींच्या धाग्यापासून (कापूस)", "रेयॉन"], a: 2, exp: "सुती धागा वनस्पतीपासून (कापसाच्या बोंडापासून) मिळतो." },
+        { q: "साप हवेतील गंध आणि वासाचा माग काढण्यासाठी वारंवार काय बाहेर काढतो?", o: ["दात", "शेपूट", "केस", "जीभ"], a: 3, exp: "साप जिभेच्या सहाय्याने हवेतील गंध टिपतो." },
+        { q: "मानवी छातीमध्ये डाव्या व उजव्या बाजूस स्पंदने करणारा आणि रक्त पंप करणारा मुख्य अवयव कोणता?", o: ["हृदय", "यकृत", "फुफ्फुस", "जठर"], a: 0, exp: "हृदय रक्ताभिसरणासाठी रक्ताचे पंपिंग करण्याचे काम करते." },
+        { q: "वाहन चालविताना कोणता परवाना असणे कायद्यानुसार सक्तीचे असते?", o: ["ओळखपत्र", "ड्रायव्हिंग लायसन्स", "पॅनकार्ड", "दाखला"], a: 1, exp: "वाहन चालवण्यासाठी ड्रायव्हिंग लायसन्स आवश्यक असतो." },
+        { q: "अरवली पर्वतारांग प्रामुख्याने कोणत्या राज्यात पसरलेली आहे?", o: ["महाराष्ट्र", "राजस्थान", "केरळ", "आसाम"], a: 1, exp: "अरवली पर्वतारांग मुख्यत्वे राजस्थानमध्ये पसरलेली आहे." },
+        { q: "ग्रामीण भागात पापड, सांडगे, बटाट्यापासून चिप्स, कुरडई, शेवया बनविल्या जातात. ही अन्न टिकवण्याची कोणती पद्धती आहे?", o: ["गोठवणे", "उकळणे", "पाश्चरायझेशन", "वाळवणे"], a: 3, exp: "उन्हात वाळवून अन्न टिकवले जाते." },
+        { q: "भूकंपाची तीव्रता कशात मोजली जाते?", o: ["भूकंपनाभी", "तापमापी", "रिश्टर स्केल", "तीव्रतादर्शक यंत्र"], a: 2, exp: "भूकंपाची तीव्रता रिश्टर स्केलवर मोजली जाते." },
+        { q: "तुमच्या परिसरात अचानक तीव्र भूकंप आला, तर तुम्ही स्वतःचा बचाव करण्यासाठी प्रथम काय कराल?", o: ["बाल्कनीमध्ये उभे राहू.", "लिफ्टचा वापर करू.", "पळत बाहेर जाऊ.", "मजबूत टेबलखाली किंवा योग्य निवाऱ्याचा आश्रय घेऊ."], a: 3, exp: "भूकंपाच्या वेळी मजबूत फर्निचर किंवा टेबलखाली आडोसा घेणे सुरक्षित असते." },
+         { q: "मातीचे संवर्धन म्हणजे काय?", o: ["माती नापीक करणे.", "मातीची धूप थांबविणे व तिची सुपीकता टिकवून ठेवणे.", "मातीमध्ये रासायनिक खतांचा वापर करणे.", "मातीचा वापर बांधकाम विटा तयार करण्यासाठी करणे."], a: 1, exp: "मातीची धूप थांबवून तिची सुपीकता टिकवणे म्हणजेच मातीचे संवर्धन होय." },
+        { q: "चारही बाजूंनी पाण्याने वेढलेल्या भूभागाला काय म्हणतात?", o: ["खिंड", "पठार", "मैदान", "बेट"], a: 3, exp: "चारही बाजूंनी पाण्याने वेढलेल्या भूभागाला बेट म्हणतात." },
+        { q: "आपल्या देशामध्ये उन्हाळ्याच्या दिवसात प्रखर ऊन असते आणि हवामान खूप उष्ण असते. त्यामध्ये प्रामुख्याने कोणते फळ (फळांचा राजा) खायला मिळते?", o: ["पेरू", "सीताफळ", "आंबा", "संत्री"], a: 2, exp: "आंब्याला फळांचा राजा म्हणतात आणि तो उन्हाळ्यात मिळतो." },
+        { q: "खालीलपैकी कोणता आजार हा 'असंसर्गजन्य' या गटात मोडतो?", o: ["सर्दी, खोकला", "कर्करोग", "कोव्हिड - 19", "कांजण्या"], a: 1, exp: "कर्करोग हा एका व्यक्तीकडून दुसऱ्या व्यक्तीकडे न पसरणारा असंसर्गजन्य आजार आहे." },
+        { q: "एका खेळाडूला खेळण्यापूर्वी त्वरीत ऊर्जेची गरज आहे. त्याला खालीलपैकी कोणत्या अन्नाचे सेवन करण्याचा सल्ला दिला पाहिजे?", o: ["मांस व अंडी (प्रथिणे)", "तेल व तूप (स्निग्ध पदार्थ)", "हिरव्या पालेभाज्या", "बटाटा किंवा केळी (करबोदके)"], a: 3, exp: "तात्काळ ऊर्जेसाठी करबोदकेयुक्त पदार्थ उदा. केळी उपयुक्त ठरतात." },
+        { q: "वाघ आपल्या अंधार आणि जंगलातील हालचालींसाठी मुद्रेनुसार कोणत्या अवयवाचा वापर दिशा ठरविण्यासाठी प्रामुख्याने करतो?", o: ["शेपटी", "नखे", "मिशा", "पाय"], a: 2, exp: "वाघाच्या मिशा अतिशय संवेदनशीलता दाखवून अंधारात दिशा व सावज ओळखण्यास मदत करतात." },
+        { q: "मानवी शरीराला आकार व आधार देण्याचे मुख्य कार्य कोणती संस्था करते?", o: ["पचनसंस्था", "अस्थी संस्था (सांगाडा)", "श्वसनसंस्था", "रक्ताभिसरण संस्था"], a: 1, exp: "हाडांचा सांगाडा मानवी शरीराला योग्य आकार व आधार देतो." }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let userAnswers = [];
+
+    function startExam() {
+        let nameInput = document.getElementById("student-name");
+        let mobileInput = document.getElementById("student-mobile");
+        
+        studentName = nameInput ? nameInput.value.trim() : "";
+        studentMobile = mobileInput ? mobileInput.value.trim() : "";
+
+        if(!studentName || !studentMobile) {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        if(studentMobile.length !== 10 || isNaN(studentMobile)) {
+            alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        let startScreen = document.getElementById("start-screen");
+        let quizScreen = document.getElementById("quiz-screen");
+
+        if(startScreen && quizScreen) {
+            startScreen.classList.remove("active-screen");
+            quizScreen.classList.add("active-screen");
+            loadQuestion();
+        }
+    }
+
+    function loadQuestion() {
+        if(currentQuestionIndex >= allQuestions.length) {
+            showResult();
+            return;
+        }
+
+        let q = allQuestions[currentQuestionIndex];
+        let tracker = document.getElementById("question-tracker");
+        let qText = document.getElementById("question-text");
+        let cScore = document.getElementById("current-score");
+
+        if(tracker) tracker.innerText = `प्रश्न: ${currentQuestionIndex + 1} / 50`;
+        if(qText) qText.innerText = `${currentQuestionIndex + 1}. ${q.q}`;
+        if(cScore) cScore.innerText = score;
+
+        let optionsContainer = document.getElementById("options-container");
+        optionsContainer.innerHTML = "";
+        
+        let expBox = document.getElementById("explanation-box");
+        let nextBtn = document.getElementById("next-btn");
+        
+        if(expBox) expBox.style.display = "none";
+        if(nextBtn) nextBtn.style.display = "none";
+
+        q.o.forEach((opt, index) => {
+            let btn = document.createElement("button");
+            btn.className = "option-btn";
+            let marathiOpt = ['अ', 'ब', 'क', 'ड'][index];
+            btn.innerHTML = `<b>(${marathiOpt})</b> ${opt}`;
+            btn.onclick = () => selectOption(index, btn, q.a, q.exp);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(selectedIndex, buttonElement, correctIndex, explanation) {
+        let optionsContainer = document.getElementById("options-container");
+        if(!optionsContainer) return;
+        
+        let allBtns = optionsContainer.getElementsByTagName("button");
+        
+        for(let btn of allBtns) {
+            btn.disabled = true;
+        }
+
+        let isCorrect = (selectedIndex === correctIndex);
+        if(isCorrect) {
+            buttonElement.classList.add("correct");
+            score += 2; // प्रत्येक प्रश्नाला २ गुण
+            let cScore = document.getElementById("current-score");
+            if(cScore) cScore.innerText = score;
+        } else {
+            buttonElement.classList.add("wrong");
+            if(allBtns[correctIndex]) {
+                allBtns[correctIndex].classList.add("correct");
+            }
+        }
+
+        userAnswers.push({
+            question: allQuestions[currentQuestionIndex].q,
+            selected: allQuestions[currentQuestionIndex].o[selectedIndex],
+            correct: allQuestions[currentQuestionIndex].o[correctIndex],
+            isCorrect: isCorrect,
+            explanation: explanation
+        });
+
+        let expText = document.getElementById("explanation-text");
+        let expBox = document.getElementById("explanation-box");
+        let nextBtn = document.getElementById("next-btn");
+
+        if(expText) expText.innerText = explanation;
+        if(expBox) expBox.style.display = "block";
+        if(nextBtn) nextBtn.style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if(currentQuestionIndex < allQuestions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        let quizScreen = document.getElementById("quiz-screen");
+        let resultScreen = document.getElementById("result-screen");
+
+        if(quizScreen) quizScreen.classList.remove("active-screen");
+        if(resultScreen) resultScreen.classList.add("active-screen");
+
+        let resName = document.getElementById("res-name");
+        let resMarks = document.getElementById("res-marks");
+        
+        if(resName) resName.innerText = studentName;
+        if(resMarks) resMarks.innerText = score;
+        
+        let percentage = (score / 100) * 100;
+        let resPercentage = document.getElementById("res-percentage");
+        if(resPercentage) resPercentage.innerText = `टक्केवारी: ${percentage.toFixed(1)}%`;
+
+        let badgeText = "";
+        if(percentage >= 90) {
+            badgeText = "🥇 90% किंवा अधिक → Gold Medal + Trophy अत्यंत उत्कृष्ट कामगिरी!";
+        } else if(percentage >= 80) {
+            badgeText = "🥈 89% ते 80% → Silver Medal + Trophy खूप छान कामगिरी!";
+        } else if(percentage >= 70) {
+            badgeText = "🥉 79% ते 70% → Bronze Medal + Trophy चांगली कामगिरी!";
+        } else {
+            badgeText = "💐 70% पेक्षा कमी → अभिनंदन! फुलांचा गुच्छ व \"पुढील परीक्षेसाठी शुभेच्छा\"";
+        }
+        
+        let resBadge = document.getElementById("res-badge");
+        if(resBadge) resBadge.innerText = badgeText;
+    }
+
+    function showWrongAnswers() {
+        let reviewSection = document.getElementById("wrong-review-section");
+        let reviewList = document.getElementById("wrong-review-list");
+        if(!reviewList) return;
+        
+        reviewList.innerHTML = "";
+
+        let wrongItems = userAnswers.filter(item => !item.isCorrect);
+
+        if(wrongItems.length === 0) {
+            reviewList.innerHTML = "<p style='color: green; text-align: center;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+        } else {
+            wrongItems.forEach((item, idx) => {
+                let div = document.createElement("div");
+                div.style.marginBottom = "12px";
+                div.style.paddingBottom = "8px";
+                div.style.borderBottom = "1px solid #eee";
+                div.innerHTML = `<strong>प्र. ${idx + 1}: ${item.question}</strong><br>` +
+                                `<span style="color: red;">तुमचे उत्तर: ${item.selected}</span><br>` +
+                                `<span style="color: green;">योग्य उत्तर: ${item.correct}</span><br>` +
+                                `<small style="color: #555;">मार्गदर्शन: ${item.explanation}</small>`;
+                reviewList.appendChild(div);
+            });
+        }
+        if(reviewSection) reviewSection.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
